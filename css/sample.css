@@ -48,6 +48,7 @@
 }
 .controls .back:hover { color: #fff; }
 
+.hint.glass { background: rgba(10, 6, 28, 0.86); }
 .hint {
 	position: fixed;
 	z-index: 30;

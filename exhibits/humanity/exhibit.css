@@ -262,7 +262,7 @@
 }
 .chapter__art--hive::after { display: none; }
 .hexes {
-	--h: clamp(54px, 7vw, 92px);
+	--h: clamp(40px, 11vw, 92px);
 	display: grid;
 	grid-template-columns: repeat(7, calc(var(--h) * 0.9));
 	row-gap: calc(var(--h) * -0.22);

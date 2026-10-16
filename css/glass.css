@@ -12,8 +12,8 @@
 	--glass-saturate: 165%;
 
 	/* tint: smoked violet glass. Fallback fills are denser so text stays readable without blur. */
-	--glass-tint: rgba(20, 13, 48, 0.46);
-	--glass-tint-strong: rgba(14, 9, 36, 0.64);
+	--glass-tint: rgba(20, 13, 48, 0.54);
+	--glass-tint-strong: rgba(14, 9, 36, 0.70);
 	--glass-tint-soft: rgba(30, 20, 70, 0.30);
 	--glass-fallback: rgba(22, 15, 52, 0.90);
 	--glass-fallback-strong: rgba(14, 9, 36, 0.94);
