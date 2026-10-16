@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="robots" content="noindex">
+	<title>Not found · TJ-Hosting Lab</title>
+	<meta name="theme-color" content="#07051a">
+	<link rel="icon" href="/img/brand/tj-mark.svg" type="image/svg+xml">
+	<!-- served for any missing path, so every URL here is root-absolute -->
+	<link rel="stylesheet" href="/css/glass.css">
+	<link rel="stylesheet" href="/css/lab.css">
+	<style>
+		.lost { min-height: calc(100vh - 120px); min-height: calc(100dvh - 120px); display: grid; place-items: center; padding: 40px var(--gutter); }
+		.lost__panel { max-width: 620px; padding: clamp(28px, 5vw, 56px); text-align: center; }
+		.lost__code { font-family: var(--font-display); font-size: clamp(80px, 18vw, 160px); font-weight: 700; line-height: 0.9; letter-spacing: -0.05em; margin: 0 0 12px; }
+		.lost__panel h1 { font-family: var(--font-display); font-size: clamp(22px, 3vw, 30px); margin-bottom: 14px; }
+		.lost__panel p { color: var(--ink-2); }
+		.lost__prop { width: 180px; margin: -20px auto 0; animation: lost-bob 7s ease-in-out infinite alternate; }
+		@keyframes lost-bob { from { transform: translate3d(0, -10px, 0) rotate(-6deg); } to { transform: translate3d(0, 12px, 0) rotate(6deg); } }
+		.lost .actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 22px; }
+	</style>
+	<script src="/js/early.js"></script>
+</head>
+<body>
+	<div class="backdrop" aria-hidden="true">
+		<div class="backdrop__drift">
+			<picture class="backdrop__img">
+				<source type="image/avif" srcset="/img/bg/liquid-chrome-640.avif 640w, /img/bg/liquid-chrome-960.avif 960w, /img/bg/liquid-chrome-1280.avif 1280w" sizes="100vw">
+				<img src="/img/bg/liquid-chrome-1280.webp" srcset="/img/bg/liquid-chrome-640.webp 640w, /img/bg/liquid-chrome-960.webp 960w, /img/bg/liquid-chrome-1280.webp 1280w" sizes="100vw" alt="" decoding="async">
+			</picture>
+		</div>
+		<div class="backdrop__veil"></div>
+		<div class="backdrop__grain"></div>
+	</div>
+
+	<header class="topbar glass glass--pill">
+		<a class="brand" href="/" aria-label="TJ-Hosting Lab, home">
+			<img src="/img/brand/tj-mark.svg" alt="" width="30" height="30">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Lab">
+			<a href="/#samples">Samples</a>
+			<a href="/honeypot/">Honeypot</a>
+		</nav>
+	</header>
+
+	<main class="lost">
+		<div class="lost__panel glass glass--xl">
+			<img class="lost__prop" src="/img/obj/torus-320.webp" alt="" width="320" height="320">
+			<p class="lost__code grad-ink" aria-hidden="true">404</p>
+			<h1>This page slipped through the glass.</h1>
+			<p>Nothing lives at this address. The lab's samples and the honeypot are a click away.</p>
+			<div class="actions">
+				<a class="btn btn--primary" href="/">Back to the lab</a>
+				<a class="btn btn--ghost" href="/honeypot/">The honeypot</a>
+			</div>
+		</div>
+	</main>
+</body>
+</html>
