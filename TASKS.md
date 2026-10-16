@@ -11,8 +11,8 @@
 | P2 Three motion samples | done | 00:24 | 00:33 | humanity-type (WAAPI), particle-field (Canvas 2D + sprite atlases, luma-keyed), logo (SVG; TJ glyph from tj-hosting.ca favicon.svg). All pause off-screen/hidden; reduced motion = still frame. |
 | P3 Honeypot exhibit | done | 00:33 | 00:40 | `/exhibits/humanity/` "Made of Many", `noindex,nofollow`, banner first. 18 techniques in `honeypot/techniques.json` (16 in page text, 2 vision PNGs rendered by `tools/render-vision-traps.mjs`). Reveal mode reads each trap from the DOM; pins + panel. |
 | P4 Checker | done | 00:40 | 00:43 | `/honeypot/check/`: logic in `checker.js` (pure, Node-importable), proposes obeyed/flagged/ignored per code, tester confirms; hash share link; pre-filled issue form `.github/ISSUE_TEMPLATE/result.yml`. Verified: example with 2 poems + 1 warning → exactly those outcomes; link restores them. |
-| P5 Scoreboard, about, test kit | done | 00:43 | 00:52 | `/honeypot/` hub, `/honeypot/scoreboard/` (results.json × techniques.json heat map; one row labelled EXAMPLE), `/honeypot/about/` (method, safety, submit), `TESTING.md` (P-A/P-B/P-C, fresh sessions, checklist for TJ). |
-| P6 Images | todo | | | |
+| P5 Scoreboard, about, test kit | done | 00:43 | 00:46 | `/honeypot/` hub, `/honeypot/scoreboard/` (results.json × techniques.json heat map; one row labelled EXAMPLE), `/honeypot/about/` (method, safety, submit), `TESTING.md` (P-A/P-B/P-C, fresh sessions, checklist for TJ). |
+| P6 Images | done | 00:46 | 00:55 | No API key → 0/40 calls, US$0/10; 18 requests in `assets/REQUESTS.md`. `tools/gen-images.mjs` enforces 40 calls + US$10 (price table from vendor pages, 2026-10-16) and ledgers to `assets/LEDGER.jsonl`. Share images 1200×630 for home, 3 samples, exhibit, honeypot (`tools/render-og.mjs`). `CREDITS.md`. `img/IMAGES.jsonl` traces every shipped image. |
 | P7 Deploy config + README | todo | | | |
 | Evidence + tests | todo | | | |
 | Result file + PR | todo | | | |

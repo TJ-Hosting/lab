@@ -74,3 +74,9 @@ for (const t of data.techniques.filter((x) => x.vision)) {
 }
 await browser.close();
 writeFileSync(join(ROOT, 'tools', 'vision-traps.lock.json'), JSON.stringify(lock, null, '\t') + '\n');
+
+// record the PNGs in the shipped-image manifest
+const manifestPath = join(ROOT, 'img', 'IMAGES.jsonl');
+const rows = Object.fromEntries(readFileSync(manifestPath, 'utf8').split('\n').filter(Boolean).map((l) => { const r = JSON.parse(l); return [r.file, r]; }));
+for (const l of lock) rows[l.file] = { file: l.file, source: 'honeypot/techniques.json (vision text)', op: 'tools/render-vision-traps.mjs: text drawn in code, no image model' };
+writeFileSync(manifestPath, Object.keys(rows).sort().map((k) => JSON.stringify(rows[k])).join('\n') + '\n');
