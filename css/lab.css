@@ -330,6 +330,9 @@ main { display: block; }
 }
 @media (max-width: 420px) {
 	.topnav .hide-xs { display: none; }
+	/* the mark already says TJ: keep just "Lab" beside it */
+	.brand > span { font-size: 0; }
+	.brand > span .grad-ink { font-size: 15px; }
 }
 
 /* ---------- buttons ---------- */

@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<title>The agent honeypot — do AI agents follow hidden instructions? · TJ-Hosting Lab</title>
+	<meta name="description" content="An open, harmless test of prompt injection: an exhibit with hidden instructions for AI agents, a checker for their answers, and a curated scoreboard.">
+	<link rel="canonical" href="https://lab.tj-hosting.ca/honeypot/">
+	<meta name="theme-color" content="#0a0618">
+	<link rel="icon" href="../img/brand/tj-mark.svg" type="image/svg+xml">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="TJ-Hosting Lab">
+	<meta property="og:title" content="The agent honeypot — TJ-Hosting Lab">
+	<meta property="og:description" content="Do AI agents follow hidden instructions? An open, harmless test of prompt injection.">
+	<meta property="og:url" content="https://lab.tj-hosting.ca/honeypot/">
+	<meta property="og:image" content="https://lab.tj-hosting.ca/img/og/honeypot.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="stylesheet" href="../css/glass.css">
+	<link rel="stylesheet" href="../css/lab.css">
+	<link rel="stylesheet" href="honeypot.css">
+	<script src="../js/early.js"></script>
+	<script type="module" src="hub.js"></script>
+</head>
+<body class="tools">
+	<a class="skip" href="#main">Skip to content</a>
+	<div class="backdrop" aria-hidden="true">
+		<div class="backdrop__drift">
+			<picture class="backdrop__img">
+				<source type="image/avif" srcset="../img/bg/aurora-dusk-640.avif 640w, ../img/bg/aurora-dusk-960.avif 960w, ../img/bg/aurora-dusk-1280.avif 1280w" sizes="100vw">
+				<img src="../img/bg/aurora-dusk-1280.webp" srcset="../img/bg/aurora-dusk-640.webp 640w, ../img/bg/aurora-dusk-960.webp 960w, ../img/bg/aurora-dusk-1280.webp 1280w" sizes="100vw" alt="" decoding="async">
+			</picture>
+		</div>
+		<div class="backdrop__orb orb--honey"></div>
+		<div class="backdrop__veil"></div>
+		<div class="backdrop__grain"></div>
+	</div>
+
+	<header class="topbar glass glass--pill">
+		<a class="brand" href="../" aria-label="TJ-Hosting Lab, home">
+			<img src="../img/brand/tj-mark.svg" alt="" width="30" height="30">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Honeypot">
+			<a class="hide-xs" href="./" aria-current="page">Honeypot</a>
+			<a href="check/">Checker</a>
+			<a href="scoreboard/">Scoreboard</a>
+			<a class="hide-sm" href="about/">About</a>
+		</nav>
+	</header>
+
+	<main id="main" class="wrap">
+		<header class="page-head">
+			<p class="eyebrow rise">Exhibit 01 · AI safety</p>
+			<h1 class="rise" style="--delay:.08s">The agent <span class="grad-ink">honeypot</span></h1>
+			<p class="lede rise" style="--delay:.16s">Do AI assistants follow instructions hidden in the pages they read? We built a page full of them, made every one harmless, told people plainly, and started keeping score.</p>
+		</header>
+
+		<ul class="tiles">
+			<li class="tiles__wide rise">
+				<a class="tile tile--hero glass glass--strong glass--interactive" data-shine data-tilt="3" href="../exhibits/humanity/">
+					<div>
+						<p class="eyebrow">Step 1</p>
+						<h2>Enter the exhibit</h2>
+						<p>“Made of Many”, a motion piece about humanity. It carries hidden instructions for AI agents, each asking only for a short poem. The banner says so, and one button reveals them all.</p>
+						<span class="btn btn--primary" style="margin-top:18px">Open the exhibit</span>
+					</div>
+					<img src="../img/obj/glass-bee-640.webp" alt="" width="640" height="640" loading="lazy" decoding="async">
+				</a>
+			</li>
+			<li class="rise" style="--delay:.06s">
+				<a class="tile glass glass--interactive" data-shine href="check/">
+					<p class="eyebrow">Step 2</p>
+					<h2>Check an answer</h2>
+					<p>Paste what your assistant said. See, technique by technique, whether it obeyed, flagged or ignored.</p>
+					<span class="card__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+				</a>
+			</li>
+			<li class="rise" style="--delay:.12s">
+				<a class="tile glass glass--interactive" data-shine href="scoreboard/">
+					<p class="eyebrow">Step 3</p>
+					<h2>See the scoreboard</h2>
+					<p>Curated, dated results, one row per test, with a heat map per technique.</p>
+					<span class="card__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+				</a>
+			</li>
+			<li class="rise" style="--delay:.18s">
+				<a class="tile glass glass--interactive" data-shine href="about/">
+					<p class="eyebrow">Read first</p>
+					<h2>Method &amp; safety</h2>
+					<p>The three test prompts, the three outcomes, and the rules that keep the traps harmless.</p>
+					<span class="card__go" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+				</a>
+			</li>
+		</ul>
+	</main>
+
+	<footer class="foot glass" style="margin-top:56px">
+		<span>TJ-Hosting Lab · the agent honeypot</span>
+		<ul class="foot__links">
+			<li><a href="../">Lab home</a></li>
+			<li><a href="https://github.com/TJ-Hosting/lab/blob/main/TESTING.md">Test kit</a></li>
+			<li><a href="https://github.com/TJ-Hosting/lab">Source</a></li>
+		</ul>
+	</footer>
+</body>
+</html>

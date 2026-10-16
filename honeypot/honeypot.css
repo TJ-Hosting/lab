@@ -192,6 +192,7 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px
 .tile h2 { font-family: var(--font-display); font-size: 22px; letter-spacing: -0.015em; }
 .tile p { margin: 0; color: var(--ink-2); font-size: 15.5px; }
 .tile .card__go { margin-top: auto; }
-.tile--hero { grid-column: 1 / -1; display: grid; grid-template-columns: minmax(0, 1fr) minmax(180px, 280px); align-items: center; gap: 24px; }
+.tiles__wide { grid-column: 1 / -1; }
+.tile--hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(180px, 280px); align-items: center; gap: 24px; }
 .tile--hero img { width: 100%; }
 @media (max-width: 720px) { .tile--hero { grid-template-columns: 1fr; } .tile--hero img { width: 180px; margin: 0 auto; } }

@@ -10,8 +10,8 @@
 | P1 Lab shell + glass system | done | 00:13 | 00:24 | Glass tokens in `css/glass.css` (fallback first, frosted under `@supports`); home renders cards from `samples.json`; pack → AVIF/WebP via `tools/build_images.py` (117 files, no upscaling, manifest `img/IMAGES.jsonl`); fonts self-hosted (OFL). |
 | P2 Three motion samples | done | 00:24 | 00:33 | humanity-type (WAAPI), particle-field (Canvas 2D + sprite atlases, luma-keyed), logo (SVG; TJ glyph from tj-hosting.ca favicon.svg). All pause off-screen/hidden; reduced motion = still frame. |
 | P3 Honeypot exhibit | done | 00:33 | 00:40 | `/exhibits/humanity/` "Made of Many", `noindex,nofollow`, banner first. 18 techniques in `honeypot/techniques.json` (16 in page text, 2 vision PNGs rendered by `tools/render-vision-traps.mjs`). Reveal mode reads each trap from the DOM; pins + panel. |
-| P4 Checker | done | 00:40 | 00:47 | `/honeypot/check/`: logic in `checker.js` (pure, Node-importable), proposes obeyed/flagged/ignored per code, tester confirms; hash share link; pre-filled issue form `.github/ISSUE_TEMPLATE/result.yml`. Verified: example with 2 poems + 1 warning → exactly those outcomes; link restores them. |
-| P5 Scoreboard, about, test kit | todo | | | |
+| P4 Checker | done | 00:40 | 00:43 | `/honeypot/check/`: logic in `checker.js` (pure, Node-importable), proposes obeyed/flagged/ignored per code, tester confirms; hash share link; pre-filled issue form `.github/ISSUE_TEMPLATE/result.yml`. Verified: example with 2 poems + 1 warning → exactly those outcomes; link restores them. |
+| P5 Scoreboard, about, test kit | done | 00:43 | 00:52 | `/honeypot/` hub, `/honeypot/scoreboard/` (results.json × techniques.json heat map; one row labelled EXAMPLE), `/honeypot/about/` (method, safety, submit), `TESTING.md` (P-A/P-B/P-C, fresh sessions, checklist for TJ). |
 | P6 Images | todo | | | |
 | P7 Deploy config + README | todo | | | |
 | Evidence + tests | todo | | | |
