@@ -15,9 +15,9 @@
 | P6 Images | done | 00:46 | 00:49 | No API key → 0/40 calls, US$0/10; 18 requests in `assets/REQUESTS.md`. `tools/gen-images.mjs` enforces 40 calls + US$10 (price table from vendor pages, 2026-10-16) and ledgers to `assets/LEDGER.jsonl`. Share images 1200×630 for home, 3 samples, exhibit, honeypot (`tools/render-og.mjs`). `CREDITS.md`. `img/IMAGES.jsonl` traces every shipped image. |
 | P7 Deploy config + README | done | 00:49 | 00:52 | `CNAME`, `robots.txt` (training crawlers off the exhibit only), `sitemap.xml` (no exhibit), `404.html`, `_config.yml` (verified with a real Jekyll 3.10 build: internal folders excluded, site files byte-identical), `docs/ROBOTS.md` with vendor citations, README. |
 | Evidence + tests | done | 00:52 | 01:20 | `tests/run.mjs` (npm test). Run 1: 21/23 (payload-review test bug; real contrast failures → fixed in `bd438b0`). Final run: 23/23. Evidence in `evidence/` (23 screenshots, contrast 129/129 AA, trap texts). |
-| Result file + PR | done | 01:20 | 01:24 | `dispatches/RESULT-agent-honeypot-01.md`; draft PR https://github.com/TJ-Hosting/lab/pull/1 (not merged). |
+| Result file + PR | done | 01:20 | 01:21 | `dispatches/RESULT-agent-honeypot-01.md`; draft PR https://github.com/TJ-Hosting/lab/pull/1 (not merged). |
 
-## Close (2026-10-16 01:24 UTC)
+## Close (2026-10-16 01:21 UTC)
 
 - **Verified done:** all of P1–P7 are built and checked in headless Chromium at 1440 and 375 px. `npm test` passes 23/23. Images: 0/40 generated, US$0/10 spent (no key).
 - **State:** draft PR https://github.com/TJ-Hosting/lab/pull/1 is open on `feat/lab-mvp-2026-10-15` and awaits Barney or TJ. Nothing is merged or deployed.
