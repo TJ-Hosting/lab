@@ -1,0 +1,131 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<title>The mark, assembling — logo motion · TJ-Hosting Lab</title>
+	<meta name="description" content="The TJ-Hosting mark assembles itself: a globe turns into place and the TJ letterform slides in as scanlines. SVG and the Web Animations API, replayable.">
+	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/logo/">
+	<meta name="theme-color" content="#07051a">
+	<link rel="icon" href="../../img/brand/tj-mark.svg" type="image/svg+xml">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="TJ-Hosting Lab">
+	<meta property="og:title" content="The mark, assembling — TJ-Hosting Lab">
+	<meta property="og:description" content="The TJ-Hosting mark builds itself from scanlines and a turning globe.">
+	<meta property="og:url" content="https://lab.tj-hosting.ca/samples/logo/">
+	<meta property="og:image" content="https://lab.tj-hosting.ca/img/og/logo.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="The TJ-Hosting globe mark on glass">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="preload" href="../../fonts/unbounded-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="../../css/glass.css">
+	<link rel="stylesheet" href="../../css/lab.css">
+	<link rel="stylesheet" href="../../css/sample.css">
+	<link rel="stylesheet" href="logo.css">
+	<script src="../../js/early.js"></script>
+	<script type="module" src="logo.js"></script>
+</head>
+<body class="sample sample--logo">
+	<a class="skip" href="#about-piece">Skip to the description</a>
+
+	<div class="backdrop" aria-hidden="true">
+		<div class="backdrop__drift">
+			<picture class="backdrop__img logo-bg">
+				<source type="image/avif" srcset="../../img/bg/prism-640.avif 640w, ../../img/bg/prism-960.avif 960w, ../../img/bg/prism-1280.avif 1280w" sizes="100vw">
+				<img src="../../img/bg/prism-1280.webp" srcset="../../img/bg/prism-640.webp 640w, ../../img/bg/prism-960.webp 960w, ../../img/bg/prism-1280.webp 1280w" sizes="100vw" alt="" decoding="async">
+			</picture>
+		</div>
+		<div class="backdrop__orb orb--violet"></div>
+		<div class="backdrop__orb orb--sky"></div>
+		<div class="backdrop__veil"></div>
+		<div class="backdrop__grain"></div>
+	</div>
+
+	<header class="topbar glass glass--pill">
+		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
+			<img src="../../img/brand/tj-mark.svg" alt="" width="30" height="30">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Lab">
+			<a href="../../#samples">All samples</a>
+		</nav>
+	</header>
+
+	<main id="main" class="stage logo-stage" data-motion>
+		<div class="logo-scene" role="img" aria-label="The TJ-Hosting logo: a globe with the letters TJ, assembling itself.">
+			<div class="lens glass" aria-hidden="true"><span class="lens__glow"></span></div>
+			<svg class="logo" viewBox="0 0 400 400" aria-hidden="true">
+				<defs>
+					<linearGradient id="lg-globe" gradientUnits="userSpaceOnUse" x1="70" y1="60" x2="330" y2="380">
+						<stop offset="0" stop-color="#b14dff"/>
+						<stop offset=".45" stop-color="#5a3df6"/>
+						<stop offset="1" stop-color="#18c8d8"/>
+					</linearGradient>
+					<linearGradient id="lg-glyph" gradientUnits="userSpaceOnUse" x1="10" y1="12" x2="70" y2="92">
+						<stop offset="0" stop-color="#c25bff"/>
+						<stop offset=".5" stop-color="#6a4bff"/>
+						<stop offset="1" stop-color="#28d3e6"/>
+					</linearGradient>
+					<linearGradient id="lg-glint" x1="0" y1="0" x2="1" y2="0">
+						<stop offset="0" stop-color="#fff" stop-opacity="0"/>
+						<stop offset=".5" stop-color="#fff" stop-opacity=".9"/>
+						<stop offset="1" stop-color="#fff" stop-opacity="0"/>
+					</linearGradient>
+					<!-- the TJ letterform: path from tj-hosting.ca/img/favicon.svg -->
+					<path id="tj" d="M10 12 H90 V30 H59 V62 A23 23 0 0 1 13 62 H31 A5 5 0 0 0 41 62 V30 H10 Z"/>
+					<clipPath id="tj-clip"><use href="#tj"/></clipPath>
+					<!-- globe lines stop short of the letterform and the orbit node -->
+					<mask id="knock" maskUnits="userSpaceOnUse" x="0" y="0" width="400" height="400">
+						<rect width="400" height="400" fill="#fff"/>
+						<use href="#tj" transform="translate(14 39) scale(2.6)" fill="#000" stroke="#000" stroke-width="4.6" stroke-linejoin="round"/>
+						<circle cx="331" cy="309" r="22" fill="#000"/>
+					</mask>
+				</defs>
+
+				<g class="globe" mask="url(#knock)" fill="none" stroke="url(#lg-globe)" stroke-linecap="round">
+					<circle class="ring" cx="218" cy="214" r="148" stroke-width="14"/>
+					<g class="meridians" stroke-width="9">
+						<ellipse class="mer mer--a" cx="218" cy="214" rx="92" ry="148"/>
+						<ellipse class="mer mer--b" cx="218" cy="214" rx="38" ry="148"/>
+					</g>
+					<g class="parallels" stroke-width="8">
+						<line class="par" x1="90" y1="140" x2="346" y2="140"/>
+						<line class="par" x1="70" y1="214" x2="366" y2="214"/>
+						<line class="par" x1="90" y1="288" x2="346" y2="288"/>
+					</g>
+				</g>
+				<circle class="node" cx="331" cy="309" r="12" fill="none" stroke="url(#lg-globe)" stroke-width="6"/>
+
+				<g transform="translate(14 39) scale(2.6)">
+					<g class="glyph" clip-path="url(#tj-clip)" fill="url(#lg-glyph)">
+						<rect class="stripe" x="6" y="11" width="88" height="7"/>
+						<rect class="stripe" x="6" y="22" width="88" height="7"/>
+						<rect class="stripe" x="6" y="33" width="88" height="7"/>
+						<rect class="stripe" x="6" y="44" width="88" height="7"/>
+						<rect class="stripe" x="6" y="55" width="88" height="7"/>
+						<rect class="stripe" x="6" y="66" width="88" height="7"/>
+						<rect class="stripe" x="6" y="77" width="88" height="7"/>
+						<rect class="glint" x="-34" y="0" width="22" height="100" fill="url(#lg-glint)" opacity="0"/>
+					</g>
+				</g>
+			</svg>
+		</div>
+		<p class="wordmark" aria-hidden="true"><span>T</span><span>J</span><span>-</span><span>H</span><span>o</span><span>s</span><span>t</span><span>i</span><span>n</span><span>g</span></p>
+	</main>
+
+	<aside class="sample-info glass glass--strong" id="about-piece" aria-labelledby="piece-title">
+		<p class="eyebrow">Sample 03 · Logo motion</p>
+		<h1 id="piece-title">The mark, assembling</h1>
+		<p class="how"><b>How it's made:</b> the mark is one inline SVG; the globe's rings scale and turn into place and the TJ arrives as seven scanlines, each clipped to the letterform.
+		Everything moves with transform and opacity through the Web Animations API, so Replay simply rebuilds the timeline.</p>
+		<div class="controls">
+			<button class="btn btn--sm btn--primary" type="button" data-action="replay">Replay</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="pause" aria-pressed="false">Pause</button>
+			<a class="back" href="../../#samples">← Back to the lab</a>
+		</div>
+	</aside>
+</body>
+</html>

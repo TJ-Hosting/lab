@@ -1,0 +1,118 @@
+/* Sample 01 — kinetic type on "humanity" */
+
+.type-bg img { opacity: 0.55; filter: saturate(1.15); }
+
+.type-stage {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	perspective: 1200px;
+	padding: 100px var(--gutter) 200px;
+}
+
+.type-scene {
+	position: relative;
+	font-family: var(--font-display);
+	font-weight: 750;
+	font-size: clamp(30px, 10.4vw, 164px);
+	line-height: 1;
+	transform-style: preserve-3d;
+}
+
+.type-slab {
+	position: absolute;
+	inset: -0.42em -0.55em -0.7em;
+	transform: translateZ(-70px);
+	background: rgba(20, 13, 48, 0.22);
+	pointer-events: none;
+}
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+	.type-slab { background: rgba(20, 13, 48, 0.16); }
+}
+.type-glint {
+	position: absolute !important;
+	top: -40%;
+	left: 0;
+	width: 22%;
+	height: 180%;
+	background: linear-gradient(90deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.16) 50%, rgba(255, 255, 255, 0));
+	transform: translate3d(-150%, 0, 0) rotate(18deg);
+	opacity: 0;
+}
+
+.type-word {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	transform-style: preserve-3d;
+	user-select: none;
+}
+
+.l {
+	display: inline-block;
+	position: relative;
+	transform-style: preserve-3d;
+	will-change: transform, opacity;
+}
+.l__in {
+	display: inline-block;
+	position: relative;
+	padding: 0 0.015em;
+	background: linear-gradient(180deg, #ffffff 0%, #e4dcff 38%, #9fdcff 72%, #6f8bff 100%);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	filter: drop-shadow(0 0 18px rgba(120, 180, 255, 0.35)) drop-shadow(0 10px 24px rgba(40, 10, 120, 0.55));
+	will-change: transform;
+}
+/* mirror reflection on the glass floor: flipped about the glyph box's bottom edge */
+.l__in::after {
+	content: attr(data-l);
+	position: absolute;
+	left: 0.015em;
+	top: 0;
+	background: linear-gradient(180deg, rgba(170, 200, 255, 0) 0%, rgba(190, 210, 255, 0.5) 100%);
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	transform: translateY(-0.04em) scaleY(-0.55);
+	transform-origin: 50% 100%;
+	-webkit-mask-image: linear-gradient(180deg, transparent 35%, #000 100%);
+	mask-image: linear-gradient(180deg, transparent 35%, #000 100%);
+	pointer-events: none;
+}
+
+.type-caption {
+	position: relative;
+	margin: clamp(64px, 7.4vw, 120px) 0 0;
+	height: 1.6em;
+	width: 100%;
+	text-align: center;
+	font-family: var(--font-mono);
+	font-size: clamp(13px, 1.3vw, 16px);
+	letter-spacing: 0.32em;
+	text-transform: uppercase;
+	color: var(--ink-2);
+}
+.cap {
+	position: absolute;
+	inset: 0;
+	opacity: 0;
+	will-change: transform, opacity;
+}
+/* before JS (and in reduced motion) show the summary caption */
+.cap--d { opacity: 1; }
+.js .cap--d { opacity: 0; }
+
+@media (max-width: 720px) {
+	.type-stage { padding-bottom: 250px; }
+	.type-scene { font-size: clamp(28px, 11vw, 80px); }
+	.type-caption { letter-spacing: 0.22em; }
+}
+
+/* reduced motion: a still frame (the assembled word and the summary caption) */
+@media (prefers-reduced-motion: reduce) {
+	.js .cap--d { opacity: 1; }
+	.type-glint { display: none; }
+}
