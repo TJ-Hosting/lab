@@ -1,0 +1,126 @@
+{"file":"exhibits/humanity/haze.png","source":"honeypot/techniques.json (vision text)","op":"tools/render-vision-traps.mjs: text drawn in code, no image model"}
+{"file":"exhibits/humanity/placard.png","source":"honeypot/techniques.json (vision text)","op":"tools/render-vision-traps.mjs: text drawn in code, no image model"}
+{"file":"img/art/constellation-1280.avif","source":"assets/pack/lab-hum-constellation.jpg","op":"resize"}
+{"file":"img/art/constellation-1280.webp","source":"assets/pack/lab-hum-constellation.jpg","op":"resize"}
+{"file":"img/art/constellation-640.avif","source":"assets/pack/lab-hum-constellation.jpg","op":"resize"}
+{"file":"img/art/constellation-640.webp","source":"assets/pack/lab-hum-constellation.jpg","op":"resize"}
+{"file":"img/art/constellation-960.avif","source":"assets/pack/lab-hum-constellation.jpg","op":"resize"}
+{"file":"img/art/constellation-960.webp","source":"assets/pack/lab-hum-constellation.jpg","op":"resize"}
+{"file":"img/art/glass-city-1280.avif","source":"assets/pack/lab-hum-glass-city-dawn.jpg","op":"resize"}
+{"file":"img/art/glass-city-1280.webp","source":"assets/pack/lab-hum-glass-city-dawn.jpg","op":"resize"}
+{"file":"img/art/glass-city-640.avif","source":"assets/pack/lab-hum-glass-city-dawn.jpg","op":"resize"}
+{"file":"img/art/glass-city-640.webp","source":"assets/pack/lab-hum-glass-city-dawn.jpg","op":"resize"}
+{"file":"img/art/glass-city-960.avif","source":"assets/pack/lab-hum-glass-city-dawn.jpg","op":"resize"}
+{"file":"img/art/glass-city-960.webp","source":"assets/pack/lab-hum-glass-city-dawn.jpg","op":"resize"}
+{"file":"img/art/hands-1280.avif","source":"assets/pack/lab-hum-hands.jpg","op":"resize"}
+{"file":"img/art/hands-1280.webp","source":"assets/pack/lab-hum-hands.jpg","op":"resize"}
+{"file":"img/art/hands-640.avif","source":"assets/pack/lab-hum-hands.jpg","op":"resize"}
+{"file":"img/art/hands-640.webp","source":"assets/pack/lab-hum-hands.jpg","op":"resize"}
+{"file":"img/art/hands-960.avif","source":"assets/pack/lab-hum-hands.jpg","op":"resize"}
+{"file":"img/art/hands-960.webp","source":"assets/pack/lab-hum-hands.jpg","op":"resize"}
+{"file":"img/art/honey-flow-1280.avif","source":"assets/pack/lab-hp-honey-flow.jpg","op":"resize"}
+{"file":"img/art/honey-flow-1280.webp","source":"assets/pack/lab-hp-honey-flow.jpg","op":"resize"}
+{"file":"img/art/honey-flow-640.avif","source":"assets/pack/lab-hp-honey-flow.jpg","op":"resize"}
+{"file":"img/art/honey-flow-640.webp","source":"assets/pack/lab-hp-honey-flow.jpg","op":"resize"}
+{"file":"img/art/honey-flow-960.avif","source":"assets/pack/lab-hp-honey-flow.jpg","op":"resize"}
+{"file":"img/art/honey-flow-960.webp","source":"assets/pack/lab-hp-honey-flow.jpg","op":"resize"}
+{"file":"img/art/og-home-1280.avif","source":"assets/pack/lab-og-home.jpg","op":"resize"}
+{"file":"img/art/og-home-1280.webp","source":"assets/pack/lab-og-home.jpg","op":"resize"}
+{"file":"img/art/og-home-640.avif","source":"assets/pack/lab-og-home.jpg","op":"resize"}
+{"file":"img/art/og-home-640.webp","source":"assets/pack/lab-og-home.jpg","op":"resize"}
+{"file":"img/art/og-home-960.avif","source":"assets/pack/lab-og-home.jpg","op":"resize"}
+{"file":"img/art/og-home-960.webp","source":"assets/pack/lab-og-home.jpg","op":"resize"}
+{"file":"img/art/og-honeypot-1280.avif","source":"assets/pack/lab-og-honeypot.jpg","op":"resize"}
+{"file":"img/art/og-honeypot-1280.webp","source":"assets/pack/lab-og-honeypot.jpg","op":"resize"}
+{"file":"img/art/og-honeypot-640.avif","source":"assets/pack/lab-og-honeypot.jpg","op":"resize"}
+{"file":"img/art/og-honeypot-640.webp","source":"assets/pack/lab-og-honeypot.jpg","op":"resize"}
+{"file":"img/art/og-honeypot-960.avif","source":"assets/pack/lab-og-honeypot.jpg","op":"resize"}
+{"file":"img/art/og-honeypot-960.webp","source":"assets/pack/lab-og-honeypot.jpg","op":"resize"}
+{"file":"img/art/particles-1280.avif","source":"assets/pack/lab-og-particles.jpg","op":"resize"}
+{"file":"img/art/particles-1280.webp","source":"assets/pack/lab-og-particles.jpg","op":"resize"}
+{"file":"img/art/particles-640.avif","source":"assets/pack/lab-og-particles.jpg","op":"resize"}
+{"file":"img/art/particles-640.webp","source":"assets/pack/lab-og-particles.jpg","op":"resize"}
+{"file":"img/art/particles-960.avif","source":"assets/pack/lab-og-particles.jpg","op":"resize"}
+{"file":"img/art/particles-960.webp","source":"assets/pack/lab-og-particles.jpg","op":"resize"}
+{"file":"img/bg/aurora-1280.avif","source":"assets/pack/lab-bg-aurora.jpg","op":"resize"}
+{"file":"img/bg/aurora-1280.webp","source":"assets/pack/lab-bg-aurora.jpg","op":"resize"}
+{"file":"img/bg/aurora-640.avif","source":"assets/pack/lab-bg-aurora.jpg","op":"resize"}
+{"file":"img/bg/aurora-640.webp","source":"assets/pack/lab-bg-aurora.jpg","op":"resize"}
+{"file":"img/bg/aurora-960.avif","source":"assets/pack/lab-bg-aurora.jpg","op":"resize"}
+{"file":"img/bg/aurora-960.webp","source":"assets/pack/lab-bg-aurora.jpg","op":"resize"}
+{"file":"img/bg/aurora-dusk-1280.avif","source":"assets/pack/lab-bg-aurora-dusk.jpg","op":"resize"}
+{"file":"img/bg/aurora-dusk-1280.webp","source":"assets/pack/lab-bg-aurora-dusk.jpg","op":"resize"}
+{"file":"img/bg/aurora-dusk-640.avif","source":"assets/pack/lab-bg-aurora-dusk.jpg","op":"resize"}
+{"file":"img/bg/aurora-dusk-640.webp","source":"assets/pack/lab-bg-aurora-dusk.jpg","op":"resize"}
+{"file":"img/bg/aurora-dusk-960.avif","source":"assets/pack/lab-bg-aurora-dusk.jpg","op":"resize"}
+{"file":"img/bg/aurora-dusk-960.webp","source":"assets/pack/lab-bg-aurora-dusk.jpg","op":"resize"}
+{"file":"img/bg/aurora-portrait-360.avif","source":"assets/pack/lab-bg-aurora-portrait.jpg","op":"resize"}
+{"file":"img/bg/aurora-portrait-360.webp","source":"assets/pack/lab-bg-aurora-portrait.jpg","op":"resize"}
+{"file":"img/bg/aurora-portrait-720.avif","source":"assets/pack/lab-bg-aurora-portrait.jpg","op":"resize"}
+{"file":"img/bg/aurora-portrait-720.webp","source":"assets/pack/lab-bg-aurora-portrait.jpg","op":"resize"}
+{"file":"img/bg/bokeh-1280.avif","source":"assets/pack/lab-bg-bokeh.jpg","op":"resize"}
+{"file":"img/bg/bokeh-1280.webp","source":"assets/pack/lab-bg-bokeh.jpg","op":"resize"}
+{"file":"img/bg/bokeh-640.avif","source":"assets/pack/lab-bg-bokeh.jpg","op":"resize"}
+{"file":"img/bg/bokeh-640.webp","source":"assets/pack/lab-bg-bokeh.jpg","op":"resize"}
+{"file":"img/bg/bokeh-960.avif","source":"assets/pack/lab-bg-bokeh.jpg","op":"resize"}
+{"file":"img/bg/bokeh-960.webp","source":"assets/pack/lab-bg-bokeh.jpg","op":"resize"}
+{"file":"img/bg/hex-portrait-360.avif","source":"assets/pack/lab-hp-hex-portrait.jpg","op":"resize"}
+{"file":"img/bg/hex-portrait-360.webp","source":"assets/pack/lab-hp-hex-portrait.jpg","op":"resize"}
+{"file":"img/bg/hex-portrait-720.avif","source":"assets/pack/lab-hp-hex-portrait.jpg","op":"resize"}
+{"file":"img/bg/hex-portrait-720.webp","source":"assets/pack/lab-hp-hex-portrait.jpg","op":"resize"}
+{"file":"img/bg/honeycomb-1280.avif","source":"assets/pack/lab-hp-honeycomb.jpg","op":"resize"}
+{"file":"img/bg/honeycomb-1280.webp","source":"assets/pack/lab-hp-honeycomb.jpg","op":"resize"}
+{"file":"img/bg/honeycomb-640.avif","source":"assets/pack/lab-hp-honeycomb.jpg","op":"resize"}
+{"file":"img/bg/honeycomb-640.webp","source":"assets/pack/lab-hp-honeycomb.jpg","op":"resize"}
+{"file":"img/bg/honeycomb-960.avif","source":"assets/pack/lab-hp-honeycomb.jpg","op":"resize"}
+{"file":"img/bg/honeycomb-960.webp","source":"assets/pack/lab-hp-honeycomb.jpg","op":"resize"}
+{"file":"img/bg/liquid-chrome-1280.avif","source":"assets/pack/lab-bg-liquid-chrome.jpg","op":"resize"}
+{"file":"img/bg/liquid-chrome-1280.webp","source":"assets/pack/lab-bg-liquid-chrome.jpg","op":"resize"}
+{"file":"img/bg/liquid-chrome-640.avif","source":"assets/pack/lab-bg-liquid-chrome.jpg","op":"resize"}
+{"file":"img/bg/liquid-chrome-640.webp","source":"assets/pack/lab-bg-liquid-chrome.jpg","op":"resize"}
+{"file":"img/bg/liquid-chrome-960.avif","source":"assets/pack/lab-bg-liquid-chrome.jpg","op":"resize"}
+{"file":"img/bg/liquid-chrome-960.webp","source":"assets/pack/lab-bg-liquid-chrome.jpg","op":"resize"}
+{"file":"img/bg/prism-1280.avif","source":"assets/pack/lab-bg-prism.jpg","op":"resize"}
+{"file":"img/bg/prism-1280.webp","source":"assets/pack/lab-bg-prism.jpg","op":"resize"}
+{"file":"img/bg/prism-640.avif","source":"assets/pack/lab-bg-prism.jpg","op":"resize"}
+{"file":"img/bg/prism-640.webp","source":"assets/pack/lab-bg-prism.jpg","op":"resize"}
+{"file":"img/bg/prism-960.avif","source":"assets/pack/lab-bg-prism.jpg","op":"resize"}
+{"file":"img/bg/prism-960.webp","source":"assets/pack/lab-bg-prism.jpg","op":"resize"}
+{"file":"img/brand/tj-mark.svg","source":"https://tj-hosting.ca/img/favicon.svg (TJ-Hosting's own mark)","op":"redrawn by hand: same TJ path and scanline pattern, lab gradient and rounded tile"}
+{"file":"img/obj/flask-320.avif","source":"assets/pack/lab-obj-flask.jpg","op":"levels(black=[21, 18, 36])+luma-key alpha+radial edge+resize"}
+{"file":"img/obj/flask-320.webp","source":"assets/pack/lab-obj-flask.jpg","op":"levels(black=[21, 18, 36])+luma-key alpha+radial edge+resize"}
+{"file":"img/obj/flask-640.avif","source":"assets/pack/lab-obj-flask.jpg","op":"levels(black=[21, 18, 36])+luma-key alpha+radial edge+resize"}
+{"file":"img/obj/flask-640.webp","source":"assets/pack/lab-obj-flask.jpg","op":"levels(black=[21, 18, 36])+luma-key alpha+radial edge+resize"}
+{"file":"img/obj/glass-bee-320.avif","source":"assets/pack/lab-hp-glass-bee.jpg","op":"levels(black=[28, 25, 48])+luma-key alpha+radial edge+resize"}
+{"file":"img/obj/glass-bee-320.webp","source":"assets/pack/lab-hp-glass-bee.jpg","op":"levels(black=[28, 25, 48])+luma-key alpha+radial edge+resize"}
+{"file":"img/obj/glass-bee-640.avif","source":"assets/pack/lab-hp-glass-bee.jpg","op":"levels(black=[28, 25, 48])+luma-key alpha+radial edge+resize"}
+{"file":"img/obj/glass-bee-640.webp","source":"assets/pack/lab-hp-glass-bee.jpg","op":"levels(black=[28, 25, 48])+luma-key alpha+radial edge+resize"}
+{"file":"img/obj/glass-cube-320.avif","source":"assets/pack/lab-obj-glass-cube.jpg","op":"levels(black=[33, 21, 55])+luma-key alpha+radial edge+resize"}
+{"file":"img/obj/glass-cube-320.webp","source":"assets/pack/lab-obj-glass-cube.jpg","op":"levels(black=[33, 21, 55])+luma-key alpha+radial edge+resize"}
+{"file":"img/obj/glass-cube-640.avif","source":"assets/pack/lab-obj-glass-cube.jpg","op":"levels(black=[33, 21, 55])+luma-key alpha+radial edge+resize"}
+{"file":"img/obj/glass-cube-640.webp","source":"assets/pack/lab-obj-glass-cube.jpg","op":"levels(black=[33, 21, 55])+luma-key alpha+radial edge+resize"}
+{"file":"img/obj/hex-prism-320.avif","source":"assets/pack/lab-obj-hex-prism.jpg","op":"levels(black=[20, 16, 40])+luma-key alpha+radial edge+resize"}
+{"file":"img/obj/hex-prism-320.webp","source":"assets/pack/lab-obj-hex-prism.jpg","op":"levels(black=[20, 16, 40])+luma-key alpha+radial edge+resize"}
+{"file":"img/obj/hex-prism-640.avif","source":"assets/pack/lab-obj-hex-prism.jpg","op":"levels(black=[20, 16, 40])+luma-key alpha+radial edge+resize"}
+{"file":"img/obj/hex-prism-640.webp","source":"assets/pack/lab-obj-hex-prism.jpg","op":"levels(black=[20, 16, 40])+luma-key alpha+radial edge+resize"}
+{"file":"img/obj/spheres-320.avif","source":"assets/pack/lab-obj-spheres.jpg","op":"levels(black=[22, 13, 39])+luma-key alpha+radial edge+resize"}
+{"file":"img/obj/spheres-320.webp","source":"assets/pack/lab-obj-spheres.jpg","op":"levels(black=[22, 13, 39])+luma-key alpha+radial edge+resize"}
+{"file":"img/obj/spheres-640.avif","source":"assets/pack/lab-obj-spheres.jpg","op":"levels(black=[22, 13, 39])+luma-key alpha+radial edge+resize"}
+{"file":"img/obj/spheres-640.webp","source":"assets/pack/lab-obj-spheres.jpg","op":"levels(black=[22, 13, 39])+luma-key alpha+radial edge+resize"}
+{"file":"img/obj/torus-320.avif","source":"assets/pack/lab-obj-torus.jpg","op":"levels(black=[31, 19, 48])+luma-key alpha+radial edge+resize"}
+{"file":"img/obj/torus-320.webp","source":"assets/pack/lab-obj-torus.jpg","op":"levels(black=[31, 19, 48])+luma-key alpha+radial edge+resize"}
+{"file":"img/obj/torus-640.avif","source":"assets/pack/lab-obj-torus.jpg","op":"levels(black=[31, 19, 48])+luma-key alpha+radial edge+resize"}
+{"file":"img/obj/torus-640.webp","source":"assets/pack/lab-obj-torus.jpg","op":"levels(black=[31, 19, 48])+luma-key alpha+radial edge+resize"}
+{"file":"img/og/exhibit.jpg","source":"assets/pack/lab-hp-honeycomb.jpg","op":"tools/render-og.mjs: 1200x630 share card, pack background + code-set type"}
+{"file":"img/og/home.jpg","source":"assets/pack/lab-og-home.jpg","op":"tools/render-og.mjs: 1200x630 share card, pack background + code-set type"}
+{"file":"img/og/honeypot.jpg","source":"assets/pack/lab-og-honeypot.jpg","op":"tools/render-og.mjs: 1200x630 share card, pack background + code-set type"}
+{"file":"img/og/humanity-type.jpg","source":"assets/pack/lab-hum-hands.jpg","op":"tools/render-og.mjs: 1200x630 share card, pack background + code-set type"}
+{"file":"img/og/logo.jpg","source":"assets/pack/lab-bg-prism.jpg","op":"tools/render-og.mjs: 1200x630 share card, pack background + code-set type"}
+{"file":"img/og/particle-field.jpg","source":"assets/pack/lab-og-particles.jpg","op":"tools/render-og.mjs: 1200x630 share card, pack background + code-set type"}
+{"file":"img/sprites/orbs.webp","source":"assets/pack/lab-spr-orbs.jpg","op":"grid 4x4 -> 128px cells, black clamp 28, radial falloff, luma-key alpha"}
+{"file":"img/sprites/sparkles.webp","source":"assets/pack/lab-spr-sparkles.jpg","op":"grid 4x4 -> 128px cells, black clamp 28, radial falloff, luma-key alpha"}
+{"file":"img/sprites/streaks.webp","source":"assets/pack/lab-spr-streaks.jpg","op":"grid 3x3 -> 128px cells, black clamp 28, radial falloff, luma-key alpha"}
+{"file":"img/tex/frosted-512.avif","source":"assets/pack/lab-tex-frosted.jpg","op":"crop-centre+resize"}
+{"file":"img/tex/frosted-512.webp","source":"assets/pack/lab-tex-frosted.jpg","op":"crop-centre+resize"}
+{"file":"img/tex/holo-foil-512.avif","source":"assets/pack/lab-tex-holo-foil.jpg","op":"resize"}
+{"file":"img/tex/holo-foil-512.webp","source":"assets/pack/lab-tex-holo-foil.jpg","op":"resize"}

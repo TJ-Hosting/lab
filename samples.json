@@ -1,0 +1,50 @@
+{
+	"samples": [
+		{
+			"slug": "humanity-type",
+			"title": "Humanity, in motion",
+			"kicker": "Kinetic type",
+			"blurb": "Eight letters fly in, breathe, and pull apart to find the unity hidden inside the word.",
+			"href": "samples/humanity-type/",
+			"image": { "base": "img/art/hands", "widths": [640, 960] },
+			"tags": ["Web Animations API", "CSS 3D"],
+			"added": "2026-10-16"
+		},
+		{
+			"slug": "particle-field",
+			"title": "Particle field",
+			"kicker": "Generative",
+			"blurb": "Thousands of glass sparks drift on a flow field and gather around your cursor or finger.",
+			"href": "samples/particle-field/",
+			"image": { "base": "img/art/particles", "widths": [640, 960] },
+			"tags": ["Canvas 2D", "Flow field", "Touch"],
+			"added": "2026-10-16"
+		},
+		{
+			"slug": "logo",
+			"title": "The mark, assembling",
+			"kicker": "Logo motion",
+			"blurb": "The TJ-Hosting mark builds itself from scanlines and a turning globe. Press replay.",
+			"href": "samples/logo/",
+			"image": { "base": "img/bg/prism", "widths": [640, 960] },
+			"tags": ["SVG", "Web Animations API"],
+			"added": "2026-10-16"
+		}
+	],
+	"exhibits": [
+		{
+			"slug": "agent-honeypot",
+			"title": "The Agent Honeypot",
+			"kicker": "Exhibit · AI safety",
+			"blurb": "A motion piece about humanity that also carries harmless hidden instructions aimed at AI agents. Each one asks only for a short poem. Ask your AI assistant to summarise it, then check whether it obeyed, flagged or ignored them.",
+			"href": "honeypot/",
+			"image": { "base": "img/art/og-honeypot", "widths": [640, 960, 1280] },
+			"tags": ["Prompt injection", "Awareness", "Open results"],
+			"links": [
+				{ "label": "Enter the exhibit", "href": "exhibits/humanity/", "primary": true },
+				{ "label": "How it works", "href": "honeypot/" }
+			],
+			"added": "2026-10-16"
+		}
+	]
+}

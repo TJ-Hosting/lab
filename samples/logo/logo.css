@@ -1,0 +1,89 @@
+/* Sample 03 — the TJ-Hosting mark, assembling */
+
+.logo-bg img { opacity: 0.5; }
+
+.logo-stage {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: clamp(10px, 2vh, 24px);
+	padding: 96px var(--gutter) 210px;
+}
+
+.logo-scene {
+	position: relative;
+	width: min(62vmin, 500px);
+	aspect-ratio: 1;
+}
+
+.lens {
+	position: absolute;
+	inset: 2%;
+	border-radius: 50%;
+	background: rgba(20, 13, 48, 0.32);
+}
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+	.lens { background: rgba(20, 13, 48, 0.18); }
+}
+.lens::after { border-radius: 50%; height: 50%; }
+.lens__glow {
+	position: absolute !important;
+	inset: 18%;
+	border-radius: 50%;
+	background: radial-gradient(circle, rgba(110, 80, 255, 0.45), rgba(24, 200, 216, 0.12) 55%, rgba(0, 0, 0, 0) 70%);
+	filter: blur(24px);
+}
+
+.logo {
+	position: absolute;
+	inset: 6%;
+	width: 88%;
+	height: 88%;
+	overflow: visible;
+	filter: drop-shadow(0 0 22px rgba(120, 90, 255, 0.45)) drop-shadow(0 18px 30px rgba(10, 4, 40, 0.6));
+}
+.logo .ring,
+.logo .mer,
+.logo .par,
+.logo .node {
+	transform-box: fill-box;
+	transform-origin: center;
+}
+.logo .stripe,
+.logo .glint { transform-box: view-box; }
+
+.wordmark {
+	margin: 0;
+	display: flex;
+	font-family: var(--font-display);
+	font-weight: 650;
+	font-size: clamp(28px, 4.6vw, 58px);
+	letter-spacing: -0.02em;
+	line-height: 1.1;
+}
+.wordmark span {
+	display: inline-block;
+	background: var(--grad-ink);
+	background-size: 10em 100%;
+	-webkit-background-clip: text;
+	background-clip: text;
+	color: transparent;
+	will-change: transform, opacity;
+}
+/* continuous gradient across the letters */
+.wordmark span:nth-child(1) { background-position: 0 0; }
+.wordmark span:nth-child(2) { background-position: -0.8em 0; }
+.wordmark span:nth-child(3) { background-position: -1.5em 0; }
+.wordmark span:nth-child(4) { background-position: -2.1em 0; }
+.wordmark span:nth-child(5) { background-position: -2.95em 0; }
+.wordmark span:nth-child(6) { background-position: -3.7em 0; }
+.wordmark span:nth-child(7) { background-position: -4.35em 0; }
+.wordmark span:nth-child(8) { background-position: -4.95em 0; }
+.wordmark span:nth-child(9) { background-position: -5.3em 0; }
+.wordmark span:nth-child(10) { background-position: -6.05em 0; }
+
+@media (max-width: 720px) {
+	.logo-stage { padding-bottom: 250px; justify-content: flex-start; padding-top: 110px; }
+	.logo-scene { width: min(78vw, 360px); }
+}

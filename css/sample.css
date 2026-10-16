@@ -1,0 +1,87 @@
+/* Shared shell for sample pages: a full-viewport stage, a glass info panel, controls. */
+
+.sample {
+	min-height: 100vh;
+	min-height: 100dvh;
+}
+
+.sample .topbar { position: fixed; left: 0; right: 0; top: 14px; margin: 0 auto; }
+
+.stage {
+	position: relative;
+	min-height: 100vh;
+	min-height: 100dvh;
+	display: grid;
+	place-items: center;
+	overflow: hidden;
+}
+
+.sample-info {
+	position: fixed;
+	z-index: 40;
+	left: max(var(--gutter), env(safe-area-inset-left));
+	bottom: max(18px, env(safe-area-inset-bottom));
+	width: min(440px, calc(100% - 2 * var(--gutter)));
+	padding: 20px 22px 18px;
+}
+.sample-info h1 {
+	font-family: var(--font-display);
+	font-size: clamp(20px, 2.2vw, 26px);
+	letter-spacing: -0.015em;
+	margin-bottom: 8px;
+}
+.sample-info .eyebrow { margin-bottom: 8px; }
+.sample-info .how {
+	margin: 0 0 14px;
+	font-size: 14.5px;
+	line-height: 1.55;
+	color: var(--ink-2);
+}
+.sample-info .how b { color: #fff; font-weight: 600; }
+
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.controls .back {
+	margin-left: auto;
+	font-size: 14px;
+	color: var(--ink-2);
+	text-underline-offset: 3px;
+}
+.controls .back:hover { color: #fff; }
+
+.hint.glass { background: rgba(10, 6, 28, 0.86); }
+.hint {
+	position: fixed;
+	z-index: 30;
+	right: var(--gutter);
+	bottom: 22px;
+	padding: 9px 16px;
+	font-family: var(--font-mono);
+	font-size: 12px;
+	letter-spacing: 0.08em;
+	color: var(--ink-2);
+}
+
+@media (max-width: 720px) {
+	.sample-info { padding: 16px 18px 14px; }
+	.sample-info .how { font-size: 14px; margin-bottom: 12px; }
+	.hint { display: none; }
+}
+
+/* collapsible info on very short or narrow screens */
+.sample-info[data-collapsed="true"] .how,
+.sample-info[data-collapsed="true"] .eyebrow { display: none; }
+.info-toggle {
+	position: absolute !important;
+	top: 12px;
+	right: 12px;
+	width: 34px;
+	height: 34px;
+	border-radius: 50%;
+	border: 1px solid rgba(255, 255, 255, 0.18);
+	background: rgba(255, 255, 255, 0.06);
+	cursor: pointer;
+	display: grid;
+	place-items: center;
+}
+.info-toggle svg { width: 16px; height: 16px; transition: transform 0.3s ease; }
+.sample-info[data-collapsed="true"] .info-toggle svg { transform: rotate(180deg); }
