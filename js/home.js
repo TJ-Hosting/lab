@@ -1,0 +1,72 @@
+/* Lab home: renders the sample and exhibit cards from samples.json. */
+import { boot, parallax } from './lab.js';
+
+const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+
+const esc = (s) => String(s).replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]);
+
+function picture(image, sizes) {
+	const set = (ext) => image.widths.map((w) => `${esc(image.base)}-${w}.${ext} ${w}w`).join(', ');
+	return `<picture>
+		<source type="image/avif" srcset="${set('avif')}" sizes="${sizes}">
+		<img src="${esc(image.base)}-${image.widths[0]}.webp" srcset="${set('webp')}" sizes="${sizes}" alt="" loading="lazy" decoding="async" width="${image.widths[0]}" height="${Math.round(image.widths[0] * 9 / 16)}">
+	</picture>`;
+}
+
+function sampleCard(s, i) {
+	const n = String(i + 1).padStart(2, '0');
+	return `<li class="rise" style="--delay:${i * 0.09}s">
+		<a class="card glass glass--interactive" data-shine href="${esc(s.href)}">
+			<div class="card__art">${picture(s.image, '(min-width: 1100px) 400px, (min-width: 760px) 45vw, 92vw')}<span class="card__num">${n}</span></div>
+			<div class="card__body">
+				<span class="card__kicker">${esc(s.kicker)}</span>
+				<h3 class="card__title">${esc(s.title)}</h3>
+				<p class="card__blurb">${esc(s.blurb)}</p>
+				<div class="card__foot">
+					<ul class="tags">${s.tags.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>
+					<span class="card__go" aria-hidden="true">${arrow}</span>
+				</div>
+			</div>
+		</a>
+	</li>`;
+}
+
+function exhibitCard(x) {
+	const links = (x.links || [{ label: 'Open', href: x.href, primary: true }])
+		.map((l) => `<a class="btn ${l.primary ? 'btn--primary' : 'btn--ghost'}" href="${esc(l.href)}">${esc(l.label)}${l.primary ? arrow : ''}</a>`)
+		.join('');
+	return `<li class="rise">
+		<article class="card card--feature glass glass--strong" data-shine>
+			<div class="card__art">${picture(x.image, '(min-width: 820px) 55vw, 92vw')}</div>
+			<div class="card__body">
+				<span class="card__kicker">${esc(x.kicker)}</span>
+				<h3 class="card__title">${esc(x.title)}</h3>
+				<p class="card__blurb">${esc(x.blurb)}</p>
+				<ul class="tags">${x.tags.map((t) => `<li>${esc(t)}</li>`).join('')}</ul>
+				<div class="card__actions">${links}</div>
+			</div>
+		</article>
+	</li>`;
+}
+
+async function render() {
+	const data = await fetch('samples.json', { cache: 'no-cache' }).then((r) => r.json());
+	const samples = document.querySelector('[data-cards="samples"]');
+	const exhibits = document.querySelector('[data-cards="exhibits"]');
+	samples.innerHTML = data.samples.map(sampleCard).join('');
+	exhibits.innerHTML = data.exhibits.map(exhibitCard).join('');
+	samples.setAttribute('aria-busy', 'false');
+	exhibits.setAttribute('aria-busy', 'false');
+	document.querySelectorAll('[data-count="samples"]').forEach((el) => { el.textContent = data.samples.length; });
+	document.querySelectorAll('[data-count="exhibits"]').forEach((el) => { el.textContent = data.exhibits.length; });
+	boot();
+}
+
+boot();
+parallax(document.querySelector('[data-parallax]'));
+render().catch((err) => {
+	document.querySelectorAll('[data-cards]').forEach((el) => {
+		el.innerHTML = '<li class="card-error">The sample list could not load. Try reloading the page.</li>';
+	});
+	console.error(err);
+});

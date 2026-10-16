@@ -1,0 +1,154 @@
+/*
+ * TJ-Hosting Lab — glass system.
+ * Every glass token lives here: blur, tint, border, shadow, radius.
+ * The base rule is the fallback (a solid translucent fill); the frosted look is
+ * layered on only where backdrop-filter is supported.
+ */
+
+:root {
+	/* blur */
+	--glass-blur: 22px;
+	--glass-blur-strong: 34px;
+	--glass-saturate: 165%;
+
+	/* tint: smoked violet glass. Fallback fills are denser so text stays readable without blur. */
+	--glass-tint: rgba(20, 13, 48, 0.46);
+	--glass-tint-strong: rgba(14, 9, 36, 0.64);
+	--glass-tint-soft: rgba(30, 20, 70, 0.30);
+	--glass-fallback: rgba(22, 15, 52, 0.90);
+	--glass-fallback-strong: rgba(14, 9, 36, 0.94);
+
+	/* border: a hairline plus an iridescent rim drawn by ::before */
+	--glass-border: rgba(255, 255, 255, 0.14);
+	--glass-border-hi: rgba(255, 255, 255, 0.42);
+	--glass-rim: linear-gradient(135deg,
+		rgba(255, 255, 255, 0.55) 0%,
+		rgba(150, 220, 255, 0.22) 22%,
+		rgba(255, 255, 255, 0.04) 45%,
+		rgba(210, 140, 255, 0.10) 70%,
+		rgba(255, 190, 120, 0.34) 100%);
+	--glass-rim-width: 1px;
+
+	/* shadow: deep drop + inner light */
+	--glass-shadow:
+		0 1px 0 0 rgba(255, 255, 255, 0.10) inset,
+		0 -1px 0 0 rgba(0, 0, 0, 0.25) inset,
+		0 24px 48px -18px rgba(3, 1, 18, 0.72),
+		0 8px 18px -10px rgba(3, 1, 18, 0.55);
+	--glass-shadow-lift:
+		0 1px 0 0 rgba(255, 255, 255, 0.16) inset,
+		0 -1px 0 0 rgba(0, 0, 0, 0.25) inset,
+		0 40px 80px -24px rgba(3, 1, 18, 0.80),
+		0 14px 28px -14px rgba(60, 20, 140, 0.55);
+	--glass-glow: 0 0 0 1px rgba(2, 183, 252, 0.35), 0 0 32px rgba(2, 183, 252, 0.28);
+
+	/* radius */
+	--glass-radius-xl: 36px;
+	--glass-radius: 26px;
+	--glass-radius-sm: 16px;
+	--glass-radius-pill: 999px;
+
+	/* shine (a soft specular spot that follows the pointer; moved with transform only) */
+	--glass-shine: radial-gradient(closest-side, rgba(255, 255, 255, 0.20), rgba(255, 255, 255, 0.06) 45%, rgba(255, 255, 255, 0) 70%);
+}
+
+/* ---------- base glass: the fallback look ---------- */
+
+.glass {
+	position: relative;
+	isolation: isolate;
+	background: var(--glass-fallback);
+	border: 1px solid var(--glass-border);
+	border-radius: var(--glass-radius);
+	box-shadow: var(--glass-shadow);
+	overflow: hidden;
+}
+
+.glass--strong { background: var(--glass-fallback-strong); }
+.glass--xl { border-radius: var(--glass-radius-xl); }
+.glass--sm { border-radius: var(--glass-radius-sm); }
+.glass--pill { border-radius: var(--glass-radius-pill); }
+
+/* iridescent rim: a gradient ring masked to the border box */
+.glass::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	padding: var(--glass-rim-width);
+	background: var(--glass-rim);
+	-webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+	-webkit-mask-composite: xor;
+	mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+	mask-composite: exclude;
+	pointer-events: none;
+	z-index: 2;
+}
+
+/* top sheen: light caught on the upper edge */
+.glass::after {
+	content: "";
+	position: absolute;
+	inset: 0 0 auto 0;
+	height: 55%;
+	border-radius: inherit;
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.07), rgba(255, 255, 255, 0));
+	pointer-events: none;
+	z-index: 0;
+}
+
+.glass > * { position: relative; z-index: 1; }
+
+/* the moving specular spot (child element, transform-only) */
+.glass__shine {
+	position: absolute !important;
+	z-index: 0 !important;
+	left: 0;
+	top: 0;
+	width: 520px;
+	height: 520px;
+	margin: -260px 0 0 -260px;
+	background: var(--glass-shine);
+	opacity: 0;
+	transform: translate3d(var(--shine-x, 50%), var(--shine-y, 0), 0);
+	transition: opacity 0.5s ease;
+	pointer-events: none;
+	will-change: transform;
+}
+.glass:hover > .glass__shine,
+.glass:focus-within > .glass__shine { opacity: 1; }
+
+/* ---------- frosted glass where supported ---------- */
+
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+	.glass {
+		background: var(--glass-tint);
+		-webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+		backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+	}
+	.glass--strong {
+		background: var(--glass-tint-strong);
+		-webkit-backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
+		backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
+	}
+	.glass--soft { background: var(--glass-tint-soft); }
+}
+
+/* ---------- hover lift for interactive glass ---------- */
+
+.glass--interactive {
+	transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1);
+	transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateZ(0);
+}
+.glass--interactive:hover,
+.glass--interactive:focus-within { box-shadow: var(--glass-shadow-lift); }
+
+@media (prefers-reduced-motion: reduce) {
+	.glass__shine { display: none; }
+	.glass--interactive { transition: none; transform: none; }
+}
+
+@media (forced-colors: active) {
+	.glass { border: 1px solid CanvasText; background: Canvas; }
+	.glass::before, .glass::after, .glass__shine { display: none; }
+}
