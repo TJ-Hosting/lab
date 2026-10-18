@@ -23,38 +23,43 @@ PACK = os.path.join(ROOT, 'assets', 'pack')
 OUT = os.path.join(ROOT, 'img')
 
 # name in img/, pack source, widths, kind, optional crop box (fractions l,t,r,b)
+# The -hd, -v2 and -black sources are the 17 Oct laptop images (lab-02); the largest width is the
+# source's own width (the models top out at 1600-1920 px), never more.
 PHOTOS = [
-	('bg/aurora', 'lab-bg-aurora.jpg', [640, 960, 1280], 'photo', None),
-	('bg/aurora-portrait', 'lab-bg-aurora-portrait.jpg', [360, 720], 'photo', None),
+	('bg/aurora', 'lab-bg-aurora-hd.jpg', [640, 960, 1280, 1600], 'photo', None),
+	('bg/aurora-portrait', 'lab-bg-aurora-portrait-hd.jpg', [360, 720, 1080], 'photo', None),
 	('bg/aurora-dusk', 'lab-bg-aurora-dusk.jpg', [640, 960, 1280], 'photo', None),
+	# the 17 Oct bokeh came out with glass bubbles that read as extra particles: the calmer pack one stays
 	('bg/bokeh', 'lab-bg-bokeh.jpg', [640, 960, 1280], 'photo', None),
-	('bg/prism', 'lab-bg-prism.jpg', [640, 960, 1280], 'photo', None),
+	('bg/prism', 'lab-bg-prism-hd.jpg', [640, 960, 1280, 1600], 'photo', None),
 	('bg/liquid-chrome', 'lab-bg-liquid-chrome.jpg', [640, 960, 1280], 'photo', None),
-	('bg/honeycomb', 'lab-hp-honeycomb.jpg', [640, 960, 1280], 'photo', None),
-	('bg/hex-portrait', 'lab-hp-hex-portrait.jpg', [360, 720], 'photo', None),
+	('bg/honeycomb', 'lab-bg-honeycomb-hd.jpg', [640, 960, 1280, 1920], 'photo', None),
+	('bg/hex-portrait', 'lab-hp-hex-portrait-hd.jpg', [360, 720, 941], 'photo', None),
 	('art/hands', 'lab-hum-hands.jpg', [640, 960, 1280], 'photo', None),
 	('art/glass-city', 'lab-hum-glass-city-dawn.jpg', [640, 960, 1280], 'photo', None),
-	('art/constellation', 'lab-hum-constellation.jpg', [640, 960, 1280], 'photo', None),
+	('art/constellation', 'lab-hum-constellation-v2.jpg', [640, 960, 1280], 'photo', None),
 	('art/honey-flow', 'lab-hp-honey-flow.jpg', [640, 960, 1280], 'photo', None),
 	('art/particles', 'lab-og-particles.jpg', [640, 960, 1280], 'photo', None),
 	('art/og-home', 'lab-og-home.jpg', [640, 960, 1280], 'photo', None),
 	('art/og-honeypot', 'lab-og-honeypot.jpg', [640, 960, 1280], 'photo', None),
-	('tex/holo-foil', 'lab-tex-holo-foil.jpg', [512], 'photo', None),
+	# seamless: resized with its own wrap around it, so the edges still meet when tiled
+	('tex/holo-foil', 'lab-tex-holo-foil-tile-v2.jpg', [512], 'tile', None),
 	# the "frosted" texture came out framed: keep the centre only
 	('tex/frosted', 'lab-tex-frosted.jpg', [512], 'photo', (0.2, 0.2, 0.8, 0.8)),
 ]
 OBJECTS = [
-	('obj/glass-cube', 'lab-obj-glass-cube.jpg', [320, 640]),
-	('obj/torus', 'lab-obj-torus.jpg', [320, 640]),
-	('obj/spheres', 'lab-obj-spheres.jpg', [320, 640]),
-	('obj/flask', 'lab-obj-flask.jpg', [320, 640]),
-	('obj/hex-prism', 'lab-obj-hex-prism.jpg', [320, 640]),
-	('obj/glass-bee', 'lab-hp-glass-bee.jpg', [320, 640]),
+	('obj/glass-cube', 'lab-obj-glass-cube-black.jpg', [320, 640]),
+	('obj/torus', 'lab-obj-torus-black.jpg', [320, 640]),
+	('obj/spheres', 'lab-obj-spheres-black.jpg', [320, 640]),
+	('obj/flask', 'lab-obj-flask-black.jpg', [320, 640]),
+	('obj/hex-prism', 'lab-obj-hex-prism-black.jpg', [320, 640]),
+	# the 17 Oct bee spreads its wings almost to the corners: start the edge fade further out
+	('obj/glass-bee', 'lab-hp-glass-bee-black.jpg', [320, 640], (0.9, 1.4)),
 ]
 # name, source, grid (cols, rows), cell size out
 SPRITES = [
-	('sprites/orbs', 'lab-spr-orbs.jpg', (4, 4), 128),
-	('sprites/sparkles', 'lab-spr-sparkles.jpg', (4, 4), 128),
+	('sprites/orbs', 'lab-spr-orbs-black.jpg', (4, 4), 128),
+	('sprites/sparkles', 'lab-spr-sparkles-black.jpg', (4, 4), 128),
 	('sprites/streaks', 'lab-spr-streaks.jpg', (3, 3), 128),
 ]
 
@@ -154,25 +159,40 @@ def luma_key(im, edge, gain=1.7):
 	return out
 
 
+def resized_tile(im, width):
+	"""Resize a seamless tile without breaking its wrap: scale a 3x3 repeat, keep the centre."""
+	if width > im.width:
+		raise SystemExit(f'refusing to upscale {im.width}px to {width}px')
+	h = round(im.height * width / im.width)
+	big = Image.new('RGB', (im.width * 3, im.height * 3))
+	for y in range(3):
+		for x in range(3):
+			big.paste(im, (x * im.width, y * im.height))
+	return big.resize((width * 3, h * 3), Image.LANCZOS).crop((width, h, width * 2, h * 2))
+
+
 def build_photos():
-	for name, src, widths, _kind, crop in PHOTOS:
+	for name, src, widths, kind, crop in PHOTOS:
 		im = Image.open(os.path.join(PACK, src)).convert('RGB')
 		op = 'resize'
 		if crop:
 			l, t, r, b = crop
 			im = im.crop((round(im.width * l), round(im.height * t), round(im.width * r), round(im.height * b)))
 			op = 'crop-centre+resize'
+		if kind == 'tile':
+			op = 'wrap-safe resize (3x3 repeat, centre)'
 		for w in widths:
 			w = min(w, im.width)
-			save_pair(resized(im, w), name, w, src, op)
+			save_pair(resized_tile(im, w) if kind == 'tile' else resized(im, w), name, w, src, op)
 
 
 def build_objects():
-	for name, src, widths in OBJECTS:
+	for name, src, widths, *edge in OBJECTS:
+		inner, outer = edge[0] if edge else (0.62, 0.99)
 		im = Image.open(os.path.join(PACK, src)).convert('RGB')
 		black = edge_black(im)
 		im = levels(im, black)
-		rgba = luma_key(im, radial_mask(im.size, 0.62, 0.99))
+		rgba = luma_key(im, radial_mask(im.size, inner, outer))
 		for w in widths:
 			save_pair(resized(rgba, w), name, w, src, f'levels(black={black})+luma-key alpha+radial edge+resize', alpha=True)
 
@@ -205,7 +225,8 @@ def main():
 	for g in wanted:
 		groups[g]()
 	ledger = set()
-	with open(os.path.join(PACK, 'LEDGER.jsonl')) as fh:
+	# explicit UTF-8 and '\n': Windows would otherwise read cp1252 and write CRLF
+	with open(os.path.join(PACK, 'LEDGER.jsonl'), encoding='utf-8') as fh:
 		for line in fh:
 			if line.strip():
 				ledger.add(json.loads(line)['file'])
@@ -213,19 +234,21 @@ def main():
 	if missing:
 		raise SystemExit(f'pack sources without a ledger line: {missing}')
 	# merge into the manifest: rows for files rebuilt now replace their old rows, others are kept
+	# while their file still exists
 	path = os.path.join(OUT, 'IMAGES.jsonl')
 	rows = {}
 	if os.path.exists(path):
-		with open(path) as fh:
+		with open(path, encoding='utf-8') as fh:
 			for line in fh:
 				if line.strip():
 					row = json.loads(line)
-					rows[row['file']] = row
+					if os.path.exists(os.path.join(ROOT, row['file'])):
+						rows[row['file']] = row
 	for row in manifest:
 		rows[row['file']] = row
-	with open(path, 'w') as fh:
+	with open(path, 'w', encoding='utf-8', newline='\n') as fh:
 		for key in sorted(rows):
-			fh.write(json.dumps(rows[key]) + '\n')
+			fh.write(json.dumps(rows[key], separators=(',', ':')) + '\n')
 	total = sum(os.path.getsize(os.path.join(ROOT, m['file'])) for m in manifest)
 	print(f'{len(manifest)} files, {total / 1024:.0f} KiB')
 

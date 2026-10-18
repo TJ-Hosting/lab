@@ -36,3 +36,14 @@ Every prompt ends with the pack’s shared style sentence:
 | 18 | `lab-spr-sparkles-black` | 1:1 | Particle-field sprite sheet (`img/sprites/sparkles.webp`) | A sprite sheet: a strict 4 by 4 grid of 16 four- and six-pointed glass sparkles, one per cell, each centred with generous space around it, white, cyan, pink and amber, on a pure solid black #000000 background, no grid lines, no borders. |
 
 18 requests (cap 40).
+
+## Status (lab-02, 2026-10-18)
+
+The 17 Oct laptop set answered all 18; see `assets/pack/README.md` ("Laptop additions") and the ledger. The models top out at 1600–1920 px (Codex) and 1280 px (Grok), so no image reaches the 2560 px in the names. Nothing was upscaled.
+
+- **Shipped (15):** 1, 2, 3, 4, 5, 9, 10–15, 16 (the Codex redo), 17, 18.
+- **Kept the pack version (3):**
+  - 6 bokeh: the new one is busier than asked.
+  - 7 hands: the new one is the same 1280 px and no better.
+  - 8 glass city: the new one has signage-like marks.
+- **Still open:** sharper hands, glass city and bokeh above 1280 px. They need Codex, which was busy on the laptop during lab-02, so no new images were made (0/40).

@@ -43,3 +43,40 @@ Looked at by eye (Claude): home at 1440 (Chrome) and 375 (Edge), exhibit banner 
 
 - Fixed: test 10 on Windows (above).
 - None found in the site itself.
+
+## P2: images in
+
+**Kept: 15 of the 18 answers.** They went into `assets/pack/` at native size, each with a ledger line; the table and reasons are in `assets/pack/README.md` ("Laptop additions"). **Kept the pack version: 3.**
+
+- **Bokeh:** the new one's glass bubbles read as extra particles behind the particle field; see the first try in `before-after/particle-field-*`, as shot before the revert.
+- **Hands:** the new one is the same 1280 px and less clean.
+- **Glass city:** two towers carry glyph-like engravings that read as signage.
+
+**New images: 0/40.** Codex was running on the laptop throughout P2 (two `codex.exe` app-server processes since 00:15Z), so under the brief's rule new jobs would have gone to Grok. Grok's 1280 px adds nothing over the pack for these three.
+
+**Build.** `python -I tools/build_images.py photos objects sprites` (Pillow 13.0.0 in `C:\localhost\lab-check-venv`). Outputs from unchanged sources came out byte-identical. The new top widths are bg/aurora 1600, aurora-portrait 1080, prism 1600, honeycomb 1920 and hex-portrait 941; each is the source's own width, and they are added to the pages' `srcset`. `img/IMAGES.jsonl` traces all 136 shipped images; test 10 passes.
+
+**Changes to `tools/build_images.py`:**
+
+- The tables point at the new sources.
+- A wrap-safe resize for the foil tile.
+- A per-object edge fade, wider for the bee.
+- UTF-8 and LF file I/O, because on Windows it read cp1252 and wrote CRLF.
+- Compact JSON in the manifest, as committed.
+
+**Output checks** (`image_checks.py`; sheets in `images/`):
+
+| Check | Result |
+|---|---|
+| Objects on black: outer 8 px alpha | 0 for all six (bee 1/255 after its wider fade) |
+| Objects: dark fringe (alpha ≥ 64 and luma < 24, sampled every 2 px of 640) | 0–36 px per object: none visible over white, grey or the aurora (`images/objects-keyed.jpg`) |
+| Objects: grey haze | none visible over grey or the aurora. The low-alpha pixels are each object's own glow, plus the cube's caustic pool, kept as light under it |
+| Sprite sheets | orbs and sparkles 16/16 cells with content, cell-edge alpha 0 (nothing clipped), no grid lines (`images/sprites-on-grey.jpg`) |
+| Holo-foil tile 2×2 | no visible seam (`images/holo-foil-2x2.jpg`). Mean step across the wrap is 13.7/15.6, against 10.2 between two inner columns: the same order as the crinkle |
+
+**Pages changed and fixed:**
+
+- The new bee fills its frame, so its wing was cut at the 375 px viewport edge, where `.bee` hung 30 px off-screen. Fixed in `exhibits/humanity/exhibit.css` (mobile `right: 12px`).
+- The exhibit edits touch only that line and four `srcset`s. The payload test (test 20, with 4 and 19) passed after each edit, and `evidence/trap-texts.txt` is unchanged.
+
+**Before/after:** `before-after/<page>[-<anchor>]-<width>.jpg`, with the branch at `a504b50` on the left and this change on the right. They cover home (top, samples, about), exhibit (top, rooms 3–5), hub, 404, logo and particle-field, at 1440 and 375, in headless Chrome 155 (`before-after.mjs`, `image_pairs.py`).
