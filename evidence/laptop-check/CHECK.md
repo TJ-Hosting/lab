@@ -80,3 +80,25 @@ Looked at by eye (Claude): home at 1440 (Chrome) and 375 (Edge), exhibit banner 
 - The exhibit edits touch only that line and four `srcset`s. The payload test (test 20, with 4 and 19) passed after each edit, and `evidence/trap-texts.txt` is unchanged.
 
 **Before/after:** `before-after/<page>[-<anchor>]-<width>.jpg`, with the branch at `a504b50` on the left and this change on the right. They cover home (top, samples, about), exhibit (top, rooms 3–5), hub, 404, logo and particle-field, at 1440 and 375, in headless Chrome 155 (`before-after.mjs`, `image_pairs.py`).
+
+## P3: contrast and visual pass
+
+**Contrast over the new backdrops:** `evidence/contrast.md` and `contrast.json` (`node tests/run.mjs contrast`).
+
+| Run | Measurements | Result | Lowest |
+|---|---|---|---|
+| Cloud, 16 Oct, 1440 only | 129 | all AA | 4.72:1 |
+| Laptop, old images, 1440 (`before/contrast-before.md`) | 129 | all AA | 4.72:1 |
+| Laptop, new images, 1440 | 129 | all AA | 4.66:1 (home hero eyebrow, needs 4.5) |
+| Laptop, new images, **375 (new)** | 92 | all AA | 5.09:1 (home hero eyebrow) |
+
+- The contrast test now also measures at 375×812, where phones get the portrait backdrops (`aurora-portrait`, `hex-portrait`); 1440 never shows them. The change is in `tests/run.mjs`, and the report gained a width column.
+- The largest drop: the home "Studies in motion" lede, 9.50 → 6.02 over the brighter aurora.
+- No fixes were needed.
+- Watch item: the hero eyebrow on the home page has the least margin (4.66 at 1440).
+
+**Visual pass:** `laptop-check.mjs p3`, headed Chrome 155 and Edge 155 at 1440 and 375, **56/56 pass**. That covers every check from P1, including the 404 page with the script fix. The console was clean under the CSP. Shots: `p3/<browser>/`. Claude looked at all 68 shots on contact sheets, plus the exhibit top at full size.
+
+- The glass, its fallback, reduced motion, reveal mode, the checker, the scoreboard, about and 404 all render as in P1.
+- The new backdrops show behind the glass in both browsers, with no banding or seams.
+- Note for TJ: at 1440 the new bee, larger in its frame than the old one, now covers more of the "f" in "Made of". The old bee overlapped it too, and the title stays readable, so the desktop layout is unchanged.

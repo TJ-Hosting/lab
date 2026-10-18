@@ -605,9 +605,10 @@ const CONTRAST = {
 };
 await test('contrast: text on glass meets WCAG AA over the brightest part of its background (3 samples over time)', async () => {
 	const rows = [];
-	for (const [k, { at, sel: selectors }] of Object.entries(CONTRAST)) for (const anchor of at) {
+	// 375 too: phones get the portrait backdrops (max-aspect-ratio: 4/5), which 1440 never shows
+	for (const width of [1440, 375]) for (const [k, { at, sel: selectors }] of Object.entries(CONTRAST)) for (const anchor of at) {
 		const path = PAGES[k].replace(/index\.html$/, '');
-		const { page, ctx } = await open(path);
+		const { page, ctx } = await open(path, { width, height: width === 375 ? 812 : 900 });
 		if (anchor === 'bottom') {
 			await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
 		} else if (anchor) {
@@ -679,17 +680,17 @@ await test('contrast: text on glass meets WCAG AA over the brightest part of its
 			const fg = t.gradient ? t.gradient.map(parse).sort((a, b) => contrast(a, max) - contrast(b, max))[0] : parse(t.color);
 			const ratio = contrast(fg, max);
 			const need = t.large ? 3 : 4.5;
-			rows.push({ page: k, at: anchor || 'top', selector: t.sel, index: t.i, size: t.size, text: `rgb(${fg.join(', ')})${t.gradient ? ' (darkest gradient stop)' : ''}`, brightestBehind: `rgb(${max.join(', ')})`, ratio: Math.round(ratio * 100) / 100, need, pass: ratio >= need });
+			rows.push({ page: k, width, at: anchor || 'top', selector: t.sel, index: t.i, size: t.size, text: `rgb(${fg.join(', ')})${t.gradient ? ' (darkest gradient stop)' : ''}`, brightestBehind: `rgb(${max.join(', ')})`, ratio: Math.round(ratio * 100) / 100, need, pass: ratio >= need });
 		}
 		await ctx.close();
 	}
-	const lines = ['Contrast of text on glass, WCAG 2.x, measured in headless Chromium at 1440×900.', 'Method: record each element\'s text colour, hide all text, take 3 screenshots 1.5 s apart (the backdrop drifts), and compare with the brightest pixel inside the element\'s content box (where the glyphs sit) across the 3 frames. Only elements fully on screen, below the sticky top bar and not covered by a fixed panel are measured; several scroll positions per page. AA: 4.5:1, or 3:1 for large text (≥24 px, or ≥18.66 px bold).', '', 'page | scrolled to | selector | # | px | text colour | brightest behind | ratio | need | result', '---|---|---|---|---|---|---|---|---|---'];
-	rows.forEach((r) => lines.push(`${r.page} | ${r.at} | ${r.selector} | ${r.index} | ${r.size} | ${r.text} | ${r.brightestBehind} | ${r.ratio.toFixed(2)} | ${r.need} | ${r.pass ? 'pass' : 'FAIL'}`));
+	const lines = ['Contrast of text on glass, WCAG 2.x, measured in headless Chromium at 1440×900 and 375×812.', 'Method: record each element\'s text colour, hide all text, take 3 screenshots 1.5 s apart (the backdrop drifts), and compare with the brightest pixel inside the element\'s content box (where the glyphs sit) across the 3 frames. Only elements fully on screen, below the sticky top bar and not covered by a fixed panel are measured; several scroll positions per page. AA: 4.5:1, or 3:1 for large text (≥24 px, or ≥18.66 px bold).', '', 'page | width | scrolled to | selector | # | px | text colour | brightest behind | ratio | need | result', '---|---|---|---|---|---|---|---|---|---|---'];
+	rows.forEach((r) => lines.push(`${r.page} | ${r.width} | ${r.at} | ${r.selector} | ${r.index} | ${r.size} | ${r.text} | ${r.brightestBehind} | ${r.ratio.toFixed(2)} | ${r.need} | ${r.pass ? 'pass' : 'FAIL'}`));
 	const fails = rows.filter((r) => !r.pass);
 	lines.push('', `${rows.length} measurements, ${rows.length - fails.length} pass, ${fails.length} fail. Lowest ratio: ${Math.min(...rows.map((r) => r.ratio)).toFixed(2)}.`);
 	writeFileSync(join(EVIDENCE, 'contrast.md'), `${lines.join('\n')}\n`);
 	writeFileSync(join(EVIDENCE, 'contrast.json'), `${JSON.stringify(rows, null, '\t')}\n`);
-	assert(!fails.length, `below AA: ${fails.map((f) => `${f.page} ${f.selector}#${f.index} ${f.ratio}`).join(', ')}`);
+	assert(!fails.length, `below AA: ${fails.map((f) => `${f.page}@${f.width} ${f.selector}#${f.index} ${f.ratio}`).join(', ')}`);
 	return `${rows.length} measurements, lowest ${Math.min(...rows.map((r) => r.ratio)).toFixed(2)}:1 → evidence/contrast.md`;
 });
 
