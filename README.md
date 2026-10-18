@@ -66,8 +66,14 @@ npm test                         # static checks + headless-browser checks; scre
 
 ## Images
 
-- `assets/pack/` is the pre-generated pack (ledger and flaws in its README). `python3 -I tools/build_images.py` converts it to AVIF/WebP without upscaling; `img/IMAGES.jsonl` traces every shipped image.
-- New images only through `tools/gen-images.mjs`, which enforces 40 calls and US$10 in code and ledgers each call to `assets/LEDGER.jsonl`. Keys come from the environment only. Pending requests: `assets/REQUESTS.md`.
+- `assets/pack/` is the pre-generated pack (ledger and flaws in its README). `python3 -I tools/build_images.py` converts it to AVIF/WebP without upscaling; `img/IMAGES.jsonl` traces every shipped image. On Windows, `python3` is the Store stub, so use a virtual environment with Pillow instead.
+- New images come one of two ways:
+  - **The laptop route** (used for the 17 Oct additions). Run the image-gen skill on the team laptop, on its own Grok/Codex/Gemini subscriptions, with no per-image spend.
+    - Keep the raw originals outside git.
+    - Copy each kept image into `assets/pack/` at its native size, never upscaled, with one line in `assets/pack/LEDGER.jsonl`: provider, full prompt with the pack's style sentence, the request it answers, and the conversion.
+    - Add it to the tables in `tools/build_images.py`, with widths up to its own width. Rebuild, then add any new width to the page's `srcset`.
+  - **The capped script** `tools/gen-images.mjs`, for API keys. It enforces 40 calls and US$10 in code and ledgers each call to `assets/LEDGER.jsonl`. Keys come from the environment only.
+- Requests and their status: `assets/REQUESTS.md`.
 
 ## Deploy (after merge)
 

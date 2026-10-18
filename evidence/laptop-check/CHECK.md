@@ -9,6 +9,7 @@ Run by agent=claude-code (opus-5.5 xhigh) for Aco, on branch `feat/lab-mvp-2026-
 | Cloud, 16 Oct (headless Chromium, Linux) | 23/23 | `evidence/test-output.txt` @ `ae57e46` |
 | Laptop baseline, 18 Oct 00:19Z (headless Chromium 141, Playwright's build 1194) | **22/23**: test 10 (images manifest) failed | `baseline-test-output.txt` |
 | Test 10 alone after the fix | pass (126 shipped images, 78 referenced paths) | — |
+| **Laptop final, 18 Oct 01:25Z (P4), after the images** | **23/23** in 461 s, contrast 221/221 AA | `evidence/test-output.txt` |
 
 Test 10 failed only on Windows: its folder walk built paths with `path.join`, which gives `img\bg\...` there, while the manifest uses `img/bg/...`. Fixed in `tests/run.mjs` (the walk now joins with `/`). Contrast in the baseline: 129/129 AA, lowest 4.72:1, as in the cloud run (`before/contrast-before.md`). The trap texts came out byte-identical apart from line endings. The baseline's headless shots are kept in `before/` as the "before" set for the image work.
 
