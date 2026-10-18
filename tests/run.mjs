@@ -212,7 +212,8 @@ await test('images: every shipped image is in img/IMAGES.jsonl, traced to a pack
 	const manifest = read('img/IMAGES.jsonl').split('\n').filter(Boolean).map((l) => JSON.parse(l));
 	const byFile = new Map(manifest.map((r) => [r.file, r]));
 	const ledger = new Set(read('assets/pack/LEDGER.jsonl').split('\n').filter(Boolean).map((l) => JSON.parse(l).file));
-	const walk = (d) => readdirSync(join(ROOT, d)).flatMap((f) => (statSync(join(ROOT, d, f)).isDirectory() ? walk(join(d, f)) : [join(d, f)]));
+	// repo-relative paths with '/' on every OS, to match the manifest (path.join gives '\' on Windows)
+	const walk = (d) => readdirSync(join(ROOT, d)).flatMap((f) => (statSync(join(ROOT, d, f)).isDirectory() ? walk(`${d}/${f}`) : [`${d}/${f}`]));
 	const shipped = [...walk('img'), ...walk('exhibits')].filter((f) => /\.(png|jpe?g|webp|avif|svg|gif)$/i.test(f));
 	const missing = shipped.filter((f) => !byFile.has(f));
 	assert(!missing.length, `no manifest line: ${missing.join(', ')}`);
