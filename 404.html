@@ -19,9 +19,12 @@
 		.lost__code { font: 900 clamp(76px, 16vw, 140px) / 0.9 var(--font-display); font-stretch: 85%; letter-spacing: -0.05em; margin: 0 0 12px; }
 		.lost__panel h1 { font: 900 clamp(24px, 3vw, 32px) / 1.15 var(--font-display); font-stretch: 92%; margin-bottom: 14px; }
 		.lost__panel p { color: var(--muted); }
+		.lost__panel .lost__code { color: var(--accent-text); }
 		.lost .actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 22px; }
 	</style>
 	<script src="/js/early.js"></script>
+	<!-- the shared motion helpers: pause the drift when the tab is hidden, fade the stuck bar -->
+	<script type="module" src="/js/lab.js"></script>
 </head>
 <body>
 	<div class="sky" aria-hidden="true"></div>

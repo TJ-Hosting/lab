@@ -3,7 +3,7 @@
 .hero {
 	position: relative;
 	display: grid;
-	grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
+	grid-template-columns: minmax(0, 0.92fr) minmax(0, 1.2fr);
 	align-items: center;
 	gap: clamp(16px, 3vw, 48px);
 	min-height: min(860px, calc(100svh - 68px));
@@ -35,7 +35,8 @@
    parallax ([data-depth]) and its image the bob ([data-bob], driven by loop() in home.js) */
 .hero__scene {
 	position: relative;
-	width: 100%;
+	width: 114%;
+	margin: -2% -10% 0 -4%;
 	aspect-ratio: 600 / 540;
 	pointer-events: none;
 }
@@ -57,7 +58,8 @@
 .iso--orbs { width: 23%; left: 9.3%; top: 50.2%; }
 .iso--honeypot { width: 21%; left: 68.7%; top: 46.1%; }
 .hero__cloud { position: absolute; width: 22%; right: -9%; top: 80%; opacity: 0.95; filter: none; }
-.hero__cloud--b { width: 18%; left: -6%; right: auto; top: 2%; opacity: 0.85; }
+/* clear of the copy column: a cloud's shaded underside is too dark to sit behind text */
+.hero__cloud--b { width: 16%; left: 6%; right: auto; top: -2%; opacity: 0.85; }
 
 @media (max-width: 900px) {
 	.hero { grid-template-columns: 1fr; min-height: 0; padding-top: 28px; }
