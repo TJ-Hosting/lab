@@ -606,7 +606,9 @@ const CONTRAST = {
 	logo: { at: [null], sel: ['.sample-info .eyebrow', '.sample-info h1', '.sample-info .how', '.controls .back'] },
 	exhibit: { at: [null, '#ch-1', '#ch-4', '#ch-6', '.colophon', 'bottom'], sel: ['.banner__text', '.banner__badge', '.banner .btn', '.chapter h2', '.chapter__text p', '.colophon p', '.colophon__code', '.ex-foot__panel p', '.reveal-pill__label'] },
 	hub: { at: [null, 'bottom'], sel: ['.topnav a', '.page-head .eyebrow', '.page-head .lede', '.tile .eyebrow', '.tile h2', '.tile p', '.tile .btn', '.foot span', '.foot a'] },
-	check: { at: [null, '#s2'], sel: ['.page-head .lede', '.panel > p', '.field label', '.note', '.btn--ghost'] },
+	// the checker's verdict and share panels only appear after a check: run the example first (lab-04;
+	// '#s2' never scrolled, so '.note' and '.btn--ghost' were never measured before)
+	check: { prep: async (page) => { await page.click('[data-action="example"]'); await page.click('button[type="submit"]'); await page.waitForTimeout(500); await page.evaluate(() => window.scrollTo(0, 0)); }, at: [null, '[data-action="example"]', '#results', '#outcomes li:nth-child(8)', '#share'], sel: ['.page-head .lede', '.panel > p', '.field label', '.note', '.btn--ghost', '.chip', '.outcome__name', '.outcome__why', '.seg label'] },
 	scoreboard: { at: [null, '#board'], sel: ['.page-head .lede', '#board-status', '.legend__t', '#board td', '#board th', '.note'] },
 	about: { at: [null, '#method'], sel: ['.page-head .lede', '.prose p', '.prose li', '#techniques td'] },
 	404: { at: [null], sel: ['.topnav a', '.lost__panel h1', '.lost__panel p', '.lost .btn'] },
@@ -620,6 +622,7 @@ await test('contrast: text meets WCAG AA against the worst pixel behind it for i
 	for (const width of [1440, 375]) for (const [k, { at, sel: selectors }] of pages) for (const anchor of at) {
 		const path = PAGES[k].replace(/index\.html$/, '');
 		const { page, ctx } = await open(path, { width, height: width === 375 ? 812 : 900 });
+		if (CONTRAST[k].prep) await CONTRAST[k].prep(page);
 		if (anchor === 'bottom') {
 			await page.evaluate(() => window.scrollTo(0, document.documentElement.scrollHeight));
 		} else if (anchor) {
