@@ -1,25 +1,20 @@
-# TASKS — agent-honeypot-01 (brief v2) · TJ-Hosting Lab MVP
+# TASKS — lab-04 · the Lab on Design System v9 "Day sky"
 
-- Executor: Claude Code on the web (cloud), agent=claude. Branch `feat/lab-mvp-2026-10-15` from `main` @ `6cd0699` (brief v2 + pack commit).
-- Started: 2026-10-16 00:05 UTC. Agent budget 16 h (per the launch prompt; the brief says 8 h).
+- Brief: `C:\localhost\projects\agent-honeypot\dispatches\BRIEF-v1-lab-04-day-sky-2026-10-27.md` (v1 + Addendum A).
+- Executor: Claude Code on ACO-PC, Opus 5.5 Extra High, agent=claude-code. RUNLOG run `aco-pc-20261027T194427Z`.
+- Branch `feat/lab-day-sky-2026-10-27` from `origin/feat/lab-mvp-2026-10-15` @ `e0177ff` (PR #1 is an open draft, so this PR stacks on it).
+- Box 12 h from 19:44Z 27 Oct: checkpoint 04:44Z, hard stop 07:44Z 28 Oct.
+- Design source: `TJ-Hosting/tj` `feat/iso-day-2026-10-26` @ `bfccfbb` (worktree `C:\localhost\tj-iso`), DS v9 tokens, glass, base, chrome, components.
 - Times are wall-clock UTC.
 
 | Step | Status | Start | End | Notes |
 |---|---|---|---|---|
-| 0 Branch, Phase 0, TASKS.md | done | 00:05 | 00:13 | Node 22.22, npm 10.9, Playwright 1.56 + Chromium, PIL (WebP/AVIF), ImageMagick, ffmpeg. `OPENAI_API_KEY`/`GEMINI_API_KEY` not set → no generation, write `assets/REQUESTS.md`. tj-hosting.ca reachable (logo + brand tokens). Price table and crawler UAs recorded from vendor pages. |
-| P1 Lab shell + glass system | done | 00:13 | 00:24 | Glass tokens in `css/glass.css` (fallback first, frosted under `@supports`); home renders cards from `samples.json`; pack → AVIF/WebP via `tools/build_images.py` (117 files, no upscaling, manifest `img/IMAGES.jsonl`); fonts self-hosted (OFL). |
-| P2 Three motion samples | done | 00:24 | 00:33 | humanity-type (WAAPI), particle-field (Canvas 2D + sprite atlases, luma-keyed), logo (SVG; TJ glyph from tj-hosting.ca favicon.svg). All pause off-screen/hidden; reduced motion = still frame. |
-| P3 Honeypot exhibit | done | 00:33 | 00:40 | `/exhibits/humanity/` "Made of Many", `noindex,nofollow`, banner first. 18 techniques in `honeypot/techniques.json` (16 in page text, 2 vision PNGs rendered by `tools/render-vision-traps.mjs`). Reveal mode reads each trap from the DOM; pins + panel. |
-| P4 Checker | done | 00:40 | 00:43 | `/honeypot/check/`: logic in `checker.js` (pure, Node-importable), proposes obeyed/flagged/ignored per code, tester confirms; hash share link; pre-filled issue form `.github/ISSUE_TEMPLATE/result.yml`. Verified: example with 2 poems + 1 warning → exactly those outcomes; link restores them. |
-| P5 Scoreboard, about, test kit | done | 00:43 | 00:46 | `/honeypot/` hub, `/honeypot/scoreboard/` (results.json × techniques.json heat map; one row labelled EXAMPLE), `/honeypot/about/` (method, safety, submit), `TESTING.md` (P-A/P-B/P-C, fresh sessions, checklist for TJ). |
-| P6 Images | done | 00:46 | 00:49 | No API key → 0/40 calls, US$0/10; 18 requests in `assets/REQUESTS.md`. `tools/gen-images.mjs` enforces 40 calls + US$10 (price table from vendor pages, 2026-10-16) and ledgers to `assets/LEDGER.jsonl`. Share images 1200×630 for home, 3 samples, exhibit, honeypot (`tools/render-og.mjs`). `CREDITS.md`. `img/IMAGES.jsonl` traces every shipped image. |
-| P7 Deploy config + README | done | 00:49 | 00:52 | `CNAME`, `robots.txt` (training crawlers off the exhibit only), `sitemap.xml` (no exhibit), `404.html`, `_config.yml` (verified with a real Jekyll 3.10 build: internal folders excluded, site files byte-identical), `docs/ROBOTS.md` with vendor citations, README. |
-| Evidence + tests | done | 00:52 | 01:20 | `tests/run.mjs` (npm test). Run 1: 21/23 (payload-review test bug; real contrast failures → fixed in `bd438b0`). Final run: 23/23. Evidence in `evidence/` (23 screenshots, contrast 129/129 AA, trap texts). |
-| Result file + PR | done | 01:20 | 01:21 | `dispatches/RESULT-agent-honeypot-01.md`; draft PR https://github.com/TJ-Hosting/lab/pull/1 (not merged). |
-
-## Close (2026-10-16 01:21 UTC)
-
-- **Verified done:** all of P1–P7 are built and checked in headless Chromium at 1440 and 375 px. `npm test` passes 23/23. Images: 0/40 generated, US$0/10 spent (no key).
-- **State:** draft PR https://github.com/TJ-Hosting/lab/pull/1 is open on `feat/lab-mvp-2026-10-15` and awaits Barney or TJ. Nothing is merged or deployed.
-- **Blocker:** none.
-- **Next action:** after review, merge, then do the Pages/DNS steps in the README and run the `TESTING.md` checklist against the live URL.
+| P0 Setup and baseline | done | 19:44 | 20:14 | Store pull ff to e3e01d73; precondition met (tj-build-06 RUN END 09:54Z, P10 RUN END 19:22Z); brief committed to the store (f9240419); worktree made; `gen.ps1 -Check` exit 0 (lab 0/40); Pillow 13 venv `C:\localhost\tools\lab-venv`; Playwright's installer hung unzipping Chromium 1194 under Node 26, so its downloaded zips were unpacked with Windows `tar` (headless OK). Baseline `npm test` 23/23, contrast lowest 4.66:1 (`evidence/lab-04/baseline-test-output.txt`) |
+| P1 DS v9 in the Lab | in progress | 20:14 | | |
+| P2 Art | pending | | | |
+| P3 Home, shell and 404 | pending | | | |
+| P4 The three samples | pending | | | |
+| P5 The honeypot | pending | | | |
+| P6 Visual review | pending | | | |
+| P7 Full verification | pending | | | |
+| P8 Docs, PR, records | pending | | | |
