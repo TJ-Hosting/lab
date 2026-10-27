@@ -1,5 +1,5 @@
 # TJ-Hosting Lab tests
-# 2026-10-18T01:25:44.926Z
+# 2026-10-27T22:14:06.280Z
 # --- static ---
 ok 1 - techniques.json: at least 12 techniques, unique codes, each with a reveal hint (18 techniques, 2 vision)
 ok 2 - exhibit: every non-vision code appears exactly once in the built exhibit (HTML + its CSS/JS, tag characters decoded) (16 codes across 7 files: exhibits/humanity/index.html, css\glass.css, css\lab.css, exhibits\humanity\exhibit.css, js\early.js, exhibits\humanity\exhibit.js, js\lab.js)
@@ -10,7 +10,7 @@ ok 6 - banner: first element in the exhibit body, says it contains hidden instru
 ok 7 - robots.txt: user-triggered fetchers and search crawlers never blocked; training crawlers blocked from the exhibit only
 ok 8 - sitemap.xml: home, samples and honeypot tools; not the exhibit; every URL exists (8 URLs)
 ok 9 - no tracking, no third-party requests: every page has a self-only CSP and loads nothing from other hosts
-ok 10 - images: every shipped image is in img/IMAGES.jsonl, traced to a pack ledger line or a render script; every referenced image exists (136 shipped images, 88 referenced paths, generated calls in assets/LEDGER.jsonl: 0)
+ok 10 - images: every shipped image is in img/IMAGES.jsonl, traced to a pack ledger line or a render script; every referenced image exists (111 shipped images, 52 referenced paths, generated calls in assets/LEDGER.jsonl: 0)
 ok 11 - checker: two poems and one warning give exactly those outcomes; the share link restores them
 ok 12 - checker: edge cases (no codes → all ignored; a code only quoted in prose → flagged; a title with no poem → flagged)
 ok 13 - image generator: refuses the 41st call and any call past US$10, counts crashed calls, writes one ledger line per call
@@ -24,6 +24,6 @@ ok 19 - exhibit: banner visible on load; reveal mode pins and lists every techni
 ok 20 - payload review: every trap asks only for a short poem about humanity titled with its code (nothing else) (evidence/trap-texts.txt)
 ok 21 - checker: the sample answer shows exactly two obeyed and one flagged; the share link restores them; screenshots
 ok 22 - scoreboard: renders results.json with the example row labelled; a new row appears with no code change; screenshots
-ok 23 - contrast: text on glass meets WCAG AA over the brightest part of its background (3 samples over time) (221 measurements, lowest 4.66:1 → evidence/contrast.md)
+ok 23 - contrast: text meets WCAG AA against the worst pixel behind it for its polarity (3 samples over time); every selector measured (381 measurements, lowest 5.03:1 → evidence/contrast.md)
 # 23 passed, 0 failed
 # screenshots: 23 in evidence/
