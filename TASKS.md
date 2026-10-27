@@ -10,7 +10,7 @@
 | Step | Status | Start | End | Notes |
 |---|---|---|---|---|
 | P0 Setup and baseline | done | 19:44 | 20:14 | Store pull ff to e3e01d73; precondition met (tj-build-06 RUN END 09:54Z, P10 RUN END 19:22Z); brief committed to the store (f9240419); worktree made; `gen.ps1 -Check` exit 0 (lab 0/40); Pillow 13 venv `C:\localhost\tools\lab-venv`; Playwright's installer hung unzipping Chromium 1194 under Node 26, so its downloaded zips were unpacked with Windows `tar` (headless OK). Baseline `npm test` 23/23, contrast lowest 4.66:1 (`evidence/lab-04/baseline-test-output.txt`) |
-| P1 DS v9 in the Lab | in progress | 20:14 | | |
+| P1 DS v9 in the Lab | done | 20:14 | 20:52 | Tests first, each seen failing (`evidence/lab-04/tests-seen-failing.md`): contrast by polarity, every selector measured, hub + 404 in; fallback expects `rgba(255, 255, 255, 0.9)`. DS v9 tokens, light glass, Nunito Sans + Great Vibes, nav capsule, night-band footers, CSS day sky on all 10 pages. Gate: fallback ok; contrast home/hub/404 147 measurements, lowest 6.11:1; pages load 10×2 clean; CSP unchanged. Exhibit, samples and tool pages still carry their old page CSS (P4, P5) |
 | P2 Art | pending | | | |
 | P3 Home, shell and 404 | pending | | | |
 | P4 The three samples | pending | | | |

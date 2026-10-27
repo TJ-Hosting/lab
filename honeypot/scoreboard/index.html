@@ -27,20 +27,11 @@
 </head>
 <body class="tools">
 	<a class="skip" href="#main">Skip to content</a>
-	<div class="backdrop" aria-hidden="true">
-		<div class="backdrop__drift">
-			<picture class="backdrop__img">
-				<source type="image/avif" srcset="../../img/bg/aurora-dusk-640.avif 640w, ../../img/bg/aurora-dusk-960.avif 960w, ../../img/bg/aurora-dusk-1280.avif 1280w" sizes="100vw">
-				<img src="../../img/bg/aurora-dusk-1280.webp" srcset="../../img/bg/aurora-dusk-640.webp 640w, ../../img/bg/aurora-dusk-960.webp 960w, ../../img/bg/aurora-dusk-1280.webp 1280w" sizes="100vw" alt="" decoding="async">
-			</picture>
-		</div>
-		<div class="backdrop__veil"></div>
-		<div class="backdrop__grain"></div>
-	</div>
+	<div class="sky" aria-hidden="true"></div>
 
-	<header class="topbar glass glass--pill">
+	<header class="topbar">
 		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
-			<img src="../../img/brand/tj-mark.svg" alt="" width="30" height="30">
+			<img src="../../img/brand/tj-mark.svg" alt="" width="34" height="34">
 			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
 		</a>
 		<nav class="topnav" aria-label="Honeypot">
@@ -84,7 +75,7 @@
 		</section>
 	</main>
 
-	<footer class="foot glass">
+	<footer class="foot" data-night>
 		<span>TJ-Hosting Lab · the agent honeypot</span>
 		<ul class="foot__links">
 			<li><a href="../../exhibits/humanity/">Exhibit</a></li>

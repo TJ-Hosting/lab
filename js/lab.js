@@ -62,6 +62,14 @@ export function loop(element, tick, options = {}) {
 	return state;
 }
 
+/* the top bar: once the page is scrolled, a soft fade of the sky behind it (DS v9's stuck bar) */
+const bar = document.querySelector('.topbar');
+if (bar) {
+	const stuck = () => bar.classList.toggle('is-stuck', scrollY > 4);
+	addEventListener('scroll', stuck, { passive: true });
+	stuck();
+}
+
 /* [data-motion] regions get .is-live while on-screen (CSS pauses the rest) */
 const liveIO = new IntersectionObserver((entries) => {
 	entries.forEach((e) => e.target.classList.toggle('is-live', e.isIntersecting));

@@ -93,7 +93,7 @@ for (const channel of CHANNELS) {
 			const st = await page.evaluate(() => { const s = getComputedStyle(document.querySelector('.hero__panel')); return { bg: s.backgroundColor, f: s.backdropFilter || s.webkitBackdropFilter || 'none' }; });
 			const s1 = await shot(page, 'home-glass-fallback');
 			const problems = await done();
-			record({ ...base, check: 'home (glass fallback)', pass: st.f === 'none' && st.bg === 'rgba(22, 15, 52, 0.9)' && !problems.length, note: `fill ${st.bg}, backdrop-filter ${st.f}`, problems, shots: [s1] });
+			record({ ...base, check: 'home (glass fallback)', pass: st.f === 'none' && st.bg === 'rgba(255, 255, 255, 0.9)' && !problems.length, note: `fill ${st.bg}, backdrop-filter ${st.f}`, problems, shots: [s1] });
 		}
 		// samples, normal and reduced motion
 		for (const [slug, wait] of [['humanity-type', 3600], ['particle-field', 2500], ['logo', 4200]]) {

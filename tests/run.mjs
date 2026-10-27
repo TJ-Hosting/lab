@@ -13,7 +13,7 @@ import { fileURLToPath } from 'node:url';
 import { tmpdir } from 'node:os';
 import { spawnSync } from 'node:child_process';
 import { chromium } from 'playwright';
-import { decodePng, contrast } from './png.mjs';
+import { decodePng, contrast, luminance } from './png.mjs';
 import { analyse, encodeShare, decodeShare } from '../honeypot/check/checker.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -406,7 +406,8 @@ await test('glass fallback: with backdrop-filter unsupported, panels fall back t
 		const s = getComputedStyle(document.querySelector('.hero__panel'));
 		return { bg: s.backgroundColor, filter: s.backdropFilter || s.webkitBackdropFilter || 'none' };
 	});
-	eq(style.bg, 'rgba(22, 15, 52, 0.9)', 'fallback fill');
+	// DS v9 light glass (lab-04): white, dense enough to pass contrast with no blur
+	eq(style.bg, 'rgba(255, 255, 255, 0.9)', 'fallback fill');
 	eq(style.filter, 'none', 'no backdrop-filter in the fallback');
 	await shot(page, 'home-no-backdrop-filter-1440');
 	shots.push('home-no-backdrop-filter-1440');
@@ -592,21 +593,31 @@ await test('scoreboard: renders results.json with the example row labelled; a ne
 	await ctx.close();
 });
 
-/* ---------- contrast: text on glass, measured over the brightest pixel behind it ---------- */
+/* ---------- contrast: text against the worst background pixel for its polarity ---------- */
+// lab-04: the Lab is light now, so "the brightest pixel behind it" (a light-text assumption) no longer
+// finds the worst case. Dark text is measured against the DARKEST pixel behind it, light text against
+// the BRIGHTEST (polarity from the text colour's luminance: under 0.179, where contrast with black and
+// with white is equal, it is dark text). Every selector must be measured at least once on its page:
+// one that matched nothing visible used to be skipped silently. The hub and the 404 are in the list.
 const CONTRAST = {
-	home: { at: [null, '#samples', '#about'], sel: ['.topnav a', '.hero__panel .eyebrow', '.hero__panel .lede', '.hero__facts li', '.hero__cta .btn', '.section__head p:not(.eyebrow)', '.card__kicker', '.card__title', '.card__blurb', '.tags li', '.card__actions .btn', '.about p', '.foot span', '.foot a'] },
+	home: { at: [null, '#samples', '#about', 'bottom'], sel: ['.topnav a', '.hero__panel .eyebrow', '.hero__panel .lede', '.hero__facts li', '.hero__cta .btn', '.section__head p:not(.eyebrow)', '.card__kicker', '.card__title', '.card__blurb', '.tags li', '.card__actions .btn', '.about p', '.foot span', '.foot a'] },
 	'humanity-type': { at: [null], sel: ['.sample-info .eyebrow', '.sample-info h1', '.sample-info .how', '.controls .back', '.controls .btn'] },
 	'particle-field': { at: [null], sel: ['.sample-info .eyebrow', '.sample-info h1', '.sample-info .how', '.controls .back', '.hint'] },
 	logo: { at: [null], sel: ['.sample-info .eyebrow', '.sample-info h1', '.sample-info .how', '.controls .back'] },
 	exhibit: { at: [null, '#ch-1', '#ch-4', '#ch-6', '.colophon', 'bottom'], sel: ['.banner__text', '.banner__badge', '.banner .btn', '.chapter h2', '.chapter__text p', '.colophon p', '.colophon__code', '.ex-foot__panel p', '.reveal-pill__label'] },
+	hub: { at: [null, 'bottom'], sel: ['.topnav a', '.page-head .eyebrow', '.page-head .lede', '.tile .eyebrow', '.tile h2', '.tile p', '.tile .btn', '.foot span', '.foot a'] },
 	check: { at: [null, '#s2'], sel: ['.page-head .lede', '.panel > p', '.field label', '.note', '.btn--ghost'] },
 	scoreboard: { at: [null, '#board'], sel: ['.page-head .lede', '#board-status', '.legend__t', '#board td', '#board th', '.note'] },
 	about: { at: [null, '#method'], sel: ['.page-head .lede', '.prose p', '.prose li', '#techniques td'] },
+	404: { at: [null], sel: ['.topnav a', '.lost__panel h1', '.lost__panel p', '.lost .btn'] },
 };
-await test('contrast: text on glass meets WCAG AA over the brightest part of its background (3 samples over time)', async () => {
+// CONTRAST_PAGES=home,hub limits the pages (for quick runs while building; the full suite runs them all)
+const CONTRAST_PAGES = (process.env.CONTRAST_PAGES || '').split(',').filter(Boolean);
+await test('contrast: text meets WCAG AA against the worst pixel behind it for its polarity (3 samples over time); every selector measured', async () => {
 	const rows = [];
-	// 375 too: phones get the portrait backdrops (max-aspect-ratio: 4/5), which 1440 never shows
-	for (const width of [1440, 375]) for (const [k, { at, sel: selectors }] of Object.entries(CONTRAST)) for (const anchor of at) {
+	const pages = Object.entries(CONTRAST).filter(([k]) => !CONTRAST_PAGES.length || CONTRAST_PAGES.includes(k));
+	// 375 too: phones get their own layouts, which 1440 never shows
+	for (const width of [1440, 375]) for (const [k, { at, sel: selectors }] of pages) for (const anchor of at) {
 		const path = PAGES[k].replace(/index\.html$/, '');
 		const { page, ctx } = await open(path, { width, height: width === 375 ? 812 : 900 });
 		if (anchor === 'bottom') {
@@ -664,34 +675,43 @@ await test('contrast: text on glass meets WCAG AA over the brightest part of its
 			await page.waitForTimeout(1500);
 		}
 		for (const t of targets) {
-			let max = [0, 0, 0];
-			let maxL = -1;
+			const parse = (c) => c.match(/[\d.]+/g).slice(0, 3).map(Number);
+			const fgs = t.gradient ? t.gradient.map(parse) : [parse(t.color)];
+			// polarity: dark text (a gradient: its stops on average) is worst over the darkest pixel, light over the brightest
+			const dark = fgs.reduce((s, c) => s + luminance(c), 0) / fgs.length < 0.179;
+			let worst = null;
+			let worstL = dark ? Infinity : -1;
 			for (const f of frames) {
 				for (let y = Math.round(t.rect.y); y < Math.round(t.rect.y + t.rect.h); y++) {
 					for (let x = Math.round(t.rect.x); x < Math.round(t.rect.x + t.rect.w); x++) {
 						const o = (y * f.width + x) * 4;
 						const px = [f.data[o], f.data[o + 1], f.data[o + 2]];
 						const l = 0.2126 * px[0] + 0.7152 * px[1] + 0.0722 * px[2];
-						if (l > maxL) { maxL = l; max = px; }
+						if (dark ? l < worstL : l > worstL) { worstL = l; worst = px; }
 					}
 				}
 			}
-			const parse = (c) => c.match(/[\d.]+/g).slice(0, 3).map(Number);
-			const fg = t.gradient ? t.gradient.map(parse).sort((a, b) => contrast(a, max) - contrast(b, max))[0] : parse(t.color);
-			const ratio = contrast(fg, max);
+			const fg = fgs.sort((a, b) => contrast(a, worst) - contrast(b, worst))[0];
+			const ratio = contrast(fg, worst);
 			const need = t.large ? 3 : 4.5;
-			rows.push({ page: k, width, at: anchor || 'top', selector: t.sel, index: t.i, size: t.size, text: `rgb(${fg.join(', ')})${t.gradient ? ' (darkest gradient stop)' : ''}`, brightestBehind: `rgb(${max.join(', ')})`, ratio: Math.round(ratio * 100) / 100, need, pass: ratio >= need });
+			rows.push({ page: k, width, at: anchor || 'top', selector: t.sel, index: t.i, size: t.size, polarity: dark ? 'dark' : 'light', text: `rgb(${fg.join(', ')})${t.gradient ? ' (worst gradient stop)' : ''}`, worstBehind: `rgb(${worst.join(', ')})`, ratio: Math.round(ratio * 100) / 100, need, pass: ratio >= need });
 		}
 		await ctx.close();
 	}
-	const lines = ['Contrast of text on glass, WCAG 2.x, measured in headless Chromium at 1440×900 and 375×812.', 'Method: record each element\'s text colour, hide all text, take 3 screenshots 1.5 s apart (the backdrop drifts), and compare with the brightest pixel inside the element\'s content box (where the glyphs sit) across the 3 frames. Only elements fully on screen, below the sticky top bar and not covered by a fixed panel are measured; several scroll positions per page. AA: 4.5:1, or 3:1 for large text (≥24 px, or ≥18.66 px bold).', '', 'page | width | scrolled to | selector | # | px | text colour | brightest behind | ratio | need | result', '---|---|---|---|---|---|---|---|---|---|---'];
-	rows.forEach((r) => lines.push(`${r.page} | ${r.width} | ${r.at} | ${r.selector} | ${r.index} | ${r.size} | ${r.text} | ${r.brightestBehind} | ${r.ratio.toFixed(2)} | ${r.need} | ${r.pass ? 'pass' : 'FAIL'}`));
+	const unmeasured = pages.flatMap(([k, { sel }]) => sel.filter((s) => !rows.some((r) => r.page === k && r.selector === s)).map((s) => `${k} ${s}`));
+	const lines = ['Contrast of text, WCAG 2.x, measured in headless Chromium at 1440×900 and 375×812.', 'Method: record each element\'s text colour, hide all text, take 3 screenshots 1.5 s apart (anything that drifts is caught at its worst), and compare with the worst pixel inside the element\'s content box (where the glyphs sit) across the 3 frames: the darkest pixel behind dark text, the brightest behind light text (dark = text luminance under 0.179). Only elements fully on screen, below the sticky top bar and not covered by a fixed panel are measured; several scroll positions per page; every selector must be measured at least once on its page. AA: 4.5:1, or 3:1 for large text (≥24 px, or ≥18.66 px bold).', '', 'page | width | scrolled to | selector | # | px | polarity | text colour | worst behind | ratio | need | result', '---|---|---|---|---|---|---|---|---|---|---|---'];
+	rows.forEach((r) => lines.push(`${r.page} | ${r.width} | ${r.at} | ${r.selector} | ${r.index} | ${r.size} | ${r.polarity} | ${r.text} | ${r.worstBehind} | ${r.ratio.toFixed(2)} | ${r.need} | ${r.pass ? 'pass' : 'FAIL'}`));
 	const fails = rows.filter((r) => !r.pass);
-	lines.push('', `${rows.length} measurements, ${rows.length - fails.length} pass, ${fails.length} fail. Lowest ratio: ${Math.min(...rows.map((r) => r.ratio)).toFixed(2)}.`);
-	writeFileSync(join(EVIDENCE, 'contrast.md'), `${lines.join('\n')}\n`);
-	writeFileSync(join(EVIDENCE, 'contrast.json'), `${JSON.stringify(rows, null, '\t')}\n`);
-	assert(!fails.length, `below AA: ${fails.map((f) => `${f.page}@${f.width} ${f.selector}#${f.index} ${f.ratio}`).join(', ')}`);
-	return `${rows.length} measurements, lowest ${Math.min(...rows.map((r) => r.ratio)).toFixed(2)}:1 → evidence/contrast.md`;
+	lines.push('', `${rows.length} measurements, ${rows.length - fails.length} pass, ${fails.length} fail. Lowest ratio: ${Math.min(...rows.map((r) => r.ratio)).toFixed(2)}. Selectors never measured: ${unmeasured.length ? unmeasured.join('; ') : 'none'}.`);
+	// a partial run's report goes beside lab-04's other working evidence, never over the suite's record
+	const name = CONTRAST_PAGES.length ? `lab-04/contrast-${CONTRAST_PAGES.join('-')}` : 'contrast';
+	writeFileSync(join(EVIDENCE, `${name}.md`), `${lines.join('\n')}\n`);
+	writeFileSync(join(EVIDENCE, `${name}.json`), `${JSON.stringify(rows, null, '\t')}\n`);
+	const problems = [];
+	if (fails.length) problems.push(`below AA: ${fails.map((f) => `${f.page}@${f.width} ${f.selector}#${f.index} ${f.ratio}`).join(', ')}`);
+	if (unmeasured.length) problems.push(`never measured (matched nothing fully on screen): ${unmeasured.join(', ')}`);
+	assert(!problems.length, problems.join('\n'));
+	return `${rows.length} measurements, lowest ${Math.min(...rows.map((r) => r.ratio)).toFixed(2)}:1 → evidence/${name}.md`;
 });
 
 await browser.close();
