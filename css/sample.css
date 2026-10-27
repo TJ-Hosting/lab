@@ -19,7 +19,8 @@
 .sample-info {
 	position: fixed;
 	z-index: 40;
-	left: max(var(--gutter), env(safe-area-inset-left));
+	/* on the page grid, like the brand above it */
+	left: max(var(--gutter), env(safe-area-inset-left), calc((100vw - var(--page-max)) / 2));
 	bottom: max(18px, env(safe-area-inset-bottom));
 	width: min(440px, calc(100% - 2 * var(--gutter)));
 	padding: 20px 22px 18px;

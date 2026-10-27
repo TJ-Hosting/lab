@@ -27,10 +27,25 @@ const pointer = { x: 0, y: 0, active: false, strength: 0 };
 function load(src) {
 	return new Promise((resolve, reject) => {
 		const img = new Image();
-		img.onload = () => resolve(img);
+		img.onload = () => resolve(tint(img));
 		img.onerror = reject;
 		img.src = src;
 	});
+}
+
+/* the atlases keep their files; at draw time they take DS v8's night photo filter (tj-hosting.ca's
+   [data-night] --photo-filter), so the sparks read royal, azure, cyan and white in the night screen
+   (lab-04 review 2). A browser without canvas filters draws them as they are. */
+const NIGHT_FILTER = 'sepia(1) saturate(2.4) hue-rotate(172deg) brightness(1.05)';
+function tint(img) {
+	const c = document.createElement('canvas');
+	c.width = img.naturalWidth;
+	c.height = img.naturalHeight;
+	const g = c.getContext('2d');
+	if (!('filter' in g)) return img;
+	g.filter = NIGHT_FILTER;
+	g.drawImage(img, 0, 0);
+	return c;
 }
 
 /* small deterministic PRNG so the still frame is the same every visit */

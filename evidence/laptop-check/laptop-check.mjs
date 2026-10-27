@@ -1,5 +1,6 @@
 /*
  * lab-02 laptop check: the site in headed, installed Chrome and Edge at 1440 and 375 px.
+ * lab-04 added home and exhibit with reduced motion, and a check that Nunito Sans and Great Vibes load.
  * Run from the repo root:  node evidence/laptop-check/laptop-check.mjs <label> [chrome,msedge]
  * Shots and results.json go to evidence/laptop-check/<label>/. Same static server as tests/run.mjs
  * (with a GitHub-Pages-style 404.html fallback). Reads page state only; changes nothing in the site.
@@ -94,6 +95,23 @@ for (const channel of CHANNELS) {
 			const s1 = await shot(page, 'home-glass-fallback');
 			const problems = await done();
 			record({ ...base, check: 'home (glass fallback)', pass: st.f === 'none' && st.bg === 'rgba(255, 255, 255, 0.9)' && !problems.length, note: `fill ${st.bg}, backdrop-filter ${st.f}`, problems, shots: [s1] });
+		}
+		// home and exhibit with reduced motion, and DS v9's fonts loaded (lab-04)
+		for (const [name, path] of [['home', ''], ['exhibit', 'exhibits/humanity/']]) {
+			const { page, done } = await open(path, { reduced: true });
+			await page.waitForTimeout(1500);
+			const st = await page.evaluate(async () => {
+				await document.fonts.ready;
+				return {
+					anims: document.getAnimations().filter((a) => a.playState === 'running').length,
+					loops: (window.__labLoops || []).filter((l) => l.running).length,
+					nunito: document.fonts.check('900 16px "Nunito Sans"'),
+					vibes: document.fonts.check('16px "Great Vibes"'),
+				};
+			});
+			const s1 = await shot(page, `${name}-reduced`);
+			const problems = await done();
+			record({ ...base, check: `${name} (reduced motion, fonts)`, pass: !st.anims && !st.loops && st.nunito && st.vibes && !problems.length, note: `running: ${st.anims} animations, ${st.loops} loops; Nunito Sans ${st.nunito}, Great Vibes ${st.vibes}`, problems, shots: [s1] });
 		}
 		// samples, normal and reduced motion
 		for (const [slug, wait] of [['humanity-type', 3600], ['particle-field', 2500], ['logo', 4200]]) {

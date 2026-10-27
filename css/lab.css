@@ -97,7 +97,7 @@
 	--t-surface: 0.3s;
 
 	/* how far a night band fades in from the day sky before its words start */
-	--night-fade: clamp(110px, 16vh, 180px);
+	--night-fade: clamp(170px, 24vh, 240px);
 }
 
 /* the night band: DS v8 Midnight blue under the same names (tj-hosting.ca's [data-night]) */
@@ -378,9 +378,10 @@ main { display: block; overflow-x: clip; } /* decorative art may hang past the e
 }
 @media (max-width: 420px) {
 	.topnav .hide-xs { display: none; }
-	/* the mark already says TJ: keep just "Lab" beside it */
-	.brand > span { font-size: 0; }
-	.brand > span .grad-ink { font-size: 14px; }
+	/* the whole name stays (review 1), a little smaller */
+	.brand { font-size: 12px; letter-spacing: 0.04em; gap: 7px; }
+	.brand img, .brand svg { width: 28px; height: 28px; }
+	.topnav a { padding: 8px 9px; font-size: 13px; }
 }
 
 /* ---------- buttons (DS v9: primary filled and glowing, ghost on light glass) ---------- */
@@ -497,16 +498,13 @@ main { display: block; overflow-x: clip; } /* decorative art may hang past the e
 	transition: transform 1.2s var(--ease-out);
 }
 .card:hover .card__art img, .card:focus-visible .card__art img { transform: translate3d(0, -6px, 0) scale(1.03); }
+/* a plain mono number, as tj numbers its steps */
 .card__num {
 	position: absolute;
 	z-index: 2;
-	left: 12px;
-	top: 12px;
-	padding: 5px 10px;
-	border: 1px solid var(--line);
-	border-radius: 6px;
-	background: rgba(255, 255, 255, 0.9);
-	color: var(--muted);
+	left: 16px;
+	top: 14px;
+	color: var(--accent-text);
 	font: 600 12px/16px var(--font-mono);
 	letter-spacing: 0.14em;
 }
@@ -574,8 +572,10 @@ main { display: block; overflow-x: clip; } /* decorative art may hang past the e
 
 /* ---------- the night band (footers): DS v8 at the bottom of a DS v9 page ---------- */
 
-/* It fades in from the day sky over --night-fade of its own top padding, so the sky darkens
-   where there is nothing to read, then the words sit on full night. */
+/* It crosses from the day sky over --night-fade of its own top padding, through saturated blues
+   (tj-hosting.ca's dusk ramp, sampled from its night band: never through grey), so the sky darkens
+   where there is nothing to read; the aurora and a few stars sit in that dusk, and the words sit on
+   full night below it (light text there is measured against the brightest pixel behind it). */
 /* (positioned per component: a night screen or pill may be fixed, a band is relative) */
 [data-night]:not(body) { isolation: isolate; }
 .night-band, .foot { position: relative; }
@@ -586,31 +586,67 @@ main { display: block; overflow-x: clip; } /* decorative art may hang past the e
 	inset: 0;
 	z-index: -1;
 	background:
-		linear-gradient(to bottom, rgba(18, 64, 158, 0.85) 0, rgba(18, 64, 158, 0.5) calc(var(--night-fade) * 0.5), rgba(18, 64, 158, 0) var(--night-fade)),
-		radial-gradient(42% 30% at 64% 18%, rgba(76, 195, 255, 0.2), rgba(7, 11, 22, 0) 70%),
-		radial-gradient(36% 26% at 82% 26%, rgba(28, 128, 242, 0.2), rgba(7, 11, 22, 0) 70%),
-		radial-gradient(48% 34% at 40% 22%, rgba(10, 100, 214, 0.22), rgba(7, 11, 22, 0) 72%),
-		radial-gradient(90% 40% at 50% 100%, rgba(10, 114, 224, 0.06), rgba(7, 11, 22, 0) 70%),
-		#070b16;
-	-webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 var(--night-fade));
-	mask-image: linear-gradient(to bottom, transparent 0, #000 var(--night-fade));
+		radial-gradient(34% 70px at 68% calc(var(--night-fade) * 0.78), rgba(76, 195, 255, 0.28), rgba(76, 195, 255, 0) 70%),
+		radial-gradient(28% 60px at 26% calc(var(--night-fade) * 0.7), rgba(28, 128, 242, 0.3), rgba(28, 128, 242, 0) 70%),
+		radial-gradient(22% 46px at 88% calc(var(--night-fade) * 0.62), rgba(70, 208, 251, 0.18), rgba(70, 208, 251, 0) 70%),
+		/* aurora curtains: tall, narrow, soft */
+		radial-gradient(3% 70px at 18% calc(var(--night-fade) * 0.72), rgba(76, 195, 255, 0.22), rgba(76, 195, 255, 0) 80%),
+		radial-gradient(4% 80px at 57% calc(var(--night-fade) * 0.68), rgba(70, 208, 251, 0.2), rgba(70, 208, 251, 0) 80%),
+		radial-gradient(3% 64px at 79% calc(var(--night-fade) * 0.74), rgba(76, 195, 255, 0.18), rgba(76, 195, 255, 0) 80%),
+		linear-gradient(to bottom,
+			rgba(201, 231, 252, 0) 0,
+			rgba(145, 172, 208, 0.8) calc(var(--night-fade) * 0.2),
+			#5e7cad calc(var(--night-fade) * 0.42),
+			#3b588c calc(var(--night-fade) * 0.62),
+			#223967 calc(var(--night-fade) * 0.82),
+			#102043 var(--night-fade),
+			#070c19 calc(var(--night-fade) + 90px),
+			#070b16 100%);
+	pointer-events: none;
+}
+/* stars, only in the dusk above the words */
+.night-band::after,
+.foot::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	/* three tiles of different, unrelated sizes, so no grid shows */
+	background-image:
+		radial-gradient(1.2px 1.2px at 22px 34px, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0) 70%),
+		radial-gradient(1px 1px at 96px 76px, rgba(200, 228, 255, 0.75), rgba(200, 228, 255, 0) 70%),
+		radial-gradient(1.6px 1.6px at 158px 18px, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0) 70%),
+		radial-gradient(1px 1px at 64px 122px, rgba(170, 215, 255, 0.7), rgba(170, 215, 255, 0) 70%),
+		radial-gradient(1.2px 1.2px at 184px 138px, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0) 70%),
+		radial-gradient(1px 1px at 41px 9px, rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0) 70%),
+		radial-gradient(1.4px 1.4px at 117px 101px, rgba(200, 228, 255, 0.65), rgba(200, 228, 255, 0) 70%),
+		radial-gradient(1px 1px at 263px 47px, rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0) 70%),
+		radial-gradient(1.2px 1.2px at 199px 168px, rgba(170, 215, 255, 0.6), rgba(170, 215, 255, 0) 70%);
+	background-size: 210px 160px, 210px 160px, 210px 160px, 210px 160px, 210px 160px, 137px 113px, 137px 113px, 331px 197px, 331px 197px;
+	-webkit-mask-image: linear-gradient(to bottom, transparent 0, transparent calc(var(--night-fade) * 0.45), #000 calc(var(--night-fade) * 0.75), #000 calc(var(--night-fade) - 6px), transparent calc(var(--night-fade) + 6px));
+	mask-image: linear-gradient(to bottom, transparent 0, transparent calc(var(--night-fade) * 0.45), #000 calc(var(--night-fade) * 0.75), #000 calc(var(--night-fade) - 6px), transparent calc(var(--night-fade) + 6px));
 	pointer-events: none;
 }
 
+/* the footer: the brand on the left, the links on the right, a hairline and room under them */
 .foot {
-	margin: clamp(40px, 6vw, 72px) 0 0;
-	padding: calc(var(--night-fade) + 28px) max(var(--gutter), calc((100% - var(--page-max)) / 2)) 40px;
+	margin: clamp(48px, 7vw, 88px) 0 0;
+	padding: calc(var(--night-fade) + 40px) max(var(--gutter), calc((100% - var(--page-max)) / 2)) 64px;
 	display: flex;
 	flex-wrap: wrap;
 	align-items: center;
 	justify-content: space-between;
-	gap: 14px 24px;
+	gap: 18px 28px;
 	font: 500 14px/22px var(--font-sans);
 	color: var(--muted);
 }
+.foot__mark { width: 40px; height: 40px; flex: none; margin-right: -14px; }
+.foot > span { margin-right: auto; }
 .foot a { color: var(--ink); text-decoration: none; }
 .foot a:hover { color: var(--accent-text); text-decoration: underline; }
-.foot__links { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 0; padding: 0; list-style: none; }
+.foot__links { display: flex; flex-wrap: wrap; gap: 8px 28px; margin: 0; padding: 0; list-style: none; }
+.foot__links a { color: var(--muted); font-weight: 600; }
+.foot__links a:hover { color: var(--ink); }
 
 /* ---------- a night screen: a framed browser window on the day sky, for pieces that only read on dark ---------- */
 

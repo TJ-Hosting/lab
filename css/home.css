@@ -19,12 +19,15 @@
 	color: var(--ink-black);
 }
 .hero__title .line { display: block; }
+/* the script line in ink, tucked up under the headline as on tj-hosting.ca's lockup; the blue is
+   the one accent word in the sans ("light") */
 .hero__title .script {
 	display: inline-block;
+	margin-top: -0.16em;
 	padding: 0.04em 0.15em 0.14em 0;
-	font-size: 1.16em;
-	line-height: 1.02;
-	color: var(--accent-text);
+	font-size: 1.2em;
+	line-height: 1;
+	color: var(--ink-black);
 }
 
 .hero__cta { display: flex; flex-wrap: wrap; gap: 12px; margin: 28px 0 0; }
@@ -41,8 +44,10 @@
 	pointer-events: none;
 }
 .hero__traces { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
-.hero__traces .trace { fill: none; stroke: #46d0fb; stroke-width: 2.2; stroke-linecap: round; filter: drop-shadow(0 0 4px rgba(70, 208, 251, 0.9)); }
-.hero__traces .node { fill: #ffffff; stroke: #46d0fb; stroke-width: 2.4; filter: drop-shadow(0 0 5px rgba(70, 208, 251, 0.95)); }
+/* the traces: glowing cyan tubes (cyan core, azure falloff), a node at each end */
+.hero__traces .trace { fill: none; stroke: #46d0fb; stroke-width: 5; stroke-linecap: round; filter: drop-shadow(0 0 3px rgba(70, 208, 251, 0.95)) drop-shadow(0 0 9px rgba(21, 120, 241, 0.6)); }
+.hero__traces .trace-core { fill: none; stroke: #e8fbff; stroke-width: 1.6; stroke-linecap: round; }
+.hero__traces .node { fill: #ffffff; stroke: #46d0fb; stroke-width: 3; filter: drop-shadow(0 0 6px rgba(70, 208, 251, 0.95)); }
 .hero__traces .node--glow { animation: node-glow 3.6s ease-in-out infinite; }
 .hero__traces .node--glow:nth-of-type(2n) { animation-delay: -1.2s; }
 @keyframes node-glow { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
@@ -50,16 +55,18 @@
 .iso { position: absolute; will-change: transform; }
 .iso img { width: 100%; height: auto; filter: var(--shadow-object); will-change: transform; }
 /* placed so each plinth's top face sits on its node of the trace network (nodes on the 30-degree
-   isometric axes: centre 300,300; the others 175 px across and 101 px up or down from it), the
-   window hovering over its node; left/top in % of the 600 x 540 frame, from each sprite's ratio */
-.iso--flask { width: 21%; left: 10.3%; top: 6.3%; }
-.iso--browser { width: 24%; left: 67.2%; top: 1.5%; }
-.iso--cube { width: 27%; left: 36.5%; top: 29.3%; }
-.iso--orbs { width: 23%; left: 9.3%; top: 50.2%; }
-.iso--honeypot { width: 21%; left: 68.7%; top: 46.1%; }
-.hero__cloud { position: absolute; width: 22%; right: -9%; top: 80%; opacity: 0.95; filter: none; }
-/* clear of the copy column: a cloud's shaded underside is too dark to sit behind text */
-.hero__cloud--b { width: 16%; left: 6%; right: auto; top: -2%; opacity: 0.85; }
+   isometric axes: the hub at 300,300, the satellites 200 px across and 115.5 px up or down from it);
+   the hub cube is about 1.6x a satellite, as tj's globe is to its satellites; the window hovers over
+   tj's own square plinth; left/top in % of the 600 x 540 frame, from each sprite's ratio */
+.iso--flask { width: 21%; left: 6.2%; top: 3.6%; }
+.iso--plinth { width: 22%; left: 72.3%; top: 27.5%; }
+.iso--browser { width: 22%; left: 72.3%; top: 6.4%; }
+.iso--cube { width: 36%; left: 32%; top: 20.6%; }
+.iso--orbs { width: 23%; left: 5.2%; top: 52.9%; }
+.iso--honeypot { width: 21%; left: 72.8%; top: 48.8%; }
+.hero__cloud { position: absolute; width: 22%; right: -9%; top: 86%; opacity: 0.95; filter: none; }
+/* clear of the copy column and the flask: a cloud's shaded underside is too dark to sit behind text */
+.hero__cloud--b { width: 16%; left: 38%; right: auto; top: -6%; opacity: 0.85; }
 
 @media (max-width: 900px) {
 	.hero { grid-template-columns: 1fr; min-height: 0; padding-top: 28px; }
@@ -76,7 +83,7 @@
 /* about */
 .about {
 	display: grid;
-	grid-template-columns: minmax(140px, 260px) 1fr;
+	grid-template-columns: minmax(120px, 200px) 1fr;
 	align-items: center;
 	gap: clamp(18px, 4vw, 48px);
 	padding: clamp(24px, 4vw, 52px);

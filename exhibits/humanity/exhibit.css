@@ -69,48 +69,17 @@
 	margin-bottom: 26px;
 	color: var(--ink-black);
 }
-/* "Many" is the page's one script phrase (Great Vibes), in accent blue */
+/* "Many" is the page's one script phrase (Great Vibes), in ink as on tj-hosting.ca's lockup */
 .ex-title__many {
 	display: inline-block;
 	padding: 0 0.16em 0.12em 0.04em;
 	font-size: 1.22em;
 	line-height: 0.9;
-	color: var(--accent-text);
+	color: var(--ink-black);
 }
 .ex-hero .lede { margin: 0 auto; }
 /* room for the script M's swash under the eyebrow */
 .ex-hero .eyebrow { margin-bottom: clamp(26px, 3.4vw, 46px); }
-
-/* floating glass hex cells (transform-only drift) */
-.ex-hero__cells { position: absolute; inset: 0; pointer-events: none; }
-.cell {
-	position: absolute;
-	width: var(--s, 120px);
-	aspect-ratio: 1 / 1.1547;
-	clip-path: polygon(50% 0, 100% 25%, 100% 75%, 50% 100%, 0 75%, 0 25%);
-	background: linear-gradient(160deg, rgba(255, 255, 255, 0.85), rgba(169, 216, 252, 0.5) 55%, rgba(77, 159, 243, 0.42));
-	will-change: transform;
-}
-@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-	.cell { -webkit-backdrop-filter: blur(8px) saturate(150%); backdrop-filter: blur(8px) saturate(150%); background: linear-gradient(160deg, rgba(255, 255, 255, 0.7), rgba(169, 216, 252, 0.36) 55%, rgba(77, 159, 243, 0.3)); }
-}
-.cell::after {
-	content: "";
-	position: absolute;
-	inset: 0;
-	background: linear-gradient(160deg, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0) 40%);
-	opacity: 0.6;
-}
-.cell--1 { --s: 120px; left: 6%; top: 14%; animation: cell-float 11s ease-in-out infinite alternate; }
-.cell--2 { --s: 74px; left: 20%; top: 64%; animation: cell-float 9s ease-in-out -2s infinite alternate-reverse; }
-.cell--3 { --s: 150px; right: 30%; top: 4%; animation: cell-float 13s ease-in-out -4s infinite alternate; opacity: 0.8; }
-.cell--4 { --s: 60px; right: 24%; top: 72%; animation: cell-float 8s ease-in-out -1s infinite alternate; }
-.cell--5 { --s: 92px; right: 4%; top: 62%; animation: cell-float 10s ease-in-out -6s infinite alternate-reverse; }
-.cell--6 { --s: 54px; left: 36%; top: 8%; animation: cell-float 12s ease-in-out -3s infinite alternate; }
-@keyframes cell-float {
-	from { transform: translate3d(0, -12px, 0) rotate(-6deg); }
-	to { transform: translate3d(0, 14px, 0) rotate(8deg); }
-}
 
 /* the honeycomb island, low on the left */
 .ex-hero__comb {
@@ -176,11 +145,9 @@
 }
 
 @media (max-width: 720px) {
-	.ex-hero { min-height: 0; padding-top: 170px; padding-bottom: 150px; }
-	.bee { right: 8px; top: 4px; width: 160px; }
+	.ex-hero { min-height: 0; padding-top: 196px; padding-bottom: 150px; }
+	.bee { right: 8px; top: 0; width: 128px; }
 	.ex-hero__comb { width: 200px; left: -40px; bottom: 30px; }
-	.cell--3 { --s: 96px; }
-	.cell--1 { --s: 74px; }
 }
 
 /* ---------- chapters ---------- */
@@ -239,8 +206,9 @@
 	gap: 12px;
 	font: 900 clamp(40px, 5vw, 60px) / 1 var(--font-display);
 	font-stretch: 85%;
-	color: transparent;
-	-webkit-text-stroke: 1.4px var(--accent-text);
+	letter-spacing: -0.02em;
+	/* filled, in accent blue (an outline numeral read as a missing glyph; review 1) */
+	color: var(--accent-text);
 }
 .chapter h2 {
 	font: 900 clamp(26px, 3vw, 38px) / 1.1 var(--font-display);
@@ -254,7 +222,8 @@
 .hex-glyph { display: inline-grid; width: 26px; height: 26px; color: var(--accent-text); -webkit-text-stroke: 0; }
 .hex-glyph svg { width: 100%; height: 100%; }
 
-/* chapter IV: a honeycomb of glass cells that light up amber in a wave */
+/* chapter IV: a honeycomb of glass cells that light up in a wave of cyan light (blue only; review 1),
+   three of its cells kept honey-gold for the hive */
 .chapter__art--hive {
 	aspect-ratio: auto;
 	min-height: 360px;
@@ -280,11 +249,14 @@
 	content: "";
 	position: absolute;
 	inset: 0;
-	background: linear-gradient(160deg, #ffe2aa, #ffb547 55%, #ff8a3d);
+	background: linear-gradient(160deg, #f2fcff, #46d0fb 55%, #1578f1);
 	opacity: 0;
 	animation: hive-glow 4.8s ease-in-out infinite;
 	animation-delay: calc(var(--i, 0) * 0.16s);
 }
+.hexes span:nth-child(5), .hexes span:nth-child(10), .hexes span:nth-child(17) { background: linear-gradient(160deg, #ffe6b0, #ffc24a 55%, #ff9f3d); }
+/* the wave passes over the honey cells (cyan over gold read olive; review 2) */
+.hexes span:nth-child(5)::after, .hexes span:nth-child(10)::after, .hexes span:nth-child(17)::after { display: none; }
 .hexes span:nth-child(n + 8):nth-child(-n + 14) { transform: translateX(calc(var(--h) * 0.45)); }
 .hexes span:nth-child(7n + 1) { --i: 0; } .hexes span:nth-child(7n + 2) { --i: 1; } .hexes span:nth-child(7n + 3) { --i: 2; }
 .hexes span:nth-child(7n + 4) { --i: 3; } .hexes span:nth-child(7n + 5) { --i: 4; } .hexes span:nth-child(7n + 6) { --i: 5; }
@@ -305,7 +277,7 @@
 
 /* rooms V and VI: night screens (the vision images only read, and were made, on dark) */
 .chapter__panel.screen { padding: calc(34px + clamp(22px, 3vw, 40px)) clamp(24px, 3.4vw, 48px) clamp(24px, 3.4vw, 48px); }
-.chapter__panel.screen .chapter__num { -webkit-text-stroke-color: var(--accent-text); }
+.chapter__panel.screen .chapter__num { color: var(--accent-text); }
 .chapter__panel.screen .chapter__text p { color: var(--ink-2); }
 
 .haze { margin: 0 0 1em; border-radius: 12px; overflow: hidden; box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.06); }
@@ -481,3 +453,6 @@
 	.reveal-panel { top: auto; left: 10px; right: 10px; bottom: 10px; width: auto; height: min(72vh, 620px); }
 	.reveal-pill__label { font-size: 12.5px; }
 }
+
+/* a visible word gap after the zero-size span in room III (its own space collapses to zero width); the span and its words are untouched */
+.chapter__text .hairline::after { content: ""; margin-right: 0.28rem; }

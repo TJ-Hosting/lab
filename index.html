@@ -32,11 +32,6 @@
 	<a class="skip" href="#main">Skip to content</a>
 
 	<div class="sky" aria-hidden="true"></div>
-	<div class="clouds" aria-hidden="true">
-		<img class="sky__cloud sky__cloud--a" src="img/sky/cloud-1-420.webp" srcset="img/sky/cloud-1-220.webp 220w, img/sky/cloud-1-420.webp 420w" sizes="300px" alt="" width="420" height="325" decoding="async">
-		<img class="sky__cloud sky__cloud--b" src="img/sky/cloud-4-420.webp" srcset="img/sky/cloud-4-220.webp 220w, img/sky/cloud-4-420.webp 420w" sizes="240px" alt="" width="420" height="266" decoding="async">
-		<img class="sky__cloud sky__cloud--c" src="img/sky/cloud-2-420.webp" srcset="img/sky/cloud-2-220.webp 220w, img/sky/cloud-2-420.webp 420w" sizes="280px" alt="" width="420" height="306" decoding="async">
-	</div>
 
 	<header class="topbar">
 		<a class="brand" href="./" aria-label="TJ-Hosting Lab, home">
@@ -56,7 +51,7 @@
 				<p class="eyebrow rise">TJ-Hosting · <b>Lab</b> · Vol. 01</p>
 				<h1 class="hero__title display" id="hero-title">
 					<span class="line rise" style="--delay:.08s">Motion,</span>
-					<span class="line rise" style="--delay:.18s">made of light</span>
+					<span class="line rise" style="--delay:.18s">made of <span class="grad-ink">light</span></span>
 					<span class="line rise" style="--delay:.28s"><span class="script">&amp; glass.</span></span>
 				</h1>
 				<p class="lede rise" style="--delay:.4s">An open lab where TJ-Hosting builds motion-graphics experiments in plain HTML, CSS and JavaScript. Three studies to start, one exhibit about AI agents, and more to come.</p>
@@ -75,14 +70,16 @@
 
 			<div class="hero__scene" aria-hidden="true">
 				<svg class="hero__traces" viewBox="0 0 600 540">
-					<path class="trace" d="M300 300 L125 199 M300 300 L475 199 M300 300 L125 401 M300 300 L475 401"/>
-					<circle class="node node--glow" cx="125" cy="199" r="5"/>
-					<circle class="node node--glow" cx="475" cy="199" r="5"/>
-					<circle class="node" cx="300" cy="300" r="5"/>
-					<circle class="node node--glow" cx="125" cy="401" r="5"/>
-					<circle class="node node--glow" cx="475" cy="401" r="5"/>
+					<path class="trace" d="M300 300 L100 184.5 M300 300 L500 184.5 M300 300 L100 415.5 M300 300 L500 415.5"/>
+					<path class="trace-core" d="M300 300 L100 184.5 M300 300 L500 184.5 M300 300 L100 415.5 M300 300 L500 415.5"/>
+					<circle class="node node--glow" cx="100" cy="184.5" r="7"/>
+					<circle class="node node--glow" cx="500" cy="184.5" r="7"/>
+					<circle class="node" cx="300" cy="300" r="7"/>
+					<circle class="node node--glow" cx="100" cy="415.5" r="7"/>
+					<circle class="node node--glow" cx="500" cy="415.5" r="7"/>
 				</svg>
 				<div class="iso iso--flask" data-depth="-12"><img data-bob src="img/iso/flask-320.webp" srcset="img/iso/flask-320.webp 320w, img/iso/flask-640.webp 640w" sizes="(min-width: 900px) 14vw, 26vw" alt="" width="640" height="975" decoding="async"></div>
+				<div class="iso iso--plinth" data-depth="16"><img src="img/iso/plinth-square-320.webp" srcset="img/iso/plinth-square-320.webp 320w, img/iso/plinth-square-640.webp 640w" sizes="(min-width: 900px) 15vw, 26vw" alt="" width="640" height="460" decoding="async"></div>
 				<div class="iso iso--browser" data-depth="16"><img data-bob src="img/iso/browser-320.webp" srcset="img/iso/browser-320.webp 320w, img/iso/browser-640.webp 640w" sizes="(min-width: 900px) 16vw, 30vw" alt="" width="640" height="761" decoding="async"></div>
 				<div class="iso iso--cube" data-depth="8"><img data-bob src="img/iso/cube-320.webp" srcset="img/iso/cube-320.webp 320w, img/iso/cube-640.webp 640w" sizes="(min-width: 900px) 19vw, 36vw" alt="" width="640" height="700" fetchpriority="high" decoding="async"></div>
 				<div class="iso iso--orbs" data-depth="-18"><img data-bob src="img/iso/orbs-320.webp" srcset="img/iso/orbs-320.webp 320w, img/iso/orbs-640.webp 640w" sizes="(min-width: 900px) 16vw, 30vw" alt="" width="640" height="753" decoding="async"></div>
@@ -95,7 +92,7 @@
 		<section class="section wrap" id="samples" aria-labelledby="samples-title">
 			<header class="section__head">
 				<p class="eyebrow rise">Samples</p>
-				<h2 class="rise" id="samples-title">Studies in motion</h2>
+				<h2 class="rise" id="samples-title">Studies in <span class="grad-ink">motion</span></h2>
 				<p class="rise">Small, self-contained pieces. Each one runs on phones and wide screens, pauses when you look away, and holds still if your device asks for reduced motion.</p>
 			</header>
 			<ul class="cards" data-cards="samples" aria-busy="true"></ul>
@@ -105,7 +102,7 @@
 		<section class="section wrap" id="exhibits" aria-labelledby="exhibits-title">
 			<header class="section__head">
 				<p class="eyebrow rise">Exhibit</p>
-				<h2 class="rise" id="exhibits-title">Do AI agents follow hidden instructions?</h2>
+				<h2 class="rise" id="exhibits-title">Do AI agents follow <span class="grad-ink">hidden instructions?</span></h2>
 				<p class="rise">Web pages can hide text that people never see but AI assistants read. Our first exhibit tests that, openly and harmlessly.</p>
 			</header>
 			<ul class="cards cards--feature" data-cards="exhibits" aria-busy="true"></ul>
@@ -115,11 +112,11 @@
 		<section class="section wrap" id="about" aria-labelledby="about-title">
 			<div class="about glass glass--xl rise" data-shine data-motion>
 				<div class="about__emblem" aria-hidden="true">
-					<img src="img/iso/torus-320.webp" srcset="img/iso/torus-320.webp 320w, img/iso/torus-640.webp 640w" sizes="260px" alt="" width="640" height="882" loading="lazy" decoding="async">
+					<img src="img/iso/ring-320.webp" srcset="img/iso/ring-320.webp 320w, img/iso/ring-640.webp 640w" sizes="260px" alt="" width="640" height="476" loading="lazy" decoding="async">
 				</div>
 				<div class="about__text">
 					<p class="eyebrow">About the lab</p>
-					<h2 id="about-title" class="display">Where TJ-Hosting tries ideas first.</h2>
+					<h2 id="about-title" class="display">Where TJ-Hosting <span class="grad-ink">tries ideas first.</span></h2>
 					<p>The lab is a static site with no back end, no cookies and no analytics. Every piece is hand-coded and open source, and new samples land here every few weeks.</p>
 				</div>
 			</div>
@@ -127,6 +124,7 @@
 	</main>
 
 	<footer class="foot" data-night>
+		<img class="foot__mark" src="img/brand/tj-mark.svg" alt="" width="40" height="40">
 		<span>TJ-Hosting Lab · <a href="https://tj-hosting.ca/">tj-hosting.ca</a></span>
 		<ul class="foot__links">
 			<li><a href="honeypot/about/">Honeypot method</a></li>

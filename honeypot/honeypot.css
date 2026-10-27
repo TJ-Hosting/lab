@@ -63,7 +63,7 @@ input[type="text"], input[type="date"], input[type="url"], select, textarea {
 	padding: 11px 14px;
 	border-radius: var(--radius-sm);
 	border: 1px solid var(--border-control);
-	background: var(--surface);
+	background: var(--raised);
 	color: var(--ink);
 	font: inherit;
 	font-size: 15.5px;
@@ -162,15 +162,15 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px
 .board .agent { font-weight: 800; color: var(--ink); }
 .board .sub { display: block; font-size: 12.5px; color: var(--muted); font-weight: 450; }
 .board tbody tr:hover td { background: var(--raised); }
-.board tr.is-example td { background: #fffaf0; }
+.board tr.is-example td { background: #f2f7fd; }
 .tag-example {
 	display: inline-block;
 	margin-left: 8px;
 	padding: 2px 8px;
 	border-radius: 6px;
-	background: #fff3dc;
-	border: 1px solid rgba(138, 79, 0, 0.4);
-	color: #7a4500;
+	background: var(--raised);
+	border: 1px solid rgba(5, 88, 220, 0.35);
+	color: var(--accent-text);
 	font: 700 10.5px/1.4 var(--font-mono);
 	letter-spacing: 0.1em;
 	text-transform: uppercase;
@@ -186,12 +186,14 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px
 .prose h3 { font-size: 18px; margin: 22px 0 8px; }
 .prose p, .prose li { color: var(--muted); }
 .prose li { margin-bottom: 6px; }
+.prose li::marker { color: var(--action); }
 .prose a { color: var(--accent-text); }
 .prose code { font-family: var(--font-mono); font-size: 0.9em; padding: 2px 6px; border-radius: 6px; background: var(--raised); color: var(--ink); }
 .prose blockquote { margin: 12px 0; padding: 12px 16px; border-left: 3px solid var(--action); background: var(--raised); border-radius: 0 12px 12px 0; color: var(--ink); font-family: var(--font-mono); font-size: 14px; }
 
 /* hub tiles: each step is an island with its own object */
-.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 18px; margin: 0; padding: 0; list-style: none; }
+.tiles { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 250px), 1fr)); gap: 24px; margin: 0; padding: 0; list-style: none; }
+@media (min-width: 900px) { .tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 .tile { display: flex; flex-direction: column; gap: 10px; height: 100%; padding: 24px; text-decoration: none; color: inherit; }
 .tile h2 { font: 800 22px/28px var(--font-display); letter-spacing: -0.01em; }
 .tile p:not(.eyebrow) { margin: 0; color: var(--muted); font-size: 15.5px; }
@@ -199,6 +201,8 @@ input:focus-visible, select:focus-visible, textarea:focus-visible { outline: 2px
 .tile .card__go { margin-top: auto; }
 .tile__art { width: 132px; height: 112px; margin: -6px 0 2px -6px; object-fit: contain; object-position: left bottom; filter: var(--shadow-object); }
 .tiles__wide { grid-column: 1 / -1; }
-.tile--hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(180px, 300px); align-items: center; gap: 24px; }
+.tile--hero { display: grid; grid-template-columns: minmax(0, 1fr) minmax(180px, 300px); align-items: center; gap: 24px; padding: clamp(24px, 3.4vw, 44px); }
+.tile--hero > div { display: flex; flex-direction: column; align-items: flex-start; gap: 12px; }
+.tile--hero h2 { font: 900 clamp(26px, 2.8vw, 34px) / 1.1 var(--font-display); font-stretch: 92%; letter-spacing: -0.02em; }
 .tile--hero img { width: 100%; filter: var(--shadow-object); }
 @media (max-width: 720px) { .tile--hero { grid-template-columns: 1fr; } .tile--hero img { width: 180px; margin: 0 auto; } }
