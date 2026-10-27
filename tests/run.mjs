@@ -403,7 +403,7 @@ await test('glass fallback: with backdrop-filter unsupported, panels fall back t
 	await page.reload({ waitUntil: 'networkidle' });
 	await settle(page);
 	const style = await page.evaluate(() => {
-		const s = getComputedStyle(document.querySelector('.hero__panel'));
+		const s = getComputedStyle(document.querySelector('.about'));
 		return { bg: s.backgroundColor, filter: s.backdropFilter || s.webkitBackdropFilter || 'none' };
 	});
 	// DS v9 light glass (lab-04): white, dense enough to pass contrast with no blur
@@ -600,7 +600,7 @@ await test('scoreboard: renders results.json with the example row labelled; a ne
 // with white is equal, it is dark text). Every selector must be measured at least once on its page:
 // one that matched nothing visible used to be skipped silently. The hub and the 404 are in the list.
 const CONTRAST = {
-	home: { at: [null, '#samples', '#about', 'bottom'], sel: ['.topnav a', '.hero__panel .eyebrow', '.hero__panel .lede', '.hero__facts li', '.hero__cta .btn', '.section__head p:not(.eyebrow)', '.card__kicker', '.card__title', '.card__blurb', '.tags li', '.card__actions .btn', '.about p', '.foot span', '.foot a'] },
+	home: { at: [null, '#samples', '#about', 'bottom'], sel: ['.topnav a', '.hero__copy .eyebrow', '.hero__copy .lede', '.hero__facts li', '.hero__cta .btn', '.section__head p:not(.eyebrow)', '.card__kicker', '.card__title', '.card__blurb', '.tags li', '.card__actions .btn', '.about p', '.foot span', '.foot a'] },
 	'humanity-type': { at: [null], sel: ['.sample-info .eyebrow', '.sample-info h1', '.sample-info .how', '.controls .back', '.controls .btn'] },
 	'particle-field': { at: [null], sel: ['.sample-info .eyebrow', '.sample-info h1', '.sample-info .how', '.controls .back', '.hint'] },
 	logo: { at: [null], sel: ['.sample-info .eyebrow', '.sample-info h1', '.sample-info .how', '.controls .back'] },

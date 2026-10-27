@@ -76,7 +76,7 @@ for (const channel of CHANNELS) {
 		{
 			const { page, done } = await open('');
 			await page.waitForTimeout(1500);
-			const glass = await page.evaluate(() => { const s = getComputedStyle(document.querySelector('.hero__panel')); return s.backdropFilter || s.webkitBackdropFilter || 'none'; });
+			const glass = await page.evaluate(() => { const s = getComputedStyle(document.querySelector('.about')); return s.backdropFilter || s.webkitBackdropFilter || 'none'; });
 			const cards = await page.locator('[data-cards="samples"] > li .card').count();
 			const s1 = await shot(page, 'home');
 			await page.locator('#samples').scrollIntoViewIfNeeded();
@@ -90,7 +90,7 @@ for (const channel of CHANNELS) {
 			const css = readFileSync(join(ROOT, 'css/glass.css'), 'utf8').replace(/@supports \(\(backdrop-filter: blur\(1px\)\) or \(-webkit-backdrop-filter: blur\(1px\)\)\)/g, '@supports (not-a-real-property: 1)');
 			const { page, done } = await open('', { route: { pattern: '**/css/glass.css', handler: (r) => r.fulfill({ contentType: 'text/css', body: css }) } });
 			await page.waitForTimeout(1500);
-			const st = await page.evaluate(() => { const s = getComputedStyle(document.querySelector('.hero__panel')); return { bg: s.backgroundColor, f: s.backdropFilter || s.webkitBackdropFilter || 'none' }; });
+			const st = await page.evaluate(() => { const s = getComputedStyle(document.querySelector('.about')); return { bg: s.backgroundColor, f: s.backdropFilter || s.webkitBackdropFilter || 'none' }; });
 			const s1 = await shot(page, 'home-glass-fallback');
 			const problems = await done();
 			record({ ...base, check: 'home (glass fallback)', pass: st.f === 'none' && st.bg === 'rgba(255, 255, 255, 0.9)' && !problems.length, note: `fill ${st.bg}, backdrop-filter ${st.f}`, problems, shots: [s1] });

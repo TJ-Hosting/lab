@@ -1,10 +1,12 @@
 /*
- * Renders the 1200×630 share images (img/og/*.jpg) from pack backgrounds plus real type.
+ * Renders the 1200×630 share images (img/og/*.jpg) on Design System v9 "Day sky" (lab-04):
+ * a light glass card in Nunito Sans on either a share-card base from the Lab pack (sky on the left,
+ * isometric art on the right) or the CSS day sky with the sample's own cut-out.
  *
  *   node tools/render-og.mjs
  *
  * Text is set in code (image models garble it). Each output is recorded in img/IMAGES.jsonl
- * with the pack file its background came from.
+ * with the pack file its picture came from.
  */
 import { readFileSync, writeFileSync, existsSync } from 'node:fs';
 import { dirname, join, extname } from 'node:path';
@@ -16,46 +18,59 @@ const HOST = 'http://lab.local/';
 const MIME = { '.webp': 'image/webp', '.svg': 'image/svg+xml', '.woff2': 'font/woff2', '.png': 'image/png', '.css': 'text/css' };
 
 const CARDS = [
-	{ out: 'home', bg: 'img/art/og-home-1280.webp', src: 'lab-og-home.jpg', kicker: 'TJ-Hosting · Lab', title: 'Motion, made of light <em>&amp; glass.</em>', sub: 'Hand-built motion experiments in plain HTML, CSS and JavaScript.' },
-	{ out: 'humanity-type', bg: 'img/art/hands-1280.webp', src: 'lab-hum-hands.jpg', kicker: 'Sample 01 · Kinetic type', title: 'Humanity, <em>in motion</em>', sub: 'Eight letters fly in, breathe and find the unity inside the word.' },
-	{ out: 'particle-field', bg: 'img/art/particles-1280.webp', src: 'lab-og-particles.jpg', kicker: 'Sample 02 · Generative', title: 'Particle <em>field</em>', sub: 'Glass sparks on a flow field that gather around your cursor.' },
-	{ out: 'logo', bg: 'img/bg/prism-1280.webp', src: 'lab-bg-prism.jpg', kicker: 'Sample 03 · Logo motion', title: 'The mark, <em>assembling</em>', sub: 'The TJ-Hosting mark builds itself from scanlines and a turning globe.', mark: true },
-	{ out: 'exhibit', bg: 'img/bg/honeycomb-1280.webp', src: 'lab-hp-honeycomb.jpg', kicker: 'Exhibit 01 · TJ-Hosting Lab', title: 'Made of <em>Many</em>', sub: 'A motion piece about humanity.', badge: 'Contains harmless hidden instructions for AI agents', warm: true, bee: true },
-	{ out: 'honeypot', bg: 'img/art/og-honeypot-1280.webp', src: 'lab-og-honeypot.jpg', kicker: 'The agent honeypot', title: 'Do AI agents follow <em>hidden instructions?</em>', sub: 'An open, harmless test of prompt injection, with a checker and a scoreboard.', warm: true },
+	{ out: 'home', bg: 'assets/pack/lab-og-base.png', src: 'lab-og-base.png', kicker: 'TJ-Hosting · Lab', title: 'Motion, made of light <em class="script">&amp; glass.</em>', sub: 'Hand-built motion experiments in plain HTML, CSS and JavaScript.' },
+	{ out: 'humanity-type', art: 'img/iso/type-blocks-960.webp', src: 'lab-type-blocks.png', kicker: 'Sample 01 · Kinetic type', title: 'Humanity, <em>in motion</em>', sub: 'Eight letters fly in, breathe and find the unity inside the word.' },
+	{ out: 'particle-field', art: 'img/iso/particles-800.webp', src: 'lab-particles.png', kicker: 'Sample 02 · Generative', title: 'Particle <em>field</em>', sub: 'Glass sparks on a flow field that gather around your cursor.' },
+	{ out: 'logo', kicker: 'Sample 03 · Logo motion', title: 'The mark, <em>assembling</em>', sub: 'The TJ-Hosting mark builds itself from scanlines and a turning globe.', mark: true },
+	{ out: 'exhibit', bg: 'assets/pack/lab-og-honeypot.png', src: 'lab-og-honeypot.png', kicker: 'Exhibit 01 · TJ-Hosting Lab', title: 'Made of <em>Many</em>', sub: 'A motion piece about humanity.', badge: 'Contains harmless hidden instructions for AI agents' },
+	{ out: 'honeypot', bg: 'assets/pack/lab-og-honeypot.png', src: 'lab-og-honeypot.png', kicker: 'The agent honeypot', title: 'Do AI agents follow <em>hidden instructions?</em>', sub: 'An open, harmless test of prompt injection, with a checker and a scoreboard.' },
 ];
 
 const page = (c) => `<!doctype html><meta charset="utf-8"><base href="${HOST}">
 <style>
-	@font-face { font-family: Unbounded; font-weight: 200 900; src: url(fonts/unbounded-latin-var.woff2) format('woff2'); }
-	@font-face { font-family: Onest; font-weight: 100 900; src: url(fonts/onest-latin-var.woff2) format('woff2'); }
+	@font-face { font-family: 'Nunito Sans'; font-weight: 200 1000; font-stretch: 75% 125%; src: url(fonts/nunito-sans-latin-var.woff2) format('woff2'); }
+	@font-face { font-family: 'Great Vibes'; font-weight: 400; src: url(fonts/great-vibes-latin.woff2) format('woff2'); }
 	@font-face { font-family: 'JetBrains Mono'; font-weight: 100 800; src: url(fonts/jetbrains-mono-latin-var.woff2) format('woff2'); }
 	* { box-sizing: border-box; margin: 0; }
-	body { width: 1200px; height: 630px; overflow: hidden; position: relative; background: #07051a; font-family: Onest; color: #fff; -webkit-font-smoothing: antialiased; }
+	body {
+		width: 1200px; height: 630px; overflow: hidden; position: relative; color: #071022;
+		font-family: 'Nunito Sans'; font-weight: 450; -webkit-font-smoothing: antialiased;
+		background:
+			radial-gradient(40% 26% at 70% 14%, rgba(70, 208, 251, 0.16), rgba(70, 208, 251, 0) 70%),
+			radial-gradient(46% 30% at 52% 8%, rgba(77, 159, 243, 0.12), rgba(77, 159, 243, 0) 72%),
+			radial-gradient(70% 60% at 6% 4%, rgba(255, 255, 255, 0.9), rgba(255, 255, 255, 0) 70%),
+			linear-gradient(170deg, #fafcfd 0%, #eef7fc 38%, #daeffc 78%, #c9e7fc 100%);
+	}
 	.bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
-	.scrim { position: absolute; inset: 0; background: linear-gradient(90deg, rgba(7,5,26,0.92) 0%, rgba(7,5,26,0.72) 42%, rgba(7,5,26,0.05) 75%), linear-gradient(0deg, rgba(7,5,26,0.6), rgba(7,5,26,0) 40%); }
-	.card { position: absolute; left: 56px; top: 56px; bottom: 56px; width: 640px; padding: 48px 52px; border-radius: 36px; background: rgba(20,13,48,0.38); backdrop-filter: blur(22px) saturate(160%); border: 1.5px solid rgba(255,255,255,0.18); box-shadow: inset 0 1px 0 rgba(255,255,255,0.25), 0 30px 60px rgba(0,0,0,0.45); display: flex; flex-direction: column; }
-	.kicker { font-family: 'JetBrains Mono'; font-size: 18px; letter-spacing: 0.2em; text-transform: uppercase; color: ${c.warm ? '#ffe2b8' : '#cfe9ff'}; }
-	h1 { font-family: Unbounded; font-weight: 650; font-size: ${c.title.length > 40 ? 50 : 62}px; line-height: 1.02; letter-spacing: -0.03em; margin: 22px 0 20px; }
-	h1 em { font-style: normal; background: ${c.warm ? 'linear-gradient(100deg,#ffe2a8,#ffb3cf 60%,#d9c4ff)' : 'linear-gradient(100deg,#c9efff,#d7c8ff 55%,#ffd9f3)'}; -webkit-background-clip: text; color: transparent; }
-	p.sub { font-size: 24px; line-height: 1.45; color: #e6e0f7; max-width: 520px; }
-	.badge { align-self: flex-start; margin-top: 18px; padding: 8px 16px; border-radius: 999px; background: linear-gradient(120deg,#ffb547,#ff8a3d); color: #1f0d00; font: 700 15px/1.2 'JetBrains Mono'; }
-	.foot { margin-top: auto; display: flex; align-items: center; gap: 14px; font-family: Unbounded; font-weight: 600; font-size: 20px; }
+	.art { position: absolute; right: 48px; top: 50%; width: 470px; transform: translateY(-50%); filter: drop-shadow(0 26px 22px rgba(22, 66, 140, 0.22)); }
+	.card {
+		position: absolute; left: 56px; top: 56px; bottom: 56px; width: 620px; padding: 46px 50px; border-radius: 22px;
+		background: rgba(255, 255, 255, 0.82); backdrop-filter: blur(14px) saturate(150%);
+		box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 0 0 1px rgba(94, 128, 174, 0.22), 0 24px 48px -22px rgba(22, 66, 140, 0.32), 0 8px 18px -10px rgba(22, 66, 140, 0.16);
+		display: flex; flex-direction: column;
+	}
+	.kicker { font: 600 17px/1.2 'JetBrains Mono'; letter-spacing: 0.16em; text-transform: uppercase; color: #3b4a66; }
+	h1 { font-weight: 900; font-stretch: 88%; font-size: ${c.title.length > 46 ? 52 : 62}px; line-height: 1.03; letter-spacing: -0.03em; margin: 22px 0 18px; color: #010109; }
+	h1 em { font-style: normal; color: #064bdb; }
+	h1 em.script { font-family: 'Great Vibes'; font-weight: 400; font-stretch: normal; letter-spacing: 0; font-size: 1.12em; -webkit-text-stroke: 0.03em currentColor; white-space: nowrap; }
+	p.sub { font-size: 24px; line-height: 1.45; color: #3b4a66; max-width: 520px; }
+	.badge { align-self: flex-start; margin-top: 18px; padding: 8px 14px; border-radius: 8px; background: linear-gradient(120deg, #ffb547, #ff8a3d); color: #1f0d00; font: 700 15px/1.2 'JetBrains Mono'; }
+	.foot { margin-top: auto; display: flex; align-items: center; gap: 14px; font-weight: 900; font-size: 18px; letter-spacing: 0.06em; text-transform: uppercase; color: #071022; }
 	.foot img { width: 40px; height: 40px; }
-	.foot span { font-family: 'JetBrains Mono'; font-weight: 500; font-size: 17px; color: #cfc6ee; margin-left: auto; }
-	.mark { position: absolute; right: 90px; top: 115px; width: 400px; height: 400px; border-radius: 50%; background: rgba(20,13,48,0.25); backdrop-filter: blur(18px); border: 1.5px solid rgba(255,255,255,0.2); }
-	.mark svg { position: absolute; inset: 6%; width: 88%; height: 88%; filter: drop-shadow(0 0 22px rgba(120,90,255,0.5)); }
-	.bee { position: absolute; right: 70px; top: 90px; width: 420px; }
+	.foot b { color: #064bdb; font-weight: 900; }
+	.foot span { margin-left: auto; font: 500 16px 'JetBrains Mono'; letter-spacing: 0; text-transform: none; color: #3b4a66; }
+	.mark { position: absolute; right: 96px; top: 120px; width: 390px; height: 390px; border-radius: 50%; background: rgba(255, 255, 255, 0.55); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 0 0 1px rgba(94, 128, 174, 0.2), 0 40px 70px -30px rgba(22, 66, 140, 0.42); }
+	.mark svg { position: absolute; inset: 6%; width: 88%; height: 88%; filter: drop-shadow(0 16px 22px rgba(22, 66, 140, 0.28)); }
 </style>
-<img class="bg" src="${c.bg}">
-<div class="scrim"></div>
+${c.bg ? `<img class="bg" src="${c.bg}">` : ''}
+${c.art ? `<img class="art" src="${c.art}">` : ''}
 ${c.mark ? `<div class="mark">${logoSvg}</div>` : ''}
-${c.bee ? '<img class="bee" src="img/obj/glass-bee-640.webp">' : ''}
 <div class="card">
 	<p class="kicker">${c.kicker}</p>
 	<h1>${c.title}</h1>
 	<p class="sub">${c.sub}</p>
 	${c.badge ? `<p class="badge">${c.badge}</p>` : ''}
-	<div class="foot"><img src="img/brand/tj-mark.svg">TJ-Hosting Lab<span>lab.tj-hosting.ca</span></div>
+	<div class="foot"><img src="img/brand/tj-mark.svg">TJ-Hosting <b>Lab</b><span>lab.tj-hosting.ca</span></div>
 </div>`;
 
 // the logo SVG, lifted from the logo sample so the share image matches it
@@ -80,7 +95,8 @@ for (const c of CARDS) {
 	const jpg = await p.screenshot({ type: 'jpeg', quality: 86 });
 	const rel = `img/og/${c.out}.jpg`;
 	writeFileSync(join(ROOT, rel), jpg);
-	rows[rel] = { file: rel, source: `assets/pack/${c.src}`, op: 'tools/render-og.mjs: 1200x630 share card, pack background + code-set type' };
+	const how = c.bg ? 'the share-card base' : c.art ? 'the CSS day sky + the sample\'s cut-out' : 'the CSS day sky + the mark\'s own SVG';
+	rows[rel] = { file: rel, source: c.src ? `assets/pack/${c.src}` : 'tools/render-og.mjs', op: `tools/render-og.mjs (lab-04): 1200x630 share card, ${how}, code-set type in Nunito Sans` };
 	console.log(`${rel} ${(jpg.length / 1024).toFixed(0)} KiB`);
 	await p.close();
 }

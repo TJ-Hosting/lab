@@ -1,5 +1,5 @@
 /* Lab home: renders the sample and exhibit cards from samples.json. */
-import { boot, parallax } from './lab.js';
+import { boot, parallax, loop } from './lab.js';
 
 const arrow = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
 
@@ -9,7 +9,7 @@ function picture(image, sizes) {
 	const set = (ext) => image.widths.map((w) => `${esc(image.base)}-${w}.${ext} ${w}w`).join(', ');
 	return `<picture>
 		<source type="image/avif" srcset="${set('avif')}" sizes="${sizes}">
-		<img src="${esc(image.base)}-${image.widths[0]}.webp" srcset="${set('webp')}" sizes="${sizes}" alt="" loading="lazy" decoding="async" width="${image.widths[0]}" height="${Math.round(image.widths[0] * 9 / 16)}">
+		<img src="${esc(image.base)}-${image.widths[0]}.webp" srcset="${set('webp')}" sizes="${sizes}" alt="" loading="lazy" decoding="async" width="${image.widths[0]}" height="${Math.round(image.widths[0] * (image.ratio || 9 / 16))}">
 	</picture>`;
 }
 
@@ -62,8 +62,19 @@ async function render() {
 	boot();
 }
 
+/* the hero's isometric cluster floats: each object bobs 5 px, staggered, about 7 s a cycle
+   (transform only, through loop(): off-screen, hidden tabs and reduced motion leave it still) */
+function bob(scene) {
+	if (!scene) return;
+	const items = [...scene.querySelectorAll('[data-bob]')];
+	loop(scene, (dt, t) => {
+		items.forEach((el, i) => { el.style.transform = `translate3d(0, ${(Math.sin(t * 0.9 + i * 1.7) * 5).toFixed(2)}px, 0)`; });
+	}, { name: 'hero-bob' });
+}
+
 boot();
 parallax(document.querySelector('[data-parallax]'));
+bob(document.querySelector('.hero__scene'));
 render().catch((err) => {
 	document.querySelectorAll('[data-cards]').forEach((el) => {
 		el.innerHTML = '<li class="card-error">The sample list could not load. Try reloading the page.</li>';

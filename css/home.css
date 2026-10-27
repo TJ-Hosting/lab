@@ -1,86 +1,75 @@
-/* Lab home */
+/* Lab home: tj-hosting.ca's hero layout (DS v9): the lockup on the open sky, the isometric cluster on the right */
 
 .hero {
 	position: relative;
-	min-height: min(920px, calc(100svh - 80px));
 	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1.08fr);
 	align-items: center;
-	padding-block: clamp(40px, 8vh, 90px) clamp(40px, 6vh, 70px);
+	gap: clamp(16px, 3vw, 48px);
+	min-height: min(860px, calc(100svh - 68px));
+	padding-block: clamp(16px, 4vh, 56px) clamp(40px, 6vh, 72px);
 }
 
-.hero__panel {
-	max-width: 900px;
-	padding: clamp(28px, 5vw, 64px);
-}
+.hero__copy { position: relative; z-index: 1; max-width: 580px; }
 
+/* the lockup: Nunito Sans at 900, narrowed and tracked in; the script line in Great Vibes */
 .hero__title {
 	margin: 0 0 22px;
-	font-size: clamp(40px, 5.9vw, 84px);
-	font-weight: 650;
-	letter-spacing: -0.035em;
+	font-size: clamp(42px, 5.4vw, 78px);
+	color: var(--ink-black);
 }
 .hero__title .line { display: block; }
-.grad-warm {
-	background: linear-gradient(100deg, #ffe2a8 0%, #ffb3cf 50%, #d9c4ff 100%);
-	-webkit-background-clip: text;
-	background-clip: text;
-	color: transparent;
+.hero__title .script {
+	display: inline-block;
+	padding: 0.04em 0.15em 0.14em 0;
+	font-size: 1.16em;
+	line-height: 1.02;
+	color: var(--accent-text);
 }
 
-.hero__cta { display: flex; flex-wrap: wrap; gap: 12px; margin: 30px 0 0; }
+.hero__cta { display: flex; flex-wrap: wrap; gap: 12px; margin: 28px 0 0; }
+.hero__facts { margin: 28px 0 0; }
+.hero__facts b { font-weight: 900; color: var(--ink); margin-right: 2px; }
 
-.hero__facts {
-	display: flex;
-	flex-wrap: wrap;
-	gap: 8px 22px;
-	margin: 30px 0 0;
-	padding: 18px 0 0;
-	list-style: none;
-	border-top: 1px solid rgba(255, 255, 255, 0.12);
-	font-size: 14px;
-	color: var(--muted);
+/* the scene: sprites placed in CSS on a 600 x 540 design frame; each wrapper takes the pointer
+   parallax ([data-depth]) and its image the bob ([data-bob], driven by loop() in home.js) */
+.hero__scene {
+	position: relative;
+	width: 100%;
+	aspect-ratio: 600 / 540;
+	pointer-events: none;
 }
-.hero__facts b {
-	font-family: var(--font-display);
-	font-weight: 600;
-	color: #fff;
-	margin-right: 4px;
-}
+.hero__traces { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.hero__traces .trace { fill: none; stroke: #46d0fb; stroke-width: 2.2; stroke-linecap: round; filter: drop-shadow(0 0 4px rgba(70, 208, 251, 0.9)); }
+.hero__traces .node { fill: #ffffff; stroke: #46d0fb; stroke-width: 2.4; filter: drop-shadow(0 0 5px rgba(70, 208, 251, 0.95)); }
+.hero__traces .node--glow { animation: node-glow 3.6s ease-in-out infinite; }
+.hero__traces .node--glow:nth-of-type(2n) { animation-delay: -1.2s; }
+@keyframes node-glow { 0%, 100% { opacity: 1; } 50% { opacity: 0.45; } }
 
-/* floating glass props (parallax via JS on the wrapper, bob via CSS on the image) */
-.hero__props { position: absolute; inset: 0; pointer-events: none; }
-.prop { position: absolute; will-change: transform; }
-.prop img { width: 100%; height: auto; will-change: transform; }
-.prop--cube { width: clamp(220px, 30vw, 440px); right: max(-40px, -2vw); top: 2%; }
-.prop--cube img { animation: prop-bob 9s ease-in-out infinite alternate; }
-.prop--torus { width: clamp(160px, 22vw, 330px); right: clamp(120px, 24vw, 380px); bottom: -2%; }
-.prop--torus img { animation: prop-spin 14s ease-in-out infinite alternate; }
-.prop--spheres { width: clamp(120px, 14vw, 220px); right: 2%; bottom: 14%; }
-.prop--spheres img { animation: prop-bob 7s ease-in-out -3s infinite alternate-reverse; }
-
-@keyframes prop-bob {
-	from { transform: translate3d(0, -14px, 0) rotate(-3deg); }
-	to { transform: translate3d(0, 16px, 0) rotate(4deg); }
-}
-@keyframes prop-spin {
-	from { transform: translate3d(0, 10px, 0) rotate(-14deg) scale(0.96); }
-	to { transform: translate3d(0, -12px, 0) rotate(10deg) scale(1.04); }
-}
+.iso { position: absolute; will-change: transform; }
+.iso img { width: 100%; height: auto; filter: var(--shadow-object); will-change: transform; }
+/* placed so each plinth's top face sits on its node of the trace network (nodes on the 30-degree
+   isometric axes: centre 300,300; the others 175 px across and 101 px up or down from it), the
+   window hovering over its node; left/top in % of the 600 x 540 frame, from each sprite's ratio */
+.iso--flask { width: 21%; left: 10.3%; top: 6.3%; }
+.iso--browser { width: 24%; left: 67.2%; top: 1.5%; }
+.iso--cube { width: 27%; left: 36.5%; top: 29.3%; }
+.iso--orbs { width: 23%; left: 9.3%; top: 50.2%; }
+.iso--honeypot { width: 21%; left: 68.7%; top: 46.1%; }
+.hero__cloud { position: absolute; width: 22%; right: -9%; top: 80%; opacity: 0.95; filter: none; }
+.hero__cloud--b { width: 18%; left: -6%; right: auto; top: 2%; opacity: 0.85; }
 
 @media (max-width: 900px) {
-	.prop--cube { width: 240px; right: -40px; top: -10px; opacity: 0.85; }
-	.prop--torus { display: none; }
-	.prop--spheres { width: 130px; right: -14px; bottom: 2%; }
+	.hero { grid-template-columns: 1fr; min-height: 0; padding-top: 28px; }
+	.hero__scene { width: min(100%, 560px); margin: 0 auto; }
 }
 @media (max-width: 560px) {
-	.hero { min-height: 0; padding-top: 56px; }
-	.prop--cube { width: 190px; right: -50px; top: -40px; }
-	.prop--spheres { display: none; }
+	.hero__scene { width: 108%; margin-left: -4%; }
 }
 
 /* cards */
 .card__actions { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
-.card-error, .noscript-note { color: var(--ink-2); }
+.card-error, .noscript-note { color: var(--muted); }
 
 /* about */
 .about {
@@ -90,9 +79,13 @@
 	gap: clamp(18px, 4vw, 48px);
 	padding: clamp(24px, 4vw, 52px);
 }
-.about__emblem img { width: 100%; animation: prop-bob 8s ease-in-out infinite alternate; }
-.about h2 { font-size: clamp(26px, 3.4vw, 44px); margin-bottom: 16px; }
-.about p:last-child { margin: 0; color: var(--ink-2); max-width: 38em; }
+.about__emblem img { width: 100%; filter: var(--shadow-object); animation: prop-bob 8s ease-in-out infinite alternate; }
+.about h2 { font-size: clamp(28px, 3.4vw, 42px); margin-bottom: 16px; }
+.about p:last-child { margin: 0; color: var(--muted); max-width: 38em; }
+@keyframes prop-bob {
+	from { transform: translate3d(0, -6px, 0); }
+	to { transform: translate3d(0, 6px, 0); }
+}
 @media (max-width: 640px) {
 	.about { grid-template-columns: 1fr; }
 	.about__emblem { width: 150px; margin: -10px auto 0; }
