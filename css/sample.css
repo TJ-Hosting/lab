@@ -31,6 +31,8 @@
 	margin-bottom: 8px;
 }
 .sample-info .eyebrow { margin-bottom: 8px; }
+/* the fold toggle sits top right: the first two lines keep clear of it */
+.sample-info .eyebrow, .sample-info h1 { padding-right: 40px; }
 .sample-info .how {
 	margin: 0 0 14px;
 	font-size: 14.5px;

@@ -576,7 +576,9 @@ main { display: block; overflow-x: clip; } /* decorative art may hang past the e
 
 /* It fades in from the day sky over --night-fade of its own top padding, so the sky darkens
    where there is nothing to read, then the words sit on full night. */
-[data-night]:not(body) { position: relative; isolation: isolate; }
+/* (positioned per component: a night screen or pill may be fixed, a band is relative) */
+[data-night]:not(body) { isolation: isolate; }
+.night-band, .foot { position: relative; }
 .night-band::before,
 .foot::before {
 	content: "";

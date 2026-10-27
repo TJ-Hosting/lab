@@ -71,8 +71,9 @@ function makeParticle(sheets) {
 
 function resize(sheets) {
 	DPR = Math.min(2, window.devicePixelRatio || 1);
-	W = innerWidth;
-	H = innerHeight;
+	// the canvas fills its night screen (lab-04), not the window
+	W = canvas.clientWidth || innerWidth;
+	H = canvas.clientHeight || innerHeight;
 	canvas.width = Math.round(W * DPR);
 	canvas.height = Math.round(H * DPR);
 	ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
@@ -188,15 +189,17 @@ async function start() {
 		resizeTimer = setTimeout(() => resize(sheets), 150);
 	});
 
+	// pointer positions in the canvas's own space: it sits inside a framed screen now (lab-04)
 	const move = (e) => {
-		pointer.x = e.clientX;
-		pointer.y = e.clientY;
+		const r = canvas.getBoundingClientRect();
+		pointer.x = e.clientX - r.left;
+		pointer.y = e.clientY - r.top;
 		pointer.active = true;
 	};
 	canvas.addEventListener('pointermove', move);
 	canvas.addEventListener('pointerdown', (e) => {
 		move(e);
-		scatter(e.clientX, e.clientY, 0.8);
+		scatter(pointer.x, pointer.y, 0.8);
 	});
 	canvas.addEventListener('pointerleave', () => { pointer.active = false; });
 	canvas.addEventListener('pointerup', (e) => { if (e.pointerType !== 'mouse') pointer.active = false; });

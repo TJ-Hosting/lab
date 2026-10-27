@@ -47,10 +47,12 @@
 	</header>
 
 	<main id="main" class="stage field-stage">
-		<canvas class="field" role="img" aria-label="A field of glowing glass particles drifting in slow currents. Moving a pointer or finger over it draws the particles into a swirl."></canvas>
+		<div class="field-screen screen" data-night>
+			<canvas class="field" role="img" aria-label="A field of glowing glass particles drifting in slow currents. Moving a pointer or finger over it draws the particles into a swirl."></canvas>
+		</div>
 	</main>
 
-	<p class="hint glass glass--pill" aria-hidden="true">Move or touch to gather the light · tap to scatter</p>
+	<p class="hint glass glass--pill" data-night aria-hidden="true">Move or touch to gather the light · tap to scatter</p>
 
 	<aside class="sample-info glass glass--strong" id="about-piece" aria-labelledby="piece-title">
 		<p class="eyebrow">Sample 02 · Generative</p>
