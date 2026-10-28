@@ -81,7 +81,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S10 | 13 | dither-flow-ink | WebGL | adapt-code (MIT, b154ad8) | none | 0 | committed (see git) | day screen, navy/royal dots; Canvas 2D still without WebGL2; 16.7 ms; card C10 |
 | S11 | 14 | glass-orbs | WebGL | adapt-code (MIT, three r186) | three@0.186.1 | 0 | committed (see git) | day screen; transmission + dispersion; CSS still without WebGL2; 16.7 ms; card C11 |
 | S12 | 15 | shader-swatchbook | WebGL | built on the library (Apache-2.0) | @paper-design/shaders@0.0.82 | 0 | committed (see git) | open sky; all mounts at speed 0, the live one stepped by setFrame() from loop(); CSS swatches without WebGL; 16.7 ms; card C12 |
-| S13 | 16 | liquid-metal-monogram | WebGL | adapt-code | @paper-design/shaders@0.0.82 | 1 | todo | uses img/brand/tj-mark.svg, no monogram image |
+| S13 | 16 | liquid-metal-monogram | WebGL | adapt-code (Apache-2.0, vendored) | paper-design-shaders@0.0.82 | 0 (mark from img/brand) | committed (see git) | open sky glass slab; ShaderMount at speed 0, frames set from loop(); mask via the vendored helper, data: URL (no CSP change); 16.7 ms; card C13 |
 | S14 | 17 | shape-shifter | WebGL | rebuild-from-idea (pen 403, no code read) | three@0.186.1 (not 0.162.0: brief §2) | 0 | committed (see git) | night screen; server/cloud/shield/code point shapes; no-WebGL poster; 16.7 ms; card C14 |
 | S15 | 18 | gpu-fluid | WebGL | adapt-code (MIT, commit a2d2929) | none | 0 | **committed 03:43Z** | night screen; CSS poster if no float targets; 16.7 ms; card C15 |
 | S16 | 19 | scroll-zoom-tunnel | Scroll | rebuild-from-idea (CodePen 403) | none | 0 | **committed 03:31Z** | scroll page; still grid without scroll timelines (Firefox fallback); 16.7 ms; card C16 |

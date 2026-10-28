@@ -155,6 +155,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "liquid-metal-monogram",
+			"title": "Liquid metal monogram",
+			"kicker": "Poured metal",
+			"category": "WebGL",
+			"blurb": "The TJ mark poured in flowing liquid metal on a frosted glass card: stripes of light split into red and blue at the edges, turned by your pointer, in chrome or ice blue.",
+			"href": "samples/liquid-metal-monogram/",
+			"image": { "base": "img/iso/liquid-metal-monogram", "widths": [400, 800], "ratio": 1.094 },
+			"tags": ["WebGL", "GLSL", "Paper Shaders"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "shape-shifter",
 			"title": "Service Shape-Shifter",
 			"kicker": "Particle morph",

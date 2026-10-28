@@ -133,6 +133,7 @@ CUTOUTS = [
 	('iso/scramble-titles', 'lab05-scramble-titles.png', [400, 800], None),
 	('iso/glass-diorama-card', 'lab05-glass-diorama-card.png', [400, 800], None),
 	('iso/stacking-plan-cards', 'lab05-stacking-plan-cards.png', [400, 800], None),
+	('iso/liquid-metal-monogram', 'lab05-liquid-metal-monogram.png', [400, 800], None),
 	# lab-05 end
 ]
 
