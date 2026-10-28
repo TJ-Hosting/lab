@@ -1,13 +1,16 @@
 #!/usr/bin/env python3
 """Convert the pre-generated pack (assets/pack/) into the web images the site ships.
 
-Run from the repo root:  python3 -I tools/build_images.py [photos] [objects] [sprites]
+Run from the repo root:  python3 -I tools/build_images.py [photos] [objects] [sprites] [cutouts]
 
 - AVIF + WebP at responsive widths; never wider than the source (no silent upscaling).
 - Objects on dark backgrounds get a black-point clamp and a soft radial alpha edge,
   so they float over the glass without a visible box.
 - Sprite sheets get their near-black cells clamped to pure black and their cell edges
   faded out, so additive blending ('lighter') adds nothing but light.
+- Cut-outs (lab-04, the day sky) are RGBA already: their alpha is kept, alpha 250-254 is
+  snapped to 255 (the generator leaves solid objects a hair translucent), the canvas is
+  trimmed to the object, and they are resized premultiplied so no dark fringe appears.
 - Every output is recorded in img/IMAGES.jsonl with the pack file it came from,
   which is itself a line in assets/pack/LEDGER.jsonl.
 """
@@ -23,44 +26,48 @@ PACK = os.path.join(ROOT, 'assets', 'pack')
 OUT = os.path.join(ROOT, 'img')
 
 # name in img/, pack source, widths, kind, optional crop box (fractions l,t,r,b)
-# The -hd, -v2 and -black sources are the 17 Oct laptop images (lab-02); the largest width is the
-# source's own width (the models top out at 1600-1920 px), never more.
-PHOTOS = [
-	('bg/aurora', 'lab-bg-aurora-hd.jpg', [640, 960, 1280, 1600], 'photo', None),
-	('bg/aurora-portrait', 'lab-bg-aurora-portrait-hd.jpg', [360, 720, 1080], 'photo', None),
-	('bg/aurora-dusk', 'lab-bg-aurora-dusk.jpg', [640, 960, 1280], 'photo', None),
-	# the 17 Oct bokeh came out with glass bubbles that read as extra particles: the calmer pack one stays
-	('bg/bokeh', 'lab-bg-bokeh.jpg', [640, 960, 1280], 'photo', None),
-	('bg/prism', 'lab-bg-prism-hd.jpg', [640, 960, 1280, 1600], 'photo', None),
-	('bg/liquid-chrome', 'lab-bg-liquid-chrome.jpg', [640, 960, 1280], 'photo', None),
-	('bg/honeycomb', 'lab-bg-honeycomb-hd.jpg', [640, 960, 1280, 1920], 'photo', None),
-	('bg/hex-portrait', 'lab-hp-hex-portrait-hd.jpg', [360, 720, 941], 'photo', None),
-	('art/hands', 'lab-hum-hands.jpg', [640, 960, 1280], 'photo', None),
-	('art/glass-city', 'lab-hum-glass-city-dawn.jpg', [640, 960, 1280], 'photo', None),
-	('art/constellation', 'lab-hum-constellation-v2.jpg', [640, 960, 1280], 'photo', None),
-	('art/honey-flow', 'lab-hp-honey-flow.jpg', [640, 960, 1280], 'photo', None),
-	('art/particles', 'lab-og-particles.jpg', [640, 960, 1280], 'photo', None),
-	('art/og-home', 'lab-og-home.jpg', [640, 960, 1280], 'photo', None),
-	('art/og-honeypot', 'lab-og-honeypot.jpg', [640, 960, 1280], 'photo', None),
-	# seamless: resized with its own wrap around it, so the edges still meet when tiled
-	('tex/holo-foil', 'lab-tex-holo-foil-tile-v2.jpg', [512], 'tile', None),
-	# the "frosted" texture came out framed: keep the centre only
-	('tex/frosted', 'lab-tex-frosted.jpg', [512], 'photo', (0.2, 0.2, 0.8, 0.8)),
-]
-OBJECTS = [
-	('obj/glass-cube', 'lab-obj-glass-cube-black.jpg', [320, 640]),
-	('obj/torus', 'lab-obj-torus-black.jpg', [320, 640]),
-	('obj/spheres', 'lab-obj-spheres-black.jpg', [320, 640]),
-	('obj/flask', 'lab-obj-flask-black.jpg', [320, 640]),
-	('obj/hex-prism', 'lab-obj-hex-prism-black.jpg', [320, 640]),
-	# the 17 Oct bee spreads its wings almost to the corners: start the edge fade further out
-	('obj/glass-bee', 'lab-hp-glass-bee-black.jpg', [320, 640], (0.9, 1.4)),
-]
-# name, source, grid (cols, rows), cell size out
+# lab-04 retired every photo and dark object (the aurora, prism, bokeh, liquid-chrome and honeycomb
+# backdrops, the dark card art, the luma-keyed glass objects): the day sky is CSS and the art is the
+# cut-outs below. The kinds stay for later use; the pack originals stay in assets/pack/.
+PHOTOS = []
+OBJECTS = []
+# name, source, grid (cols, rows), cell size out. The particle field's atlases, inside its night screen.
 SPRITES = [
 	('sprites/orbs', 'lab-spr-orbs-black.jpg', (4, 4), 128),
 	('sprites/sparkles', 'lab-spr-sparkles-black.jpg', (4, 4), 128),
-	('sprites/streaks', 'lab-spr-streaks.jpg', (3, 3), 128),
+]
+# lab-04 cut-outs: name, pack source, widths, optional crop box (fractions l,t,r,b) before the trim.
+# lab-* come from the Lab's own Codex pack of 27 Oct, tj-* from tj-hosting.ca's approved pack
+# (provenance in LEDGER.jsonl). A width past the trimmed object's own width is clamped to it.
+CUTOUTS = [
+	('iso/bee', 'lab-bee.png', [320, 640], None),
+	('iso/flask', 'lab-flask.png', [320, 640], None),
+	('iso/cube', 'lab-cube.png', [320, 640], None),
+	('iso/orbs', 'lab-orbs.png', [320, 640], None),
+	('iso/honeypot', 'lab-honeypot.png', [320, 640], None),
+	# lab-04 review 1: the keepsake, the ring and the relay replace the amber prism, the standing torus and the
+	# side-on hands (their pack originals stay)
+	('iso/keepsake', 'lab-keepsake.png', [320, 640], None),
+	('iso/ring', 'lab-ring.png', [320, 640], None),
+	('iso/city', 'lab-city.png', [320, 640], None),
+	('iso/checker', 'lab-checker.png', [320, 640], None),
+	('iso/scoreboard', 'lab-scoreboard.png', [320, 640], None),
+	('iso/shield-book', 'lab-shield-book.png', [320, 640], None),
+	('iso/honeycomb', 'lab-honeycomb.png', [480, 960], None),
+	('iso/rooms', 'lab-rooms.png', [480, 960], None),
+	('iso/relay', 'lab-relay.png', [480, 960], None),
+	('iso/constellation', 'lab-constellation.png', [480, 960], None),
+	('iso/type-blocks', 'lab-type-blocks.png', [480, 960], None),
+	('iso/particles', 'lab-particles.png', [400, 800], None),
+	('iso/sphere-assembly', 'lab-sphere-assembly.png', [400, 800], None),
+	('iso/browser', 'tj-hero-browser.png', [320, 640], None),
+	('iso/plinth-square', 'tj-hero-plinth-square.png', [320, 640], None),
+	('iso/server-404', 'tj-state-404.png', [400, 800], None),
+	# tj's cloud sheet holds six clouds; four are cut out by their connected regions (lab-04 P2)
+	('sky/cloud-1', 'tj-hero-clouds-sheet.png', [220, 420], (0.0502, 0.0893, 0.3373, 0.4846)),
+	('sky/cloud-2', 'tj-hero-clouds-sheet.png', [220, 420], (0.3852, 0.1275, 0.6579, 0.4803)),
+	('sky/cloud-4', 'tj-hero-clouds-sheet.png', [220, 420], (0.0478, 0.5696, 0.3660, 0.9309)),
+	('sky/cloud-5', 'tj-hero-clouds-sheet.png', [220, 420], (0.4067, 0.5866, 0.6651, 0.9267)),
 ]
 
 manifest = []
@@ -219,8 +226,44 @@ def build_sprites():
 		record(rel, src, f'grid {cols}x{rows} -> {cell}px cells, black clamp 28, radial falloff, luma-key alpha')
 
 
+def cutout(im):
+	"""RGBA in, RGBA out: alpha >= 250 snapped to 255, then trimmed to the object plus a small margin."""
+	alpha = im.getchannel('A').point(lambda v: 255 if v >= 250 else v)
+	im.putalpha(alpha)
+	box = alpha.point(lambda v: 255 if v > 8 else 0).getbbox()
+	if box:
+		pad = round(max(im.size) * 0.012)
+		box = (max(0, box[0] - pad), max(0, box[1] - pad), min(im.width, box[2] + pad), min(im.height, box[3] + pad))
+		im = im.crop(box)
+	return im
+
+
+def resized_rgba(im, width):
+	"""Resize premultiplied, so transparent pixels' colour never bleeds into the edge."""
+	return resized(im.convert('RGBa'), width).convert('RGBA')
+
+
+def build_cutouts():
+	for name, src, widths, crop in CUTOUTS:
+		im = Image.open(os.path.join(PACK, src)).convert('RGBA')
+		op = 'alpha kept, 250-254 snapped to 255, trim, premultiplied resize'
+		if crop:
+			l, t, r, b = crop
+			im = im.crop((round(im.width * l), round(im.height * t), round(im.width * r), round(im.height * b)))
+			op = 'crop (one cloud of the sheet), ' + op
+		im = cutout(im)
+		done = set()
+		for w in widths:
+			w = min(w, im.width)
+			if w in done:
+				continue
+			done.add(w)
+			save_pair(resized_rgba(im, w), name, w, src, op, alpha=True)
+		print(f'{name}: {im.width}x{im.height} after trim, widths {sorted(done)}')
+
+
 def main():
-	groups = {'photos': build_photos, 'objects': build_objects, 'sprites': build_sprites}
+	groups = {'photos': build_photos, 'objects': build_objects, 'sprites': build_sprites, 'cutouts': build_cutouts}
 	wanted = sys.argv[1:] or list(groups)
 	for g in wanted:
 		groups[g]()

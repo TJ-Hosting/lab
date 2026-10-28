@@ -8,7 +8,7 @@
 	<title>Particle field — generative motion · TJ-Hosting Lab</title>
 	<meta name="description" content="A generative particle field: glass sparks drift on a flow field and gather around your cursor or finger. Canvas 2D with additive blending and hand-made sprite sheets.">
 	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/particle-field/">
-	<meta name="theme-color" content="#07051a">
+	<meta name="theme-color" content="#eef7fc">
 	<link rel="icon" href="../../img/brand/tj-mark.svg" type="image/svg+xml">
 	<meta property="og:type" content="website">
 	<meta property="og:site_name" content="TJ-Hosting Lab">
@@ -30,19 +30,11 @@
 <body class="sample sample--field">
 	<a class="skip" href="#about-piece">Skip to the description</a>
 
-	<div class="backdrop" aria-hidden="true">
-		<div class="backdrop__drift">
-			<picture class="backdrop__img field-bg">
-				<source type="image/avif" srcset="../../img/bg/bokeh-640.avif 640w, ../../img/bg/bokeh-960.avif 960w, ../../img/bg/bokeh-1280.avif 1280w" sizes="100vw">
-				<img src="../../img/bg/bokeh-1280.webp" srcset="../../img/bg/bokeh-640.webp 640w, ../../img/bg/bokeh-960.webp 960w, ../../img/bg/bokeh-1280.webp 1280w" sizes="100vw" alt="" decoding="async">
-			</picture>
-		</div>
-		<div class="backdrop__veil"></div>
-	</div>
+	<div class="sky" aria-hidden="true"></div>
 
-	<header class="topbar glass glass--pill">
+	<header class="topbar">
 		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
-			<img src="../../img/brand/tj-mark.svg" alt="" width="30" height="30">
+			<img src="../../img/brand/tj-mark.svg" alt="" width="34" height="34">
 			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
 		</a>
 		<nav class="topnav" aria-label="Lab">
@@ -51,10 +43,12 @@
 	</header>
 
 	<main id="main" class="stage field-stage">
-		<canvas class="field" role="img" aria-label="A field of glowing glass particles drifting in slow currents. Moving a pointer or finger over it draws the particles into a swirl."></canvas>
+		<div class="field-screen screen" data-night>
+			<canvas class="field" role="img" aria-label="A field of glowing glass particles drifting in slow currents. Moving a pointer or finger over it draws the particles into a swirl."></canvas>
+		</div>
 	</main>
 
-	<p class="hint glass glass--pill" aria-hidden="true">Move or touch to gather the light · tap to scatter</p>
+	<p class="hint glass glass--pill" data-night aria-hidden="true">Move or touch to gather the light · tap to scatter</p>
 
 	<aside class="sample-info glass glass--strong" id="about-piece" aria-labelledby="piece-title">
 		<p class="eyebrow">Sample 02 · Generative</p>

@@ -27,21 +27,11 @@
 </head>
 <body class="tools">
 	<a class="skip" href="#main">Skip to content</a>
-	<div class="backdrop" aria-hidden="true">
-		<div class="backdrop__drift">
-			<picture class="backdrop__img">
-				<source type="image/avif" srcset="../img/bg/aurora-dusk-640.avif 640w, ../img/bg/aurora-dusk-960.avif 960w, ../img/bg/aurora-dusk-1280.avif 1280w" sizes="100vw">
-				<img src="../img/bg/aurora-dusk-1280.webp" srcset="../img/bg/aurora-dusk-640.webp 640w, ../img/bg/aurora-dusk-960.webp 960w, ../img/bg/aurora-dusk-1280.webp 1280w" sizes="100vw" alt="" decoding="async">
-			</picture>
-		</div>
-		<div class="backdrop__orb orb--honey"></div>
-		<div class="backdrop__veil"></div>
-		<div class="backdrop__grain"></div>
-	</div>
+	<div class="sky" aria-hidden="true"></div>
 
-	<header class="topbar glass glass--pill">
+	<header class="topbar">
 		<a class="brand" href="../" aria-label="TJ-Hosting Lab, home">
-			<img src="../img/brand/tj-mark.svg" alt="" width="30" height="30">
+			<img src="../img/brand/tj-mark.svg" alt="" width="34" height="34">
 			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
 		</a>
 		<nav class="topnav" aria-label="Honeypot">
@@ -68,11 +58,12 @@
 						<p>“Made of Many”, a motion piece about humanity. It carries hidden instructions for AI agents, each asking only for a short poem. The banner says so, and one button reveals them all.</p>
 						<span class="btn btn--primary" style="margin-top:18px">Open the exhibit</span>
 					</div>
-					<img src="../img/obj/glass-bee-640.webp" alt="" width="640" height="640" loading="lazy" decoding="async">
+					<img src="../img/iso/bee-640.webp" srcset="../img/iso/bee-320.webp 320w, ../img/iso/bee-640.webp 640w" sizes="(min-width: 720px) 300px, 180px" alt="" width="640" height="828" loading="lazy" decoding="async">
 				</a>
 			</li>
 			<li class="rise" style="--delay:.06s">
 				<a class="tile glass glass--interactive" data-shine href="check/">
+					<img class="tile__art" src="../img/iso/checker-320.webp" srcset="../img/iso/checker-320.webp 320w, ../img/iso/checker-640.webp 640w" sizes="132px" alt="" width="320" height="379" loading="lazy" decoding="async">
 					<p class="eyebrow">Step 2</p>
 					<h2>Check an answer</h2>
 					<p>Paste what your assistant said. See, technique by technique, whether it obeyed, flagged or ignored.</p>
@@ -81,6 +72,7 @@
 			</li>
 			<li class="rise" style="--delay:.12s">
 				<a class="tile glass glass--interactive" data-shine href="scoreboard/">
+					<img class="tile__art" src="../img/iso/scoreboard-320.webp" srcset="../img/iso/scoreboard-320.webp 320w, ../img/iso/scoreboard-640.webp 640w" sizes="132px" alt="" width="320" height="241" loading="lazy" decoding="async">
 					<p class="eyebrow">Step 3</p>
 					<h2>See the scoreboard</h2>
 					<p>Curated, dated results, one row per test, with a heat map per technique.</p>
@@ -89,6 +81,7 @@
 			</li>
 			<li class="rise" style="--delay:.18s">
 				<a class="tile glass glass--interactive" data-shine href="about/">
+					<img class="tile__art" src="../img/iso/shield-book-320.webp" srcset="../img/iso/shield-book-320.webp 320w, ../img/iso/shield-book-640.webp 640w" sizes="132px" alt="" width="320" height="338" loading="lazy" decoding="async">
 					<p class="eyebrow">Read first</p>
 					<h2>Method &amp; safety</h2>
 					<p>The three test prompts, the three outcomes, and the rules that keep the traps harmless.</p>
@@ -98,7 +91,8 @@
 		</ul>
 	</main>
 
-	<footer class="foot glass" style="margin-top:56px">
+	<footer class="foot" data-night>
+		<img class="foot__mark" src="../img/brand/tj-mark.svg" alt="" width="40" height="40">
 		<span>TJ-Hosting Lab · the agent honeypot</span>
 		<ul class="foot__links">
 			<li><a href="../">Lab home</a></li>

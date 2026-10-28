@@ -1,11 +1,11 @@
-/* Shared shell for sample pages: a full-viewport stage, a glass info panel, controls. */
+/* Shared shell for sample pages: a full-viewport stage on the day sky, a light glass info panel, controls. */
 
 .sample {
 	min-height: 100vh;
 	min-height: 100dvh;
 }
 
-.sample .topbar { position: fixed; left: 0; right: 0; top: 14px; margin: 0 auto; }
+.sample .topbar { position: fixed; left: 0; right: 0; top: 0; }
 
 .stage {
 	position: relative;
@@ -19,46 +19,47 @@
 .sample-info {
 	position: fixed;
 	z-index: 40;
-	left: max(var(--gutter), env(safe-area-inset-left));
+	/* on the page grid, like the brand above it */
+	left: max(var(--gutter), env(safe-area-inset-left), calc((100vw - var(--page-max)) / 2));
 	bottom: max(18px, env(safe-area-inset-bottom));
 	width: min(440px, calc(100% - 2 * var(--gutter)));
 	padding: 20px 22px 18px;
 }
 .sample-info h1 {
-	font-family: var(--font-display);
-	font-size: clamp(20px, 2.2vw, 26px);
+	font: 900 clamp(22px, 2.2vw, 26px) / 1.15 var(--font-display);
+	font-stretch: 92%;
 	letter-spacing: -0.015em;
 	margin-bottom: 8px;
 }
 .sample-info .eyebrow { margin-bottom: 8px; }
+/* the fold toggle sits top right: the first two lines keep clear of it */
+.sample-info .eyebrow, .sample-info h1 { padding-right: 40px; }
 .sample-info .how {
 	margin: 0 0 14px;
 	font-size: 14.5px;
 	line-height: 1.55;
-	color: var(--ink-2);
+	color: var(--muted);
 }
-.sample-info .how b { color: #fff; font-weight: 600; }
+.sample-info .how b { color: var(--ink); font-weight: 800; }
 
 .controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
 .controls .back {
 	margin-left: auto;
 	font-size: 14px;
-	color: var(--ink-2);
-	text-underline-offset: 3px;
+	font-weight: 700;
+	color: var(--accent-text);
 }
-.controls .back:hover { color: #fff; }
+.controls .back:hover { color: var(--ink); }
 
-.hint.glass { background: rgba(10, 6, 28, 0.86); }
 .hint {
 	position: fixed;
 	z-index: 30;
 	right: var(--gutter);
 	bottom: 22px;
 	padding: 9px 16px;
-	font-family: var(--font-mono);
-	font-size: 12px;
+	font: 500 12px/16px var(--font-mono);
 	letter-spacing: 0.08em;
-	color: var(--ink-2);
+	color: var(--muted);
 }
 
 @media (max-width: 720px) {
@@ -77,8 +78,9 @@
 	width: 34px;
 	height: 34px;
 	border-radius: 50%;
-	border: 1px solid rgba(255, 255, 255, 0.18);
-	background: rgba(255, 255, 255, 0.06);
+	border: 1px solid var(--border-control);
+	background: var(--surface);
+	color: var(--ink);
 	cursor: pointer;
 	display: grid;
 	place-items: center;

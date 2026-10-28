@@ -1,8 +1,8 @@
 # TJ-Hosting Lab
 
-`lab.tj-hosting.ca` — a motion-graphics showcase by TJ-Hosting, built in glassmorphism. Static site, no build step, no back end, no cookies or analytics.
+`lab.tj-hosting.ca` — a motion-graphics showcase by TJ-Hosting, built in glassmorphism on tj-hosting.ca's Design System v9 "Day sky": a light sky, glossy isometric art, Nunito Sans with one Great Vibes line, light frosted glass with blue shadows, and a dark night band for the footers and the framed screens where a piece only reads on dark. Static site, no build step, no back end, no cookies or analytics.
 
-- **Lab home** `/`: hero over a living backdrop, cards drawn from `samples.json`.
+- **Lab home** `/`: hero with an isometric cluster on the day sky, cards drawn from `samples.json`.
 - **Samples** (trap-free, indexable): `/samples/humanity-type/` kinetic type, `/samples/particle-field/` generative particles, `/samples/logo/` the TJ-Hosting mark assembling.
 - **Exhibit 01, the agent honeypot**: `/exhibits/humanity/` is the bait page (`noindex`), a motion piece about humanity carrying 18 harmless hidden instructions for AI agents. The tools live under `/honeypot/`: hub, `check/` (checker), `scoreboard/`, `about/` (method and safety).
 
@@ -30,13 +30,13 @@ Pages fetch JSON, so opening the files straight from disk (`file://`) won't work
 	"kicker": "Kinetic type",
 	"blurb": "One sentence about it.",
 	"href": "samples/my-sample/",
-	"image": { "base": "img/art/hands", "widths": [640, 960] },
+	"image": { "base": "img/iso/type-blocks", "widths": [480, 960], "ratio": 0.52 },
 	"tags": ["CSS", "SVG"],
 	"added": "2026-11-01"
 }
 ```
 
-`image.base` points at an AVIF/WebP pair made by `tools/build_images.py` (add the source there first). The home renders the card with no other change.
+`image.base` points at an AVIF/WebP cut-out made by `tools/build_images.py` (add the source to its `CUTOUTS` table first); `ratio` is its height over its width (default 9/16). The home renders the card, the object on its own patch of sky, with no other change.
 
 4. Add the URL to `sitemap.xml`, and optionally a share image to `tools/render-og.mjs`.
 5. Run the tests (below).
@@ -64,10 +64,15 @@ npx playwright install chromium  # once per machine, unless Playwright's Chromiu
 npm test                         # static checks + headless-browser checks; screenshots and reports go to evidence/
 ```
 
+`node tests/run.mjs <words>` runs only the tests whose names contain them. The contrast test measures each text run against the worst pixel behind it for its polarity (the darkest behind dark text, the brightest behind light) and fails if any listed selector is never measured; `CONTRAST_PAGES=home,hub node tests/run.mjs contrast` limits it to some pages while you work (its report then goes to `evidence/lab-04/`).
+
 ## Images
 
-- `assets/pack/` is the pre-generated pack (ledger and flaws in its README). `python3 -I tools/build_images.py` converts it to AVIF/WebP without upscaling; `img/IMAGES.jsonl` traces every shipped image. On Windows, `python3` is the Store stub, so use a virtual environment with Pillow instead.
-- New images come one of two ways:
+- **The look (DS v9, lab-04).** The day sky is CSS (`.sky` in `css/lab.css`: tj-hosting.ca's `--sky-*` gradient), with a few of tj's clouds in a layer that scrolls with the first screen. A cloud's shaded underside is a saturated azure, too dark to sit behind muted text, so clouds stay at the page's edges and never fixed. Art is isometric cut-outs on transparent ground (`img/iso/`), one camera and one light, in tj's style lock. A piece that only reads on dark (the particle field, the exhibit's rooms V and VI) sits in a framed night screen (`.screen` with `data-night`); the footers are the night band. Everything inside `[data-night]` takes DS v8's night values under the same token names.
+- **Glass.** `css/glass.css` holds every glass token. The base rule is the fallback, white at 0.9, dense enough to pass contrast over the deepest sky and the art with no blur. Frosting is added only under `@supports (backdrop-filter)`; the edge is a hairline with a white rim caught top-left, the shadow blue. There is deliberately no `prefers-reduced-transparency` block: the tint floor already passes without blur.
+- `assets/pack/` holds every source image at native size: the 15–17 Oct pack (Grok, Codex), the Lab image pack of 27 Oct (Codex, in tj-hosting.ca's style), and three images from tj-hosting.ca's approved pack. Each has one `LEDGER.jsonl` line; lab-04's lines carry a `provenance` field with the pack's manifest id and sha256. `python3 -I tools/build_images.py [cutouts]` converts them to AVIF/WebP without upscaling (the `cutouts` kind keeps the pack's alpha); `img/IMAGES.jsonl` traces every shipped image. On Windows, `python3` is the Store stub, so use a virtual environment with Pillow instead.
+- New images come one of three ways:
+  - **The image pack route** (used for lab-04): `C:\localhost\projects\agent-honeypot\imagepack\gen.ps1` on ACO-PC, Codex first and Grok only as a fallback, with a fixed cap, a lock and a spend guard. The prompt is the subject, then tj's `style_lock` and one `backgrounds` line, with tj's `golden.png` as the reference. Copy kept images into `assets/pack/` as below.
   - **The laptop route** (used for the 17 Oct additions). Run the image-gen skill on the team laptop, on its own Grok/Codex/Gemini subscriptions, with no per-image spend.
     - Keep the raw originals outside git.
     - Copy each kept image into `assets/pack/` at its native size, never upscaled, with one line in `assets/pack/LEDGER.jsonl`: provider, full prompt with the pack's style sentence, the request it answers, and the conversion.

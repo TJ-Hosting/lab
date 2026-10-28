@@ -27,10 +27,25 @@ const pointer = { x: 0, y: 0, active: false, strength: 0 };
 function load(src) {
 	return new Promise((resolve, reject) => {
 		const img = new Image();
-		img.onload = () => resolve(img);
+		img.onload = () => resolve(tint(img));
 		img.onerror = reject;
 		img.src = src;
 	});
+}
+
+/* the atlases keep their files; at draw time they take DS v8's night photo filter (tj-hosting.ca's
+   [data-night] --photo-filter), so the sparks read royal, azure, cyan and white in the night screen
+   (lab-04 review 2). A browser without canvas filters draws them as they are. */
+const NIGHT_FILTER = 'sepia(1) saturate(2.4) hue-rotate(172deg) brightness(1.05)';
+function tint(img) {
+	const c = document.createElement('canvas');
+	c.width = img.naturalWidth;
+	c.height = img.naturalHeight;
+	const g = c.getContext('2d');
+	if (!('filter' in g)) return img;
+	g.filter = NIGHT_FILTER;
+	g.drawImage(img, 0, 0);
+	return c;
 }
 
 /* small deterministic PRNG so the still frame is the same every visit */
@@ -71,8 +86,9 @@ function makeParticle(sheets) {
 
 function resize(sheets) {
 	DPR = Math.min(2, window.devicePixelRatio || 1);
-	W = innerWidth;
-	H = innerHeight;
+	// the canvas fills its night screen (lab-04), not the window
+	W = canvas.clientWidth || innerWidth;
+	H = canvas.clientHeight || innerHeight;
 	canvas.width = Math.round(W * DPR);
 	canvas.height = Math.round(H * DPR);
 	ctx.setTransform(DPR, 0, 0, DPR, 0, 0);
@@ -188,15 +204,17 @@ async function start() {
 		resizeTimer = setTimeout(() => resize(sheets), 150);
 	});
 
+	// pointer positions in the canvas's own space: it sits inside a framed screen now (lab-04)
 	const move = (e) => {
-		pointer.x = e.clientX;
-		pointer.y = e.clientY;
+		const r = canvas.getBoundingClientRect();
+		pointer.x = e.clientX - r.left;
+		pointer.y = e.clientY - r.top;
 		pointer.active = true;
 	};
 	canvas.addEventListener('pointermove', move);
 	canvas.addEventListener('pointerdown', (e) => {
 		move(e);
-		scatter(e.clientX, e.clientY, 0.8);
+		scatter(pointer.x, pointer.y, 0.8);
 	});
 	canvas.addEventListener('pointerleave', () => { pointer.active = false; });
 	canvas.addEventListener('pointerup', (e) => { if (e.pointerType !== 'mouse') pointer.active = false; });
