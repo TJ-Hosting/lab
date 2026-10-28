@@ -136,7 +136,7 @@ None yet.
 
 ## Images (gen-lab05.ps1, cap 200 attempts)
 
-85 / 200 attempts by 04:55Z, 85 done, 0 failed, 0 regenerated except C28 (C28b: rounded glass tags; the first read as capsule pills).
+88 / 200 attempts by 06:09Z, 88 done, 0 failed. Regenerations: C28b (rounded glass tags; the first read as capsule pills), C04b (clearer offset slabs), C07b (a hexagonal plaque, unlike C06's dish), A57d (leather without the centre seam).
 - Card objects C01–C60 (tj style lock + transparent background + golden.png reference), all looked at on the sky colour and kept; ingested per sample with `ingest-lab05.mjs card` at commit time.
 - In-piece art, pre-generated for the image samples (store `imagepack\lab05\queue.json`, ids A##x): S25 A25a/b (lake, glass facade), S27 A27a/b/c (islands, tower, clouds; style lock, transparent), S33 A33 (silk ribbons), S40 A40a/b/c (wordless site mocks: bakery, architecture studio, garden centre), S54 A54 (pond with lanterns), S55 A55a/b/c (skyscrapers at dawn, aurora lake, cliffs and lighthouse), S56 A56a/b (glass wave, cornflowers), S57 A57a/b/c (stone, leather, a hammered metal that came out blue, not copper), S58 A58a/b (same sea, sun and moon), S59 A59 (snowy street through a window), S60 A60a/b/c (cover, two spreads with a little book edge to crop). All looked at and kept. S13 uses `img/brand/tj-mark.svg` (no image).
 - Runner: `agent-honeypot\imagepack\run-lab05-queue.ps1`; ingest: `agent-honeypot\imagepack\ingest-lab05.mjs`.
@@ -155,11 +155,11 @@ None yet.
 - [P5] S26: the night theme never shows unless someone pulls; an idle pull every 20 s or so would show the twist at a glance. **Done 05:48Z**: first self-pull after 9 s, then every 20 s; a grab or pull restarts the count. Probe: night at about 10 s, day again at about 30 s, no errors; re-gated 16.7 ms.
 - [P5] S36: at rest the beams are often between runs; keep at least two in flight so the idle hub always shows light moving. **Done 05:53Z**: the source's ease-out parked each light under its tile for most of its run and the six beams ran in phase; now a gentle ease-in-out, staggered first runs, and at least four beams on their way at once (probe: 3-4 lights in each of four stills over 6 s). Re-gated 16.7 ms.
 - [P5] S22: the curtain is subtle in a still; stronger folds or a corner already torn so the twist reads at a glance. **Done 06:08Z**: the curtain now starts with a short ragged slit in from the right edge (higher on phones), so a curled flap and a gap show in the first still; Hang again mends it. Re-gated 16.7 ms.
-- [P5] C04 (glitch card) reads as a stacked block; regenerate with clearer offset strips if the budget allows. Queued C04b 06:05Z.
-- [P5] C07 (slime tray) and C06 (petri dish) have similar silhouettes on the home; regenerate C07 as a different object if the budget allows. Queued C07b (a hexagonal plaque) 06:05Z.
+- [P5] C04 (glitch card) reads as a stacked block; regenerate with clearer offset strips if the budget allows. Queued C04b 06:05Z; **done 06:14Z**: five slabs clearly shifted sideways with cyan ghost edges; card 670 px wide after trim, the stale 800 px files removed.
+- [P5] C07 (slime tray) and C06 (petri dish) have similar silhouettes on the home; regenerate C07 as a different object if the budget allows. Queued C07b (a hexagonal plaque) 06:05Z; **done 06:14Z**: a hexagonal plaque, distinct from C06's round dish.
 - [P4] OGL samples (S55, S57) import `vendor/ogl@1.0.11/src/index.js`, which pulls 72 module files; import only the core and extras modules used. **Done 05:42Z**: 26 and 27 files now; both re-gated (16.7 ms).
 - [P4] S57: the phone chips read lowercase "stone / leather / metal"; use sentence case. **Done 05:42Z.**
-- [P5] S57: the leather texture has a visible vertical seam at the centre; regenerate A57 leather (one Codex attempt).
+- [P5] S57: the leather texture has a visible vertical seam at the centre; regenerate A57 leather (one Codex attempt). **Done 06:14Z**: A57d (prompt asks for one continuous piece with no seams or centre line); centre crop checked, no seam; built at 640 and 1254.
 - [P5] S56: at 375 the three cards are about 96 px wide with empty sky above; larger cards (a scroll-snap row or two plus one) would show the morph better on phones.
 
 ## Incidents

@@ -62,7 +62,7 @@
 			"category": "Type",
 			"blurb": "Type your own word and watch it tear into sliced cyan and royal copies for a moment, then copy the CSS that did it.",
 			"href": "samples/glitch-headline/",
-			"image": { "base": "img/iso/glitch-headline", "widths": [400, 800], "ratio": 1.095 },
+			"image": { "base": "img/iso/glitch-headline", "widths": [400, 670], "ratio": 1.379 },
 			"tags": ["CSS keyframes", "Transforms"],
 			"added": "2026-10-28"
 		},
@@ -95,7 +95,7 @@
 			"category": "Generative",
 			"blurb": "Thousands of tiny agents leave glowing trails and grow a living network of veins between pulsing food spots.",
 			"href": "samples/slime-network/",
-			"image": { "base": "img/iso/slime-network", "widths": [400, 800], "ratio": 0.744 },
+			"image": { "base": "img/iso/slime-network", "widths": [400, 800], "ratio": 0.846 },
 			"tags": ["Canvas 2D", "Physarum", "Typed arrays"],
 			"added": "2026-10-28"
 		},
