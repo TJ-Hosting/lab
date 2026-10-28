@@ -114,7 +114,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S43 | 46 | edge-network-globe | Data | adapt-code | cobe@2.0.1 | 0 | todo | arcs labelled illustrative |
 | S44 | 47 | clock-wall | Data | rebuild-from-idea | none | 0 | **committed 04:04Z** | open sky; 102 WAAPI clock faces, local 24 h time; 16.7 ms; card C44 |
 | S45 | 48 | wind-snapshot | Data | adapt-code | wind-gl (repo dist at a commit SHA) | 0 | todo | data frames only if licence confirmed |
-| S46 | 49 | epicycle-machine | Data | adapt-code | none | 0 | todo | |
+| S46 | 49 | epicycle-machine | Data | adapt-code (MIT, 7bb6c56; maths only) | none | 0 | committed (see git) | open sky; TJ letterform from tj-hosting.ca's favicon path; 16.7 ms; card C46 |
 | S47 | 50 | pendulum-wave | Data | adapt-code (MIT, a0ea040; maths only) | none | 0 | **committed 04:22Z** | open sky, 3D frame; sound off until pressed; 16.7 ms; card C47 |
 | S48 | 51 | chart-story | Data | adapt-code | vizzu@0.18.0 | 0 | todo | CSP 'wasm-unsafe-eval' |
 | S49 | 52 | glass-sandbox | Toys | rebuild-from-idea | none | 0 | todo | |
@@ -148,6 +148,7 @@ None yet.
 - [P5] C28 (skill chips card) looked like capsule pills; queued C28b (rounded glass tags).
 - [P5] S47: the tick fires on every centre crossing (about 40 a second) at an untuned level; thin it (e.g. one voice per crossing of the middle bob group, or a rate cap) and set a gentle level.
 - [P5] S10: the word sits in a mostly empty screen; add faint ambient dithered currents across the field so the whole window lives.
+- [P5] S46: the drawn trail is thin and faint on the sky; bolder royal trail with a brighter pen tip.
 - [P5] S36: at rest the beams are often between runs; keep at least two in flight so the idle hub always shows light moving.
 - [P5] S22: the curtain is subtle in a still; stronger folds or a corner already torn so the twist reads at a glance.
 - [P5] C04 (glitch card) reads as a stacked block; regenerate with clearer offset strips if the budget allows.

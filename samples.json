@@ -221,6 +221,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "epicycle-machine",
+			"title": "Epicycle Drawing Machine",
+			"kicker": "Circles that draw",
+			"category": "Data",
+			"blurb": "Up to 300 spinning circles, laid end to end, redraw the TJ letterform; draw a line of your own and they copy it.",
+			"href": "samples/epicycle-machine/",
+			"image": { "base": "img/iso/epicycle-machine", "widths": [400, 800], "ratio": 1.07 },
+			"tags": ["Canvas 2D", "Fourier series", "Touch"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "pendulum-wave",
 			"title": "Pendulum Wave",
 			"kicker": "Waves from drift",
