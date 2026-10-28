@@ -430,6 +430,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "testimonial-wall",
+			"title": "Tilted testimonial wall",
+			"kicker": "Review wall",
+			"category": "UI",
+			"blurb": "Three columns of glass review cards slide past on a tilted 3D plane, each at its own speed, and every card is marked as sample text.",
+			"href": "samples/testimonial-wall/",
+			"image": { "base": "img/iso/testimonial-wall", "widths": [400, 800], "ratio": 1.192 },
+			"tags": ["CSS 3D", "CSS animation", "Glass cards"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "focus-trail-form",
 			"title": "Focus-trail contact form",
 			"kicker": "Form focus",

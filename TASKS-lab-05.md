@@ -107,7 +107,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S36 | 39 | integration-beams | UI | adapt-code (MIT, magicui efe76fc) | none | 0 | **committed 03:55Z** | open sky; "Sample content · no real connections"; 16.7 ms; card C36 |
 | S37 | 40 | bento-grid | UI | adapt-code (MIT, magicui efe76fc) | none | 0 | **committed 04:18Z** | open sky; CSS loops in [data-motion]; tile uses overflow: clip (focus scroll bug); 16.7 ms; card C37 |
 | S38 | 41 | mega-menu | UI | rebuild-from-idea | none | 0 | todo | |
-| S39 | 42 | testimonial-wall | UI | adapt-code | none | 0 | todo | |
+| S39 | 42 | testimonial-wall | UI | adapt-code (MIT, efe76fc) | none | 0 | committed (see git) | open sky; every card "Sample", placeholder names, no stars, pill "Sample reviews · not real customers"; no backdrop-filter on moving cards; 16.7 ms; card C39 |
 | S40 | 43 | browser-frame-showcase | UI | adapt-code | none | 4 | todo | wordless layout art |
 | S41 | 44 | focus-trail-form | UI | adapt-code (MIT, Debug view) | none | 0 | committed (see git) | demo form labelled "nothing is sent or stored"; 16.7 ms; card C41 |
 | S42 | 45 | publish-button | UI | adapt-code (library use, ISC) | canvas-confetti@1.9.4 | 0 | committed (see git) | open sky card; "Simulated publish · nothing is uploaded"; confetti on its own canvas, no worker, cleared on hide/pause; 16.7 ms; card C42 |
@@ -162,6 +162,7 @@ None yet.
 - [P5] S57: the leather texture has a visible vertical seam at the centre; regenerate A57 leather (one Codex attempt). **Done 06:14Z**: A57d (prompt asks for one continuous piece with no seams or centre line); centre crop checked, no seam; built at 640 and 1254.
 - [P5] S56: at 375 the three cards are about 96 px wide with empty sky above; larger cards (a scroll-snap row or two plus one) would show the morph better on phones.
 - [P5] S42: the gated stills show the ready state only; consider a reduced-motion still that shows the Live tick, or a first autopilot run sooner, so the twist reads at a glance.
+- [P4] S37 bento-grid: the S39 builder says focusing a tile scrolls its overflow:hidden stage (they fixed the same thing in S39 with overflow: clip); check and fix.
 - [P4] js/lab.js `govern()` played every paused animation under its element when live, including CSS animations held by a stylesheet rule; play() overrides `animation-play-state` for good (Chromium 141 probe: such an animation kept running even after its animation-name was removed). Reported by the S42 builder. **Fixed 06:48Z**: govern() now plays again only the animations it paused itself (a WeakSet). The 10 pages using govern() re-tested: samples tests 7/7 passed, all 54 pages load clean.
 
 ## Incidents
