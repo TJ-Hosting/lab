@@ -364,6 +364,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "weather-window",
+			"title": "Weather window",
+			"kicker": "Animated icons",
+			"category": "SVG",
+			"blurb": "A glass window onto five kinds of sky, each with its own animated weather icon, drifting clouds, a day and night switch with moon phases, and a sample five-day forecast.",
+			"href": "samples/weather-window/",
+			"image": { "base": "img/iso/weather-window", "widths": [400, 780], "ratio": 1.344 },
+			"tags": ["Animated SVG", "SMIL", "CSS"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "pricing-rolling-digits",
 			"title": "Glass pricing with rolling digits",
 			"kicker": "Rolling digits",
