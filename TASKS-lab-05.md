@@ -165,6 +165,10 @@ None yet.
 - [P4] S37 bento-grid: the S39 builder says focusing a tile scrolls its overflow:hidden stage (they fixed the same thing in S39 with overflow: clip); check and fix.
 - [P4] js/lab.js `govern()` played every paused animation under its element when live, including CSS animations held by a stylesheet rule; play() overrides `animation-play-state` for good (Chromium 141 probe: such an animation kept running even after its animation-name was removed). Reported by the S42 builder. **Fixed 06:48Z**: govern() now plays again only the animations it paused itself (a WeakSet). The 10 pages using govern() re-tested: samples tests 7/7 passed, all 54 pages load clean.
 
+## Pause 07:23Z (usage limit)
+
+51 of 60 samples committed and pushed (last: S40). Builders for S38 mega-menu, S45 wind-snapshot, S51 planet-maker and S52 glass-mandala were stopped mid-build: their partial files are in `samples/<slug>/` (uncommitted; S38 had passed its first --no-perf check). On resume: re-check each (or relaunch its builder), gate, integrate. S45 needs `vendor/natural-earth@ca96624/` (fetched, uncommitted) added with `-Extra`. Not started: S02, S53, S58, S59, S60. Then P4 (S37 focus-scroll check, S42 still), P5 blind Opus review, P7 (README, full npm test, RESULT-lab-05.md, CMHS Memory, RUNLOG end).
+
 ## Incidents
 
 - 04:58Z: S24's card cut-out is 688 px wide after trim; the integration assumed 800, so the pushed `samples.json` named a missing `glass-jellyfish-800` and the 688 files were never staged (S24 commit 04:20Z). Found by test 10; fixed and pushed in `e0eea4d` (widths [400, 688], files committed, share image re-rendered); the integration now reads the width from the build. Origin carried the broken reference for about 38 min.
