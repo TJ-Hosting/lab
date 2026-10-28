@@ -45,6 +45,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "liquid-distort-headline",
+			"title": "Liquid distort headline",
+			"kicker": "Liquid type",
+			"category": "Type",
+			"blurb": "A heavy headline drawn on a canvas and bent like liquid by a GPU shader: move your pointer and it speeds up, then settles; switch to a channel split or a rolling wave.",
+			"href": "samples/liquid-distort-headline/",
+			"image": { "base": "img/iso/liquid-distort-headline", "widths": [400, 800], "ratio": 1.201 },
+			"tags": ["Blotter", "WebGL", "GLSL"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "star-trail-text",
 			"title": "Star-trail text",
 			"kicker": "Star-trail type",

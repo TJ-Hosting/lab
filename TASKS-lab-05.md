@@ -70,7 +70,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S | NN | slug | category | reuse | library | img | state | notes |
 |---|---|---|---|---|---|---|---|---|
 | S01 | 04 | split-flap-board | Type | adapt-code (MIT, CodePen Debug view) | none | 0 | **committed 03:23Z** | open sky, navy board object; 16.7 ms; card C01 |
-| S02 | 05 | liquid-distort-headline | Type | adapt-code | blotter@0.1.0 | 0 | todo | |
+| S02 | 05 | liquid-distort-headline | Type | adapt-code (library use, MIT) | blotter@0.1.0 (bundles three r89, underscore 1.8.3) | 0 | committed (see git) | open sky card; runs under the base CSP (0 violations; _.template never called); Blotter's loop never starts, one frame per loop() tick; loaded only after a WebGL test; bundled libraries' MIT notices added to its LICENSE.txt; 16.7 ms; card C02 |
 | S03 | 06 | star-trail-text | Type | adapt-code (MIT, gist .block) | none | 0 | **committed 03:30Z** | night screen; stars.js (third-party pen) not used; 16.7 ms; card C03 |
 | S04 | 07 | glitch-headline | Type | adapt-code (Apache-2.0, gui-challenges 82317d0) | none | 0 | **committed 04:07Z** | open sky; animated clip-path replaced by still band clips + transform; 16.7 ms; card C04 |
 | S05 | 08 | scramble-titles | Type | adapt-code (MIT, Debug view) | animejs@4.4.0 | 0 | committed (see git) | open sky glass card; anime.js stepped by seek() from loop() (own rAF off); sample copy labelled; 16.7 ms; card C05 |

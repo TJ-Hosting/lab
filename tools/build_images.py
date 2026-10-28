@@ -155,6 +155,7 @@ CUTOUTS = [
 	('iso/frosted-window', 'lab05-frosted-window.png', [400, 800], None),
 	('iso/ascii-sculpture', 'lab05-ascii-sculpture.png', [400, 800], None),
 	('iso/page-turn-lookbook', 'lab05-page-turn-lookbook.png', [400, 800], None),
+	('iso/liquid-distort-headline', 'lab05-liquid-distort-headline.png', [400, 800], None),
 	# lab-05 end
 ]
 
