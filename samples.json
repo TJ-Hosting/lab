@@ -221,6 +221,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "edge-network-globe",
+			"title": "Edge Network Globe",
+			"kicker": "Dotted globe",
+			"category": "Data",
+			"blurb": "A dotted cyan globe turns slowly while pulses run along glowing arcs from a Toronto hub to ten cities. Drag to turn it.",
+			"href": "samples/edge-network-globe/",
+			"image": { "base": "img/iso/edge-network-globe", "widths": [400, 800], "ratio": 1.231 },
+			"tags": ["WebGL", "COBE", "Canvas 2D"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "clock-wall",
 			"title": "Clock Wall",
 			"kicker": "Clocks as pixels",

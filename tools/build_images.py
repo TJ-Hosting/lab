@@ -94,6 +94,7 @@ CUTOUTS = [
 	('iso/wavy-lines-hero', 'lab05-wavy-lines-hero.png', [400, 800], None),
 	('iso/marble-harp', 'lab05-marble-harp.png', [400, 800], None),
 	('iso/glass-sandbox', 'lab05-glass-sandbox.png', [400, 800], None),
+	('iso/edge-network-globe', 'lab05-edge-network-globe.png', [400, 800], None),
 	# lab-05 end
 ]
 

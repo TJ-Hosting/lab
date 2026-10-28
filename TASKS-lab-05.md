@@ -111,7 +111,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S40 | 43 | browser-frame-showcase | UI | adapt-code | none | 4 | todo | wordless layout art |
 | S41 | 44 | focus-trail-form | UI | adapt-code | none | 0 | todo | |
 | S42 | 45 | publish-button | UI | adapt-code | canvas-confetti@1.9.4 | 0 | todo | |
-| S43 | 46 | edge-network-globe | Data | adapt-code | cobe@2.0.1 | 0 | todo | arcs labelled illustrative |
+| S43 | 46 | edge-network-globe | Data | adapt-code (MIT, cobe 2.0.1 vendored) | cobe@2.0.1 | 0 | committed (see git) | night screen; cobe's update() painted from loop() (2.0.1 has no own loop); "Illustrative · not a real network"; 16.7 ms; card C43 |
 | S44 | 47 | clock-wall | Data | rebuild-from-idea | none | 0 | **committed 04:04Z** | open sky; 102 WAAPI clock faces, local 24 h time; 16.7 ms; card C44 |
 | S45 | 48 | wind-snapshot | Data | adapt-code | wind-gl (repo dist at a commit SHA) | 0 | todo | data frames only if licence confirmed |
 | S46 | 49 | epicycle-machine | Data | adapt-code (MIT, 7bb6c56; maths only) | none | 0 | committed (see git) | open sky; TJ letterform from tj-hosting.ca's favicon path; 16.7 ms; card C46 |
