@@ -9,3 +9,4 @@ evidence/lab-05/contrast-*
 evidence/lab-05/test-output-only.txt
 evidence/lab-05/samples/*/sheet.jpg
 evidence/lab-05/samples/*/check.json
+evidence/lab-05/samples/*/check-firefox.json

@@ -1,5 +1,5 @@
 /*
- * tools/check-sample.mjs <slug> [--no-perf] [--no-firefox]   (lab-05)
+ * tools/check-sample.mjs <slug> [--no-perf] [--no-firefox] [--firefox-only]   (lab-05)
  *
  * Checks one sample the way the lead gates it, and writes the evidence to evidence/lab-05/samples/<slug>/:
  * - static: the CSP is the base policy plus only the allowed additions; nothing loads from another host;
@@ -15,6 +15,9 @@
  *   (UNMASKED_RENDERER_WEBGL). Chromium starts with ANGLE on D3D11 and the GPU; if WebGL is still software
  *   it retries headed, and if it stays software the frame time is recorded as not measured.
  * Exit 0 = PASS. Firefox that cannot start (lab-05: Claude Code's sandbox) is reported, not failed.
+ * --firefox-only runs just the Firefox checks and writes check-firefox.md/.json, leaving the Chromium record alone.
+ * LAB_FIREFOX=<path to firefox.exe> starts that Firefox build instead of Playwright's own (on ACO-PC its install folder
+ * fails with a Windows side-by-side error for mozglue, while a copy of the same files elsewhere starts).
  */
 import { chromium, firefox } from 'playwright';
 import { existsSync, mkdirSync, readFileSync, readdirSync, statSync, writeFileSync } from 'node:fs';
@@ -28,8 +31,10 @@ const args = process.argv.slice(2);
 const slug = args.find((a) => !a.startsWith('--'));
 const NO_PERF = args.includes('--no-perf');
 const NO_FIREFOX = args.includes('--no-firefox');
+const FIREFOX_ONLY = args.includes('--firefox-only');
+const FIREFOX_PATH = process.env.LAB_FIREFOX || undefined;
 if (!slug || !/^[a-z0-9-]+$/.test(slug) || !existsSync(join(ROOT, 'samples', slug, 'index.html'))) {
-	console.error('usage: node tools/check-sample.mjs <slug> [--no-perf] [--no-firefox]   (samples/<slug>/index.html must exist)');
+	console.error('usage: node tools/check-sample.mjs <slug> [--no-perf] [--no-firefox] [--firefox-only]   (samples/<slug>/index.html must exist)');
 	process.exit(2);
 }
 const OUT = join(ROOT, 'evidence', 'lab-05', 'samples', slug);
@@ -257,31 +262,34 @@ async function checkBrowser(label, browser, { perf }) {
 }
 
 const report = { slug, when: new Date().toISOString(), cspExtra, renderer: null, gl: null, chromium: null, firefox: null };
-let browser = await chromium.launch({ args: GPU_ARGS });
-report.renderer = await rendererOf(browser);
-if (SOFTWARE.test(report.renderer)) {
+if (!FIREFOX_ONLY) {
+	let browser = await chromium.launch({ args: GPU_ARGS });
+	report.renderer = await rendererOf(browser);
+	if (SOFTWARE.test(report.renderer)) {
+		await browser.close();
+		browser = await chromium.launch({ args: GPU_ARGS, headless: false });
+		report.renderer = `${await rendererOf(browser)} (headed retry)`;
+	}
+	report.gl = SOFTWARE.test(report.renderer) || /no WebGL|error/.test(report.renderer) ? 'software' : 'gpu';
+	note(`Chromium ${browser.version()}, WebGL renderer: ${report.renderer}`);
+	report.chromium = await checkBrowser('chromium', browser, { perf: !NO_PERF });
+	if (report.chromium.frame) {
+		const { median, p95 } = report.chromium.frame;
+		if (report.gl === 'software') note(`frame time not measured (software GL): median ${median} ms recorded for reference`);
+		else if (median > 20) fail(`frame time: median ${median} ms > 20 ms at 1440 (p95 ${p95})`);
+		else note(`frame time: median ${median} ms, p95 ${p95} ms at 1440`);
+	}
 	await browser.close();
-	browser = await chromium.launch({ args: GPU_ARGS, headless: false });
-	report.renderer = `${await rendererOf(browser)} (headed retry)`;
 }
-report.gl = SOFTWARE.test(report.renderer) || /no WebGL|error/.test(report.renderer) ? 'software' : 'gpu';
-note(`Chromium ${browser.version()}, WebGL renderer: ${report.renderer}`);
-report.chromium = await checkBrowser('chromium', browser, { perf: !NO_PERF });
-if (report.chromium.frame) {
-	const { median, p95 } = report.chromium.frame;
-	if (report.gl === 'software') note(`frame time not measured (software GL): median ${median} ms recorded for reference`);
-	else if (median > 20) fail(`frame time: median ${median} ms > 20 ms at 1440 (p95 ${p95})`);
-	else note(`frame time: median ${median} ms, p95 ${p95} ms at 1440`);
-}
-await browser.close();
 
-if (!NO_FIREFOX) {
+if (!NO_FIREFOX || FIREFOX_ONLY) {
 	let ff = null;
 	try {
-		ff = await firefox.launch();
+		ff = await firefox.launch(FIREFOX_PATH ? { executablePath: FIREFOX_PATH } : {});
 	} catch (e) {
 		report.firefox = { unavailable: e.message.split('\n')[0] };
-		note(`Firefox: not run (${report.firefox.unavailable})`);
+		if (FIREFOX_ONLY) fail(`Firefox did not start (${report.firefox.unavailable})`);
+		else note(`Firefox: not run (${report.firefox.unavailable})`);
 	}
 	if (ff) {
 		note(`Firefox ${ff.version()}`);
@@ -308,11 +316,15 @@ report.status = status;
 report.fails = fails;
 report.warns = warns;
 report.notes = notes;
-writeFileSync(join(OUT, 'check.json'), `${JSON.stringify(report, null, '\t')}\n`);
+const main = FIREFOX_ONLY ? report.firefox : report.chromium; // the browser this record is about
+const NAME = FIREFOX_ONLY ? 'check-firefox' : 'check';
+writeFileSync(join(OUT, `${NAME}.json`), `${JSON.stringify(report, null, '\t')}\n`);
 const md = [
 	`# check-sample: ${slug} — ${status}`,
 	'',
-	`${report.when} · Chromium WebGL: ${report.renderer} · Firefox: ${report.firefox?.unavailable ? `not run (${report.firefox.unavailable})` : 'run'}`,
+	FIREFOX_ONLY
+		? `${report.when} · Firefox only${report.firefox?.unavailable ? `: did not start (${report.firefox.unavailable})` : ''} (the Chromium record is check.md)`
+		: `${report.when} · Chromium WebGL: ${report.renderer} · Firefox: ${report.firefox?.unavailable ? `not run (${report.firefox.unavailable})` : 'run'}`,
 	'',
 	...(fails.length ? ['## Failures', ...fails.map((f) => `- ${f}`), ''] : []),
 	...(warns.length ? ['## Warnings', ...warns.map((w) => `- ${w}`), ''] : []),
@@ -320,17 +332,17 @@ const md = [
 	...notes.map((n) => `- ${n}`),
 	'',
 	'## Motion',
-	`- reduced motion: ${JSON.stringify(report.chromium.reduced)}`,
-	`- hidden tab: ${JSON.stringify(report.chromium.pause)}`,
-	`- frame time: ${report.chromium.frame ? `${JSON.stringify(report.chromium.frame)} (${report.gl} GL)` : 'not measured (--no-perf)'}`,
+	`- reduced motion: ${JSON.stringify(main?.reduced ?? null)}`,
+	`- hidden tab: ${JSON.stringify(main?.pause ?? null)}`,
+	`- frame time: ${main?.frame ? `${JSON.stringify(main.frame)} (${report.gl} GL)` : FIREFOX_ONLY ? 'not measured in Firefox' : 'not measured (--no-perf)'}`,
 	'',
-	'## Shell contrast (Chromium)',
+	`## Shell contrast (${FIREFOX_ONLY ? 'Firefox' : 'Chromium'})`,
 	'width | selector | # | polarity | text | worst behind | ratio | need',
 	'---|---|---|---|---|---|---|---',
-	...report.chromium.contrast.map((r) => `${r.width} | ${r.selector} | ${r.index} | ${r.polarity} | ${r.text} | ${r.worstBehind} | ${r.ratio.toFixed(2)} | ${r.need}`),
+	...(main?.contrast ?? []).map((r) => `${r.width} | ${r.selector} | ${r.index} | ${r.polarity} | ${r.text} | ${r.worstBehind} | ${r.ratio.toFixed(2)} | ${r.need}`),
 	'',
-	'Screenshots: chromium-1440.jpg, chromium-375.jpg, reduced-1440.jpg (sheet.jpg: all of them, not committed).',
+	FIREFOX_ONLY ? 'Screenshots: firefox-1440.jpg, firefox-375.jpg, firefox-reduced-1440.jpg.' : 'Screenshots: chromium-1440.jpg, chromium-375.jpg, reduced-1440.jpg (sheet.jpg: all of them, not committed).',
 ];
-writeFileSync(join(OUT, 'check.md'), `${md.join('\n')}\n`);
-console.log(`${status} ${slug}: ${fails.length} failures, ${warns.length} warnings → evidence/lab-05/samples/${slug}/check.md`);
+writeFileSync(join(OUT, `${NAME}.md`), `${md.join('\n')}\n`);
+console.log(`${status} ${slug}${FIREFOX_ONLY ? ' (Firefox)' : ''}: ${fails.length} failures, ${warns.length} warnings → evidence/lab-05/samples/${slug}/${NAME}.md`);
 process.exitCode = fails.length ? 1 : 0;

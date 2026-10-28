@@ -177,6 +177,13 @@ None yet.
 - Look-alikes: a contact sheet of all 60 at 1440 shows none; the closest pairs (coral-ink and slime-network, wavy-lines-hero and marble-harp, stacking-plan-cards and pricing-rolling-digits) differ in look and interaction.
 - Old design: none seen; every page uses the DS v9 shell, and the blind review found the shell matching DS v9.
 
+## Firefox pass (after the run, Aco's yes, 12:01Z)
+
+- Why Firefox would not start: not only the sandbox. Outside it too, Windows refused `ms-playwright\firefox-1495\firefox\firefox.exe` with a side-by-side error (event log: dependent assembly `mozglue` 1.0.0.0 not found), although `mozglue.dll` is there with its embedded assembly manifest and the folder's permissions match Chromium's. A copy of the same 48 files in `C:\localhost\tools\ff1495-test\firefox\` starts (Firefox 142.0.1) and Playwright drives it, inside the sandbox too. Cause not found.
+- `tools/check-sample.mjs` gained `LAB_FIREFOX=<path>` and `--firefox-only` (writes `check-firefox.md`, leaves the Chromium `check.md` alone); README and `.gitignore` follow.
+- All 60 in Firefox 142.0.1 at 1440 and 375, 11:45–11:59Z, three at a time: **60 PASS, 0 FAIL** (`evidence/lab-05/firefox-60.txt`; per sample `check-firefox.md`, `firefox-1440.jpg`, `firefox-375.jpg`, `firefox-reduced-1440.jpg`). Six warnings, all "nothing moves at rest": the five scroll-driven pieces show their static fallback by design (Firefox has no scroll-driven animations), and mega-menu's idle tour has pauses between moves.
+- A contact sheet of the 60 Firefox shots matches Chromium's. shape-shifter's 2.5 s shot caught its first gather: Firefox's headless WebGL ran at about 20 fps here, and the shape forms by 3 s (checked at 3, 6 and 10 s, no console errors).
+
 ## P5 blind review (`evidence/lab-05/review-1.md`)
 
 One Opus 5.5 sub-agent, images only: tj-hosting.ca's DS v9 shots and banner, the Lab's 29 lab-04 after-shots, and 12 new-sample shots drawn at random (seed 20261028) from the 56 then committed and re-shot fresh (key appended to the review). Verdict: mostly, 7.5/10 (the shell matches DS v9; the drift is in four pieces' art). What was done:
@@ -202,7 +209,7 @@ One Opus 5.5 sub-agent, images only: tj-hosting.ca's DS v9 shots and banner, the
 
 ## Not tested (so far)
 
-Firefox (QUESTION 1), Safari and iOS, real phones, other GPUs.
+Safari and iOS, real phones, other GPUs. Firefox was run after the run ended (see "Firefox pass").
 
 ## Time log (UTC)
 
