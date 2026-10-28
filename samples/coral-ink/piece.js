@@ -48,14 +48,16 @@ const clamp = (v, lo, hi) => (v < lo ? lo : v > hi ? hi : v);
 
 /* ---------- colour: the amount of ink in a cell (0 to about 0.43) picks one of 256 colours ---------- */
 
-/* v, r, g, b, a: a soft cyan halo, azure, royal, then navy at the core of thick ink */
+/* v, r, g, b, a: a thin cyan rim, azure, royal, then navy at the core of thick ink. The rise from clear to solid is
+   kept short (lab-05 P5 review): the grid is upscaled smoothly, so a wide ramp read as a soft, out-of-focus edge */
 const STOPS = [
 	[0.0, 70, 208, 251, 0],
-	[0.035, 70, 208, 251, 38],
-	[0.09, 77, 159, 243, 150],
-	[0.16, 40, 130, 240, 232],
-	[0.24, 12, 107, 237, 255],
-	[0.33, 9, 70, 190, 255],
+	[0.06, 70, 208, 251, 0],
+	[0.075, 70, 208, 251, 150],
+	[0.095, 77, 159, 243, 245],
+	[0.13, 40, 130, 240, 255],
+	[0.21, 12, 107, 237, 255],
+	[0.31, 9, 70, 190, 255],
 	[0.43, 8, 36, 112, 255],
 ];
 const VMAX = 0.43;

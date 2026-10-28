@@ -181,7 +181,7 @@ One Opus 5.5 sub-agent, images only: tj-hosting.ca's DS v9 shots and banner, the
 7. (low) two frame-bar colours: **fixed 10:24Z** for liquid-glass-lens (mid-dark art, now the navy bar); the white bar stays on day screens whose art is light.
 8. (low) back link inline on some phones, own line on others: **fixed 10:24Z** in `css/sample.css`: own line on every phone.
 9. (low) panel greys over dark windows: **fixed 10:24Z** in `css/sample.css`: the panel's tint is 0.97 white-blue (the reviewer sampled about #dee3ee over dark windows; sampled again over three: about #eaeef6).
-10. (low) coral-ink soft edges: open.
+10. (low) coral-ink soft edges: **fixed 10:28Z**: the colour ramp rises from clear to solid over a third of the old span (thin cyan rim, no wide halo), so the upscaled edge reads crisp; an SVG alpha filter was tried first and dropped (little gain). Re-gated 16.7 ms.
 11. (low) icon-micro-set navy burst specks: **fixed 10:24Z**: bursts are cyan and azure only.
 12. (low) glass-card-flow amber as a second accent: **fixed 10:26Z**: the cafe card's sun keeps the honey; the promo sun is cyan glass and the price pills and menu prices are azure and cyan.
 
