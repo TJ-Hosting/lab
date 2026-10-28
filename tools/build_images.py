@@ -131,6 +131,7 @@ CUTOUTS = [
 	('iso/liquid-hover-gallery', 'lab05-liquid-hover-gallery.png', [400, 800], None),
 	('iso/streamline-poster', 'lab05-streamline-poster.png', [400, 800], None),
 	('iso/scramble-titles', 'lab05-scramble-titles.png', [400, 800], None),
+	('iso/glass-diorama-card', 'lab05-glass-diorama-card.png', [400, 800], None),
 	# lab-05 end
 ]
 

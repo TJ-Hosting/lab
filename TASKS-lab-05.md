@@ -95,7 +95,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S24 | 27 | glass-jellyfish | Pointer | rebuild-from-idea (CodePen blocked) | none | 0 | **committed 04:20Z** | night screen; hero + 4 small jellyfish; 16.7 ms; card C24 |
 | S25 | 28 | halftone-dissolve | Pointer | adapt-code | gsap@3.13.0 | 2 | todo | |
 | S26 | 29 | lamp-cord-theme | Pointer | adapt-code (MIT, cebf1f1) | none | 0 | committed (see git) | day screen holding a sample page whose theme flips via [data-night]; View Transition circle, instant without it; 16.7 ms; card C26 |
-| S27 | 30 | glass-diorama-card | Pointer | adapt-code | atropos@2.0.2 | 5 | todo | |
+| S27 | 30 | glass-diorama-card | Pointer | adapt-code (Atropos MIT; foil idea holo-card MIT) | atropos@2.0.2 | 3 (A27a-c, layer ingest) | committed (see git) | portrait card on the open sky; Atropos created only while it may run (its own rAF); gyro after a tap; 16.7 ms; card C27 |
 | S28 | 31 | skill-chips | Pointer | rebuild-from-idea | matter-js@0.20.0 | 0 | todo | |
 | S29 | 32 | brand-colour-sphere | SVG | rebuild-from-idea (CodePen 403) | none | 0 | **committed 03:49Z** | open sky; SVG polygons redrawn per frame (D2); full hue wheel includes violet/pink as artwork; 16.7 ms; card C29 |
 | S30 | 33 | wavy-lines-hero | SVG | adapt-code (MIT, CodePen Debug view) | none | 0 | committed (see git) | night screen; two single-path SVG layers redrawn per frame (D2); 16.7 ms; card C30 |

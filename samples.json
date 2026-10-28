@@ -254,6 +254,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "glass-diorama-card",
+			"title": "Glass diorama card",
+			"kicker": "Holo tilt",
+			"category": "Pointer",
+			"blurb": "A portrait glass card holding a five-layer diorama of floating islands, clouds and a lit tower that tilts in 3D, with a cool foil glare that follows the pointer or your phone's tilt.",
+			"href": "samples/glass-diorama-card/",
+			"image": { "base": "img/iso/glass-diorama-card", "widths": [400, 800], "ratio": 1.258 },
+			"tags": ["Atropos", "CSS 3D", "Gyroscope"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "brand-colour-sphere",
 			"title": "The brand colour sphere",
 			"kicker": "Colour maths",
