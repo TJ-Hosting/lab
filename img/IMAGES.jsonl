@@ -181,6 +181,10 @@
 {"file":"img/iso/glass-diorama-card-400.webp","source":"assets/pack/lab05-glass-diorama-card.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/glass-diorama-card-800.avif","source":"assets/pack/lab05-glass-diorama-card.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/glass-diorama-card-800.webp","source":"assets/pack/lab05-glass-diorama-card.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/glass-hero-kit-400.avif","source":"assets/pack/lab05-glass-hero-kit.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/glass-hero-kit-400.webp","source":"assets/pack/lab05-glass-hero-kit.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/glass-hero-kit-800.avif","source":"assets/pack/lab05-glass-hero-kit.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/glass-hero-kit-800.webp","source":"assets/pack/lab05-glass-hero-kit.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/glass-jellyfish-400.avif","source":"assets/pack/lab05-glass-jellyfish.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/glass-jellyfish-400.webp","source":"assets/pack/lab05-glass-jellyfish.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/glass-jellyfish-688.avif","source":"assets/pack/lab05-glass-jellyfish.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
@@ -384,6 +388,7 @@
 {"file":"img/og/focus-trail-form.jpg","source":"assets/pack/lab05-focus-trail-form.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/glass-card-flow.jpg","source":"assets/pack/lab05-glass-card-flow.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/glass-diorama-card.jpg","source":"assets/pack/lab05-glass-diorama-card.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
+{"file":"img/og/glass-hero-kit.jpg","source":"assets/pack/lab05-glass-hero-kit.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/glass-jellyfish.jpg","source":"assets/pack/lab05-glass-jellyfish.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/glass-orbs.jpg","source":"assets/pack/lab05-glass-orbs.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/glass-sandbox.jpg","source":"assets/pack/lab05-glass-sandbox.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}

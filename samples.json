@@ -386,6 +386,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "glass-hero-kit",
+			"title": "Aurora hero with beam cards",
+			"kicker": "Light rays",
+			"category": "UI",
+			"blurb": "A frosted glass hero over soft light rays and two slow blobs, with a beam of light running round the border of each service card, one chasing the next.",
+			"href": "samples/glass-hero-kit/",
+			"image": { "base": "img/iso/glass-hero-kit", "widths": [400, 800], "ratio": 1.227 },
+			"tags": ["CSS", "HTML", "Web Animations"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "integration-beams",
 			"title": "Integration beams",
 			"kicker": "Beam hub",
