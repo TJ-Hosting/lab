@@ -136,7 +136,10 @@ None yet.
 
 ## Images (gen-lab05.ps1, cap 200 attempts)
 
-0 / 200 attempts. Queue and results: below as P2 starts.
+85 / 200 attempts by 04:55Z, 85 done, 0 failed, 0 regenerated except C28 (C28b: rounded glass tags; the first read as capsule pills).
+- Card objects C01–C60 (tj style lock + transparent background + golden.png reference), all looked at on the sky colour and kept; ingested per sample with `ingest-lab05.mjs card` at commit time.
+- In-piece art, pre-generated for the image samples (store `imagepack\lab05\queue.json`, ids A##x): S25 A25a/b (lake, glass facade), S27 A27a/b/c (islands, tower, clouds; style lock, transparent), S33 A33 (silk ribbons), S40 A40a/b/c (wordless site mocks: bakery, architecture studio, garden centre), S54 A54 (pond with lanterns), S55 A55a/b/c (skyscrapers at dawn, aurora lake, cliffs and lighthouse), S56 A56a/b (glass wave, cornflowers), S57 A57a/b/c (stone, leather, a hammered metal that came out blue, not copper), S58 A58a/b (same sea, sun and moon), S59 A59 (snowy street through a window), S60 A60a/b/c (cover, two spreads with a little book edge to crop). All looked at and kept. S13 uses `img/brand/tj-mark.svg` (no image).
+- Runner: `agent-honeypot\imagepack\run-lab05-queue.ps1`; ingest: `agent-honeypot\imagepack\ingest-lab05.mjs`.
 
 ## Defects (P4) and improvements (P5, P6)
 
