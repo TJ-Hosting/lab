@@ -109,7 +109,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S38 | 41 | mega-menu | UI | rebuild-from-idea | none | 0 | todo | |
 | S39 | 42 | testimonial-wall | UI | adapt-code | none | 0 | todo | |
 | S40 | 43 | browser-frame-showcase | UI | adapt-code | none | 4 | todo | wordless layout art |
-| S41 | 44 | focus-trail-form | UI | adapt-code | none | 0 | todo | |
+| S41 | 44 | focus-trail-form | UI | adapt-code (MIT, Debug view) | none | 0 | committed (see git) | demo form labelled "nothing is sent or stored"; 16.7 ms; card C41 |
 | S42 | 45 | publish-button | UI | adapt-code | canvas-confetti@1.9.4 | 0 | todo | |
 | S43 | 46 | edge-network-globe | Data | adapt-code (MIT, cobe 2.0.1 vendored) | cobe@2.0.1 | 0 | committed (see git) | night screen; cobe's update() painted from loop() (2.0.1 has no own loop); "Illustrative · not a real network"; 16.7 ms; card C43 |
 | S44 | 47 | clock-wall | Data | rebuild-from-idea | none | 0 | **committed 04:04Z** | open sky; 102 WAAPI clock faces, local 24 h time; 16.7 ms; card C44 |

@@ -265,6 +265,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "focus-trail-form",
+			"title": "Focus-Trail Contact Form",
+			"kicker": "Form focus",
+			"category": "UI",
+			"blurb": "A frosted demo contact form where a glowing head with a fading tail slides to the focused field, ticks valid fields, shakes invalid ones and flies off as a paper plane; nothing is sent.",
+			"href": "samples/focus-trail-form/",
+			"image": { "base": "img/iso/focus-trail-form", "widths": [400, 800], "ratio": 1.293 },
+			"tags": ["Canvas 2D", "CSS", "Web Animations"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "edge-network-globe",
 			"title": "Edge Network Globe",
 			"kicker": "Dotted globe",
