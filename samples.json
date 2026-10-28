@@ -441,6 +441,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "browser-frame-showcase",
+			"title": "Browser-frame project showcase",
+			"kicker": "Browser frame",
+			"category": "UI",
+			"blurb": "A glass browser window and a matching phone show three fictional client sites that scroll on hover, under a sweeping frosted sheen.",
+			"href": "samples/browser-frame-showcase/",
+			"image": { "base": "img/iso/browser-frame-showcase", "widths": [400, 800], "ratio": 0.887 },
+			"tags": ["CSS transforms", "Glass UI", "Hover scroll"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "focus-trail-form",
 			"title": "Focus-trail contact form",
 			"kicker": "Form focus",

@@ -108,7 +108,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S37 | 40 | bento-grid | UI | adapt-code (MIT, magicui efe76fc) | none | 0 | **committed 04:18Z** | open sky; CSS loops in [data-motion]; tile uses overflow: clip (focus scroll bug); 16.7 ms; card C37 |
 | S38 | 41 | mega-menu | UI | rebuild-from-idea | none | 0 | todo | |
 | S39 | 42 | testimonial-wall | UI | adapt-code (MIT, efe76fc) | none | 0 | committed (see git) | open sky; every card "Sample", placeholder names, no stars, pill "Sample reviews · not real customers"; no backdrop-filter on moving cards; 16.7 ms; card C39 |
-| S40 | 43 | browser-frame-showcase | UI | adapt-code | none | 4 | todo | wordless layout art |
+| S40 | 43 | browser-frame-showcase | UI | rebuild-from-idea (MIT, no code read) | none | 3 (A40a-c) | committed (see git) | open sky; generic frame, fictional sites labelled; scroll by transform from loop(); 16.7 ms; card C40 |
 | S41 | 44 | focus-trail-form | UI | adapt-code (MIT, Debug view) | none | 0 | committed (see git) | demo form labelled "nothing is sent or stored"; 16.7 ms; card C41 |
 | S42 | 45 | publish-button | UI | adapt-code (library use, ISC) | canvas-confetti@1.9.4 | 0 | committed (see git) | open sky card; "Simulated publish · nothing is uploaded"; confetti on its own canvas, no worker, cleared on hide/pause; 16.7 ms; card C42 |
 | S43 | 46 | edge-network-globe | Data | adapt-code (MIT, cobe 2.0.1 vendored) | cobe@2.0.1 | 0 | committed (see git) | night screen; cobe's update() painted from loop() (2.0.1 has no own loop); "Illustrative · not a real network"; 16.7 ms; card C43 |
@@ -170,6 +170,7 @@ None yet.
 - 04:58Z: S24's card cut-out is 688 px wide after trim; the integration assumed 800, so the pushed `samples.json` named a missing `glass-jellyfish-800` and the 688 files were never staged (S24 commit 04:20Z). Found by test 10; fixed and pushed in `e0eea4d` (widths [400, 688], files committed, share image re-rendered); the integration now reads the width from the build. Origin carried the broken reference for about 38 min.
 - 04:59Z: four untracked screenshots (`b-*.png`, written 04:51Z by a builder's scratch script with relative paths) were found at the repo root and deleted; never committed. Builder brief §8a now says to write scratch output by absolute path.
 - One builder tried a spoofed user agent on CodePen; the harness blocked it (S22).
+- 07:17Z: during S39's integration render-og could not open `img/IMAGES.jsonl` (Windows UNKNOWN error, likely a momentary lock) and the integration committed anyway (`1284d3f`), without the manifest row for `img/og/testimonial-wall.jpg`; the images test flagged it. Fixed in `b243c56` before any later commit; the integration script now stops before committing when render-og or the images test fails.
 
 ## Not tested (so far)
 
