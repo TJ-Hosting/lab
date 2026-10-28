@@ -1,6 +1,7 @@
 /* Sample 52 — Glass Sandbox. The shell (sky, top bar, panel, the night screen) comes from css/; only the piece is styled here.
-   The elements' colours are the ones piece.js paints: pale gold sand, azure water, a warm dark oil, hot light for fire and lava,
-   cyan-white glass and ice. The dock is light glass (DS v9), standing on the screen's frame. */
+   The elements' colours are the ones piece.js paints, all DS v9: pale ice to sky sand, azure water, navy ink, royal coral,
+   cyan-to-white light for spark and plasma, white-cyan ice and glass. The tray is white-blue glass, standing on the screen's frame,
+   its swatches small glossy spheres. */
 
 .piece {
 	display: block;
@@ -8,7 +9,6 @@
 	height: 100%;
 	touch-action: none; /* the canvas takes drags: they pour */
 	cursor: crosshair;
-	image-rendering: pixelated;
 }
 .piece:focus-visible { outline: 2px solid var(--focus); outline-offset: -4px; }
 
@@ -55,9 +55,16 @@
 	.sample--glass-sandbox .readout[data-mode="auto"] .readout__more { display: inline; white-space: pre; }
 }
 
-/* ---------- the dock: light glass, round swatches with their names ---------- */
+/* ---------- the dock: a white-blue glass tray, glossy sphere swatches with their names ---------- */
 
 .sample--glass-sandbox .dock {
+	--win-x: max(var(--gutter), calc((100vw - var(--page-max)) / 2)); /* where the window starts */
+	/* white-blue glass (DS v9's #f3f9fd family), a light-blue hairline, blue shadows */
+	--glass-tint-strong: #f3f8fd;
+	--glass-fallback-strong: #f3f8fd;
+	--glass-border: #c2dbf3;
+	--glass-rim: linear-gradient(155deg, #ffffff 0%, #d6e8f8 34%, #b6d3f0 100%);
+	--glass-drop: 0 14px 30px -12px rgba(22, 66, 140, 0.42), 0 5px 12px -6px rgba(22, 66, 140, 0.26);
 	position: fixed;
 	z-index: 35;
 	top: 116px; /* under the window bar */
@@ -70,8 +77,9 @@
 	align-items: center;
 	justify-content: center;
 	gap: 2px 10px;
-	max-width: calc(100vw - 2 * var(--gutter) - 16px);
+	max-width: calc(100vw - 2 * var(--win-x) - 24px); /* inset 12 px from each side of the window */
 	padding: 6px 10px;
+	border-radius: 16px;
 }
 .dock__group { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 2px; }
 .dock__sep { width: 1px; height: 22px; margin: 0 6px; background: var(--line); }
@@ -91,34 +99,45 @@
 	cursor: pointer;
 }
 .el:hover { background: var(--raised); }
+/* the chosen swatch: a royal ring round the whole chip, and round the sphere itself */
 .el[aria-pressed="true"] {
 	border-color: var(--action);
-	background: var(--raised);
+	background: #fff;
 	color: var(--accent-text);
-	box-shadow: inset 0 0 0 1px var(--action);
+	box-shadow: inset 0 0 0 1px var(--action), 0 3px 8px -3px rgba(5, 88, 220, 0.4);
 }
+/* a glossy sphere: a soft highlight over a three-stop radial body (--c1 light, --c2 body, --c3 rim) */
 .el__dot {
 	display: block;
 	width: 24px;
 	height: 24px;
 	flex: none;
 	border-radius: 50%;
-	background: var(--c, #fff);
-	box-shadow: inset 0 0 0 1px rgba(7, 16, 34, 0.28), inset 0 2px 3px rgba(255, 255, 255, 0.5);
+	background:
+		radial-gradient(circle at 31% 25%, rgba(255, 255, 255, 0.98) 0 7%, rgba(255, 255, 255, 0.5) 15%, rgba(255, 255, 255, 0) 36%),
+		radial-gradient(circle at 46% 58%, var(--c1) 0%, var(--c2) 58%, var(--c3) 100%);
+	box-shadow: inset 0 -2px 3px rgba(8, 40, 120, 0.28), inset 0 0 0 1px rgba(22, 66, 140, 0.24), 0 1px 2px rgba(22, 66, 140, 0.3), var(--lit, 0 0 0 0 transparent);
 	transition: transform 0.35s var(--ease-spring);
 }
 .el:hover .el__dot { transform: scale(1.08); }
-.el[aria-pressed="true"] .el__dot { transform: scale(1.12); }
+.el[aria-pressed="true"] .el__dot {
+	transform: scale(1.1);
+	box-shadow: inset 0 -2px 3px rgba(8, 40, 120, 0.28), inset 0 0 0 1px rgba(22, 66, 140, 0.24), 0 0 0 2px #fff, 0 0 0 3.5px var(--action), var(--lit, 0 0 0 0 transparent);
+}
 
-.el[data-el="sand"] { --c: linear-gradient(160deg, #f7f0d4, #e5cd8c); }
-.el[data-el="water"] { --c: linear-gradient(160deg, #7fc4ff, #2e8aec); }
-.el[data-el="oil"] { --c: linear-gradient(160deg, #a8743a, #62401a); }
-.el[data-el="fire"] { --c: radial-gradient(circle at 50% 70%, #fff1a6 0%, #ffb23e 38%, #ff6a25 75%, #d93a1c 100%); }
-.el[data-el="plant"] { --c: linear-gradient(160deg, #6ee2b2, #22a47a); }
-.el[data-el="ice"] { --c: linear-gradient(160deg, #f4fcff, #bfe4fa); }
-.el[data-el="lava"] { --c: linear-gradient(160deg, #ffc460, #d0361a); }
-.el[data-el="glass"] { --c: linear-gradient(135deg, #f5fdff 0%, #a8e2f8 48%, #e2f7ff 100%); }
-.el[data-el="erase"] { --c: repeating-linear-gradient(45deg, #ffffff 0 4px, #cddff1 4px 6px); }
+.el[data-el="sand"] { --c1: #f4faff; --c2: #bfddfc; --c3: #8ec4f6; }
+.el[data-el="water"] { --c1: #8fcdfe; --c2: #3da1fc; --c3: #1d70d4; }
+.el[data-el="ink"] { --c1: #4a70d8; --c2: #203fa2; --c3: #0d1d5a; }
+.el[data-el="spark"] { --c1: #ffffff; --c2: #aeeaff; --c3: #38bdf8; --lit: 0 0 7px rgba(56, 189, 248, 0.7); }
+.el[data-el="coral"] { --c1: #74a4f9; --c2: #2f62e0; --c3: #123a9c; }
+.el[data-el="ice"] { --c1: #ffffff; --c2: #eefaff; --c3: #b4e3f8; }
+.el[data-el="plasma"] { --c1: #d8f4ff; --c2: #38bdf8; --c3: #0e84d6; --lit: 0 0 8px rgba(56, 189, 248, 0.75); }
+.el[data-el="glass"] { --c1: #f2fcff; --c2: #bdeafb; --c3: #5db4e4; }
+.el[data-el="erase"] .el__dot {
+	background:
+		radial-gradient(circle at 31% 25%, rgba(255, 255, 255, 0.98) 0 7%, rgba(255, 255, 255, 0.5) 15%, rgba(255, 255, 255, 0) 36%),
+		repeating-linear-gradient(45deg, #ffffff 0 4px, #cfe2f5 4px 6px);
+}
 
 /* brush sizes: round buttons with a dot that grows */
 .size {
@@ -157,7 +176,8 @@
 	.sample--glass-sandbox .readout { right: 12px; font-size: 11px; }
 }
 @media (max-width: 400px) {
-	.el { min-width: 36px; min-height: 36px; padding: 4px; }
-	.el__dot { width: 25px; height: 25px; }
+	/* the tray is inset 12 px from the window here, so the swatches tighten to fit eight in a row */
+	.el { min-width: 34px; min-height: 36px; padding: 4px; }
+	.el__dot { width: 24px; height: 24px; }
 	.size { width: 32px; }
 }

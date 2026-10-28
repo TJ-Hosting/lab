@@ -1,9 +1,10 @@
 /*
  * Sample 52 — "Glass Sandbox".
  * A falling-sand toy. sim.js holds the world (a typed-array grid of about 30 000 cells, eight elements and a few
- * rules each); scene.js builds the opening picture. This file draws the grid to a canvas in whole-pixel cells
- * (a soft orange glow added around lava, fire and hot glass), runs the loop, takes your brush, and plays a
- * scripted auto-pour (lava, sand, water, oil, fire, lava) until you draw; when the box fills up it wipes clean,
+ * rules each); scene.js builds the opening picture. This file draws the grid to a canvas in whole-pixel cells,
+ * each one lit as a small glass bead (a 1 px highlight and a touch of shade), with a soft cyan glow added around
+ * plasma, sparks and hot glass, runs the loop, takes your brush, and plays a
+ * scripted auto-pour (plasma, sand, water, ink, spark, plasma) until you draw; when the box fills up it wipes clean,
  * sets the opening scene up again and starts over. The grid is shaped round the shell: a stone shelf is built
  * under the info panel so the sand piles where you can see it. Reduced motion: the opening scene is settled and
  * drawn once (with a frozen thread of falling sand), and each stroke you make jumps straight to its end state.
@@ -25,14 +26,16 @@ const clearBtn = document.querySelector('[data-action="clear"]');
 const saveBtn = document.querySelector('[data-action="save"]');
 
 const REDUCED = prefersReducedMotion();
-const RATE = 90; // simulation steps per second
+const RATE = 90; // simulation steps per second, at the old 5 px cell; cellScale keeps the same speed on the finer grid
+const CELLS = 48000; // the grid aims for about this many cells; never finer than 3.2 px, so a phone gets a smaller grid
 const MAX_STEPS = 4; // per frame
 const GB = 5; // glow block: cells per glow pixel
 const STILL_STEPS = 420;
 
 const clamp = (v, lo, hi) => (v < lo ? lo : v > hi ? hi : v);
 
-/* ---------- colours: DS v9's blues for the water, ice and glass, gold for the sand, warm light for the heat ---------- */
+/* ---------- colours: all DS v9 blues. Sand runs from pale ice to sky, water is azure, ink and coral are navy and royal,
+   spark and plasma are cyan light going to white, ice and glass are white-cyan. No warm colour anywhere. ---------- */
 
 const abgr = (r, g, b, al = 255) => (((al & 255) << 24) | ((clamp(b, 0, 255) & 255) << 16) | ((clamp(g, 0, 255) & 255) << 8) | (clamp(r, 0, 255) & 255)) >>> 0;
 const lerp = (p, q, f) => p + (q - p) * f;
@@ -45,56 +48,60 @@ function ramp(c0, c1, n = 8, al = 255) {
 	}
 	return out;
 }
-const SAND_BASE = [[247, 240, 212], [240, 226, 180], [229, 208, 142], [244, 232, 196]];
-const SAND_PAL = new Uint32Array(32);
+/* sand: four bands from pale ice (#e6f3fe) to sky (#9fd0fb), each with 16 quiet shades per grain and a rare glint */
+const SAND_BASE = [[230, 243, 254], [207, 232, 253], [183, 220, 252], [159, 208, 251]];
+const SAND_PAL = new Uint32Array(64);
 SAND_BASE.forEach((c, b) => {
-	for (let k = 0; k < 8; k++) {
-		const d = (k - 3.5) * 3.4;
-		SAND_PAL[b * 8 + k] = abgr(Math.round(c[0] + d), Math.round(c[1] + d), Math.round(c[2] + d * 1.3));
+	for (let k = 0; k < 16; k++) {
+		const d = k === 15 ? 14 : (k - 7) * 1.5; // the last shade is a glint
+		SAND_PAL[b * 16 + k] = abgr(Math.round(c[0] + d), Math.round(c[1] + d), Math.round(c[2] + d * 0.5));
 	}
 });
-const WATER_PAL = ramp([46, 138, 236], [72, 170, 248]);
-const WATER_TOP = ramp([128, 204, 255], [176, 228, 255], 4);
-const OIL_PAL = ramp([98, 62, 22], [132, 88, 34]);
-const OIL_TOP = ramp([168, 116, 50], [196, 142, 66], 4);
-const PLANT_PAL = ramp([34, 164, 122], [58, 200, 150]);
-const PLANT_TOP = ramp([110, 226, 178], [150, 240, 200], 4);
-const ICE_PAL = ramp([192, 230, 252], [222, 244, 255], 8, 238);
-const ICE_TOP = ramp([240, 251, 255], [252, 254, 255], 4);
-const LAVA_PAL = ramp([208, 54, 26], [255, 168, 58]);
-const LAVA_TOP = ramp([255, 196, 96], [255, 226, 140], 4);
-const GLASS_PAL = ramp([168, 226, 248], [190, 238, 252], 4, 214);
-const GLASS_TOP = ramp([226, 250, 255], [244, 254, 255], 4);
+const WATER_PAL = ramp([48, 148, 246], [76, 178, 254]); // azure, about #3da1fc
+const WATER_TOP = ramp([128, 206, 255], [176, 230, 255], 4);
+const INK_PAL = ramp([28, 58, 160], [46, 86, 204]); // royal and navy
+const INK_TOP = ramp([96, 138, 240], [128, 168, 250], 4);
+const CORAL_PAL = ramp([36, 96, 230], [64, 132, 246]);
+const CORAL_TOP = ramp([140, 196, 255], [180, 222, 255], 4);
+const ICE_PAL = ramp([196, 232, 252], [232, 250, 255], 8, 240);
+const ICE_TOP = ramp([244, 253, 255], [255, 255, 255], 4);
+/* plasma: glowing cyan (#38bdf8) to white (#e0f7ff), cell by cell */
+const PLASMA_PAL = ramp([56, 189, 248], [224, 247, 255]);
+const PLASMA_TOP = ramp([196, 238, 255], [255, 255, 255], 4);
+const GLASS_PAL = ramp([176, 232, 254], [208, 247, 255], 4, 244);
+const GLASS_EDGE = ramp([214, 247, 255], [240, 254, 255], 4, 250); // the pale-blue outline: any side open to the air
+const GLASS_TOP = ramp([240, 253, 255], [255, 255, 255], 4);
 const WALL_PAL = ramp([22, 36, 68], [34, 52, 96]);
 const WALL_TOP = ramp([70, 104, 164], [92, 128, 190], 4);
-const STONE_PAL = ramp([60, 74, 110], [86, 102, 142]);
+const STONE_PAL = ramp([30, 50, 104], [48, 76, 140]); // plasma that cooled: a dim navy crust
 const STEAM_PAL = ramp([208, 230, 246], [226, 242, 252], 8, 84);
-/* hot glass: the heat byte (255 just fused, 0 cold) blends from molten gold to the cold cyan-white */
+/* hot glass: the heat byte (255 just fused, 0 cold) blends from white-hot light to the cold pale-blue glass */
 const GLASS_HOT = new Uint32Array(256);
 for (let h = 0; h < 256; h++) {
 	const f = Math.pow(h / 255, 1.4);
-	GLASS_HOT[h] = abgr(Math.round(lerp(168, 255, f)), Math.round(lerp(226, 196, f)), Math.round(lerp(248, 110, f)), Math.round(lerp(214, 255, f)));
+	GLASS_HOT[h] = abgr(Math.round(lerp(176, 238, f)), Math.round(lerp(232, 253, f)), Math.round(lerp(254, 255, f)), Math.round(lerp(244, 255, f)));
 }
-/* fire: its remaining life (0 to 255) from dull red to a white-gold core */
-const FIRE_LUT = new Uint32Array(256);
+/* spark: its remaining life (0 to 255) from a dim royal blue through cyan to a white core */
+const SPARK_LUT = new Uint32Array(256);
 {
-	const stops = [[0, 150, 30, 20], [15, 225, 60, 25], [35, 255, 122, 30], [70, 255, 180, 62], [120, 255, 236, 164], [255, 255, 246, 210]];
+	const stops = [[0, 30, 90, 200], [15, 38, 140, 236], [35, 56, 189, 248], [70, 120, 222, 255], [120, 200, 242, 255], [255, 240, 252, 255]];
 	for (let l = 0; l < 256; l++) {
 		let s = 1;
 		while (s < stops.length - 1 && l > stops[s][0]) s++;
 		const p = stops[s - 1];
 		const q = stops[s];
 		const f = clamp((l - p[0]) / (q[0] - p[0]), 0, 1);
-		FIRE_LUT[l] = abgr(Math.round(lerp(p[1], q[1], f)), Math.round(lerp(p[2], q[2], f)), Math.round(lerp(p[3], q[3], f)), 240);
+		SPARK_LUT[l] = abgr(Math.round(lerp(p[1], q[1], f)), Math.round(lerp(p[2], q[2], f)), Math.round(lerp(p[3], q[3], f)), 240);
 	}
 }
-const GLOW_RGB = abgr(255, 118, 40, 0); // alpha is added per glow pixel
+const GLOW_RGB = abgr(56, 189, 248, 0); // the cyan of the light itself; alpha is added per glow pixel
 
 /* ---------- the elements in the dock ---------- */
 
-const ELS = { sand: SAND, water: WATER, oil: OIL, fire: FIRE, plant: PLANT, ice: ICE, lava: LAVA, glass: GLASS, erase: E };
-const ORDER = ['sand', 'water', 'oil', 'fire', 'plant', 'ice', 'lava', 'glass', 'erase'];
-const LABEL = { [SAND]: 'Sand', [WATER]: 'Water', [OIL]: 'Oil', [FIRE]: 'Fire', [PLANT]: 'Plant', [ICE]: 'Ice', [LAVA]: 'Lava', [GLASS]: 'Glass', [E]: 'Erase' };
+/* the sim keeps its first names for the ids: OIL is ink, FIRE is spark, PLANT is coral, LAVA is plasma */
+const ELS = { sand: SAND, water: WATER, ink: OIL, spark: FIRE, coral: PLANT, ice: ICE, plasma: LAVA, glass: GLASS, erase: E };
+const ORDER = ['sand', 'water', 'ink', 'spark', 'coral', 'ice', 'plasma', 'glass', 'erase'];
+const LABEL = { [SAND]: 'Sand', [WATER]: 'Water', [OIL]: 'Ink', [FIRE]: 'Spark', [PLANT]: 'Coral', [ICE]: 'Ice', [LAVA]: 'Plasma', [GLASS]: 'Glass', [E]: 'Erase' };
 const BRUSH_PX = { s: 7, m: 14, l: 26 };
 
 let chosen = SAND;
@@ -117,6 +124,7 @@ let ggh = 0;
 let DPR = 1;
 let cell = 6; // device pixels per cell
 let cellCss = 6;
+let cellScale = 1; // how much smaller a cell is than the first version's, so speeds and brush sizes stay the same on screen
 let offY = 0; // the grid is anchored bottom-left; its top rows may be cut off
 let emitY = 12;
 let spots = null;
@@ -125,6 +133,37 @@ let frame = 0;
 let clockT = 0;
 let ctl = null;
 const running = () => !!ctl && ctl.running;
+
+/* the bead tile: one cell's worth of light and shade, drawn pixel by pixel, repeated over the whole grid */
+let beadPat = null;
+let beadCell = 0;
+function makeBead(c) {
+	const tile = document.createElement('canvas');
+	tile.width = c;
+	tile.height = c;
+	const tctx = tile.getContext('2d');
+	const bi = tctx.createImageData(c, c);
+	for (let py = 0; py < c; py++) {
+		for (let px = 0; px < c; px++) {
+			const u = (px + 0.5) / c;
+			const v = (py + 0.5) / c;
+			const hd = Math.hypot(u - 0.3, v - 0.28) / 0.5;
+			const hi = hd < 1 ? Math.pow(1 - hd, 1.6) * 0.46 : 0; // the highlight
+			let lo = Math.pow(Math.max(0, (u + v) * 0.5 - 0.46) * 1.9, 2) * 0.3; // the shade
+			if (px === c - 1 || py === c - 1) lo += 0.07 * clamp((c - 3) / 4, 0, 1); // a hairline between neighbours, only on larger cells
+			const al = hi + lo * (1 - hi);
+			const o = (py * c + px) * 4;
+			if (al > 0.004) {
+				bi.data[o] = (255 * hi + 12 * lo * (1 - hi)) / al; // white light over a deep-blue shade
+				bi.data[o + 1] = (255 * hi + 40 * lo * (1 - hi)) / al;
+				bi.data[o + 2] = (255 * hi + 110 * lo * (1 - hi)) / al;
+				bi.data[o + 3] = Math.min(255, al * 255);
+			}
+		}
+	}
+	tctx.putImageData(bi, 0, 0);
+	return ctx.createPattern(tile, 'repeat');
+}
 
 /* build or rebuild the grid to fit the window, the shelf under the info panel and the dock */
 function layout() {
@@ -137,9 +176,15 @@ function layout() {
 		canvas.width = bw;
 		canvas.height = bh;
 	}
-	// about 32 000 cells; never finer than 3.2 px, so a phone gets a smaller grid
-	cellCss = clamp(Math.sqrt((cw * ch) / 32000), 3.2, 8);
+	// a fine grid (about 48 000 cells on a desktop) so the sand reads as light, not as big pixels
+	const cssFor = (n) => clamp(Math.sqrt((cw * ch) / n), 3.2, 8);
+	cellCss = cssFor(CELLS);
 	cell = Math.max(2, Math.round(cellCss * DPR));
+	cellScale = Math.max(2, Math.round(cssFor(32000) * DPR)) / cell;
+	if (cell !== beadCell) {
+		beadCell = cell;
+		beadPat = makeBead(cell);
+	}
 	const gw = Math.ceil(bw / cell);
 	const gh = Math.ceil(bh / cell);
 	offY = bh - gh * cell;
@@ -203,24 +248,26 @@ function render(showRing = true) {
 			const free = t[i - sw] === E; // open to the sky: a surface cell catches the light
 			let c;
 			switch (ty) {
-				case SAND: c = SAND_PAL[((a[i] & 3) << 3) | (n & 7)]; break;
+				case SAND: c = SAND_PAL[((a[i] & 3) << 4) | (n & 15)]; break;
 				case WATER: c = free ? WATER_TOP[n & 3] : WATER_PAL[n & 7]; break;
-				case OIL: c = free ? OIL_TOP[n & 3] : OIL_PAL[n & 7]; break;
-				case PLANT: c = free ? PLANT_TOP[n & 3] : PLANT_PAL[n & 7]; break;
+				case OIL: c = free ? INK_TOP[n & 3] : INK_PAL[n & 7]; break;
+				case PLANT: c = free ? CORAL_TOP[n & 3] : CORAL_PAL[n & 7]; break;
 				case ICE: c = t[i - sw] !== ICE ? ICE_TOP[n & 3] : ICE_PAL[n & 7]; break;
 				case LAVA:
-					c = free ? LAVA_TOP[(n + shim) & 3] : LAVA_PAL[(n + shim) & 7];
+					c = free ? PLASMA_TOP[(n + shim) & 3] : PLASMA_PAL[(n + shim) & 7];
 					glow[grow + (((x - 1) / GB) | 0)] += 9;
 					break;
 				case FIRE:
-					c = FIRE_LUT[clamp(a[i] + ((n + frame * 7) & 31) - 12, 0, 255)];
+					c = SPARK_LUT[clamp(a[i] + ((n + frame * 7) & 31) - 12, 0, 255)];
 					glow[grow + (((x - 1) / GB) | 0)] += 10;
 					break;
 				case GLASS:
 					if (a[i]) {
 						c = GLASS_HOT[a[i]];
 						glow[grow + (((x - 1) / GB) | 0)] += (a[i] >> 5) + 1;
-					} else c = t[i - sw] !== GLASS ? GLASS_TOP[n & 3] : GLASS_PAL[n & 3];
+					} else if (free) c = GLASS_TOP[n & 3];
+					else if (t[i - 1] === E || t[i + 1] === E || t[i + sw] === E) c = GLASS_EDGE[n & 3];
+					else c = GLASS_PAL[n & 3];
 					break;
 				case WALL: c = t[i - sw] !== WALL ? WALL_TOP[n & 3] : WALL_PAL[n & 7]; break;
 				case STONE: c = STONE_PAL[n & 7]; break;
@@ -233,13 +280,23 @@ function render(showRing = true) {
 	gctx.putImageData(img, 0, 0);
 	for (let k = 0; k < glow.length; k++) {
 		const v = glow[k];
-		gpx32[k] = v ? (GLOW_RGB | ((Math.min(120, v * 0.45) | 0) << 24)) >>> 0 : 0;
+		gpx32[k] = v ? (GLOW_RGB | ((Math.min(150, v * 0.6) | 0) << 24)) >>> 0 : 0;
 	}
 	glctx.putImageData(gimg, 0, 0);
 
 	ctx.clearRect(0, 0, canvas.width, canvas.height);
 	ctx.imageSmoothingEnabled = false;
 	ctx.drawImage(grid, 0, 0, gw, gh, 0, offY, gw * cell, gh * cell);
+	// every cell becomes a small glass bead: a 1 px highlight top-left and a touch of shade bottom-right
+	// (source-atop, so only the cells that are there take it)
+	if (beadPat) {
+		ctx.globalCompositeOperation = 'source-atop';
+		ctx.save();
+		ctx.translate(0, offY);
+		ctx.fillStyle = beadPat;
+		ctx.fillRect(0, -offY, canvas.width, canvas.height);
+		ctx.restore();
+	}
 	ctx.globalCompositeOperation = 'lighter';
 	ctx.imageSmoothingEnabled = true;
 	ctx.drawImage(glowCv, 0, 0, ggw, ggh, 0, offY, ggw * GB * cell, ggh * GB * cell);
@@ -251,7 +308,7 @@ function render(showRing = true) {
 function drawRing() {
 	let r = null;
 	if (auto.on) {
-		if (!REDUCED) r = [auto.ex, auto.ey, 2.2];
+		if (!REDUCED) r = [auto.ex, auto.ey, 2.2 * cellScale];
 	} else if (ptr.show) r = [ptr.x, ptr.y, brushR()];
 	else if (kb.on) r = [kb.x, kb.y, brushR()];
 	if (!r) return;
@@ -321,13 +378,13 @@ function autoPour(dt) {
 	const ty = P.el === FIRE ? surfaceY(auto.ex) - 1 : emitY;
 	auto.ex += (tx - auto.ex) * Math.min(1, dt * 2.4);
 	auto.ey += (ty - auto.ey) * Math.min(1, dt * 6);
-	if (Math.abs(tx - auto.ex) < 7) world.paint(auto.ex, auto.ey, 1.7, P.el, band());
+	if (Math.abs(tx - auto.ex) < 7 * cellScale) world.paint(auto.ex, auto.ey, 1.7 * cellScale, P.el, band());
 }
 
 function dissolveStep() {
-	const w = 14;
+	const w = 14 * cellScale;
 	world.wipe(auto.dissolve - w, auto.dissolve, 0.3);
-	auto.dissolve += world.gw / 110;
+	auto.dissolve += world.gw / (110 * cellScale);
 	if (auto.dissolve > world.gw + w) {
 		// clean: set the opening scene up again and start the script over
 		auto.dissolve = -1;
@@ -408,7 +465,7 @@ canvas.addEventListener('keydown', (ev) => {
 		ev.preventDefault();
 		if (!kb.on) { kb.x = world.gw / 2; kb.y = Math.max(emitY, world.gh * 0.4); }
 		kb.on = true;
-		const d = ev.shiftKey ? 8 : 3;
+		const d = (ev.shiftKey ? 8 : 3) * cellScale;
 		if (k === 'ArrowLeft') kb.x -= d;
 		else if (k === 'ArrowRight') kb.x += d;
 		else if (k === 'ArrowUp') kb.y -= d;
@@ -502,7 +559,7 @@ let msStep = 0.4;
 let maxSteps = MAX_STEPS;
 function tick(dt, t) {
 	clockT = t;
-	acc += dt * RATE;
+	acc += dt * RATE * cellScale;
 	const n = Math.min(maxSteps, acc | 0);
 	acc -= acc | 0;
 	const t0 = performance.now();
@@ -541,7 +598,7 @@ function start() {
 		for (let y = emitY; y < bottom; y++) {
 			if ((y * 37) % 11 > 6) continue; // a loose, uneven thread
 			const f = (y - emitY) / Math.max(1, bottom - emitY);
-			world.paint(spots.dune + Math.sin(y * 0.21) * 1.4, y, 1.7 - 0.8 * f, SAND, (y >> 4) & 3);
+			world.paint(spots.dune + Math.sin(y * 0.21) * 1.4, y, (1.7 - 0.8 * f) * cellScale, SAND, (y >> 4) & 3);
 		}
 		updateReadout();
 		render();

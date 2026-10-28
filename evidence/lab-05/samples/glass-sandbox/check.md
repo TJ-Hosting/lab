@@ -1,6 +1,6 @@
 # check-sample: glass-sandbox — PASS
 
-2026-10-28T04:43:59.214Z · Chromium WebGL: ANGLE (AMD, AMD Radeon (TM) Graphics (0x000015E7) Direct3D11 vs_5_0 ps_5_0, D3D11) · Firefox: not run (browserType.launch: spawn UNKNOWN)
+2026-10-28T10:31:45.175Z · Chromium WebGL: ANGLE (AMD, AMD Radeon (TM) Graphics (0x000015E7) Direct3D11 vs_5_0 ps_5_0, D3D11) · Firefox: not run (browserType.launch: spawn UNKNOWN)
 
 ## Notes
 - loads 10 local files: samples/glass-sandbox/index.html, css/glass.css, css/lab.css, css/sample.css, samples/glass-sandbox/piece.css, js/early.js, samples/glass-sandbox/piece.js, js/lab.js, samples/glass-sandbox/sim.js, samples/glass-sandbox/scene.js
@@ -16,19 +16,19 @@
 ## Shell contrast (Chromium)
 width | selector | # | polarity | text | worst behind | ratio | need
 ---|---|---|---|---|---|---|---
-1440 | .sample-info .eyebrow | 0 | dark | rgb(59, 74, 102) | rgb(229, 231, 237) | 7.21 | 4.5
-1440 | .sample-info h1 | 0 | dark | rgb(7, 16, 34) | rgb(221, 224, 232) | 14.37 | 3
-1440 | .sample-info .how | 0 | dark | rgb(59, 74, 102) | rgb(220, 223, 231) | 6.68 | 4.5
-1440 | .controls .back | 0 | dark | rgb(6, 75, 219) | rgb(220, 224, 231) | 5.22 | 4.5
+1440 | .sample-info .eyebrow | 0 | dark | rgb(59, 74, 102) | rgb(240, 242, 247) | 7.95 | 4.5
+1440 | .sample-info h1 | 0 | dark | rgb(7, 16, 34) | rgb(235, 238, 245) | 16.34 | 3
+1440 | .sample-info .how | 0 | dark | rgb(59, 74, 102) | rgb(234, 237, 244) | 7.60 | 4.5
+1440 | .controls .back | 0 | dark | rgb(6, 75, 219) | rgb(234, 238, 244) | 5.94 | 4.5
 1440 | .controls .btn | 0 | light | rgb(255, 255, 255) | rgb(5, 88, 220) | 6.11 | 4.5
-1440 | .controls .btn | 1 | dark | rgb(7, 16, 34) | rgb(247, 248, 249) | 17.85 | 4.5
-1440 | .controls .btn | 2 | dark | rgb(7, 16, 34) | rgb(247, 248, 249) | 17.85 | 4.5
-375 | .sample-info .eyebrow | 0 | dark | rgb(59, 74, 102) | rgb(231, 233, 239) | 7.34 | 4.5
-375 | .sample-info h1 | 0 | dark | rgb(7, 16, 34) | rgb(222, 225, 232) | 14.50 | 3
-375 | .sample-info .how | 0 | dark | rgb(59, 74, 102) | rgb(220, 223, 231) | 6.68 | 4.5
-375 | .controls .back | 0 | dark | rgb(6, 75, 219) | rgb(218, 222, 231) | 5.13 | 4.5
+1440 | .controls .btn | 1 | dark | rgb(7, 16, 34) | rgb(243, 247, 253) | 17.66 | 4.5
+1440 | .controls .btn | 2 | dark | rgb(7, 16, 34) | rgb(243, 247, 253) | 17.66 | 4.5
+375 | .sample-info .eyebrow | 0 | dark | rgb(59, 74, 102) | rgb(240, 243, 247) | 8.00 | 4.5
+375 | .sample-info h1 | 0 | dark | rgb(7, 16, 34) | rgb(236, 238, 245) | 16.38 | 3
+375 | .sample-info .how | 0 | dark | rgb(59, 74, 102) | rgb(234, 237, 244) | 7.60 | 4.5
+375 | .controls .back | 0 | dark | rgb(6, 75, 219) | rgb(212, 224, 244) | 5.19 | 4.5
 375 | .controls .btn | 0 | light | rgb(255, 255, 255) | rgb(5, 88, 220) | 6.11 | 4.5
-375 | .controls .btn | 1 | dark | rgb(7, 16, 34) | rgb(247, 248, 249) | 17.85 | 4.5
-375 | .controls .btn | 2 | dark | rgb(7, 16, 34) | rgb(247, 248, 249) | 17.85 | 4.5
+375 | .controls .btn | 1 | dark | rgb(7, 16, 34) | rgb(243, 247, 253) | 17.66 | 4.5
+375 | .controls .btn | 2 | dark | rgb(7, 16, 34) | rgb(243, 247, 253) | 17.66 | 4.5
 
 Screenshots: chromium-1440.jpg, chromium-375.jpg, reduced-1440.jpg (sheet.jpg: all of them, not committed).

@@ -1,8 +1,8 @@
 /*
  * Sample 52 — "Glass Sandbox": the opening scene.
- * A layered picture built straight into the grid: banded sand with a dune, a pool of water with a film of oil
- * held back by a glass pane (and a glass shelf), a few plants, an ice block, and a blob of lava dropped on the
- * dune so that glass forms where it lands. It is the first thing you see, and the reduced-motion still.
+ * A layered picture built straight into the grid: banded sand with a dune, a pool of water with a film of ink
+ * held back by a glass pane (and a glass shelf), a few coral stalks, an ice block, and a blob of plasma dropped on the
+ * dune so that glass forms where it lands. (The ids keep their first names: OIL is ink, PLANT is coral, LAVA is plasma.) It is the first thing you see, and the reduced-motion still.
  *
  * Written from the idea only; no source code was read or copied.
  */
@@ -57,7 +57,7 @@ export function buildScene(w, g) {
 		for (let k = base; k < base + h; k++) put(x, f - k, SAND, (k >> 1) & 3);
 	}
 
-	// 3. a pool on the right, held back by a glass pane that carries a shelf, with a thin film of oil on the water
+	// 3. a pool on the right, held back by a glass pane that carries a shelf, with a thin film of ink on the water
 	const level = base + Math.round(clamp(aw * 0.09, 8, 14));
 	const px0 = Math.round(g.pool);
 	for (let x = px0; x <= g.ax1; x++) {
@@ -77,7 +77,7 @@ export function buildScene(w, g) {
 		put(x, f - paneH, GLASS);
 	}
 
-	// 4. plants standing on the floor: a stalk, leaves in pairs and a small crown
+	// 4. coral standing on the floor: a stalk, branches in pairs and a small crown
 	g.plants.forEach((px, n) => {
 		const f = floor(px);
 		const hgt = 11 + ((n * 5) % 9);
@@ -99,7 +99,7 @@ export function buildScene(w, g) {
 		for (let k = 0; k < 5; k++) put(g.ice + x, f - k, ICE);
 	}
 
-	// 6. lava, dropped just above the top of the dune
+	// 6. plasma, dropped just above the top of the dune
 	const rx = clamp(aw * 0.05, 3, 7);
 	const ry = rx * 0.75;
 	const cy = floor(g.dune) - base - duneH - 4;

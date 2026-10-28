@@ -172,7 +172,7 @@ None yet.
 ## P5 blind review (`evidence/lab-05/review-1.md`)
 
 One Opus 5.5 sub-agent, images only: tj-hosting.ca's DS v9 shots and banner, the Lab's 29 lab-04 after-shots, and 12 new-sample shots drawn at random (seed 20261028) from the 56 then committed and re-shot fresh (key appended to the review). Verdict: mostly, 7.5/10 (the shell matches DS v9; the drift is in four pieces' art). What was done:
-1. (high) glass-sandbox earth/lava palette, grey tray: fixer running (recolour into DS v9 blues, glass tray, softer grain).
+1. (high) glass-sandbox earth/lava palette, grey tray: **fixed 10:34Z** (fixer): every material recoloured into DS v9 blues with no warm colour (sand ice to sky, water azure; oil, fire, plant and lava became Ink, Spark, Coral and Plasma), the dock is a white-blue glass tray with glossy sphere swatches and a royal ring, and the grain is softer (about 50,000 cells, a glass-bead highlight per cell). Blurb and share image updated; the card object (blue glass cube, one small amber bead) stays. Re-gated 16.7 ms.
 2. (medium) lantern-pond green and warm photo: **fixed 10:24Z**: the shader grades it to a navy/royal/sky tritone and maps the lanterns' amber to cyan-white; the no-WebGL poster gets the same grade by an SVG filter; the golden leaf stays as the one warm note. Re-gated 16.7 ms.
 3. (medium) icon-micro-set script-only heading in navy: **fixed 10:24Z**: a heavy sans line in ink with one script word in ink. The same rule (script in ink, as the home's lockup) applied to glass-hero-kit, request-in-ms and stacking-plan-cards, whose script word was royal.
 4. (medium) bento-grid flat line art; pricing plan glyphs: open.

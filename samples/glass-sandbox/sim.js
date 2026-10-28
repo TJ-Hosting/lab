@@ -1,5 +1,6 @@
 /*
- * Sample 52 — "Glass Sandbox": the rules.
+ * Sample 52 — "Glass Sandbox": the rules. (The ids keep their first names; on the page OIL is ink, FIRE is spark,
+ * PLANT is coral and LAVA is plasma.)
  * A falling-sand world on a small grid. Every cell holds one of a dozen element ids in a Uint8Array and follows
  * a few local rules each step: powders and liquids fall by density, water levels out, fire climbs and burns,
  * lava is slow and hot, and where lava meets sand the sand fuses to glass. Cells sit inside a one-cell border

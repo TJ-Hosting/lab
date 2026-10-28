@@ -555,7 +555,7 @@
 			"title": "Glass sandbox",
 			"kicker": "Falling sand",
 			"category": "Toys",
-			"blurb": "A tiny falling-sand toy in a night-blue box: pour sand, water, oil, fire, plants, ice and lava, and watch lava turn sand to glass.",
+			"blurb": "A tiny falling-sand toy in a night-blue box: pour sand, water, ink, sparks, coral, ice and plasma, and watch plasma turn sand to glass.",
 			"href": "samples/glass-sandbox/",
 			"image": { "base": "img/iso/glass-sandbox", "widths": [400, 800], "ratio": 1.11 },
 			"tags": ["Canvas 2D", "Cellular automaton", "Typed arrays"],
