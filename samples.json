@@ -144,6 +144,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "horizontal-journey",
+			"title": "Brief-to-Launch Horizontal Journey",
+			"kicker": "Sideways scroll",
+			"category": "Scroll",
+			"blurb": "Five glass panels, from Brief to Launch, ride sideways as you scroll down, past shapes moving at different speeds.",
+			"href": "samples/horizontal-journey/",
+			"image": { "base": "img/iso/horizontal-journey", "widths": [400, 800], "ratio": 0.478 },
+			"tags": ["Scroll-driven animation", "Sticky", "Inline SVG"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "tear-the-curtain",
 			"title": "Tear the glass curtain",
 			"kicker": "Cloth physics",

@@ -31,6 +31,9 @@ OUT = os.path.join(ROOT, 'img')
 # cut-outs below. The kinds stay for later use; the pack originals stay in assets/pack/.
 PHOTOS = [
 	# lab-05 in-piece art (photos and textures inside a sample; added by ingest-lab05.mjs)
+	('art/transition-slider-dawn', 'lab05-transition-slider-dawn.png', [768, 1536], 'photo', None),
+	('art/transition-slider-aurora', 'lab05-transition-slider-aurora.png', [768, 1536], 'photo', None),
+	('art/transition-slider-cliffs', 'lab05-transition-slider-cliffs.png', [768, 1536], 'photo', None),
 	# lab-05 end
 ]
 OBJECTS = []
@@ -95,6 +98,7 @@ CUTOUTS = [
 	('iso/marble-harp', 'lab05-marble-harp.png', [400, 800], None),
 	('iso/glass-sandbox', 'lab05-glass-sandbox.png', [400, 800], None),
 	('iso/edge-network-globe', 'lab05-edge-network-globe.png', [400, 800], None),
+	('iso/horizontal-journey', 'lab05-horizontal-journey.png', [400, 800], None),
 	# lab-05 end
 ]
 
