@@ -1,0 +1,145 @@
+/* Sample 47 — Clock Wall, on the open day sky.
+   A soft glass panel holds about a hundred small clock faces: white glass, two navy hands each and a cyan hub.
+   The shell (sky, top bar, panel) comes from css/. Motion here is transform and opacity on the hands only
+   (piece.js drives it with the Web Animations API); nothing else on the page animates. */
+
+.clock-stage {
+	/* --c is one clock's diameter. It follows the viewport's width and its height, so the wall's bottom edge
+	   stays above the fixed info panel (about 300 px tall). */
+	--c: clamp(20px, min(calc((100vw - 2 * var(--gutter)) / 22.6), calc((100vh - 450px) / 7.9)), 52px);
+	--g: max(2px, calc(var(--c) * 0.045)); /* the gap between two faces */
+	--hw: max(3px, calc(var(--c) * 0.115)); /* a hand's width */
+	--hand: #0a2c74; /* navy */
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	padding: 84px var(--gutter) 330px;
+}
+
+.piece-open {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 18px;
+	max-width: 100%;
+}
+
+/* ---------- the wall: a soft glass panel, a little bluer than the sky so the white faces stand out ---------- */
+
+.wall.glass {
+	--glass-fallback: rgba(204, 229, 251, 0.92);
+	--glass-tint-soft: rgba(204, 229, 251, 0.6);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: calc(var(--c) * 0.62);
+	padding: calc(var(--c) * 0.78) calc(var(--c) * 0.85);
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
+	user-select: none;
+	-webkit-user-select: none;
+}
+.pair { display: flex; gap: calc(var(--c) * 0.56); }
+.digit,
+.colon {
+	display: grid;
+	grid-auto-rows: var(--c);
+	gap: var(--g);
+}
+.digit { grid-template-columns: repeat(4, var(--c)); }
+.colon { grid-template-columns: var(--c); }
+
+/* ---------- one clock ---------- */
+
+.face {
+	position: relative;
+	width: var(--c);
+	height: var(--c);
+	border-radius: 50%;
+	background: radial-gradient(circle at 34% 26%, #ffffff 0%, #f7fbff 40%, #e0f0fe 100%);
+	box-shadow:
+		inset 0 1px 1px #ffffff,
+		inset 0 -3px 5px -2px rgba(77, 159, 243, 0.3),
+		0 0 0 1px rgba(94, 128, 174, 0.3),
+		0 4px 8px -3px rgba(22, 66, 140, 0.3);
+}
+/* the hub: a cyan dot with a white ring, above the hands */
+.face::after {
+	content: "";
+	position: absolute;
+	z-index: 3;
+	left: 50%;
+	top: 50%;
+	width: calc(var(--c) * 0.2);
+	height: calc(var(--c) * 0.2);
+	margin: calc(var(--c) * -0.1) 0 0 calc(var(--c) * -0.1);
+	border-radius: 50%;
+	background: #46d0fb;
+	box-shadow: 0 0 0 max(1px, calc(var(--c) * 0.035)) #ffffff, 0 0 calc(var(--c) * 0.18) rgba(70, 208, 251, 0.75);
+}
+
+/* a hand points up and turns about the face's centre; its length reaches the face's edge and half the gap,
+   so strokes carry on from one face into the next (piece.js scales it from 0 to 2 for corners and T joins) */
+.hand {
+	position: absolute;
+	z-index: 2;
+	left: 50%;
+	bottom: 50%;
+	width: var(--hw);
+	height: calc(50% + var(--g) / 2);
+	margin-left: calc(var(--hw) / -2);
+	transform-origin: 50% 100%;
+	border-radius: 999px;
+	background: var(--hand);
+}
+
+/* a soft band of light that crosses the glass now and then: the one thing that moves between the waves
+   (one element, transform only; lab.css holds it off-screen and in a hidden tab) */
+.wall__glint {
+	position: absolute !important;
+	z-index: 4 !important;
+	top: -10%;
+	bottom: -10%;
+	left: 0;
+	width: 22%;
+	pointer-events: none;
+	background: linear-gradient(100deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 100%);
+	transform: translateX(-140%) skewX(-18deg);
+	animation: glint 11s ease-in-out infinite;
+}
+@keyframes glint {
+	0% { transform: translateX(-140%) skewX(-18deg); }
+	38%, 100% { transform: translateX(560%) skewX(-18deg); }
+}
+/* reduced motion: no glint, and lab.css's short cross-fades must not turn the hands into a quick sweep */
+@media (prefers-reduced-motion: reduce) {
+	.wall__glint { display: none; }
+	.hand { transition: none !important; }
+}
+
+/* ---------- caption ---------- */
+
+.cap { max-width: 100%; }
+
+/* phones: HH over MM, no colon, larger clocks than one long row would allow */
+@media (max-width: 720px) {
+	.clock-stage {
+		--c: clamp(16px, min(calc((100vw - 2 * var(--gutter)) / 10.8), calc((100vh - 450px) / 15.2)), 40px);
+		padding: 84px var(--gutter) 320px;
+	}
+	.wall.glass {
+		flex-direction: column;
+		gap: calc(var(--c) * 0.75);
+		padding: calc(var(--c) * 0.7);
+	}
+	.colon { display: none; }
+}
+
+/* where dynamic viewport units exist (phones with a moving address bar), size by them */
+@supports (height: 100dvh) {
+	.clock-stage { --c: clamp(20px, min(calc((100vw - 2 * var(--gutter)) / 22.6), calc((100dvh - 450px) / 7.9)), 52px); }
+	@media (max-width: 720px) {
+		.clock-stage { --c: clamp(16px, min(calc((100vw - 2 * var(--gutter)) / 10.8), calc((100dvh - 450px) / 15.2)), 40px); }
+	}
+}

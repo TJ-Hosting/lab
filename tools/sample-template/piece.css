@@ -1,0 +1,10 @@
+/* Sample {{NN}} — {{Title}}. The shell (sky, top bar, panel, the screen window) comes from css/; only the piece is styled here.
+   Colours: DS v9's tokens (var(--ink), var(--muted), var(--action), var(--accent-text), the --sky-* stops, --glow-cyan …)
+   or the piece's own artwork palette, which must still sit well inside DS v9 (blues, cyan light, white glass). */
+
+.piece {
+	display: block;
+	width: 100%;
+	height: 100%;
+	touch-action: none; /* only if the piece takes drags; otherwise leave it out so phones can scroll */
+}

@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<!-- the base policy; additions only as the brief allows ('wasm-unsafe-eval', blob:), and only with the lead -->
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<title>Glass diorama card — holo tilt · TJ-Hosting Lab</title>
+	<meta name="description" content="A portrait glass card holding a five-layer diorama of floating islands, clouds and a lit tower. It tilts in 3D under the pointer or a finger, a cool foil glare slides across it, and phones can tilt it with their motion sensor. Made with Atropos.">
+	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/glass-diorama-card/">
+	<meta name="theme-color" content="#eef7fc">
+	<link rel="icon" href="../../img/brand/tj-mark.svg" type="image/svg+xml">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="TJ-Hosting Lab">
+	<meta property="og:title" content="Glass diorama card — TJ-Hosting Lab">
+	<meta property="og:description" content="A glass card with floating islands, clouds and a lit tower that tilts in 3D, with a cool foil glare that follows the pointer.">
+	<meta property="og:url" content="https://lab.tj-hosting.ca/samples/glass-diorama-card/">
+	<meta property="og:image" content="https://lab.tj-hosting.ca/img/og/glass-diorama-card.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="A portrait glass card on the pale sky, tilted in 3D, with floating blue islands, soft clouds and a glass tower inside it">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="preload" href="../../fonts/nunito-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="../../css/glass.css">
+	<link rel="stylesheet" href="../../css/lab.css">
+	<link rel="stylesheet" href="../../css/sample.css">
+	<link rel="stylesheet" href="../../vendor/atropos@2.0.2/atropos.css">
+	<link rel="stylesheet" href="piece.css">
+	<script src="../../js/early.js"></script>
+	<script type="module" src="piece.js"></script>
+</head>
+<body class="sample sample--glass-diorama-card">
+	<a class="skip" href="#about-piece">Skip to the description</a>
+
+	<div class="sky" aria-hidden="true"></div>
+
+	<header class="topbar">
+		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
+			<img src="../../img/brand/tj-mark.svg" alt="" width="34" height="34">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Lab">
+			<a href="../../#samples">All samples</a>
+		</nav>
+	</header>
+
+	<!-- stage C: open sky. One portrait glass card on an Atropos 3D stack (.atropos > .atropos-scale > .atropos-rotate > .atropos-inner).
+	     Without JavaScript the card simply stands flat with its five layers composed; piece.js starts Atropos only while the card is live. -->
+	<main id="main" class="stage stage--diorama" data-motion>
+		<div class="piece-open diorama">
+			<div class="atropos card" id="card" role="img" aria-label="A sample card called Glass City: a glass tower on a small island, with floating islands and soft clouds around it. A cool holographic shine slides across the card as it tilts.">
+				<div class="atropos-scale">
+					<div class="atropos-rotate">
+						<div class="atropos-inner face">
+							<div class="art">
+								<div class="layer layer--sky" data-atropos-offset="-5" aria-hidden="true"></div>
+								<div class="layer layer--islands" data-atropos-offset="-2.5" aria-hidden="true">
+									<picture>
+										<source type="image/avif" srcset="../../img/art/glass-diorama-card-islands-480.avif 480w, ../../img/art/glass-diorama-card-islands-937.avif 937w" sizes="(max-width: 720px) 80vw, 460px">
+										<source type="image/webp" srcset="../../img/art/glass-diorama-card-islands-480.webp 480w, ../../img/art/glass-diorama-card-islands-937.webp 937w" sizes="(max-width: 720px) 80vw, 460px">
+										<img src="../../img/art/glass-diorama-card-islands-937.webp" width="937" height="1309" alt="" decoding="async">
+									</picture>
+								</div>
+								<div class="layer layer--clouds" data-atropos-offset="2" aria-hidden="true">
+									<picture>
+										<source type="image/avif" srcset="../../img/art/glass-diorama-card-clouds-480.avif 480w, ../../img/art/glass-diorama-card-clouds-960.avif 960w" sizes="(max-width: 720px) 120vw, 720px">
+										<source type="image/webp" srcset="../../img/art/glass-diorama-card-clouds-480.webp 480w, ../../img/art/glass-diorama-card-clouds-960.webp 960w" sizes="(max-width: 720px) 120vw, 720px">
+										<img src="../../img/art/glass-diorama-card-clouds-960.webp" width="960" height="336" alt="" decoding="async">
+									</picture>
+								</div>
+								<div class="layer layer--tower" data-atropos-offset="5.5" aria-hidden="true">
+									<picture>
+										<source type="image/avif" srcset="../../img/art/glass-diorama-card-tower-480.avif 480w, ../../img/art/glass-diorama-card-tower-723.avif 723w" sizes="(max-width: 720px) 40vw, 240px">
+										<source type="image/webp" srcset="../../img/art/glass-diorama-card-tower-480.webp 480w, ../../img/art/glass-diorama-card-tower-723.webp 723w" sizes="(max-width: 720px) 40vw, 240px">
+										<img src="../../img/art/glass-diorama-card-tower-723.webp" width="723" height="1419" alt="" decoding="async">
+									</picture>
+								</div>
+								<canvas class="layer layer--sparks" data-atropos-offset="9" aria-hidden="true"></canvas>
+								<div class="foil" aria-hidden="true"></div>
+							</div>
+							<div class="plate" data-atropos-offset="3" aria-hidden="true">
+								<div class="plate__text">
+									<p class="plate__title">Glass City</p>
+									<p class="plate__meta">Sample card</p>
+								</div>
+								<span class="plate__seal"></span>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<p class="visually-hidden" id="motion-status" role="status"></p>
+		</div>
+	</main>
+
+	<p class="hint glass glass--pill" aria-hidden="true">Hover to tilt the card</p>
+
+	<aside class="sample-info glass glass--strong" id="about-piece" aria-labelledby="piece-title">
+		<p class="eyebrow">Sample 30 · Holo tilt</p>
+		<h1 id="piece-title">Glass diorama card</h1>
+		<p class="how"><b>How it's made:</b> Atropos tilts five layers in 3D while one foil layer follows the pointer, or your phone's tilt.
+		It sways on its own and rests off-screen or in a hidden tab.</p>
+		<div class="controls">
+			<button class="btn btn--sm btn--primary" type="button" data-action="motion" aria-pressed="false" hidden>Enable motion</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="pause" aria-pressed="false">Pause</button>
+			<a class="back" href="../../#samples">← Back to the lab</a>
+		</div>
+	</aside>
+</body>
+</html>

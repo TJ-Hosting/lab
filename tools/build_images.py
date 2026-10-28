@@ -29,7 +29,31 @@ OUT = os.path.join(ROOT, 'img')
 # lab-04 retired every photo and dark object (the aurora, prism, bokeh, liquid-chrome and honeycomb
 # backdrops, the dark card art, the luma-keyed glass objects): the day sky is CSS and the art is the
 # cut-outs below. The kinds stay for later use; the pack originals stay in assets/pack/.
-PHOTOS = []
+PHOTOS = [
+	# lab-05 in-piece art (photos and textures inside a sample; added by ingest-lab05.mjs)
+	('art/transition-slider-dawn', 'lab05-transition-slider-dawn.png', [768, 1536], 'photo', None),
+	('art/transition-slider-aurora', 'lab05-transition-slider-aurora.png', [768, 1536], 'photo', None),
+	('art/transition-slider-cliffs', 'lab05-transition-slider-cliffs.png', [768, 1536], 'photo', None),
+	('art/halftone-dissolve-lake', 'lab05-halftone-dissolve-lake.png', [768, 1536], 'photo', None),
+	('art/halftone-dissolve-facade', 'lab05-halftone-dissolve-facade.png', [768, 1536], 'photo', None),
+	('art/liquid-glass-lens-ribbons', 'lab05-liquid-glass-lens-ribbons.png', [768, 1536], 'photo', None),
+	('art/browser-frame-showcase-bakery', 'lab05-browser-frame-showcase-bakery.png', [512, 1024], 'photo', None),
+	('art/browser-frame-showcase-studio', 'lab05-browser-frame-showcase-studio.png', [512, 1024], 'photo', None),
+	('art/browser-frame-showcase-garden', 'lab05-browser-frame-showcase-garden.png', [512, 1024], 'photo', None),
+	('art/lantern-pond-pond', 'lab05-lantern-pond-pond.png', [768, 1536], 'photo', None),
+	('art/liquid-hover-gallery-wave', 'lab05-liquid-hover-gallery-wave.png', [512, 1024], 'photo', None),
+	('art/liquid-hover-gallery-cornflowers', 'lab05-liquid-hover-gallery-cornflowers.png', [512, 1024], 'photo', None),
+	('art/relief-light-board-stone', 'lab05-relief-light-board-stone.png', [640, 1254], 'photo', None),
+	('art/relief-light-board-metal', 'lab05-relief-light-board-metal.png', [640, 1254], 'photo', None),
+	('art/lenticular-print-sunrise', 'lab05-lenticular-print-sunrise.png', [640, 1254], 'photo', None),
+	('art/lenticular-print-moonrise', 'lab05-lenticular-print-moonrise.png', [640, 1254], 'photo', None),
+	('art/frosted-window-street', 'lab05-frosted-window-street.png', [768, 1536], 'photo', None),
+	('art/page-turn-lookbook-cover', 'lab05-page-turn-lookbook-cover.png', [512, 1024], 'photo', None),
+	('art/page-turn-lookbook-spread-1', 'lab05-page-turn-lookbook-spread-1.png', [768, 1536], 'photo', None),
+	('art/page-turn-lookbook-spread-2', 'lab05-page-turn-lookbook-spread-2.png', [768, 1536], 'photo', None),
+	('art/relief-light-board-leather', 'lab05-relief-light-board-leather.png', [640, 1254], 'photo', None),
+	# lab-05 end
+]
 OBJECTS = []
 # name, source, grid (cols, rows), cell size out. The particle field's atlases, inside its night screen.
 SPRITES = [
@@ -68,6 +92,71 @@ CUTOUTS = [
 	('sky/cloud-2', 'tj-hero-clouds-sheet.png', [220, 420], (0.3852, 0.1275, 0.6579, 0.4803)),
 	('sky/cloud-4', 'tj-hero-clouds-sheet.png', [220, 420], (0.0478, 0.5696, 0.3660, 0.9309)),
 	('sky/cloud-5', 'tj-hero-clouds-sheet.png', [220, 420], (0.4067, 0.5866, 0.6651, 0.9267)),
+	# lab-05 card objects (one per new sample; added by agent-honeypot\imagepack\ingest-lab05.mjs)
+	('iso/coral-ink', 'lab05-coral-ink.png', [400, 800], None),
+	('iso/split-flap-board', 'lab05-split-flap-board.png', [400, 800], None),
+	('iso/star-trail-text', 'lab05-star-trail-text.png', [400, 800], None),
+	('iso/scroll-zoom-tunnel', 'lab05-scroll-zoom-tunnel.png', [400, 800], None),
+	('iso/tear-the-curtain', 'lab05-tear-the-curtain.png', [400, 800], None),
+	('iso/dot-mesh-hero', 'lab05-dot-mesh-hero.png', [400, 800], None),
+	('iso/gpu-fluid', 'lab05-gpu-fluid.png', [400, 800], None),
+	('iso/brand-colour-sphere', 'lab05-brand-colour-sphere.png', [400, 800], None),
+	('iso/integration-beams', 'lab05-integration-beams.png', [400, 800], None),
+	('iso/glass-card-flow', 'lab05-glass-card-flow.png', [400, 800], None),
+	('iso/clock-wall', 'lab05-clock-wall.png', [400, 800], None),
+	('iso/contour-map', 'lab05-contour-map.png', [400, 800], None),
+	('iso/bento-grid', 'lab05-bento-grid.png', [400, 800], None),
+	('iso/glass-jellyfish', 'lab05-glass-jellyfish.png', [400, 800], None),
+	('iso/pendulum-wave', 'lab05-pendulum-wave.png', [400, 800], None),
+	('iso/dither-flow-ink', 'lab05-dither-flow-ink.png', [400, 800], None),
+	('iso/epicycle-machine', 'lab05-epicycle-machine.png', [400, 800], None),
+	('iso/wavy-lines-hero', 'lab05-wavy-lines-hero.png', [400, 800], None),
+	('iso/marble-harp', 'lab05-marble-harp.png', [400, 800], None),
+	('iso/glass-sandbox', 'lab05-glass-sandbox.png', [400, 800], None),
+	('iso/edge-network-globe', 'lab05-edge-network-globe.png', [400, 800], None),
+	('iso/horizontal-journey', 'lab05-horizontal-journey.png', [400, 800], None),
+	('iso/shader-swatchbook', 'lab05-shader-swatchbook.png', [400, 800], None),
+	('iso/glass-orbs', 'lab05-glass-orbs.png', [400, 800], None),
+	('iso/lamp-cord-theme', 'lab05-lamp-cord-theme.png', [400, 800], None),
+	('iso/transition-slider', 'lab05-transition-slider.png', [400, 800], None),
+	('iso/lantern-pond', 'lab05-lantern-pond.png', [400, 800], None),
+	('iso/focus-trail-form', 'lab05-focus-trail-form.png', [400, 800], None),
+	('iso/shape-shifter', 'lab05-shape-shifter.png', [400, 800], None),
+	('iso/relief-light-board', 'lab05-relief-light-board.png', [400, 800], None),
+	('art/glass-diorama-card-islands', 'lab05-glass-diorama-card-islands.png', [480, 960], None),
+	('art/glass-diorama-card-tower', 'lab05-glass-diorama-card-tower.png', [480, 960], None),
+	('art/glass-diorama-card-clouds', 'lab05-glass-diorama-card-clouds.png', [480, 960], None),
+	('iso/liquid-hover-gallery', 'lab05-liquid-hover-gallery.png', [400, 800], None),
+	('iso/streamline-poster', 'lab05-streamline-poster.png', [400, 800], None),
+	('iso/scramble-titles', 'lab05-scramble-titles.png', [400, 800], None),
+	('iso/glass-diorama-card', 'lab05-glass-diorama-card.png', [400, 800], None),
+	('iso/stacking-plan-cards', 'lab05-stacking-plan-cards.png', [400, 800], None),
+	('iso/liquid-metal-monogram', 'lab05-liquid-metal-monogram.png', [400, 800], None),
+	('iso/glitch-headline', 'lab05-glitch-headline.png', [400, 800], None),
+	('iso/slime-network', 'lab05-slime-network.png', [400, 800], None),
+	('iso/pricing-rolling-digits', 'lab05-pricing-rolling-digits.png', [400, 800], None),
+	('iso/skill-chips', 'lab05-skill-chips.png', [400, 800], None),
+	('iso/request-in-ms', 'lab05-request-in-ms.png', [400, 800], None),
+	('iso/publish-button', 'lab05-publish-button.png', [400, 800], None),
+	('iso/dawn-to-night', 'lab05-dawn-to-night.png', [400, 800], None),
+	('iso/halftone-dissolve', 'lab05-halftone-dissolve.png', [400, 800], None),
+	('iso/chart-story', 'lab05-chart-story.png', [400, 800], None),
+	('iso/icon-micro-set', 'lab05-icon-micro-set.png', [400, 800], None),
+	('iso/weather-window', 'lab05-weather-window.png', [400, 800], None),
+	('iso/glass-hero-kit', 'lab05-glass-hero-kit.png', [400, 800], None),
+	('iso/liquid-glass-lens', 'lab05-liquid-glass-lens.png', [400, 800], None),
+	('iso/testimonial-wall', 'lab05-testimonial-wall.png', [400, 800], None),
+	('iso/browser-frame-showcase', 'lab05-browser-frame-showcase.png', [400, 800], None),
+	('iso/mega-menu', 'lab05-mega-menu.png', [400, 800], None),
+	('iso/wind-snapshot', 'lab05-wind-snapshot.png', [400, 800], None),
+	('iso/glass-mandala', 'lab05-glass-mandala.png', [400, 800], None),
+	('iso/planet-maker', 'lab05-planet-maker.png', [400, 800], None),
+	('iso/lenticular-print', 'lab05-lenticular-print.png', [400, 800], None),
+	('iso/frosted-window', 'lab05-frosted-window.png', [400, 800], None),
+	('iso/ascii-sculpture', 'lab05-ascii-sculpture.png', [400, 800], None),
+	('iso/page-turn-lookbook', 'lab05-page-turn-lookbook.png', [400, 800], None),
+	('iso/liquid-distort-headline', 'lab05-liquid-distort-headline.png', [400, 800], None),
+	# lab-05 end
 ]
 
 manifest = []
@@ -264,7 +353,17 @@ def build_cutouts():
 
 def main():
 	groups = {'photos': build_photos, 'objects': build_objects, 'sprites': build_sprites, 'cutouts': build_cutouts}
-	wanted = sys.argv[1:] or list(groups)
+	args = sys.argv[1:]
+	# lab-05: --only iso/a,art/b builds just those names (new images), leaving every other output and its
+	# manifest row untouched, so a rebuild never re-encodes the images already shipped
+	if '--only' in args:
+		k = args.index('--only')
+		only = set(args[k + 1].split(','))
+		del args[k:k + 2]
+		for table in (PHOTOS, OBJECTS, CUTOUTS):
+			table[:] = [row for row in table if row[0] in only]
+		SPRITES[:] = [row for row in SPRITES if row[0] in only]
+	wanted = args or list(groups)
 	for g in wanted:
 		groups[g]()
 	ledger = set()

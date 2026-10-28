@@ -1,0 +1,166 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<title>Glass pricing with rolling digits — rolling digits · TJ-Hosting Lab</title>
+	<meta name="description" content="Three frosted glass hosting plans with a monthly and yearly switch and a stepper for extra email boxes; every price and the total roll digit by digit. Made-up prices. A web component, CSS and a little JavaScript.">
+	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/pricing-rolling-digits/">
+	<meta name="theme-color" content="#eef7fc">
+	<link rel="icon" href="../../img/brand/tj-mark.svg" type="image/svg+xml">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="TJ-Hosting Lab">
+	<meta property="og:title" content="Glass pricing with rolling digits — TJ-Hosting Lab">
+	<meta property="og:description" content="Three glass plans whose prices roll digit by digit when you switch billing or add email boxes. Made-up prices.">
+	<meta property="og:url" content="https://lab.tj-hosting.ca/samples/pricing-rolling-digits/">
+	<meta property="og:image" content="https://lab.tj-hosting.ca/img/og/pricing-rolling-digits.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="Three frosted glass pricing cards on a pale blue sky, the middle one edged with a turning cyan light">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="preload" href="../../fonts/nunito-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="../../fonts/jetbrains-mono-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="../../css/glass.css">
+	<link rel="stylesheet" href="../../css/lab.css">
+	<link rel="stylesheet" href="../../css/sample.css">
+	<link rel="stylesheet" href="piece.css">
+	<script src="../../js/early.js"></script>
+	<script type="module" src="piece.js"></script>
+</head>
+<body class="sample sample--pricing-rolling-digits">
+	<a class="skip" href="#about-piece">Skip to the description</a>
+
+	<div class="sky" aria-hidden="true"></div>
+
+	<header class="topbar">
+		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
+			<img src="../../img/brand/tj-mark.svg" alt="" width="34" height="34">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Lab">
+			<a href="../../#samples">All samples</a>
+		</nav>
+	</header>
+
+	<!-- stage C: open sky. Three frosted plan cards, a billing switch and a total bar; piece.js sets the numbers.
+	     Each <number-flow> holds its starting text, which shows until the script runs and when the component can't. -->
+	<main id="main" class="stage pricing-stage" data-motion>
+		<div class="orbs" aria-hidden="true"><span class="orb orb--a"></span><span class="orb orb--b"></span></div>
+
+		<div class="piece-open">
+			<div class="bar">
+				<p class="pill bar__pill"><span class="pill__dot" aria-hidden="true"></span>Sample prices in CAD · not real offers</p>
+				<fieldset class="seg">
+					<legend class="visually-hidden">Billing</legend>
+					<input class="seg__in visually-hidden" type="radio" name="billing" id="bill-m" value="monthly" checked>
+					<input class="seg__in visually-hidden" type="radio" name="billing" id="bill-y" value="yearly">
+					<span class="seg__thumb" aria-hidden="true"></span>
+					<label class="seg__opt" for="bill-m">Monthly</label>
+					<label class="seg__opt" for="bill-y">Yearly</label>
+				</fieldset>
+			</div>
+
+			<div class="plans" role="group" aria-label="Sample hosting plans">
+				<article class="plan glass glass--xl" data-plan="starter">
+					<span class="plan__ring" aria-hidden="true"></span>
+					<header class="plan__head">
+						<svg class="plan__icon" viewBox="0 0 40 40" aria-hidden="true"><rect class="slab" x="4" y="26" width="32" height="10" rx="3.5"/><rect class="face" x="7" y="28" width="26" height="2" rx="1"/><circle class="led" cx="30" cy="32" r="1.9"/></svg>
+						<h2 class="plan__name">Starter</h2>
+					</header>
+					<p class="plan__blurb">For a first small site.</p>
+					<p class="plan__price"><number-flow class="num num--price" data-k="price" data-plan="starter" data-suffix="/mo">$8/mo</number-flow></p>
+					<p class="plan__year"><span>Over 12 months</span><number-flow class="num num--year" data-k="year" data-plan="starter">$96</number-flow></p>
+					<ul class="plan__list">
+						<li>1 website</li>
+						<li>10 GB storage</li>
+						<li>5 email boxes included</li>
+					</ul>
+					<label class="choose">
+						<input class="choose__in visually-hidden" type="radio" name="plan" value="starter">
+						<span class="choose__face btn btn--sm btn--ghost"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Select<span class="visually-hidden"> Starter plan</span></span>
+					</label>
+				</article>
+
+				<article class="plan plan--featured glass glass--xl" data-plan="business">
+					<span class="plan__ring" aria-hidden="true"></span>
+					<span class="plan__edge" aria-hidden="true"><span class="plan__spin"></span></span>
+					<p class="pill plan__flag">Featured</p>
+					<header class="plan__head">
+						<svg class="plan__icon" viewBox="0 0 40 40" aria-hidden="true"><rect class="slab" x="4" y="14" width="32" height="10" rx="3.5"/><rect class="face" x="7" y="16" width="26" height="2" rx="1"/><circle class="led" cx="30" cy="20" r="1.9"/><rect class="slab" x="4" y="26" width="32" height="10" rx="3.5"/><rect class="face" x="7" y="28" width="26" height="2" rx="1"/><circle class="led" cx="30" cy="32" r="1.9"/></svg>
+						<h2 class="plan__name">Business</h2>
+					</header>
+					<p class="plan__blurb">For a growing site.</p>
+					<p class="plan__price"><number-flow class="num num--price" data-k="price" data-plan="business" data-suffix="/mo">$18/mo</number-flow></p>
+					<p class="plan__year"><span>Over 12 months</span><number-flow class="num num--year" data-k="year" data-plan="business">$216</number-flow></p>
+					<ul class="plan__list">
+						<li>5 websites</li>
+						<li>50 GB storage</li>
+						<li>25 email boxes included</li>
+					</ul>
+					<label class="choose">
+						<input class="choose__in visually-hidden" type="radio" name="plan" value="business" checked>
+						<span class="choose__face btn btn--sm btn--ghost"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Select<span class="visually-hidden"> Business plan</span></span>
+					</label>
+				</article>
+
+				<article class="plan glass glass--xl" data-plan="pro">
+					<span class="plan__ring" aria-hidden="true"></span>
+					<header class="plan__head">
+						<svg class="plan__icon" viewBox="0 0 40 40" aria-hidden="true"><rect class="slab" x="4" y="2" width="32" height="10" rx="3.5"/><rect class="face" x="7" y="4" width="26" height="2" rx="1"/><circle class="led" cx="30" cy="8" r="1.9"/><rect class="slab" x="4" y="14" width="32" height="10" rx="3.5"/><rect class="face" x="7" y="16" width="26" height="2" rx="1"/><circle class="led" cx="30" cy="20" r="1.9"/><rect class="slab" x="4" y="26" width="32" height="10" rx="3.5"/><rect class="face" x="7" y="28" width="26" height="2" rx="1"/><circle class="led" cx="30" cy="32" r="1.9"/></svg>
+						<h2 class="plan__name">Pro</h2>
+					</header>
+					<p class="plan__blurb">For busy sites.</p>
+					<p class="plan__price"><number-flow class="num num--price" data-k="price" data-plan="pro" data-suffix="/mo">$38/mo</number-flow></p>
+					<p class="plan__year"><span>Over 12 months</span><number-flow class="num num--year" data-k="year" data-plan="pro">$456</number-flow></p>
+					<ul class="plan__list">
+						<li>25 websites</li>
+						<li>200 GB storage</li>
+						<li>100 email boxes included</li>
+					</ul>
+					<label class="choose">
+						<input class="choose__in visually-hidden" type="radio" name="plan" value="pro">
+						<span class="choose__face btn btn--sm btn--ghost"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>Select<span class="visually-hidden"> Pro plan</span></span>
+					</label>
+				</article>
+			</div>
+
+			<section class="total glass glass--strong glass--xl" aria-labelledby="total-title">
+				<div class="total__boxes">
+					<h2 class="total__title" id="total-title">Extra email boxes</h2>
+					<p class="total__each"><number-flow class="num num--each" data-k="each" data-suffix=" each a month">$3 each a month</number-flow></p>
+					<div class="stepper" role="group" aria-label="Extra email boxes">
+						<button class="step" type="button" id="minus" aria-label="One fewer extra email box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 12h12"/></svg></button>
+						<number-flow class="num num--count" data-k="count">2</number-flow>
+						<button class="step" type="button" id="plus" aria-label="One more extra email box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M6 12h12M12 6v12"/></svg></button>
+					</div>
+				</div>
+				<div class="total__sum">
+					<p class="total__label">Your total</p>
+					<p class="total__month"><number-flow class="num num--sum" data-k="sum" data-suffix="/mo">$24/mo</number-flow></p>
+					<p class="total__year"><span>Over 12 months</span><number-flow class="num num--year" data-k="sumyear">$288</number-flow></p>
+				</div>
+				<p class="total__says" id="says" role="status" aria-live="off">Nothing is ordered or sent. These prices are made up.</p>
+			</section>
+			<noscript><p class="note">The rolling digits need JavaScript. The prices above are shown as plain text.</p></noscript>
+		</div>
+	</main>
+
+	<p class="hint glass glass--pill" aria-hidden="true">Flip the billing · add email boxes</p>
+
+	<aside class="sample-info glass glass--strong" id="about-piece" aria-labelledby="piece-title">
+		<p class="eyebrow">Sample 37 · Rolling digits</p>
+		<h1 id="piece-title">Glass pricing with rolling digits</h1>
+		<p class="how"><b>How it's made:</b> NumberFlow, a small web component, rolls every price digit by digit, and a conic gradient turns around the featured plan's edge.
+		The billing switch flips by itself when you are idle; it pauses off-screen or in a hidden tab.</p>
+		<div class="controls">
+			<button class="btn btn--sm btn--primary" type="button" data-action="switch">Switch billing</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="pause" aria-pressed="false">Pause</button>
+			<a class="back" href="../../#samples">← Back to the lab</a>
+		</div>
+	</aside>
+	<!-- the plan glyphs' gradient (lab-05 P5 review) -->
+	<svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute"><defs><linearGradient id="plan-slab" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#4d9ff3"/><stop offset="0.55" stop-color="#0c6bed"/><stop offset="1" stop-color="#0a3fb0"/></linearGradient></defs></svg>
+</body>
+</html>

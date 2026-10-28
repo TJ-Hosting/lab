@@ -3,3 +3,10 @@ node_modules/
 .env.*
 *.log
 .DS_Store
+# lab-05: re-runs and working output stay local; each sample's final gate shots and check.md are committed
+evidence/lab-05/suite/
+evidence/lab-05/contrast-*
+evidence/lab-05/test-output-only.txt
+evidence/lab-05/samples/*/sheet.jpg
+evidence/lab-05/samples/*/check.json
+evidence/lab-05/samples/*/check-firefox.json

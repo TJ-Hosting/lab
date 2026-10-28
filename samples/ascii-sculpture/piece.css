@@ -1,0 +1,131 @@
+/* Sample 56 — ASCII sculpture. The shell (sky, top bar, panel, the night screen) comes from css/; only the piece is styled here.
+   The glyph grid is drawn on a Canvas 2D by piece.js in DS v9's blues (royal, azure, cyan #46d0fb, near-white) on the night
+   screen, with one optional warm amber preset (DS v9's honey light). Nothing here animates. */
+
+.piece {
+	display: block;
+	width: 100%;
+	height: 100%;
+	touch-action: none; /* the canvas takes drags: they turn the knot */
+	cursor: grab;
+	outline: none;
+	-webkit-tap-highlight-color: transparent;
+}
+.piece.is-grabbing { cursor: grabbing; }
+.piece:focus-visible {
+	outline: 3px solid var(--focus);
+	outline-offset: -3px;
+}
+
+/* ---------- the rig: a strip of night glass under the window bar, like the head of a terminal ---------- */
+
+.rig {
+	position: absolute;
+	z-index: 5;
+	top: 44px; /* the window bar is 34 px; piece.js keeps the knot clear of this strip */
+	left: 12px;
+	max-width: calc(100% - 24px);
+	margin: 0;
+	padding: 7px 9px;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px 10px;
+	border-radius: var(--radius-md);
+	color: var(--ink);
+}
+.rig__label {
+	padding-left: 4px;
+	font: 500 11.5px/18px var(--font-mono);
+	letter-spacing: 0.09em;
+	text-transform: uppercase;
+	color: var(--muted);
+}
+.rig__label::after { content: " >"; }
+.rig__sets { display: flex; flex-wrap: wrap; gap: 6px; }
+
+.chip {
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	min-height: 34px;
+	padding: 5px 13px;
+	border: 1px solid rgba(150, 195, 255, 0.28);
+	border-radius: var(--radius-sm);
+	background: rgba(22, 32, 58, 0.62);
+	box-shadow: inset 0 1px 0 rgba(220, 236, 255, 0.08);
+	color: var(--ink);
+	font: 700 12.5px/18px var(--font-mono);
+	letter-spacing: 0.01em;
+	white-space: nowrap;
+	cursor: pointer;
+	transition:
+		background-color var(--t-state) var(--ease-ui),
+		border-color var(--t-state) var(--ease-ui),
+		color var(--t-state) var(--ease-ui),
+		box-shadow var(--t-surface) var(--ease-ui),
+		transform 0.35s var(--ease-spring);
+}
+.chip:hover { border-color: rgba(70, 208, 251, 0.62); transform: translateY(-1px); }
+.chip:active { transform: translateY(0) scale(0.98); }
+.chip[aria-pressed="true"] {
+	border-color: var(--action);
+	background: var(--raised);
+	color: var(--accent-text);
+	box-shadow: inset 0 0 0 1px var(--action), 0 0 18px -4px rgba(70, 208, 251, 0.35);
+}
+.chip:disabled { cursor: default; opacity: 0.5; transform: none; }
+.chip:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+/* the warm preset: an amber dot, and amber light when it is on */
+.chip__dot {
+	flex: none;
+	width: 9px;
+	height: 9px;
+	border-radius: 50%;
+	background: var(--honey);
+	box-shadow: 0 0 0 3px rgba(255, 181, 71, 0.22);
+}
+.chip--warm[aria-pressed="true"] {
+	border-color: var(--honey);
+	color: #ffd9a0;
+	box-shadow: inset 0 0 0 1px var(--honey), 0 0 18px -4px rgba(255, 181, 71, 0.4);
+}
+
+@media (max-width: 560px) {
+	.rig { top: 42px; left: 8px; max-width: calc(100% - 16px); padding: 6px; gap: 5px 6px; }
+	.rig__label { display: none; }
+	.chip { padding: 5px 10px; font-size: 12px; }
+}
+@media (max-width: 420px) {
+	.rig__sets { display: grid; grid-template-columns: repeat(4, auto); gap: 4px; }
+	.rig { display: grid; gap: 4px; }
+	.rig .chip { padding: 5px 8px; }
+}
+
+/* a short wide window (a phone on its side): the rig moves to the right, clear of the info panel */
+@media (max-height: 520px) and (min-width: 721px) {
+	.rig { left: auto; right: 12px; max-width: 320px; padding: 6px 7px; }
+	.rig__label { display: none; }
+	.rig .chip { padding: 5px 9px; font-size: 12px; }
+	.hint { display: none; }
+}
+
+/* ---------- a browser without WebGL 2: the note over the still block of text ---------- */
+
+.note {
+	position: absolute;
+	z-index: 6;
+	left: 50%; /* piece.js sets left and top: it sits at the top of the free area */
+	top: 110px;
+	width: max-content;
+	max-width: calc(100% - 24px);
+	margin: 0;
+	padding: 8px 18px;
+	transform: translateX(-50%);
+	font: 600 13px/20px var(--font-sans);
+	color: var(--ink);
+	text-align: center;
+}
+.note[hidden] { display: none; }

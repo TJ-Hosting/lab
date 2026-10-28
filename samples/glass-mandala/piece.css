@@ -1,0 +1,191 @@
+/* Sample 55 — Glass mandala, on the open day sky (stage C).
+   A round light-glass plate holds one canvas, a status line and a frosted toolbar sit under it; the shell (sky, top bar, panel)
+   comes from css/. The strokes' own colours are drawn in piece.js from DS v9's blues (navy, royal, azure, cyan light, pale sky)
+   with one warm accent in the Sky mode. Nothing here animates except the buttons' own hover (transform). */
+
+.sample--glass-mandala .stage {
+	--panel-room: 312px; /* the fixed info panel, so the toolbar can scroll clear of it on a narrow screen */
+	place-items: start center;
+	padding: 84px var(--gutter) var(--panel-room);
+}
+
+.mandala {
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	gap: 8px;
+	width: min(100%, 720px);
+	margin-inline: auto;
+}
+
+/* ---------- the plate: light glass, round ---------- */
+
+.plate {
+	width: min(100%, 540px);
+	aspect-ratio: 1;
+	margin-inline: auto;
+	border-radius: 50%;
+	/* the plate is light glass without the blur: a canvas redrawn inside a backdrop-filtered box makes the browser blur
+	   the sky behind it again every frame, and the sky is smooth, so the blur would not show */
+	-webkit-backdrop-filter: none;
+	backdrop-filter: none;
+	background:
+		radial-gradient(circle at 34% 24%, rgba(255, 255, 255, 0.96), rgba(255, 255, 255, 0) 52%),
+		radial-gradient(closest-side, rgba(236, 247, 254, 0.94) 0%, rgba(222, 240, 252, 0.9) 70%, rgba(190, 222, 249, 0.92) 100%);
+	box-shadow: var(--glass-shadow-lift);
+}
+.plate__rings {
+	position: absolute !important;
+	inset: 0;
+	z-index: 0 !important;
+	border-radius: 50%;
+	pointer-events: none;
+	/* four thin rings, the outer one marking the edge of the picture */
+	background:
+		radial-gradient(closest-side, transparent 0 24.4%, rgba(77, 159, 243, 0.22) 24.6% 25.2%, transparent 25.4% 49.4%, rgba(77, 159, 243, 0.2) 49.6% 50.2%, transparent 50.4% 74.4%, rgba(77, 159, 243, 0.2) 74.6% 75.2%, transparent 75.4% 95.6%, rgba(12, 107, 237, 0.3) 96% 96.6%, transparent 97%);
+}
+.plate > canvas {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	touch-action: none; /* this canvas takes the strokes, so a finger must not scroll the page */
+	cursor: crosshair;
+}
+
+.status {
+	min-height: 24px;
+	margin: 0;
+	text-align: center;
+	font: 700 14px/24px var(--font-sans);
+	color: var(--muted);
+}
+
+/* ---------- the toolbar: frosted glass ---------- */
+
+.bar {
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	padding: 10px 14px 12px;
+	color: var(--ink);
+}
+.bar__row { display: flex; flex-wrap: wrap; align-items: center; gap: 6px 22px; }
+.bar__row--between { justify-content: space-between; gap: 8px 14px; }
+.bar__group { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.bar__slider {
+	flex: 1 1 220px;
+	min-width: 0;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+.bar__label { flex: none; min-width: 3.4em; font: 800 14px/20px var(--font-display); color: var(--ink); }
+.bar__val {
+	flex: none;
+	min-width: 2.4ch;
+	text-align: right;
+	font: 700 13px/20px var(--font-mono);
+	font-variant-numeric: tabular-nums;
+	color: var(--ink);
+}
+
+/* the sliders: a thin track filled royal to cyan up to the thumb (--p is set by piece.js), and a white glass thumb */
+.bar input[type="range"] {
+	--p: 50%;
+	flex: 1 1 auto;
+	min-width: 90px;
+	height: 28px;
+	margin: 0;
+	padding: 0;
+	background: transparent;
+	cursor: pointer;
+	-webkit-appearance: none;
+	appearance: none;
+}
+.bar input[type="range"]::-webkit-slider-runnable-track {
+	height: 6px;
+	border-radius: 999px;
+	background: linear-gradient(90deg, var(--brand-royal), var(--glow-cyan)) left center / var(--p) 100% no-repeat, var(--line);
+	box-shadow: inset 0 0 0 1px rgba(94, 128, 174, 0.28);
+}
+.bar input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 22px;
+	height: 22px;
+	margin-top: -8px;
+	border: 2px solid var(--action);
+	border-radius: 50%;
+	background: radial-gradient(circle at 35% 30%, #ffffff, #e6f3fc);
+	box-shadow: 0 3px 8px -2px rgba(22, 66, 140, 0.45);
+}
+.bar input[type="range"]::-moz-range-track {
+	height: 6px;
+	border-radius: 999px;
+	background: var(--line);
+	box-shadow: inset 0 0 0 1px rgba(94, 128, 174, 0.28);
+}
+.bar input[type="range"]::-moz-range-progress {
+	height: 6px;
+	border-radius: 999px;
+	background: linear-gradient(90deg, var(--brand-royal), var(--glow-cyan));
+}
+.bar input[type="range"]::-moz-range-thumb {
+	box-sizing: border-box;
+	width: 22px;
+	height: 22px;
+	border: 2px solid var(--action);
+	border-radius: 50%;
+	background: radial-gradient(circle at 35% 30%, #ffffff, #e6f3fc);
+	box-shadow: 0 3px 8px -2px rgba(22, 66, 140, 0.45);
+}
+.bar input[type="range"]:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; border-radius: 999px; }
+
+/* a colour mode's swatch */
+.sw {
+	display: block;
+	width: 14px;
+	height: 14px;
+	flex: none;
+	border-radius: 50%;
+	box-shadow: 0 0 0 1px rgba(22, 66, 140, 0.4);
+}
+.sw--ink { background: linear-gradient(135deg, #0a2461 0%, #0558dc 100%); }
+.sw--glass { background: linear-gradient(135deg, #4d9ff3 0%, #46d0fb 100%); box-shadow: 0 0 0 2px #ffffff, 0 0 0 3px rgba(22, 66, 140, 0.4); }
+.sw--sky { background: radial-gradient(circle at 74% 70%, #ffb547 0 18%, transparent 20%), linear-gradient(135deg, #8cc2f6 0%, #cde8fc 100%); }
+
+.bar .btn svg { transform: none; }
+.bar .btn[aria-disabled="true"] {
+	opacity: 0.5;
+	cursor: default;
+	transform: none;
+}
+.bar .btn[aria-disabled="true"]:hover { background: var(--glass-sheen), linear-gradient(var(--glass-tint), var(--glass-tint)); transform: none; }
+
+/* ---------- a wide screen: the plate and the toolbar sit beside the panel, sized to the room that is left ---------- */
+
+@media (min-width: 1120px) and (min-height: 660px) {
+	.sample--glass-mandala .stage {
+		container-type: size; /* a size container needs a definite height */
+		height: 100vh;
+		height: 100dvh;
+		min-height: 0;
+		place-items: center;
+		--room-left: calc(max(var(--gutter), (100vw - var(--page-max)) / 2) + 440px + 28px); /* past the fixed info panel */
+		padding: 72px max(var(--gutter), calc((100vw - var(--page-max)) / 2)) 20px var(--room-left);
+	}
+	.mandala { width: min(100cqw, 720px); }
+	.plate { width: min(100cqw, max(240px, calc(100cqh - 188px))); } /* 188: the status line, the toolbar and the gaps */
+}
+
+/* a phone */
+@media (max-width: 720px) {
+	.sample--glass-mandala .stage { padding-top: 76px; }
+	.bar { padding: 8px 12px 10px; }
+	.bar__slider { flex-basis: 100%; }
+	.bar__row { gap: 2px; }
+	.bar__row--between { gap: 8px; }
+	.bar__group { gap: 6px; }
+	.bar .btn--sm { padding: 7px 11px; }
+}

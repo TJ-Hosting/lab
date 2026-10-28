@@ -1,0 +1,459 @@
+/* Sample 41 — Morphing mega-menu. The shell (sky, top bar, panel) comes from css/; only the piece is styled here.
+   Colours are DS v9's tokens (ink, muted, accent-text, raised, line, the glass tokens) with the cyan light (#46d0fb) for the notch and the ghost.
+   Motion in this file is transform and opacity only: the one panel is a glass layer that is scaled and moved (.mm-bg), its content
+   slides and fades (.mm-pane), a notch moves under the item (.mm-notch) and a ghost pointer travels (.mm-ghost). Hover plates fade in as opacity.
+   Under 760px the same markup is an accordion drawer; under reduced motion nothing here is transitioned. */
+
+.mm-stage {
+	/* the info panel sits bottom left: the sample site starts at the top and keeps its hero above it */
+	place-items: start center;
+	padding: 96px var(--gutter) 48px;
+}
+
+.piece-open {
+	--mm-gap: 12px;
+	--mm-r: 12px;
+	--mm-ease: cubic-bezier(0.22, 1, 0.36, 1);
+	position: relative;
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	width: min(1040px, 100%);
+	min-width: 0;
+}
+
+.mm-sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+.mm-ico, .mm-chev {
+	display: block;
+	flex: none;
+	width: 20px;
+	height: 20px;
+	fill: none;
+	stroke: currentColor;
+	stroke-width: 1.8;
+	stroke-linecap: round;
+	stroke-linejoin: round;
+}
+
+.mm-label { align-self: flex-start; margin: 0; padding: 6px 14px; font-size: 13.5px; line-height: 20px; }
+
+/* ---------- the bar ---------- */
+
+.mm { position: relative; z-index: 6; }
+.mm .mm-bar__glass { position: absolute; inset: 0; z-index: 0; }
+.mm-bar {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	min-height: 64px;
+	padding: 10px 12px 10px 18px;
+}
+.mm-brand, .mm-nav, .mm-cta, .mm-burger { z-index: 4; }
+
+.mm-brand {
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	padding: 6px 8px 6px 2px;
+	border-radius: 8px;
+	color: var(--ink);
+	text-decoration: none;
+	font: 900 18px/1 var(--font-display);
+	font-stretch: 92%;
+	letter-spacing: -0.015em;
+	white-space: nowrap;
+}
+.mm-mark { width: 30px; height: 30px; flex: none; }
+.mm-mark rect { fill: var(--brand-royal); }
+.mm-mark path { fill: none; stroke: #fff; stroke-width: 1.9; stroke-linejoin: round; stroke-linecap: round; }
+
+.mm-nav { flex: 1; min-width: 0; margin-left: 12px; }
+.mm-list { display: flex; gap: 2px; margin: 0; padding: 0; list-style: none; }
+
+/* a trigger: a quiet button with a plate that fades in (opacity only) */
+.mm-trigger, .mm-burger {
+	position: relative;
+	isolation: isolate;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	padding: 9px 12px 9px 14px;
+	border: 0;
+	border-radius: 8px;
+	background: transparent;
+	color: var(--muted);
+	font: 700 15px/20px var(--font-sans);
+	cursor: pointer;
+	white-space: nowrap;
+}
+.mm-trigger::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	border-radius: inherit;
+	background: var(--raised);
+	box-shadow: inset 0 0 0 1px var(--line);
+	opacity: 0;
+	transition: opacity 0.22s var(--ease-ui);
+}
+.mm-trigger:hover::before { opacity: 0.7; }
+.mm-trigger[aria-expanded="true"]::before { opacity: 1; }
+.mm-trigger:hover, .mm-trigger[aria-expanded="true"] { color: var(--ink); }
+.mm-chev { width: 16px; height: 16px; transition: transform 0.35s var(--mm-ease); }
+.mm-trigger[aria-expanded="true"] .mm-chev { transform: rotate(180deg); }
+
+.mm-cta { margin-left: auto; }
+.mm-burger { display: none; }
+
+/* ---------- the one panel: a scaled glass layer, a notch, the bridge ---------- */
+
+.mm .mm-bg {
+	position: absolute;
+	left: 0;
+	top: calc(100% + var(--mm-gap));
+	z-index: 1;
+	transform-origin: 0 0;
+	border-radius: var(--mm-r);
+	/* a denser frost than the base glass: text sits on it over the hero's own words */
+	background-color: rgba(255, 255, 255, 0.94);
+	opacity: 0;
+	will-change: transform, opacity;
+	transition: transform 0.5s var(--mm-ease), opacity 0.26s var(--ease-ui);
+}
+
+/* the cyan notch: a small diamond whose tip catches the light; its lower half melts into the panel */
+.mm .mm-notch {
+	position: absolute;
+	left: 0;
+	top: calc(100% + var(--mm-gap) - 10px);
+	z-index: 2;
+	width: 22px;
+	height: 12px;
+	opacity: 0;
+	pointer-events: none;
+	will-change: transform, opacity;
+	transition: transform 0.5s var(--mm-ease), opacity 0.26s var(--ease-ui);
+}
+/* a soft cyan glow around the tip, and under it the triangle: cyan light at its tip, fading to the panel's own white at its base (a static data: image) */
+.mm-notch::before,
+.mm-notch::after { content: ""; position: absolute; }
+.mm-notch::before {
+	left: 50%;
+	top: -9px;
+	width: 48px;
+	height: 28px;
+	margin-left: -24px;
+	background: radial-gradient(closest-side, rgba(70, 208, 251, 0.42), rgba(70, 208, 251, 0));
+}
+.mm-notch::after {
+	inset: 0;
+	background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 22 12'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='0' y2='1'%3E%3Cstop offset='0' stop-color='%2346d0fb'/%3E%3Cstop offset='.7' stop-color='%236fd9fc'/%3E%3Cstop offset='1' stop-color='%23e6f8ff'/%3E%3C/linearGradient%3E%3C/defs%3E%3Cpath d='M0 12L9.3 1.7Q11 0 12.7 1.7L22 12z' fill='url(%23g)'/%3E%3Cpath d='M.4 12L9.3 1.9Q11 .2 12.7 1.9L21.6 12' fill='none' stroke='%2324b8ec' stroke-opacity='.8' stroke-width='1.2'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+}
+
+/* the gap between the bar and the panel stays part of the menu, so a slow pointer does not close it */
+.mm-bridge {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 100%;
+	z-index: 1;
+	height: calc(var(--mm-gap) + 6px);
+	pointer-events: none;
+}
+.mm.is-open .mm-bridge { pointer-events: auto; }
+
+.mm .is-off { visibility: hidden; pointer-events: none; }
+
+/* ---------- the panes: each at its own width; the script moves them with transform and fades them ---------- */
+
+.mm-pane {
+	position: absolute;
+	left: 0;
+	top: calc(100% + var(--mm-gap));
+	z-index: 3;
+	box-sizing: border-box;
+	width: var(--pw);
+	padding: 12px;
+	color: var(--ink);
+	opacity: 0;
+	will-change: transform, opacity;
+	transition: transform 0.5s var(--mm-ease), opacity 0.28s var(--ease-ui);
+}
+.mm-pane.is-active { transition-delay: 0s, 0.09s; }
+.mm-pane--services { --pw: 592px; }
+.mm-pane--pricing { --pw: 396px; }
+.mm-pane--about { --pw: 504px; display: grid; grid-template-columns: 188px minmax(0, 1fr); gap: 10px; }
+.mm-pane--help { --pw: 344px; }
+
+.mm-links { display: grid; gap: 2px; margin: 0; padding: 0; list-style: none; align-content: start; }
+.mm-links--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 2px 6px; }
+
+.mm-link {
+	position: relative;
+	isolation: isolate;
+	display: grid;
+	grid-template-columns: 38px minmax(0, 1fr);
+	column-gap: 12px;
+	row-gap: 1px;
+	align-items: center;
+	padding: 9px 10px;
+	border-radius: 8px;
+	color: var(--ink);
+	text-decoration: none;
+}
+.mm-link::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	border-radius: inherit;
+	background: var(--raised);
+	box-shadow: inset 0 0 0 1px var(--line);
+	opacity: 0;
+	transition: opacity 0.2s var(--ease-ui);
+}
+.mm-link:hover::before, .mm-link:focus-visible::before { opacity: 1; }
+.mm-link:focus-visible { outline: 2px solid var(--focus); outline-offset: -2px; }
+.mm-link .mm-ico {
+	grid-row: 1 / span 2;
+	width: 38px;
+	height: 38px;
+	padding: 8px;
+	border-radius: 10px;
+	color: var(--brand-royal);
+	background: linear-gradient(160deg, #ffffff 0%, #dff0fd 100%);
+	box-shadow: inset 0 0 0 1px rgba(94, 128, 174, 0.22), 0 4px 10px -6px rgba(22, 66, 140, 0.4);
+}
+.mm-link__t { align-self: end; font: 800 15px/20px var(--font-sans); }
+.mm-link__d { align-self: start; font: 450 13.5px/18px var(--font-sans); color: var(--muted); }
+
+.mm-foot {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	margin-top: 8px;
+	padding: 10px 10px 0;
+	border-top: 1px solid var(--line);
+}
+.mm-more {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	border-radius: 6px;
+	color: var(--accent-text);
+	font: 800 14px/20px var(--font-sans);
+	text-decoration: none;
+}
+.mm-more:hover { color: var(--ink); }
+.mm-more .mm-ico { width: 16px; height: 16px; }
+.mm-note { margin-left: auto; font: 600 11.5px/16px var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+
+.mm-feature {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	gap: 6px;
+	padding: 16px;
+	border-radius: 10px;
+	background:
+		radial-gradient(90% 70% at 100% 0%, rgba(70, 208, 251, 0.34), rgba(70, 208, 251, 0) 70%),
+		linear-gradient(170deg, #f6fbff 0%, #dcefff 100%);
+	box-shadow: inset 0 0 0 1px rgba(94, 128, 174, 0.2);
+}
+.mm-feature p { margin: 0; }
+.mm-feature__k { font: 600 11.5px/16px var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.mm-feature__t { font: 800 19px/23px var(--font-display); letter-spacing: -0.01em; }
+.mm-feature__d { font: 450 13.5px/18px var(--font-sans); color: var(--muted); }
+
+/* ---------- the ghost pointer of the idle tour ---------- */
+
+.mm-ghost {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 9;
+	width: 0;
+	height: 0;
+	opacity: 0;
+	pointer-events: none;
+	will-change: transform, opacity;
+	transition: transform 0.9s cubic-bezier(0.45, 0.05, 0.2, 1), opacity 0.35s var(--ease-ui);
+}
+.mm-ghost__ring, .mm-ghost__pulse {
+	position: absolute;
+	left: -18px;
+	top: -18px;
+	width: 36px;
+	height: 36px;
+	border-radius: 50%;
+	border: 1.5px solid rgba(70, 208, 251, 0.85);
+}
+.mm-ghost__ring { background: radial-gradient(closest-side, rgba(70, 208, 251, 0.5), rgba(70, 208, 251, 0.12) 70%, rgba(70, 208, 251, 0)); }
+.mm-ghost__pulse { opacity: 0; }
+.mm-ghost__arrow {
+	position: absolute;
+	left: -3px;
+	top: -3px;
+	width: 26px;
+	height: 26px;
+	max-width: none;
+	fill: #0b2a63;
+	stroke: #ffffff;
+	stroke-width: 1.6;
+	stroke-linejoin: round;
+}
+/* a press: one ring spreads and fades (a finite animation, paused with the page) */
+.mm-ghost.is-press .mm-ghost__pulse { animation: mm-press 0.6s var(--ease-out) both; }
+@keyframes mm-press {
+	from { transform: scale(0.6); opacity: 1; }
+	to { transform: scale(2); opacity: 0; }
+}
+
+/* ---------- the calm sample hero ---------- */
+
+.mm-hero {
+	position: relative;
+	z-index: 1;
+	display: grid;
+	grid-template-columns: minmax(0, 1.1fr) minmax(0, 0.9fr);
+	align-items: center;
+	gap: 32px;
+	padding: 22px 8px 0;
+}
+.mm-tag { margin: 0 0 16px; padding: 5px 12px; font-size: 13px; line-height: 20px; }
+.mm-hero__title {
+	max-width: 14em;
+	margin: 0 0 14px;
+	font: 900 clamp(32px, 4vw, 50px) / 1.04 var(--font-display);
+	font-stretch: 90%;
+	letter-spacing: -0.025em;
+}
+.mm-hero__lede { max-width: 44ch; margin: 0 0 22px; color: var(--muted); font-size: 17px; line-height: 27px; }
+.mm-hero__btns { display: flex; flex-wrap: wrap; gap: 10px; }
+
+.mm-art { position: relative; height: 252px; }
+.mm-card {
+	position: absolute;
+	display: flex;
+	flex-direction: column;
+	gap: 11px;
+	padding: 18px;
+}
+.mm-card--a { left: 2%; top: 4px; width: 56%; height: 150px; }
+.mm-card--b { right: 2%; top: 62px; width: 62%; height: 178px; }
+.mm-dot {
+	width: 10px;
+	height: 10px;
+	flex: none;
+	border-radius: 50%;
+	background: var(--glow-cyan);
+	box-shadow: 0 0 0 4px rgba(70, 208, 251, 0.22);
+}
+.mm-dot--b { background: var(--brand-azure); box-shadow: 0 0 0 4px rgba(77, 159, 243, 0.2); }
+.mm-sk { display: block; height: 10px; border-radius: 5px; background: linear-gradient(90deg, #c4dcf3, #e2f0fb); }
+.mm-w36 { width: 36%; } .mm-w44 { width: 44%; } .mm-w54 { width: 54%; } .mm-w62 { width: 62%; }
+.mm-w70 { width: 70%; } .mm-w78 { width: 78%; } .mm-w86 { width: 86%; }
+.mm-art__cap { position: absolute; left: 4%; bottom: 0; padding: 4px 12px; font-size: 12.5px; line-height: 18px; }
+
+/* ---------- under 760px: the same menu as an accordion drawer ---------- */
+
+@media (max-width: 759.98px) {
+	.mm-stage { padding: 78px var(--gutter) 28px; }
+	.mm-bar { min-height: 56px; padding: 8px 8px 8px 14px; }
+	.mm-brand { font-size: 17px; }
+	.mm-cta, .mm-bg, .mm-notch, .mm-bridge { display: none; }
+
+	.mm-burger {
+		display: inline-flex;
+		margin-left: auto;
+		min-height: 40px;
+		padding: 8px 12px 8px 16px;
+		border: 1px solid var(--border-control);
+		background: var(--surface);
+		color: var(--ink);
+		font-weight: 800;
+		font-size: 14px;
+	}
+	.mm-burger[aria-expanded="true"] .mm-chev { transform: rotate(180deg); }
+
+	.mm-nav {
+		display: none;
+		position: absolute;
+		left: 0;
+		right: 0;
+		top: calc(100% + 10px);
+		margin: 0;
+		padding: 6px;
+		border: 1px solid var(--glass-border);
+		border-radius: var(--glass-radius);
+		background: var(--glass-sheen), linear-gradient(rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.95));
+		box-shadow: var(--glass-shadow);
+		/* the fixed description panel sits under the drawer on a phone: the drawer scrolls inside its own room instead of running under it */
+		max-height: max(220px, calc(100dvh - 480px));
+		overflow-y: auto;
+		overscroll-behavior: contain;
+	}
+	.mm-nav.is-open { display: block; animation: mm-drawer 0.34s var(--ease-out) both; }
+	.mm-list { flex-direction: column; gap: 0; }
+	.mm-trigger { width: 100%; justify-content: space-between; min-height: 44px; padding: 9px 12px 9px 14px; font-size: 16px; }
+
+	.mm-pane,
+	.mm-pane--services, .mm-pane--pricing, .mm-pane--about, .mm-pane--help {
+		position: static;
+		display: block;
+		width: auto;
+		padding: 2px 2px 8px;
+		transform: none !important;
+		opacity: 1 !important;
+		transition: none;
+	}
+	.mm .mm-pane.is-off { display: none; }
+	.mm-pane:not(.is-off) { animation: mm-fade 0.3s var(--ease-out) both; }
+	.mm-feature { display: none; }
+	.mm-link { grid-template-columns: 34px minmax(0, 1fr); column-gap: 10px; padding: 5px 8px; }
+	.mm-link .mm-ico { width: 34px; height: 34px; padding: 7px; }
+	/* the six services become a two-column grid of names (their descriptions are on the wide bar) */
+	.mm-links--2 { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 4px; }
+	.mm-links--2 .mm-link { grid-template-columns: 30px minmax(0, 1fr); column-gap: 8px; padding: 6px 6px; }
+	.mm-links--2 .mm-link .mm-ico { width: 30px; height: 30px; padding: 6px; border-radius: 9px; }
+	.mm-links--2 .mm-link__t { grid-row: 1 / span 2; align-self: center; font-size: 14.5px; }
+	.mm-links--2 .mm-link__d { display: none; }
+	.mm-foot { margin-top: 4px; padding: 8px 8px 0; }
+
+	.mm-hero { grid-template-columns: minmax(0, 1fr); padding-top: 6px; gap: 0; }
+	.mm-art { display: none; }
+	.mm-tag { margin-bottom: 12px; }
+	.mm-hero__title { font-size: 30px; margin-bottom: 10px; }
+	.mm-hero__lede { font-size: 16px; line-height: 25px; margin-bottom: 16px; }
+}
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+	@media (max-width: 759.98px) {
+		.mm-nav {
+			-webkit-backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
+			backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
+		}
+	}
+}
+@keyframes mm-drawer {
+	from { opacity: 0; transform: translate3d(0, -8px, 0); }
+	to { opacity: 1; transform: none; }
+}
+@keyframes mm-fade {
+	from { opacity: 0; transform: translate3d(0, -6px, 0); }
+	to { opacity: 1; transform: none; }
+}
+
+@media (max-width: 420px) {
+	.mm-stage { padding-top: 80px; }
+	.mm-hero__title { font-size: 27px; }
+}
+
+/* ---------- reduced motion: the panel jumps between sizes and places, content swaps without a fade, no ghost ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+	.mm, .mm *, .mm *::before, .mm *::after { transition: none !important; animation: none !important; }
+	.mm-ghost { display: none; }
+}

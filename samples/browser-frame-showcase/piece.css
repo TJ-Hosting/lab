@@ -1,0 +1,240 @@
+/* Sample 43 — Browser-frame project showcase, on the open day sky.
+   Written from the idea only: a generic glass browser window and a matching phone, each showing one of three fictional
+   sample sites as a tall picture. Nothing here copies any real browser's chrome: three dots, two arrows, an address
+   pill and a tab square, in DS v9's light glass. (Idea: Magic UI's browser mockup, MIT, Copyright (c) Magic UI.)
+   Motion: piece.js slides each tall picture up and down, and sweeps a frosted sheen across the glass, with transform
+   and opacity only. The only CSS motion is the opacity cross-fade between sites, which reduced motion switches off.
+   The shell (sky, top bar, panel) comes from css/. */
+
+.stage {
+	/* the info panel sits bottom left: keep the devices clear of it */
+	padding: 84px var(--gutter) 296px;
+	grid-template-columns: minmax(0, 1fr); /* the column is the stage's width, so max-width: 100% below means the screen */
+}
+
+/* the whole piece scales with the viewport height as well as the width, so the panel never covers it */
+.piece-open {
+	position: relative;
+	z-index: 1;
+	width: clamp(300px, calc((100dvh - 424px) * 1.5), 780px);
+	max-width: 100%;
+}
+
+.note { margin: 0; padding: 10px 16px; font-size: 14px; }
+
+/* ---------- the row above the devices: the label and the three site chips ---------- */
+
+.showcase__top {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px 14px;
+	margin-bottom: 18px;
+}
+.showcase__top .pill { padding: 6px 14px; font-size: 13.5px; line-height: 20px; }
+.chips { display: flex; gap: 8px; }
+
+/* ---------- the devices ---------- */
+
+.devices {
+	position: relative;
+	padding-bottom: 3.2%; /* the phone hangs a little below the window */
+}
+
+/* soft colour behind the glass (static), so the frame has some light to sit in */
+.halo {
+	position: absolute;
+	inset: -14% -10% -10%;
+	z-index: 0;
+	pointer-events: none;
+	background:
+		radial-gradient(46% 52% at 30% 44%, rgba(70, 208, 251, 0.28), rgba(70, 208, 251, 0) 72%),
+		radial-gradient(40% 48% at 74% 56%, rgba(77, 159, 243, 0.26), rgba(77, 159, 243, 0) 72%);
+}
+
+/* the windows are opaque inside, so the glass frosting is dropped here: the tint, rim and blue shadow stay */
+.window, .phone {
+	-webkit-backdrop-filter: none;
+	backdrop-filter: none;
+}
+
+/* ---------- the browser window ---------- */
+
+.window {
+	position: relative;
+	z-index: 1;
+	width: 84%;
+	box-shadow: var(--glass-inner), 0 30px 56px -26px rgba(22, 66, 140, 0.42), 0 10px 22px -12px rgba(22, 66, 140, 0.22);
+}
+.window__bar {
+	position: relative;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	height: 40px;
+	padding: 0 12px;
+	background: var(--glass-sheen), linear-gradient(rgba(255, 255, 255, 0.9), rgba(230, 243, 252, 0.92));
+	border-bottom: 1px solid var(--line);
+}
+.dots { display: flex; gap: 6px; margin-right: 4px; }
+.dots i { width: 10px; height: 10px; border-radius: 50%; background: var(--glow-cyan); }
+.dots i:nth-child(2) { background: var(--brand-azure); }
+.dots i:nth-child(3) { background: #8fa8cb; }
+.window__nav { flex: none; width: 15px; height: 15px; color: #5e7396; }
+.window__nav + .window__nav { margin-left: -2px; }
+
+.addr {
+	flex: 1;
+	min-width: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 8px;
+	height: 26px;
+	padding: 0 12px;
+	border-radius: 99px;
+	background: #ffffff;
+	box-shadow: inset 0 0 0 1px var(--line);
+}
+.addr__dot { flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--glow-cyan); box-shadow: 0 0 0 3px rgba(70, 208, 251, 0.22); }
+/* the three addresses share one cell and cross-fade, so the pill keeps its size */
+.addr__stack { display: grid; min-width: 0; }
+.addr__text {
+	grid-area: 1 / 1;
+	color: var(--muted);
+	font: 500 12px/26px var(--font-mono);
+	letter-spacing: 0.01em;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+	opacity: 0;
+	transition: opacity 0.18s linear;
+}
+.addr__text.is-on { opacity: 1; transition: opacity 0.3s var(--ease-out) 0.16s; }
+
+.window__tabs { flex: none; width: 15px; height: 15px; display: grid; place-items: center; }
+.window__tabs i { display: block; width: 11px; height: 11px; border-radius: 3px; box-shadow: inset 0 0 0 2px #5e7396; }
+
+/* a reading-progress line along the bar's lower edge: scaled from the left by piece.js */
+.progress {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: -1px;
+	height: 2px;
+	background: linear-gradient(90deg, var(--glow-cyan), var(--brand-azure) 55%, var(--brand-royal));
+	transform: scaleX(0);
+	transform-origin: 0 50%;
+	will-change: transform;
+}
+
+/* the screen: 16:10, so the tall picture (2:3 at the same width) is 2.4 screens high */
+.window__screen {
+	position: relative;
+	aspect-ratio: 16 / 10;
+	overflow: hidden;
+	background: #ffffff;
+}
+
+/* ---------- the tall picture, one layer per site ---------- */
+
+.scroller {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 100%;
+	aspect-ratio: 2 / 3; /* the pictures are 1024 x 1536 */
+	will-change: transform;
+}
+.layer {
+	position: absolute;
+	inset: 0;
+	opacity: 0;
+	/* the site on its way out stays solid until the new one is on top, then drops out (no dip to white in the middle) */
+	transition: opacity 0s linear 0.55s;
+}
+.layer.is-on { z-index: 1; opacity: 1; transition: opacity 0.55s var(--ease-out); }
+.layer picture, .layer img { display: block; width: 100%; height: 100%; }
+.layer img { user-select: none; -webkit-user-drag: none; }
+
+/* ---------- the phone ---------- */
+
+.phone {
+	position: absolute;
+	z-index: 2;
+	right: 0;
+	bottom: 0;
+	width: 25%;
+	padding: 6px;
+	border-radius: 28px;
+	box-shadow: var(--glass-inner), 0 30px 50px -22px rgba(22, 66, 140, 0.5), 0 10px 22px -10px rgba(22, 66, 140, 0.3);
+}
+.phone__screen {
+	position: relative;
+	aspect-ratio: 9 / 19.5;
+	overflow: hidden;
+	border-radius: 22px;
+	background: #ffffff;
+}
+/* the phone shows a crop of the same picture: wider than its screen, shifted sideways per site (--c, 0 = left edge, 1 = right edge) */
+.phone .scroller { width: 220%; }
+.phone .layer picture { transform: translate3d(calc(var(--c, 0.4) * -54.5455%), 0, 0); }
+.phone__cam {
+	position: absolute;
+	z-index: 3;
+	left: 50%;
+	top: 9px;
+	width: 7px;
+	height: 7px;
+	margin-left: -3.5px;
+	border-radius: 50%;
+	background: #0b2a63;
+	box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.85);
+}
+
+/* ---------- the frosted sheen: a soft slanted streak of white that piece.js sweeps across each glass ---------- */
+
+.window > .sheen, .phone > .sheen {
+	position: absolute;
+	z-index: 4;
+	top: -8%;
+	bottom: -8%;
+	left: 0;
+	width: 34%;
+	pointer-events: none;
+	opacity: 0;
+	transform: translate3d(-140%, 0, 0) skewX(-16deg);
+	will-change: transform, opacity;
+	background: linear-gradient(90deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.18) 28%, rgba(255, 255, 255, 0.7) 50%, rgba(255, 255, 255, 0.18) 72%, rgba(255, 255, 255, 0) 100%);
+}
+.phone > .sheen { width: 62%; }
+
+/* ---------- phones: a smaller window with the phone overlapping it ---------- */
+
+@media (max-width: 720px) {
+	.stage { padding-bottom: 316px; } /* the panel is taller here (six lines of text): a short phone scrolls the piece clear of it */
+	.showcase__top { margin-bottom: 14px; }
+	.devices { padding-bottom: 7%; }
+	.window { width: 82%; }
+	.window__bar { height: 32px; padding: 0 9px; gap: 6px; }
+	.dots i { width: 8px; height: 8px; }
+	.dots { gap: 5px; }
+	.window__nav, .window__tabs { display: none; }
+	.addr { height: 20px; padding: 0 9px; }
+	.addr__text { font-size: 10.5px; line-height: 20px; }
+	.phone { width: 28%; padding: 4px; border-radius: 20px; right: -1%; }
+	.phone__screen { border-radius: 16px; }
+	.phone__cam { top: 6px; width: 5px; height: 5px; margin-left: -2.5px; }
+}
+
+/* a short, wide screen (a phone on its side): the piece sits to the right of the panel instead of above it */
+@media (min-width: 721px) and (max-height: 560px) {
+	.stage { padding: 76px var(--gutter) 20px calc(max(var(--gutter), (100vw - var(--page-max)) / 2) + 460px); }
+	.hint { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.layer, .layer.is-on, .addr__text, .addr__text.is-on { transition: none; }
+	.window > .sheen, .phone > .sheen { display: none; }
+}

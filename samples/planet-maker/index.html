@@ -1,0 +1,76 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<!-- the base policy, no additions: the PNG poster is saved through an <a download> with a blob: link, which is a navigation, not an image load -->
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<title>Pixel planet maker — pixel planets · TJ-Hosting Lab</title>
+	<meta name="description" content="A chunky pixel planet, shaded with noise and dithered, lit from wherever your pointer is. Roll a new made-up world with a name and a seed, or download it as a poster. Made with Canvas 2D.">
+	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/planet-maker/">
+	<meta name="theme-color" content="#eef7fc">
+	<link rel="icon" href="../../img/brand/tj-mark.svg" type="image/svg+xml">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="TJ-Hosting Lab">
+	<meta property="og:title" content="Pixel planet maker — TJ-Hosting Lab">
+	<meta property="og:description" content="A dithered pixel planet lit by your pointer. Roll a new world, or save it as a poster.">
+	<meta property="og:url" content="https://lab.tj-hosting.ca/samples/planet-maker/">
+	<meta property="og:image" content="https://lab.tj-hosting.ca/img/og/planet-maker.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="A blue pixel planet with a ring and two small moons, on a night sky of stars">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="preload" href="../../fonts/nunito-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="../../css/glass.css">
+	<link rel="stylesheet" href="../../css/lab.css">
+	<link rel="stylesheet" href="../../css/sample.css">
+	<link rel="stylesheet" href="piece.css">
+	<script src="../../js/early.js"></script>
+	<script type="module" src="piece.js"></script>
+</head>
+<body class="sample sample--planet-maker">
+	<a class="skip" href="#about-piece">Skip to the description</a>
+
+	<div class="sky" aria-hidden="true"></div>
+
+	<header class="topbar">
+		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
+			<img src="../../img/brand/tj-mark.svg" alt="" width="34" height="34">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Lab">
+			<a href="../../#samples">All samples</a>
+		</nav>
+	</header>
+
+	<!-- stage A: a framed night screen. A starfield and a lit planet only read on dark.
+	     The canvas is a small pixel buffer that piece.js sizes and scales up in whole steps. -->
+	<main id="main" class="stage stage--screen">
+		<div class="piece-screen screen" data-night>
+			<canvas class="piece" tabindex="0" role="img" aria-label="A pixel planet on a night sky. Move the pointer, or use the arrow keys, to move the light that falls on it."></canvas>
+			<div class="plate glass glass--soft" data-night role="status">
+				<p class="plate__kicker">Made-up world</p>
+				<p class="plate__name" data-name>Tawny Valley</p>
+				<p class="plate__facts" data-facts>Ocean world · 2 moons · rings</p>
+				<p class="plate__seed">Seed <span data-seed>1357-9BDF</span></p>
+			</div>
+		</div>
+	</main>
+
+	<p class="hint glass glass--pill" data-night aria-hidden="true">Move to light the planet</p>
+
+	<aside class="sample-info glass glass--strong" id="about-piece" aria-labelledby="piece-title">
+		<p class="eyebrow">Sample 54 · Pixel planets</p>
+		<h1 id="piece-title">Pixel planet maker</h1>
+		<p class="how"><b>How it's made:</b> Canvas 2D shades a sphere from 3D noise and a light direction, then snaps it to a few blues with dither dots.
+		The light follows your pointer, the planet turns slowly, and it stops when off-screen or in a hidden tab.</p>
+		<div class="controls">
+			<button class="btn btn--sm btn--primary" type="button" data-action="roll">Roll a new world</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="save">Download PNG</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="pause" aria-pressed="false">Pause</button>
+			<a class="back" href="../../#samples">← Back to the lab</a>
+		</div>
+	</aside>
+</body>
+</html>

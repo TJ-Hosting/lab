@@ -1,0 +1,68 @@
+/* Sample 54 — Pixel planet maker. The shell (sky, top bar, panel, the night screen) comes from css/; only the piece is styled here.
+   A starfield and a lit planet read best on dark, so the piece runs in a framed night screen (stage A).
+   The planet's own colours are DS v9 blues (navy, royal, azure, sky, pale, cyan light) with a warm accent only on lava and dune worlds;
+   they are painted into the canvas by world.js. The name plate is night glass. */
+
+/* the canvas is a small pixel buffer: piece.js gives it a size in whole multiples of its pixel size and centres it */
+.sample--planet-maker .piece-screen > .piece {
+	right: auto;
+	bottom: auto;
+	width: auto;
+	height: auto;
+	image-rendering: pixelated;
+	touch-action: none; /* the canvas takes touch drags: they move the light */
+	cursor: crosshair;
+	outline: none;
+}
+.sample--planet-maker .piece-screen > .piece:focus-visible {
+	outline: 2px solid var(--focus);
+	outline-offset: -4px;
+	border-radius: 12px;
+}
+
+/* the name plate: night glass in the window's top left corner */
+.sample--planet-maker .plate {
+	position: absolute;
+	z-index: 5;
+	top: 46px;
+	left: 14px;
+	width: min(300px, calc(100% - 28px));
+	margin: 0;
+	padding: 12px 18px 12px;
+	pointer-events: none;
+}
+.plate p { margin: 0; }
+.plate__kicker {
+	font: 600 11px/16px var(--font-mono);
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--muted);
+}
+.plate__name {
+	margin-top: 2px !important;
+	font: 900 clamp(24px, 2.4vw, 30px) / 1.1 var(--font-display);
+	font-stretch: 92%;
+	letter-spacing: -0.015em;
+	color: var(--ink);
+	overflow-wrap: anywhere;
+}
+.plate__facts {
+	margin-top: 6px !important;
+	font: 600 14px/20px var(--font-sans);
+	color: var(--ink);
+}
+.plate__seed {
+	margin-top: 2px !important;
+	font: 600 12px/18px var(--font-mono);
+	letter-spacing: 0.08em;
+	color: var(--muted);
+}
+.plate__seed span { color: var(--accent-text); }
+
+@media (max-width: 720px) {
+	.sample--planet-maker .plate { top: 42px; left: 10px; width: calc(100% - 20px); padding: 8px 14px 9px; }
+	.plate__kicker { display: none; }
+	.plate__name { margin-top: 0 !important; font-size: 22px; }
+	.plate__facts { margin-top: 2px !important; font-size: 13px; line-height: 18px; }
+	.plate__seed { margin-top: 0 !important; font-size: 11px; line-height: 16px; }
+}

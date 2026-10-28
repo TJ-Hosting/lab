@@ -1,0 +1,61 @@
+/* Sample 33 — Wavy Lines Hero. The shell (sky, top bar, panel, the night screen) comes from css/; only the piece is styled here.
+   The lines' own palette (cyan light, azure, royal, a pale highlight) is the SVG gradient in index.html. The SVG's paths are
+   redrawn by script each frame (a drawing surface); the HTML around it never animates. */
+
+/* the screen takes the pointer: a drag over it pulls the lines aside, so touch must not scroll or zoom */
+.sample--wavy-lines-hero .piece-screen { touch-action: none; }
+
+.piece {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+/* the hero: a night-glass card, centred in the window below its bar; the lines are bent clear of its box */
+.hero {
+	position: absolute;
+	z-index: 5;
+	inset: 34px 0 0;
+	display: grid;
+	place-items: center;
+	padding: 24px;
+	pointer-events: none;
+}
+.hero__card {
+	width: min(100%, 520px);
+	padding: 30px 36px 32px;
+	text-align: left;
+	pointer-events: auto;
+	color: var(--ink);
+}
+.hero__tag { margin: 0 0 16px; }
+.hero__tag .pill {
+	padding: 5px 12px;
+	border-radius: 999px;
+	font: 700 12px/16px var(--font-mono);
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--ink);
+}
+.hero__title {
+	margin: 0 0 12px;
+	font: 900 clamp(34px, 4.6vw, 56px) / 1.02 var(--font-display);
+	font-stretch: 90%;
+	letter-spacing: -0.02em;
+	color: var(--ink);
+}
+.hero__lede {
+	margin: 0;
+	max-width: 28em;
+	font: 450 17px/26px var(--font-sans);
+	color: var(--muted);
+}
+
+/* a phone: the info panel covers the lower half of the window, so the card sits in the upper part */
+@media (max-width: 720px) {
+	.hero { bottom: 47%; padding: 14px 24px; }
+	.hero__card { width: min(100%, 360px); padding: 20px 22px 22px; }
+	.hero__tag { margin-bottom: 10px; }
+	.hero__title { font-size: 32px; margin-bottom: 8px; }
+	.hero__lede { font-size: 15px; line-height: 22px; }
+}

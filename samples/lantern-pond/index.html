@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<!-- the base policy; additions only as the brief allows ('wasm-unsafe-eval', blob:), and only with the lead -->
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<title>Lantern pond ripples — dusk water · TJ-Hosting Lab</title>
+	<meta name="description" content="A dusk pond with two paper lanterns that ripples where you touch it, while a falling leaf drops a ring now and then. A water simulation that runs on your graphics card, in WebGL and GLSL shaders.">
+	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/lantern-pond/">
+	<meta name="theme-color" content="#eef7fc">
+	<link rel="icon" href="../../img/brand/tj-mark.svg" type="image/svg+xml">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="TJ-Hosting Lab">
+	<meta property="og:title" content="Lantern pond ripples — TJ-Hosting Lab">
+	<meta property="og:description" content="A dusk pond that ripples where you touch it. Cyan glints ride the waves.">
+	<meta property="og:url" content="https://lab.tj-hosting.ca/samples/lantern-pond/">
+	<meta property="og:image" content="https://lab.tj-hosting.ca/img/og/lantern-pond.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="A dark blue pond at dusk with lily pads and two glowing paper lanterns, rippling">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="preload" href="../../fonts/nunito-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="../../css/glass.css">
+	<link rel="stylesheet" href="../../css/lab.css">
+	<link rel="stylesheet" href="../../css/sample.css">
+	<link rel="stylesheet" href="piece.css">
+	<script src="../../js/early.js"></script>
+	<script type="module" src="piece.js"></script>
+</head>
+<body class="sample sample--lantern-pond">
+	<a class="skip" href="#about-piece">Skip to the description</a>
+
+	<div class="sky" aria-hidden="true"></div>
+
+	<!-- the night-blue grade for the plain photo (the no-WebGL picture): the same luminance tritone and cyan lantern light as the shader in piece.js -->
+	<svg class="grade-defs" width="0" height="0" aria-hidden="true" focusable="false">
+		<filter id="pond-grade" x="0" y="0" width="1" height="1" color-interpolation-filters="sRGB">
+			<feColorMatrix in="SourceGraphic" type="matrix" values="0.2126 0.7152 0.0722 0 0  0.2126 0.7152 0.0722 0 0  0.2126 0.7152 0.0722 0 0  0 0 0 1 0" result="lum0"/>
+			<feComponentTransfer in="lum0" result="lum">
+				<feFuncR type="gamma" exponent="0.78"/><feFuncG type="gamma" exponent="0.78"/><feFuncB type="gamma" exponent="0.78"/>
+			</feComponentTransfer>
+			<feComponentTransfer in="lum" result="tri">
+				<feFuncR type="table" tableValues="0.024 0.026 0.029 0.032 0.035 0.038 0.041 0.061 0.123 0.186 0.248 0.311 0.373 0.436 0.498 0.561 0.624"/>
+				<feFuncG type="table" tableValues="0.047 0.074 0.101 0.128 0.154 0.181 0.208 0.245 0.309 0.372 0.435 0.499 0.562 0.626 0.689 0.752 0.816"/>
+				<feFuncB type="table" tableValues="0.094 0.161 0.227 0.294 0.360 0.427 0.493 0.555 0.602 0.650 0.698 0.746 0.793 0.841 0.889 0.937 0.984"/>
+			</feComponentTransfer>
+			<feComponentTransfer in="lum" result="glow">
+				<feFuncR type="table" tableValues="0.043 0.043 0.043 0.043 0.065 0.111 0.168 0.223 0.263 0.277 0.339 0.463 0.613 0.755 0.854 0.878 0.878"/>
+				<feFuncG type="table" tableValues="0.227 0.227 0.227 0.228 0.283 0.400 0.545 0.686 0.786 0.816 0.832 0.863 0.901 0.937 0.962 0.969 0.969"/>
+				<feFuncB type="table" tableValues="0.541 0.541 0.541 0.542 0.583 0.671 0.781 0.886 0.962 0.984 0.986 0.989 0.993 0.997 0.999 1.000 1.000"/>
+			</feComponentTransfer>
+			<feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  3 0 -3 0 -0.2" result="warm"/>
+			<feComposite in="glow" in2="warm" operator="in" result="glow-part"/>
+			<feComposite in="tri" in2="warm" operator="out" result="tri-part"/>
+			<feComposite in="glow-part" in2="tri-part" operator="arithmetic" k1="0" k2="1" k3="1" k4="0"/>
+		</filter>
+	</svg>
+
+	<header class="topbar">
+		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
+			<img src="../../img/brand/tj-mark.svg" alt="" width="34" height="34">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Lab">
+			<a href="../../#samples">All samples</a>
+		</nav>
+	</header>
+
+	<!-- stage A: a framed night screen. The pond is a dusk photograph, graded in the shader to the site's night blues with the lantern light turned cyan, so it reads on dark.
+	     The leaf is a small inline drawing moved by transform and opacity from the loop. The poster appears only if WebGL is missing. -->
+	<main id="main" class="stage stage--screen">
+		<div class="piece-screen screen" data-night>
+			<canvas class="piece" role="img" aria-label="A dusk pond with lily pads and two glowing paper lanterns. Moving a pointer or finger over the water makes ripples, and a falling leaf drops another now and then."></canvas>
+			<div class="layer" aria-hidden="true">
+				<svg class="leaf" viewBox="-17 -24 34 48" width="34" height="48" focusable="false">
+					<defs>
+						<linearGradient id="leaf-fill" x1="0" y1="0" x2="1" y2="1">
+							<stop offset="0" stop-color="#ffe0a0"/>
+							<stop offset="1" stop-color="#e0902f"/>
+						</linearGradient>
+						<filter id="leaf-soft" x="-30%" y="-30%" width="160%" height="160%"><feGaussianBlur stdDeviation="1.6"/></filter>
+					</defs>
+					<path d="M2.5 -20.5 C 16 -10 15 9 2.5 23 C -11 9 -12 -10 2.5 -20.5 Z" fill="#03123a" opacity="0.42" filter="url(#leaf-soft)"/>
+					<path d="M0 -22 C 14 -12 14 8 0 22 C -14 8 -14 -12 0 -22 Z" fill="url(#leaf-fill)"/>
+					<path d="M0 -17 C 1 -6 -1 8 0 22" fill="none" stroke="#fff3d2" stroke-width="1.3" stroke-linecap="round" opacity="0.85"/>
+					<path d="M0 -6 C 4 -9 7 -11 9 -12 M0 2 C 4 -1 8 -3 11 -4 M0 -6 C -4 -9 -7 -11 -9 -12 M0 2 C -4 -1 -8 -3 -11 -4 M0 10 C 3 8 6 6 8 5 M0 10 C -3 8 -6 6 -8 5" fill="none" stroke="#fff3d2" stroke-width="0.9" stroke-linecap="round" opacity="0.55"/>
+				</svg>
+			</div>
+			<div class="poster" hidden>
+				<p class="poster__note glass glass--pill" data-night>This browser can't run the water, so here is the photo.</p>
+			</div>
+		</div>
+	</main>
+
+	<p class="hint glass glass--pill" data-night aria-hidden="true">Touch the water</p>
+
+	<aside class="sample-info glass glass--strong" id="about-piece" aria-labelledby="piece-title">
+		<p class="eyebrow">Sample 57 · Dusk water</p>
+		<h1 id="piece-title">Lantern pond ripples</h1>
+		<p class="how"><b>How it's made:</b> a small wave simulation on your graphics card (WebGL) bends the pond photo and glints cyan on each crest.
+		Your touch, a falling leaf and the lanterns drop the rings, and it stops when off-screen or in a hidden tab.</p>
+		<div class="controls">
+			<button class="btn btn--sm btn--primary" type="button" data-action="drop">Drop a lantern ripple</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="pause" aria-pressed="false">Pause</button>
+			<a class="back" href="../../#samples">← Back to the lab</a>
+		</div>
+	</aside>
+</body>
+</html>

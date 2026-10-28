@@ -1,0 +1,16 @@
+/* Sample 27 — Glass Jellyfish. The shell (sky, top bar, panel, the night screen) comes from css/; only the piece is styled here.
+   The water is DS v9's blues at night, painted in CSS under the canvas: a pale cyan light from the surface, royal blue
+   deep at the lower left, and navy darkening to near black at the bottom. The jellyfish, its tentacles and the
+   plankton (cyan #46d0fb, azure, ice blue, white) are drawn on the canvas in piece.js. */
+
+.piece {
+	display: block;
+	width: 100%;
+	height: 100%;
+	touch-action: none; /* the canvas takes the pointer: it leads the big jellyfish */
+	background:
+		radial-gradient(90% 58% at 58% -14%, rgba(70, 208, 251, 0.32), rgba(70, 208, 251, 0) 68%),
+		radial-gradient(70% 50% at 10% 112%, rgba(5, 95, 233, 0.34), rgba(5, 95, 233, 0) 70%),
+		radial-gradient(60% 40% at 96% 104%, rgba(77, 159, 243, 0.14), rgba(77, 159, 243, 0) 70%),
+		linear-gradient(180deg, #0a2d68 0%, #082254 28%, #061640 62%, #040c26 100%);
+}

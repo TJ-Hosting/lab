@@ -158,11 +158,19 @@ export function parallax(scene) {
  */
 export function govern(element) {
 	const ctl = { inView: true, userPaused: false };
+	// only animations this governor paused are played again: play() on a CSS animation held by a stylesheet rule
+	// ([data-motion], .is-paused) overrides that rule for good, and a piece may have paused one on purpose (lab-05)
+	const held = new WeakSet();
 	const apply = () => {
 		const live = ctl.inView && !document.hidden && !ctl.userPaused;
 		element.getAnimations({ subtree: true }).forEach((a) => {
-			if (live && a.playState === 'paused') a.play();
-			else if (!live && a.playState === 'running') a.pause();
+			if (live && a.playState === 'paused' && held.has(a)) {
+				held.delete(a);
+				a.play();
+			} else if (!live && a.playState === 'running') {
+				held.add(a);
+				a.pause();
+			}
 		});
 		element.classList.toggle('is-held', !live);
 	};

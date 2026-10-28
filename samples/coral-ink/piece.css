@@ -1,0 +1,46 @@
+/* Sample 09 — Coral Ink Reactor. The shell (sky, top bar, panel, the day screen) comes from css/; only the piece is styled here.
+   The ink's own palette is drawn in piece.js from DS v9's blues (cyan light, azure, royal, navy). */
+
+.piece {
+	display: block;
+	width: 100%;
+	height: 100%;
+	touch-action: none; /* the canvas takes drags: they paint ink */
+	cursor: crosshair;
+}
+
+/* the pattern's name, a small glass pill in the screen's top right corner */
+.sample--coral-ink .preset {
+	position: absolute;
+	z-index: 5;
+	top: 46px;
+	right: 14px;
+	display: flex;
+	align-items: baseline;
+	gap: 10px;
+	margin: 0;
+	padding: 7px 16px 7px 14px;
+	white-space: nowrap;
+	color: var(--ink);
+}
+.preset__label {
+	font: 700 11px/16px var(--font-mono);
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--muted);
+}
+.preset__name {
+	font: 800 15px/20px var(--font-display);
+	letter-spacing: -0.005em;
+	color: var(--ink);
+}
+.preset__fk {
+	font: 500 12px/16px var(--font-mono);
+	letter-spacing: 0.02em;
+	color: var(--muted);
+}
+
+@media (max-width: 560px) {
+	.sample--coral-ink .preset { top: 42px; right: 10px; padding: 6px 13px 6px 12px; gap: 8px; }
+	.preset__fk { display: none; }
+}

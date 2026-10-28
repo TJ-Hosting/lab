@@ -1,0 +1,11 @@
+three@0.186.1, vendored for lab-05 from the npm package (registry tarball, integrity checked) on 2026-10-28.
+build/three.module.js and build/three.core.js are unchanged.
+
+addons/ holds files from the package's examples/jsm/, unchanged except for one rewrite each:
+the bare import `from 'three';` became `from '../../build/three.module.js';` (an import map would be an
+inline script, which the pages' CSP `script-src 'self'` blocks). Usage examples inside comments still say
+'three' and 'three/addons/…'; they are comments.
+Rewritten files: environments/RoomEnvironment.js, postprocessing/EffectComposer.js, postprocessing/RenderPass.js,
+postprocessing/ShaderPass.js, postprocessing/Pass.js, postprocessing/UnrealBloomPass.js, postprocessing/OutputPass.js,
+shaders/LuminosityHighPassShader.js. Copied with no change: effects/AsciiEffect.js, postprocessing/MaskPass.js,
+shaders/CopyShader.js, shaders/OutputShader.js.

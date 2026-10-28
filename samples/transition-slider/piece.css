@@ -1,0 +1,122 @@
+/* Sample 58 — Transition Lab Hero Slider. The shell (sky, top bar, panel, the day screen) comes from css/; only the piece is styled here.
+   The slider is a rounded picture inside the day window: a WebGL canvas, a glass caption plate with a progress ring (top left)
+   and a glass rail of transition chips (bottom right). The pictures carry their own colour; everything else uses DS v9's tokens. */
+
+/* the picture area: inset from the window's edges on all sides. On a phone its bottom edge stops above the info panel
+   (piece.js sets --dock from the panel's height), so the panel never covers the picture. */
+.slider {
+	position: absolute;
+	left: 12px;
+	right: 12px;
+	top: 46px; /* the 34 px window bar and 12 px */
+	bottom: calc(12px + var(--dock, 0px));
+	overflow: hidden;
+	border-radius: var(--radius-md);
+	background: linear-gradient(170deg, var(--sky-mid), var(--sky-deep));
+	box-shadow: 0 0 0 1px rgba(94, 128, 174, 0.22), 0 18px 36px -20px rgba(22, 66, 140, 0.42);
+	isolation: isolate;
+}
+
+.piece {
+	position: absolute;
+	inset: 0;
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.piece[hidden], .ring[hidden] { display: none; }
+/* only in Scrub mode does the canvas take drags */
+.is-scrub .piece {
+	touch-action: none;
+	cursor: ew-resize;
+}
+
+/* ---------- the caption plate: ring + count + caption ---------- */
+
+.plate {
+	position: absolute;
+	z-index: 2;
+	left: 14px;
+	top: 14px;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 10px 20px 10px 10px;
+}
+.ring { display: block; flex: none; width: 44px; height: 44px; }
+.ring__track { stroke: var(--line); stroke-width: 4; }
+.ring__arc { stroke: var(--action); stroke-width: 4; stroke-linecap: round; }
+.plate__text { display: grid; gap: 2px; min-width: 150px; }
+.plate__count {
+	font: 600 11px/14px var(--font-mono);
+	letter-spacing: 0.14em;
+	color: var(--muted);
+}
+.plate__cap {
+	font: 900 19px/1.15 var(--font-display);
+	font-stretch: 92%;
+	letter-spacing: -0.01em;
+	color: var(--ink);
+	white-space: nowrap;
+}
+
+/* ---------- the rail: transition chips, and in Scrub mode the blend slider ---------- */
+
+.rail {
+	position: absolute;
+	z-index: 2;
+	right: 14px;
+	bottom: 14px;
+	display: grid;
+	gap: 10px;
+	padding: 10px;
+	max-width: min(640px, calc(100% - 28px));
+}
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { min-height: 34px; padding: 6px 13px; }
+.scrub {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 0 4px 2px;
+	font: 600 13px/18px var(--font-sans);
+	color: var(--muted);
+}
+.scrub[hidden] { display: none; }
+.scrub input { flex: 1 1 140px; min-width: 120px; height: 24px; margin: 0; accent-color: var(--action); cursor: pointer; }
+
+/* on a wide screen the info panel covers the window's bottom left: the rail keeps to the right of it */
+@media (min-width: 721px) {
+	.rail { max-width: min(640px, calc(100% - 480px)); }
+}
+
+/* ---------- no WebGL: the first picture as a plain image ---------- */
+
+.poster { position: absolute; inset: 0; }
+.poster[hidden] { display: none; }
+.poster img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 52% 50%; }
+.poster__note {
+	position: absolute;
+	right: 14px;
+	bottom: 14px;
+	margin: 0;
+	padding: 10px 16px;
+	max-width: min(380px, calc(100% - 28px));
+	font: 600 13px/20px var(--font-sans);
+	color: var(--ink);
+}
+.is-fallback .rail { display: none; }
+
+/* ---------- phones: picture above the panel, smaller plate and chips ---------- */
+
+@media (max-width: 720px) {
+	.slider { left: 10px; right: 10px; top: 44px; bottom: calc(10px + var(--dock, 0px)); }
+	.plate { left: 10px; top: 10px; gap: 10px; padding: 8px 16px 8px 8px; }
+	.ring, .ring svg { width: 38px; height: 38px; }
+	.plate__text { min-width: 0; }
+	.plate__cap { font-size: 17px; }
+	.rail { left: 10px; right: 10px; bottom: 10px; max-width: none; padding: 8px; gap: 8px; }
+	.chips { gap: 5px; }
+	.chip { min-height: 32px; padding: 5px 11px; font-size: 12.5px; flex: 1 1 auto; }
+	.poster__note { left: 10px; right: 10px; bottom: 10px; max-width: none; }
+}

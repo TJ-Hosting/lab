@@ -24,6 +24,9 @@
 	bottom: max(18px, env(safe-area-inset-bottom));
 	width: min(440px, calc(100% - 2 * var(--gutter)));
 	padding: 20px 22px 18px;
+	/* denser than other glass: over a dark window the blur otherwise greys it; DS v9's cards stay white-blue */
+	--glass-tint: rgba(244, 248, 253, 0.97);
+	--glass-tint-strong: rgba(244, 248, 253, 0.98);
 }
 .sample-info h1 {
 	font: 900 clamp(22px, 2.2vw, 26px) / 1.15 var(--font-display);
@@ -50,6 +53,10 @@
 	color: var(--accent-text);
 }
 .controls .back:hover { color: var(--ink); }
+/* on a phone the back link always takes its own line at the right, so the panel looks the same on every sample */
+@media (max-width: 560px) {
+	.controls .back { flex-basis: 100%; text-align: right; }
+}
 
 .hint {
 	position: fixed;
@@ -67,6 +74,34 @@
 	.sample-info .how { font-size: 14px; margin-bottom: 12px; }
 	.hint { display: none; }
 }
+
+/* ---------- lab-05: the shared stages (tools/sample-template) ---------- */
+
+/* A and B: the framed window (.screen, night or .screen--day), fixed on the page grid under the top bar:
+   the particle field's screen (lab-04 L3), made shared */
+.stage--screen { display: block; }
+.piece-screen {
+	position: fixed;
+	top: 72px;
+	left: max(var(--gutter), calc((100vw - var(--page-max)) / 2));
+	right: max(var(--gutter), calc((100vw - var(--page-max)) / 2));
+	bottom: max(16px, env(safe-area-inset-bottom));
+}
+/* the piece fills the window below its 34 px bar */
+.piece-screen > .piece {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 34px;
+	width: 100%;
+	height: calc(100% - 34px);
+}
+/* a hint over a window sits inside its corner */
+.stage--screen ~ .hint { right: calc(max(var(--gutter), (100vw - var(--page-max)) / 2) + 16px); bottom: calc(max(16px, env(safe-area-inset-bottom)) + 16px); }
+
+/* D: a scrolling page under the fixed top bar (the panel stays fixed over it) */
+.scroll-page { position: relative; padding-top: 72px; }
 
 /* collapsible info on very short or narrow screens */
 .sample-info[data-collapsed="true"] .how,
