@@ -188,6 +188,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "wavy-lines-hero",
+			"title": "Wavy Lines Hero",
+			"kicker": "Silk lines",
+			"category": "SVG",
+			"blurb": "Glowing cyan-to-blue lines drift like silk on a night screen, bow around a glass headline card and give way to your touch.",
+			"href": "samples/wavy-lines-hero/",
+			"image": { "base": "img/iso/wavy-lines-hero", "widths": [400, 800], "ratio": 0.673 },
+			"tags": ["SVG", "Noise", "Touch"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "integration-beams",
 			"title": "Integration beams",
 			"kicker": "Beam hub",

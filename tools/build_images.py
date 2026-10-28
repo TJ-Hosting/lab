@@ -91,6 +91,7 @@ CUTOUTS = [
 	('iso/pendulum-wave', 'lab05-pendulum-wave.png', [400, 800], None),
 	('iso/dither-flow-ink', 'lab05-dither-flow-ink.png', [400, 800], None),
 	('iso/epicycle-machine', 'lab05-epicycle-machine.png', [400, 800], None),
+	('iso/wavy-lines-hero', 'lab05-wavy-lines-hero.png', [400, 800], None),
 	# lab-05 end
 ]
 

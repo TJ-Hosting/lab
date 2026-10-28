@@ -98,7 +98,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S27 | 30 | glass-diorama-card | Pointer | adapt-code | atropos@2.0.2 | 5 | todo | |
 | S28 | 31 | skill-chips | Pointer | rebuild-from-idea | matter-js@0.20.0 | 0 | todo | |
 | S29 | 32 | brand-colour-sphere | SVG | rebuild-from-idea (CodePen 403) | none | 0 | **committed 03:49Z** | open sky; SVG polygons redrawn per frame (D2); full hue wheel includes violet/pink as artwork; 16.7 ms; card C29 |
-| S30 | 33 | wavy-lines-hero | SVG | adapt-code | none | 0 | todo | |
+| S30 | 33 | wavy-lines-hero | SVG | adapt-code (MIT, CodePen Debug view) | none | 0 | committed (see git) | night screen; two single-path SVG layers redrawn per frame (D2); 16.7 ms; card C30 |
 | S31 | 34 | icon-micro-set | SVG | adapt-code | gsap@3.13.0 | 0 | todo | |
 | S32 | 35 | weather-window | SVG | adapt-code | none (Meteocons SVGs as its one library, if licence confirmed) | 0 | todo | |
 | S33 | 36 | liquid-glass-lens | UI | adapt-code | liquid-glass-js@0.1.0 | 1 | todo | |
