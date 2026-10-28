@@ -243,6 +243,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "dawn-to-night",
+			"title": "Dawn to night parallax",
+			"kicker": "Scroll sky",
+			"category": "Scroll",
+			"blurb": "Scroll down and a landscape of mountains, hills and clouds slides at different speeds while the sky turns from day through dusk to a starry night and the sun becomes the moon.",
+			"href": "samples/dawn-to-night/",
+			"image": { "base": "img/iso/dawn-to-night", "widths": [400, 800], "ratio": 0.948 },
+			"tags": ["CSS scroll-driven", "Inline SVG", "Parallax"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "tear-the-curtain",
 			"title": "Tear the glass curtain",
 			"kicker": "Cloth physics",

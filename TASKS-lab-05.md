@@ -89,7 +89,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S18 | 21 | horizontal-journey | Scroll | adapt-code (Apache-2.0 per the site) | none | 0 | committed (see git) | scroll page; swipeable row without scroll timelines (Firefox fallback); 16.7 ms; card C18 |
 | S19 | 22 | stacking-plan-cards | Scroll | rebuild-from-idea (Apache-2.0 site; CodyHouse original not checked) | none | 0 | committed (see git) | scroll page; sample plans labelled, no prices; @supports-gated with IO fallback; 16.7 ms; card C19 |
 | S20 | 23 | request-in-ms | Scroll | rebuild-from-idea (Apache-2.0 site, no code read) | none | 0 | committed (see git) | scroll page; timings labelled illustrative three times, unbranded fast/slow lanes; "Ride the request" scrolls via loop(); 16.7 ms; card C20 |
-| S21 | 24 | dawn-to-night | Scroll | adapt-code | none | 0 | todo | |
+| S21 | 24 | dawn-to-night | Scroll | adapt-code (Apache-2.0 code, CC BY 4.0 text) | none | 0 | committed (see git) | framed window on a scroll page; five SVG layers, three skies by opacity; still dusk under reduced motion; 16.7 ms; card C21 |
 | S22 | 25 | tear-the-curtain | Pointer | rebuild-from-idea (CodePen 403) | none | 0 | **committed 03:38Z** | day screen; 16.7 ms; card C22; its builder tried a spoofed user agent on CodePen once and the harness blocked it (brief §8a now forbids it) |
 | S23 | 26 | dot-mesh-hero | Pointer | rebuild-from-idea (CodePen and its Debug view 403) | none | 0 | **committed 03:38Z** | day screen, glass card; 16.7 ms; card C23 |
 | S24 | 27 | glass-jellyfish | Pointer | rebuild-from-idea (CodePen blocked) | none | 0 | **committed 04:20Z** | night screen; hero + 4 small jellyfish; 16.7 ms; card C24 |
