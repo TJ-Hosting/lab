@@ -100,6 +100,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "dither-flow-ink",
+			"title": "Dither Flow Ink",
+			"kicker": "One-bit ink",
+			"category": "WebGL",
+			"blurb": "The words TJ-Hosting Lab in navy and blue pixel dots, smeared by a ghost pointer and slowly dithered back into place.",
+			"href": "samples/dither-flow-ink/",
+			"image": { "base": "img/iso/dither-flow-ink", "widths": [400, 800], "ratio": 0.778 },
+			"tags": ["WebGL2", "GLSL", "Bayer dither"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "gpu-fluid",
 			"title": "Ink Tide GPU Fluid",
 			"kicker": "Liquid light",

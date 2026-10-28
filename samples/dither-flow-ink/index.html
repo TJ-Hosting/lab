@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<!-- the base policy; additions only as the brief allows ('wasm-unsafe-eval', blob:), and only with the lead -->
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<title>Dither Flow Ink — one-bit ink · TJ-Hosting Lab</title>
+	<meta name="description" content="A word made of blue pixel dots that a ghost pointer smears and the flow slowly puts back together. A WebGL2 ink field snapped to ink or nothing through a Bayer dither pattern.">
+	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/dither-flow-ink/">
+	<meta name="theme-color" content="#eef7fc">
+	<link rel="icon" href="../../img/brand/tj-mark.svg" type="image/svg+xml">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="TJ-Hosting Lab">
+	<meta property="og:title" content="Dither Flow Ink — TJ-Hosting Lab">
+	<meta property="og:description" content="A word of blue pixel dots, smeared by drifting ink and slowly restored.">
+	<meta property="og:url" content="https://lab.tj-hosting.ca/samples/dither-flow-ink/">
+	<meta property="og:image" content="https://lab.tj-hosting.ca/img/og/dither-flow-ink.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="The words TJ-Hosting Lab in blue pixel dots, smeared by a plume of dithered ink on a pale sky">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="preload" href="../../fonts/nunito-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="../../css/glass.css">
+	<link rel="stylesheet" href="../../css/lab.css">
+	<link rel="stylesheet" href="../../css/sample.css">
+	<link rel="stylesheet" href="piece.css">
+	<script src="../../js/early.js"></script>
+	<script type="module" src="piece.js"></script>
+</head>
+<body class="sample sample--dither-flow-ink">
+	<a class="skip" href="#about-piece">Skip to the description</a>
+
+	<div class="sky" aria-hidden="true"></div>
+
+	<header class="topbar">
+		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
+			<img src="../../img/brand/tj-mark.svg" alt="" width="34" height="34">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Lab">
+			<a href="../../#samples">All samples</a>
+		</nav>
+	</header>
+
+	<!-- stage B: a framed day screen. The ink is navy and blue pixels on the pale sky ground.
+	     The note shows only in a browser without WebGL 2, which gets a still picture drawn with Canvas 2D. -->
+	<main id="main" class="stage stage--screen">
+		<div class="piece-screen screen screen--day">
+			<canvas class="piece" role="img" aria-label="The words TJ-Hosting Lab in navy and blue pixel dots. A slow ghost pointer smears them with drifting blue ink, and the flow slowly puts the letters back. Moving a pointer or finger across the words smears them too."></canvas>
+			<p class="poster__note glass glass--pill" hidden>This browser can't run WebGL 2, so here is a still picture.</p>
+		</div>
+	</main>
+
+	<p class="hint glass glass--pill" aria-hidden="true">Move across the word to smear it</p>
+
+	<aside class="sample-info glass glass--strong" id="about-piece" aria-labelledby="piece-title">
+		<p class="eyebrow">Sample 13 · One-bit ink</p>
+		<h1 id="piece-title">Dither Flow Ink</h1>
+		<p class="how"><b>How it's made:</b> a WebGL2 shader moves a small ink field along curl noise and snaps each pixel to ink or nothing with a Bayer pattern.
+		A ghost pointer smears the word and the flow restores it; it stops off-screen or in a hidden tab.</p>
+		<div class="controls">
+			<button class="btn btn--sm btn--primary" type="button" data-action="smear">Smear</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="restore">Restore</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="pause" aria-pressed="false">Pause</button>
+			<a class="back" href="../../#samples">← Back to the lab</a>
+		</div>
+	</aside>
+</body>
+</html>

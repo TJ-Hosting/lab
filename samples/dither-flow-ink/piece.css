@@ -1,0 +1,28 @@
+/* Sample 13 — Dither Flow Ink. The shell (sky, top bar, panel, the day screen) comes from css/; only the piece is styled here.
+   The ink's colours (navy, royal and azure blue, drawn by the shader in piece.js) sit on the day screen's pale sky ground:
+   every pixel is either ink or nothing, so the sky shows through between the dots. */
+
+.piece {
+	display: block;
+	width: 100%;
+	height: 100%;
+	touch-action: none; /* the canvas takes drags: they smear the word */
+	cursor: crosshair;
+}
+
+/* the note a browser without WebGL 2 sees over its still picture */
+.poster__note {
+	position: absolute;
+	z-index: 5;
+	top: 46px;
+	left: 50%;
+	transform: translateX(-50%);
+	width: max-content;
+	max-width: calc(100% - 24px);
+	margin: 0;
+	padding: 8px 18px;
+	font: 600 13px/20px var(--font-sans);
+	color: var(--ink);
+	text-align: center;
+}
+.poster__note[hidden] { display: none; }

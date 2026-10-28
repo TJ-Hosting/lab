@@ -69,53 +69,53 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 
 | S | NN | slug | category | reuse | library | img | state | notes |
 |---|---|---|---|---|---|---|---|---|
-| S01 | 04 | split-flap-board | Type | adapt-code (MIT, CodePen Debug view) | none | 0 | **gated 03:22** | open sky, navy board object; 16.7 ms; card C01 |
+| S01 | 04 | split-flap-board | Type | adapt-code (MIT, CodePen Debug view) | none | 0 | **committed 03:23Z** | open sky, navy board object; 16.7 ms; card C01 |
 | S02 | 05 | liquid-distort-headline | Type | adapt-code | blotter@0.1.0 | 0 | todo | |
-| S03 | 06 | star-trail-text | Type | adapt-code (MIT, gist .block) | none | 0 | **gated 03:28** | night screen; stars.js (third-party pen) not used; 16.7 ms; card C03 |
-| S04 | 07 | glitch-headline | Type | adapt-code (Apache-2.0, gui-challenges 82317d0) | none | 0 | **gated 04:20** | open sky; animated clip-path replaced by still band clips + transform; 16.7 ms; card C04 |
+| S03 | 06 | star-trail-text | Type | adapt-code (MIT, gist .block) | none | 0 | **committed 03:30Z** | night screen; stars.js (third-party pen) not used; 16.7 ms; card C03 |
+| S04 | 07 | glitch-headline | Type | adapt-code (Apache-2.0, gui-challenges 82317d0) | none | 0 | **committed 04:07Z** | open sky; animated clip-path replaced by still band clips + transform; 16.7 ms; card C04 |
 | S05 | 08 | scramble-titles | Type | adapt-code | animejs@4.4.0 | 0 | todo | |
-| S06 | 09 | coral-ink | Generative | rebuild-from-idea (CodePen 403) | none | 0 | **gated 03:15** | day screen; 16.7 ms GPU; card C06; Firefox not run (Q1) |
-| S07 | 10 | slime-network | Generative | rebuild-from-idea | none | 0 | **gated 03:40** | night screen; about 14,400 agents, sheds agents if over 12 ms; 16.7 ms; card C07 |
+| S06 | 09 | coral-ink | Generative | rebuild-from-idea (CodePen 403) | none | 0 | **committed 03:17Z** | day screen; 16.7 ms GPU; card C06; Firefox not run (Q1) |
+| S07 | 10 | slime-network | Generative | rebuild-from-idea | none | 0 | **committed 03:36Z** | night screen; about 14,400 agents, sheds agents if over 12 ms; 16.7 ms; card C07 |
 | S08 | 11 | streamline-poster | Generative | adapt-code | none | 0 | todo | |
-| S09 | 12 | contour-map | Generative | rebuild-from-idea (CodePen blocked) | none | 0 | **gated 04:22** | day screen, map key labelled illustrative; 16.7 ms; card C09 |
-| S10 | 13 | dither-flow-ink | WebGL | adapt-code | none | 0 | todo | |
+| S09 | 12 | contour-map | Generative | rebuild-from-idea (CodePen blocked) | none | 0 | **committed 04:07Z** | day screen, map key labelled illustrative; 16.7 ms; card C09 |
+| S10 | 13 | dither-flow-ink | WebGL | adapt-code (MIT, b154ad8) | none | 0 | committed (see git) | day screen, navy/royal dots; Canvas 2D still without WebGL2; 16.7 ms; card C10 |
 | S11 | 14 | glass-orbs | WebGL | adapt-code | three@0.186.1 | 0 | todo | |
 | S12 | 15 | shader-swatchbook | WebGL | adapt-code | @paper-design/shaders@0.0.82 | 0 | todo | |
 | S13 | 16 | liquid-metal-monogram | WebGL | adapt-code | @paper-design/shaders@0.0.82 | 1 | todo | uses img/brand/tj-mark.svg, no monogram image |
 | S14 | 17 | shape-shifter | WebGL | adapt-code | three@0.186.1 (not 0.162.0: brief §2) | 0 | todo | |
-| S15 | 18 | gpu-fluid | WebGL | adapt-code (MIT, commit a2d2929) | none | 0 | **gated 03:50** | night screen; CSS poster if no float targets; 16.7 ms; card C15 |
-| S16 | 19 | scroll-zoom-tunnel | Scroll | rebuild-from-idea (CodePen 403) | none | 0 | **gated 03:19** | scroll page; still grid without scroll timelines (Firefox fallback); 16.7 ms; card C16 |
-| S17 | 20 | glass-card-flow | Scroll | adapt-code (Apache-2.0 per the site's footer and About; no public repo) | none | 0 | **gated 04:12** | open sky; flat row without scroll timelines (Firefox fallback); 16.7 ms; card C17 |
+| S15 | 18 | gpu-fluid | WebGL | adapt-code (MIT, commit a2d2929) | none | 0 | **committed 03:43Z** | night screen; CSS poster if no float targets; 16.7 ms; card C15 |
+| S16 | 19 | scroll-zoom-tunnel | Scroll | rebuild-from-idea (CodePen 403) | none | 0 | **committed 03:31Z** | scroll page; still grid without scroll timelines (Firefox fallback); 16.7 ms; card C16 |
+| S17 | 20 | glass-card-flow | Scroll | adapt-code (Apache-2.0 per the site's footer and About; no public repo) | none | 0 | **committed 04:04Z** | open sky; flat row without scroll timelines (Firefox fallback); 16.7 ms; card C17 |
 | S18 | 21 | horizontal-journey | Scroll | adapt-code | none | 0 | todo | |
 | S19 | 22 | stacking-plan-cards | Scroll | adapt-code | none | 0 | todo | |
 | S20 | 23 | request-in-ms | Scroll | adapt-code | none | 0 | todo | |
 | S21 | 24 | dawn-to-night | Scroll | adapt-code | none | 0 | todo | |
-| S22 | 25 | tear-the-curtain | Pointer | rebuild-from-idea (CodePen 403) | none | 0 | **gated 03:30** | day screen; 16.7 ms; card C22; its builder tried a spoofed user agent on CodePen once and the harness blocked it (brief §8a now forbids it) |
-| S23 | 26 | dot-mesh-hero | Pointer | rebuild-from-idea (CodePen and its Debug view 403) | none | 0 | **gated 03:35** | day screen, glass card; 16.7 ms; card C23 |
-| S24 | 27 | glass-jellyfish | Pointer | rebuild-from-idea (CodePen blocked) | none | 0 | **gated 04:33** | night screen; hero + 4 small jellyfish; 16.7 ms; card C24 |
+| S22 | 25 | tear-the-curtain | Pointer | rebuild-from-idea (CodePen 403) | none | 0 | **committed 03:38Z** | day screen; 16.7 ms; card C22; its builder tried a spoofed user agent on CodePen once and the harness blocked it (brief §8a now forbids it) |
+| S23 | 26 | dot-mesh-hero | Pointer | rebuild-from-idea (CodePen and its Debug view 403) | none | 0 | **committed 03:38Z** | day screen, glass card; 16.7 ms; card C23 |
+| S24 | 27 | glass-jellyfish | Pointer | rebuild-from-idea (CodePen blocked) | none | 0 | **committed 04:20Z** | night screen; hero + 4 small jellyfish; 16.7 ms; card C24 |
 | S25 | 28 | halftone-dissolve | Pointer | adapt-code | gsap@3.13.0 | 2 | todo | |
 | S26 | 29 | lamp-cord-theme | Pointer | adapt-code | none | 0 | todo | |
 | S27 | 30 | glass-diorama-card | Pointer | adapt-code | atropos@2.0.2 | 5 | todo | |
 | S28 | 31 | skill-chips | Pointer | rebuild-from-idea | matter-js@0.20.0 | 0 | todo | |
-| S29 | 32 | brand-colour-sphere | SVG | rebuild-from-idea (CodePen 403) | none | 0 | **gated 04:00** | open sky; SVG polygons redrawn per frame (D2); full hue wheel includes violet/pink as artwork; 16.7 ms; card C29 |
+| S29 | 32 | brand-colour-sphere | SVG | rebuild-from-idea (CodePen 403) | none | 0 | **committed 03:49Z** | open sky; SVG polygons redrawn per frame (D2); full hue wheel includes violet/pink as artwork; 16.7 ms; card C29 |
 | S30 | 33 | wavy-lines-hero | SVG | adapt-code | none | 0 | todo | |
 | S31 | 34 | icon-micro-set | SVG | adapt-code | gsap@3.13.0 | 0 | todo | |
 | S32 | 35 | weather-window | SVG | adapt-code | none (Meteocons SVGs as its one library, if licence confirmed) | 0 | todo | |
 | S33 | 36 | liquid-glass-lens | UI | adapt-code | liquid-glass-js@0.1.0 | 1 | todo | |
 | S34 | 37 | pricing-rolling-digits | UI | adapt-code | number-flow@0.6.2 | 0 | todo | |
 | S35 | 38 | glass-hero-kit | UI | adapt-code | none | 0 | todo | |
-| S36 | 39 | integration-beams | UI | adapt-code (MIT, magicui efe76fc) | none | 0 | **gated 03:56** | open sky; "Sample content · no real connections"; 16.7 ms; card C36 |
-| S37 | 40 | bento-grid | UI | adapt-code (MIT, magicui efe76fc) | none | 0 | **gated 04:28** | open sky; CSS loops in [data-motion]; tile uses overflow: clip (focus scroll bug); 16.7 ms; card C37 |
+| S36 | 39 | integration-beams | UI | adapt-code (MIT, magicui efe76fc) | none | 0 | **committed 03:55Z** | open sky; "Sample content · no real connections"; 16.7 ms; card C36 |
+| S37 | 40 | bento-grid | UI | adapt-code (MIT, magicui efe76fc) | none | 0 | **committed 04:18Z** | open sky; CSS loops in [data-motion]; tile uses overflow: clip (focus scroll bug); 16.7 ms; card C37 |
 | S38 | 41 | mega-menu | UI | rebuild-from-idea | none | 0 | todo | |
 | S39 | 42 | testimonial-wall | UI | adapt-code | none | 0 | todo | |
 | S40 | 43 | browser-frame-showcase | UI | adapt-code | none | 4 | todo | wordless layout art |
 | S41 | 44 | focus-trail-form | UI | adapt-code | none | 0 | todo | |
 | S42 | 45 | publish-button | UI | adapt-code | canvas-confetti@1.9.4 | 0 | todo | |
 | S43 | 46 | edge-network-globe | Data | adapt-code | cobe@2.0.1 | 0 | todo | arcs labelled illustrative |
-| S44 | 47 | clock-wall | Data | rebuild-from-idea | none | 0 | **gated 04:05** | open sky; 102 WAAPI clock faces, local 24 h time; 16.7 ms; card C44 |
+| S44 | 47 | clock-wall | Data | rebuild-from-idea | none | 0 | **committed 04:04Z** | open sky; 102 WAAPI clock faces, local 24 h time; 16.7 ms; card C44 |
 | S45 | 48 | wind-snapshot | Data | adapt-code | wind-gl (repo dist at a commit SHA) | 0 | todo | data frames only if licence confirmed |
 | S46 | 49 | epicycle-machine | Data | adapt-code | none | 0 | todo | |
-| S47 | 50 | pendulum-wave | Data | adapt-code (MIT, a0ea040; maths only) | none | 0 | **gated 04:37** | open sky, 3D frame; sound off until pressed; 16.7 ms; card C47 |
+| S47 | 50 | pendulum-wave | Data | adapt-code (MIT, a0ea040; maths only) | none | 0 | **committed 04:22Z** | open sky, 3D frame; sound off until pressed; 16.7 ms; card C47 |
 | S48 | 51 | chart-story | Data | adapt-code | vizzu@0.18.0 | 0 | todo | CSP 'wasm-unsafe-eval' |
 | S49 | 52 | glass-sandbox | Toys | rebuild-from-idea | none | 0 | todo | |
 | S50 | 53 | marble-harp | Toys | rebuild-from-idea | none | 0 | todo | |
@@ -147,6 +147,7 @@ None yet.
 - [P5] S44: idle clocks show cyan hands at an angle that compete with the digits; dim or park the hands of clocks that are not part of a digit so the time reads at a glance.
 - [P5] C28 (skill chips card) looked like capsule pills; queued C28b (rounded glass tags).
 - [P5] S47: the tick fires on every centre crossing (about 40 a second) at an untuned level; thin it (e.g. one voice per crossing of the middle bob group, or a rate cap) and set a gentle level.
+- [P5] S10: the word sits in a mostly empty screen; add faint ambient dithered currents across the field so the whole window lives.
 - [P5] S36: at rest the beams are often between runs; keep at least two in flight so the idle hub always shows light moving.
 - [P5] S22: the curtain is subtle in a still; stronger folds or a corner already torn so the twist reads at a glance.
 - [P5] C04 (glitch card) reads as a stacked block; regenerate with clearer offset strips if the budget allows.
@@ -158,4 +159,4 @@ Firefox (QUESTION 1), Safari and iOS, real phones, other GPUs.
 
 ## Time log (UTC)
 
-- 02:28 session start (P0). 02:41 RUNLOG start. 02:50 P0 end, P1 start. 02:58 wave 1 builders launched. 03:04 P2 pilot (C01, C24: both kept). 03:09 card queue (58) started. 03:12 P1 end; PR #4 opened (draft, base feat/lab-mvp-2026-10-15). 03:15 S06 gated and committed. 03:19 S16 gated (waits for C16). 03:22 S01 gated and committed. 03:26 share images for new samples via `render-og.mjs --only`. 03:30 S03, S16 committed; pushed `57d60a5`. 03:40 S07 committed. 03:43 S22, S23 committed; pushed `d05104d`. 03:45 wave check `npm test -- --only` the 7 new samples: 20 passed, 0 failed, 4 skipped in 115 s (`evidence/lab-05/wave-1-2.txt`); about 11 s per sample in parallel, so the full suite at 63 projects to about 14 min.
+- Times are UTC, from the RUNLOG and from git commit times (EDT + 4 h). 02:28 session start (P0). 02:41 RUNLOG start. 02:50 P0 end, P1 start. 02:58 wave 1 builders launched. 03:04 P2 pilot (C01, C24: both kept). 03:09 card queue (58) started. 03:12 P1 committed (`b643e63`); PR #4 opened (draft, base feat/lab-mvp-2026-10-15). Samples committed: S06 03:17, S01 03:23, S03 03:30, S16 03:31 (pushed), S07 03:36, S22 and S23 03:38 (pushed), wave check 03:39-03:41 (`npm test -- --only` the 7 new samples: 20 passed, 0 failed, 4 skipped in 115 s, `evidence/lab-05/wave-1-2.txt`; about 11 s per sample in parallel, so the full suite at 63 projects to about 14 min), S15 03:43, S29 03:49, S36 03:55 (pushed), S17 and S44 04:04 (pushed), S04 and S09 04:07 (pushed), S37 04:18, S24 04:20 (pushed), S47 04:22. Card queue: 58 of 58 attempts done by 04:22.
