@@ -375,6 +375,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "liquid-glass-lens",
+			"title": "Liquid-glass lens panels",
+			"kicker": "Bent backdrop",
+			"category": "UI",
+			"blurb": "Glass panels that really bend the blue ribbons behind them, with coloured edges, and a lens card you can drag.",
+			"href": "samples/liquid-glass-lens/",
+			"image": { "base": "img/iso/liquid-glass-lens", "widths": [400, 800], "ratio": 0.758 },
+			"tags": ["SVG filters", "Canvas 2D", "Web Components"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "pricing-rolling-digits",
 			"title": "Glass pricing with rolling digits",
 			"kicker": "Rolling digits",

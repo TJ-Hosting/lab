@@ -1,0 +1,186 @@
+/* Sample 36 — Liquid-glass lens panels. The shell (sky, top bar, panel, the day screen) comes from css/; only the piece is styled here.
+   Layers, from the bottom: the window's backdrop (a blue ribbons picture and a fine grid), the lenses (liquid-glass-js puts them on the
+   body, at z-index 4 to 7), this file's .lens-layer with the labels (z-index 10), the hint (30), the panel (40) and the top bar (50).
+   The glass look follows DS v9: white tint where there is text, a white rim, blue shadows (never grey). Only transform and opacity move. */
+
+/* ---------- the backdrop: what the lenses copy and bend ----------
+   The library clones this element into every lens, outside .piece-screen, so these rules must not depend on an ancestor. */
+
+.backdrop {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 34px;
+	overflow: hidden;
+	background: #0b4fd0; /* the ribbons' own blue, until the picture is there */
+}
+.backdrop picture {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.backdrop img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	object-position: 50% 50%;
+}
+/* a grid of fine light lines: straight lines show the bending best */
+.backdrop__grid {
+	position: absolute;
+	inset: 0;
+	background-image:
+		linear-gradient(rgba(255, 255, 255, 0.4) 1px, transparent 1px),
+		linear-gradient(90deg, rgba(255, 255, 255, 0.4) 1px, transparent 1px);
+	background-size: 48px 48px;
+}
+
+/* ---------- the label layer: the same box as the backdrop, over the lenses ---------- */
+
+.lens-layer {
+	position: fixed;
+	z-index: 10;
+	pointer-events: none;
+	/* the day screen's box (css/sample.css .piece-screen) below its 34px window bar */
+	top: 106px;
+	left: max(var(--gutter), calc((100vw - var(--page-max)) / 2));
+	right: max(var(--gutter), calc((100vw - var(--page-max)) / 2));
+	bottom: max(16px, env(safe-area-inset-bottom));
+	--lens-hi: var(--raised);
+	--lens-hi-line: var(--line);
+}
+:root[data-lens="on"] .lens-layer {
+	--lens-hi: rgba(255, 255, 255, 0.95);
+	--lens-hi-line: rgba(255, 255, 255, 0);
+}
+
+.lens-ui { position: absolute; pointer-events: auto; color: var(--ink); }
+
+/* the pill menu: sample links that go nowhere */
+.lens-pill {
+	top: 26px;
+	left: 0;
+	right: 0;
+	width: max-content;
+	margin: 0 auto;
+	display: flex;
+	gap: 4px;
+	padding: 8px;
+}
+.lens-pill a {
+	position: relative;
+	display: block;
+	padding: 10px 18px;
+	border-radius: 999px;
+	color: var(--ink);
+	font: 700 15px/20px var(--font-sans);
+	text-decoration: none;
+	white-space: nowrap;
+}
+/* the chosen link's plate fades in (opacity only) */
+.lens-pill a::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: -1;
+	border-radius: inherit;
+	background: var(--lens-hi);
+	box-shadow: 0 0 0 1px var(--lens-hi-line), 0 8px 16px -10px rgba(22, 66, 140, 0.55);
+	opacity: 0;
+	transition: opacity 0.3s var(--ease-out);
+}
+.lens-pill a[aria-current="true"]::before { opacity: 1; }
+.lens-pill a[aria-current="true"] { font-weight: 800; }
+.lens-pill a:hover::before { opacity: 0.6; }
+.lens-pill a[aria-current="true"]:hover::before { opacity: 1; }
+.lens-pill a:focus-visible { outline: 3px solid var(--action); outline-offset: 0; }
+
+/* the round button */
+.lens-round {
+	top: 22px;
+	right: 22px;
+	width: 64px;
+	height: 64px;
+	padding: 0;
+	border-radius: 50%;
+	display: grid;
+	place-items: center;
+	cursor: pointer;
+	transition: transform 0.35s var(--ease-spring);
+}
+.lens-round svg { width: 28px; height: 28px; }
+.lens-round:hover { transform: scale(1.05); }
+.lens-round:active { transform: scale(0.96); }
+.lens-round:focus-visible { outline: 3px solid var(--action); outline-offset: -6px; }
+
+/* what the round button did, said in words */
+.lens-state {
+	position: absolute;
+	top: 96px;
+	right: 22px;
+	margin: 0;
+	pointer-events: none;
+	font-size: 13px;
+	line-height: 18px;
+	padding: 6px 12px;
+}
+
+/* the stand-in card for when the lenses cannot start: plain frosted glass, positioned by script with transform */
+.lens-card {
+	position: absolute;
+	left: 0;
+	top: 0;
+	pointer-events: none;
+}
+.lens-card[hidden] { display: none; }
+
+/* before the lenses start, and without them, the .glass classes above show plain frosted glass.
+   With them, the lens under each label is the glass: the labels keep only their text. */
+:root[data-lens="on"] .lens-ui.glass {
+	background: none;
+	box-shadow: none;
+	-webkit-backdrop-filter: none;
+	backdrop-filter: none;
+}
+:root[data-lens="on"] .lens-ui.glass::before,
+:root[data-lens="on"] .lens-ui.glass::after { display: none; }
+
+/* ---------- the lenses' own glass (liquid-glass-js's .lqg-glass): DS v9's blue shadow and white rim in place of the grey ones ---------- */
+
+body .lqg-glass {
+	box-shadow:
+		inset 0 1px 0 rgba(255, 255, 255, 0.7),
+		inset 0 -1px 0 rgba(22, 66, 140, 0.14),
+		0 22px 40px -18px rgba(22, 66, 140, 0.55),
+		0 8px 16px -10px rgba(22, 66, 140, 0.32);
+}
+body .lqg-glass::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	padding: 1.5px;
+	background: var(--glass-rim);
+	-webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+	-webkit-mask-composite: xor;
+	mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+	mask-composite: exclude;
+	pointer-events: none;
+}
+body .lqg-glass.lqg-draggable { touch-action: none; }
+body .lqg-glass:focus-visible { outline: 3px solid var(--action); outline-offset: 4px; }
+
+@media (max-width: 560px) {
+	.lens-pill { top: 14px; left: 12px; right: auto; margin: 0; gap: 0; padding: 6px; }
+	.lens-pill a { padding: 9px 13px; font-size: 14px; }
+	.lens-pill .hide-sm { display: none; }
+	.lens-round { top: 12px; right: 12px; width: 56px; height: 56px; }
+	.lens-round svg { width: 24px; height: 24px; }
+	.lens-state { top: 78px; right: 12px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.lens-round, .lens-round:hover, .lens-round:active { transform: none; }
+}

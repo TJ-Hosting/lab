@@ -144,6 +144,7 @@ CUTOUTS = [
 	('iso/icon-micro-set', 'lab05-icon-micro-set.png', [400, 800], None),
 	('iso/weather-window', 'lab05-weather-window.png', [400, 800], None),
 	('iso/glass-hero-kit', 'lab05-glass-hero-kit.png', [400, 800], None),
+	('iso/liquid-glass-lens', 'lab05-liquid-glass-lens.png', [400, 800], None),
 	# lab-05 end
 ]
 

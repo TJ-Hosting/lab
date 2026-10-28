@@ -241,6 +241,10 @@
 {"file":"img/iso/lantern-pond-400.webp","source":"assets/pack/lab05-lantern-pond.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/lantern-pond-800.avif","source":"assets/pack/lab05-lantern-pond.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/lantern-pond-800.webp","source":"assets/pack/lab05-lantern-pond.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/liquid-glass-lens-400.avif","source":"assets/pack/lab05-liquid-glass-lens.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/liquid-glass-lens-400.webp","source":"assets/pack/lab05-liquid-glass-lens.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/liquid-glass-lens-800.avif","source":"assets/pack/lab05-liquid-glass-lens.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/liquid-glass-lens-800.webp","source":"assets/pack/lab05-liquid-glass-lens.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/liquid-hover-gallery-400.avif","source":"assets/pack/lab05-liquid-hover-gallery.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/liquid-hover-gallery-400.webp","source":"assets/pack/lab05-liquid-hover-gallery.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/liquid-hover-gallery-800.avif","source":"assets/pack/lab05-liquid-hover-gallery.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
@@ -403,6 +407,7 @@
 {"file":"img/og/integration-beams.jpg","source":"assets/pack/lab05-integration-beams.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/lamp-cord-theme.jpg","source":"assets/pack/lab05-lamp-cord-theme.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/lantern-pond.jpg","source":"assets/pack/lab05-lantern-pond.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
+{"file":"img/og/liquid-glass-lens.jpg","source":"assets/pack/lab05-liquid-glass-lens.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/liquid-hover-gallery.jpg","source":"assets/pack/lab05-liquid-hover-gallery.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/liquid-metal-monogram.jpg","source":"assets/pack/lab05-liquid-metal-monogram.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/logo.jpg","source":"tools/render-og.mjs","op":"tools/render-og.mjs (lab-04): 1200x630 share card, the CSS day sky + the mark's own SVG, code-set type in Nunito Sans"}
