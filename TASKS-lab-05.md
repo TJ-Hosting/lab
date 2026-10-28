@@ -169,6 +169,14 @@ None yet.
 
 51 of 60 samples committed and pushed (last: S40). Builders for S38 mega-menu, S45 wind-snapshot, S51 planet-maker and S52 glass-mandala were stopped mid-build: their partial files are in `samples/<slug>/` (uncommitted; S38 had passed its first --no-perf check). On resume: re-check each (or relaunch its builder), gate, integrate. S45 needs `vendor/natural-earth@ca96624/` (fetched, uncommitted) added with `-Extra`. Not started: S02, S53, S58, S59, S60. Then P4 (S37 focus-scroll check, S42 still), P5 blind Opus review, P7 (README, full npm test, RESULT-lab-05.md, CMHS Memory, RUNLOG end).
 
+## P4 sweep (10:44Z)
+
+- All 60 passed the gate in Chromium at 1440 and 375 (median frame 16.7 ms each; the vsync cap). Firefox could not run in this sandbox (QUESTION 1), so no Firefox sweep.
+- Edge 156, headed, on 10 random samples (seed 4242) at both widths: 0 errors, 0 failed requests, 0 overflow (`evidence/lab-05/edge-10.txt`).
+- Home with 63 cards: loads in about 0.1 s locally, 11 chips with counts (All 63; Type 6, Generative 5, WebGL 6, Scroll 6, Pointer 7, SVG 5, UI 10, Data 6, Toys 5, Image 7), `?kind=` filtering works, 60 New badges, no overflow at 1440 or 375, no console errors.
+- Look-alikes: a contact sheet of all 60 at 1440 shows none; the closest pairs (coral-ink and slime-network, wavy-lines-hero and marble-harp, stacking-plan-cards and pricing-rolling-digits) differ in look and interaction.
+- Old design: none seen; every page uses the DS v9 shell, and the blind review found the shell matching DS v9.
+
 ## P5 blind review (`evidence/lab-05/review-1.md`)
 
 One Opus 5.5 sub-agent, images only: tj-hosting.ca's DS v9 shots and banner, the Lab's 29 lab-04 after-shots, and 12 new-sample shots drawn at random (seed 20261028) from the 56 then committed and re-shot fresh (key appended to the review). Verdict: mostly, 7.5/10 (the shell matches DS v9; the drift is in four pieces' art). What was done:
