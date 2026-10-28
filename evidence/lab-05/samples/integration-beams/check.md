@@ -1,6 +1,6 @@
 # check-sample: integration-beams — PASS
 
-2026-10-28T03:45:47.897Z · Chromium WebGL: ANGLE (AMD, AMD Radeon (TM) Graphics (0x000015E7) Direct3D11 vs_5_0 ps_5_0, D3D11) · Firefox: not run (browserType.launch: spawn UNKNOWN)
+2026-10-28T05:53:09.918Z · Chromium WebGL: ANGLE (AMD, AMD Radeon (TM) Graphics (0x000015E7) Direct3D11 vs_5_0 ps_5_0, D3D11) · Firefox: not run (browserType.launch: spawn UNKNOWN)
 
 ## Notes
 - loads 8 local files: samples/integration-beams/index.html, css/glass.css, css/lab.css, css/sample.css, samples/integration-beams/piece.css, js/early.js, samples/integration-beams/piece.js, js/lab.js

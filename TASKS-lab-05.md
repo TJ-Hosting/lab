@@ -153,7 +153,7 @@ None yet.
 - [P5] S10: the word sits in a mostly empty screen; add faint ambient dithered currents across the field so the whole window lives.
 - [P5] S46: the drawn trail is thin and faint on the sky; bolder royal trail with a brighter pen tip.
 - [P5] S26: the night theme never shows unless someone pulls; an idle pull every 20 s or so would show the twist at a glance. **Done 05:48Z**: first self-pull after 9 s, then every 20 s; a grab or pull restarts the count. Probe: night at about 10 s, day again at about 30 s, no errors; re-gated 16.7 ms.
-- [P5] S36: at rest the beams are often between runs; keep at least two in flight so the idle hub always shows light moving.
+- [P5] S36: at rest the beams are often between runs; keep at least two in flight so the idle hub always shows light moving. **Done 05:53Z**: the source's ease-out parked each light under its tile for most of its run and the six beams ran in phase; now a gentle ease-in-out, staggered first runs, and at least four beams on their way at once (probe: 3-4 lights in each of four stills over 6 s). Re-gated 16.7 ms.
 - [P5] S22: the curtain is subtle in a still; stronger folds or a corner already torn so the twist reads at a glance.
 - [P5] C04 (glitch card) reads as a stacked block; regenerate with clearer offset strips if the budget allows.
 - [P5] C07 (slime tray) and C06 (petri dish) have similar silhouettes on the home; regenerate C07 as a different object if the budget allows.

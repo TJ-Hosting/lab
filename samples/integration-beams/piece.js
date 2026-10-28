@@ -36,9 +36,10 @@
  * What it keeps from the source: a quadratic path between two measured elements (positions read with
  * getBoundingClientRect, relative to the container), bowed upward by a curvature; a faint path under a brighter one; a
  * light segment whose gradient runs from a head colour through a body colour (at 32.5%) to transparent; the
- * cubic-bezier(0.16, 1, 0.3, 1) ease-out; per-beam delay, duration and rest between runs; the paths measured again when
- * the container's size changes.
- * What it changes: no React, no framer-motion and no SVG: a plain module that draws the beams on a canvas (so the light
+ * per-beam delay, duration and rest between runs; the paths measured again when the container's size changes.
+ * What it changes: the source's cubic-bezier(0.16, 1, 0.3, 1) ease-out became a gentle ease-in-out (the ease-out
+ * parked each light under its tile for most of its run, so the idle hub looked empty); no React, no framer-motion
+ * and no SVG: a plain module that draws the beams on a canvas (so the light
  * moves along the path itself, by arc length, instead of sweeping a gradient across the box); a path runs from just
  * inside one tile's edge to just inside the other's, not centre to centre; the curvature is a share of the path's
  * length; the colours are DS v9's cyan and royal; each landing pulses its tile; the beams are paced by loop(), paused
@@ -63,9 +64,12 @@ const canAnimate = typeof Element.prototype.animate === 'function';
 const HEAD = [70, 208, 251];
 const BODY = [12, 107, 237];
 const RAIL = '5, 88, 220';
-/* how the light travels: the source's ease-out, a segment about 40% of the path (at least 44 px, at most 150) */
-const EASE = cubicBezier(0.16, 1, 0.3, 1);
+/* how the light travels: a gentle ease-in-out (the source's ease-out parked the light under its tile for most of the
+   run), a segment about 40% of the path (at least 44 px, at most 150) */
+const EASE = cubicBezier(0.42, 0, 0.3, 1);
 const SEG_SHARE = 0.4;
+/* the fewest beams running at once while the hub plays */
+const MIN_LIVE = 4;
 /* how far the light runs in under a tile (px): into the glass, so it seems to go in */
 const INSET = 14;
 /* the reduced-motion still: where each beam's head sits (a share of its path) */
@@ -85,8 +89,10 @@ const BEAMS = [
 const beams = BEAMS.map((def, i) => ({
 	...def,
 	el: hub.querySelector(`[data-node="${def.id}"]`),
-	t0: null, // clock time the current run began, or null while it rests
-	next: 0.1 + i * 0.5, // when it runs next (clock seconds)
+	// clock time the current run began, or null while it rests: the first runs start part-way through and staggered
+	// (clock starts at 1.4), so the first screen already has light at every stage of the trip
+	t0: 1.4 - (i / BEAMS.length) * def.dur * 0.85,
+	next: 0, // when it runs next (clock seconds)
 	arrived: false,
 	arrivedAt: -9,
 	hot: 0, // 0 to 1, how brightly the path is lit under a pointer or focus
@@ -372,6 +378,12 @@ function step(dt) {
 			b.t0 = null;
 			b.next = clock + b.rest + rnd() * 1.3;
 		}
+	}
+	/* keep at least four lights on their way (not yet in their last fifth), so the idle hub never looks empty between
+	   runs: the resting beam due soonest goes early */
+	if (beams.filter((b) => b.t0 !== null && (clock - b.t0) / b.dur < 0.8).length < MIN_LIVE) {
+		const due = beams.filter((b) => b.t0 === null).sort((a, z) => a.next - z.next)[0];
+		if (due) { due.t0 = clock; due.arrived = false; }
 	}
 }
 
