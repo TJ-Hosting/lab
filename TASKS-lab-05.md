@@ -162,6 +162,7 @@ None yet.
 - [P5] S57: the leather texture has a visible vertical seam at the centre; regenerate A57 leather (one Codex attempt). **Done 06:14Z**: A57d (prompt asks for one continuous piece with no seams or centre line); centre crop checked, no seam; built at 640 and 1254.
 - [P5] S56: at 375 the three cards are about 96 px wide with empty sky above; larger cards (a scroll-snap row or two plus one) would show the morph better on phones.
 - [P5] S42: the gated stills show the ready state only; consider a reduced-motion still that shows the Live tick, or a first autopilot run sooner, so the twist reads at a glance.
+- [P4] js/lab.js `govern()` played every paused animation under its element when live, including CSS animations held by a stylesheet rule; play() overrides `animation-play-state` for good (Chromium 141 probe: such an animation kept running even after its animation-name was removed). Reported by the S42 builder. **Fixed 06:48Z**: govern() now plays again only the animations it paused itself (a WeakSet). The 10 pages using govern() re-tested: samples tests 7/7 passed, all 54 pages load clean.
 
 ## Incidents
 
