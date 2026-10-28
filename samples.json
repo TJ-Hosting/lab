@@ -78,6 +78,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "gpu-fluid",
+			"title": "Ink Tide GPU Fluid",
+			"kicker": "Liquid light",
+			"category": "WebGL",
+			"blurb": "Cyan and blue ink swirls through dark water where you drag, and a ghost finger keeps it moving when you don't.",
+			"href": "samples/gpu-fluid/",
+			"image": { "base": "img/iso/gpu-fluid", "widths": [400, 800], "ratio": 1.08 },
+			"tags": ["WebGL", "GLSL", "Fluid simulation"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "scroll-zoom-tunnel",
 			"title": "The scroll tunnel",
 			"kicker": "Scroll zoom",

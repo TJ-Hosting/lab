@@ -37,6 +37,10 @@
 {"file":"img/iso/flask-320.webp","source":"assets/pack/lab-flask.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/flask-640.avif","source":"assets/pack/lab-flask.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/flask-640.webp","source":"assets/pack/lab-flask.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/gpu-fluid-400.avif","source":"assets/pack/lab05-gpu-fluid.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/gpu-fluid-400.webp","source":"assets/pack/lab05-gpu-fluid.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/gpu-fluid-800.avif","source":"assets/pack/lab05-gpu-fluid.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/gpu-fluid-800.webp","source":"assets/pack/lab05-gpu-fluid.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/honeycomb-480.avif","source":"assets/pack/lab-honeycomb.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/honeycomb-480.webp","source":"assets/pack/lab-honeycomb.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/honeycomb-960.avif","source":"assets/pack/lab-honeycomb.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
@@ -116,6 +120,7 @@
 {"file":"img/og/coral-ink.jpg","source":"assets/pack/lab05-coral-ink.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/dot-mesh-hero.jpg","source":"assets/pack/lab05-dot-mesh-hero.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/exhibit.jpg","source":"assets/pack/lab-og-honeypot.png","op":"tools/render-og.mjs (lab-04): 1200x630 share card, the share-card base, code-set type in Nunito Sans"}
+{"file":"img/og/gpu-fluid.jpg","source":"assets/pack/lab05-gpu-fluid.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/home.jpg","source":"assets/pack/lab-og-base.png","op":"tools/render-og.mjs (lab-04): 1200x630 share card, the share-card base, code-set type in Nunito Sans"}
 {"file":"img/og/honeypot.jpg","source":"assets/pack/lab-og-honeypot.png","op":"tools/render-og.mjs (lab-04): 1200x630 share card, the share-card base, code-set type in Nunito Sans"}
 {"file":"img/og/humanity-type.jpg","source":"assets/pack/lab-type-blocks.png","op":"tools/render-og.mjs (lab-04): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}

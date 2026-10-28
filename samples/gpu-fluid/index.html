@@ -1,0 +1,73 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<!-- the base policy; additions only as the brief allows ('wasm-unsafe-eval', blob:), and only with the lead -->
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<title>Ink Tide GPU Fluid — liquid light · TJ-Hosting Lab</title>
+	<meta name="description" content="Blue ink swirls through dark water where you drag, and a slow ghost finger keeps it moving when you don't. A fluid simulation that runs on your graphics card, in WebGL and GLSL shaders.">
+	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/gpu-fluid/">
+	<meta name="theme-color" content="#eef7fc">
+	<link rel="icon" href="../../img/brand/tj-mark.svg" type="image/svg+xml">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="TJ-Hosting Lab">
+	<meta property="og:title" content="Ink Tide GPU Fluid — TJ-Hosting Lab">
+	<meta property="og:description" content="Cyan and blue ink swirling in dark water. Drag to stir it.">
+	<meta property="og:url" content="https://lab.tj-hosting.ca/samples/gpu-fluid/">
+	<meta property="og:image" content="https://lab.tj-hosting.ca/img/og/gpu-fluid.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="Swirls of cyan, azure and royal blue ink in dark navy water">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="preload" href="../../fonts/nunito-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="../../css/glass.css">
+	<link rel="stylesheet" href="../../css/lab.css">
+	<link rel="stylesheet" href="../../css/sample.css">
+	<link rel="stylesheet" href="piece.css">
+	<script src="../../js/early.js"></script>
+	<script type="module" src="piece.js"></script>
+</head>
+<body class="sample sample--gpu-fluid">
+	<a class="skip" href="#about-piece">Skip to the description</a>
+
+	<div class="sky" aria-hidden="true"></div>
+
+	<header class="topbar">
+		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
+			<img src="../../img/brand/tj-mark.svg" alt="" width="34" height="34">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Lab">
+			<a href="../../#samples">All samples</a>
+		</nav>
+	</header>
+
+	<!-- stage A: a framed night screen. The ink is light on a deep navy ground, so it reads only on dark.
+	     The poster is what a browser without float render targets shows instead of the canvas. -->
+	<main id="main" class="stage stage--screen">
+		<div class="piece-screen screen" data-night>
+			<canvas class="piece" role="img" aria-label="Cyan, azure and royal blue ink swirling in dark water, stirred by a slow ghost finger. Dragging a pointer or finger across it stirs in more ink."></canvas>
+			<div class="poster" role="img" aria-label="A still picture of cyan and blue ink swirling in dark water." hidden>
+				<p class="poster__note glass glass--pill" data-night>This browser can't run the fluid, so here is a still picture.</p>
+			</div>
+		</div>
+	</main>
+
+	<p class="hint glass glass--pill" data-night aria-hidden="true">Drag to stir the ink</p>
+
+	<aside class="sample-info glass glass--strong" id="about-piece" aria-labelledby="piece-title">
+		<p class="eyebrow">Sample 18 · Liquid light</p>
+		<h1 id="piece-title">Ink Tide GPU Fluid</h1>
+		<p class="how"><b>How it's made:</b> WebGL shaders on your graphics card move a field of currents and a blue dye along it, every frame.
+		A ghost finger stirs it while you're away, and it stops when off-screen or in a hidden tab.</p>
+		<div class="controls">
+			<button class="btn btn--sm btn--primary" type="button" data-action="splash">Splash</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="clear">Clear</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="pause" aria-pressed="false">Pause</button>
+			<a class="back" href="../../#samples">← Back to the lab</a>
+		</div>
+	</aside>
+</body>
+</html>

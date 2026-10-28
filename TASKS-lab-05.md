@@ -83,7 +83,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S12 | 15 | shader-swatchbook | WebGL | adapt-code | @paper-design/shaders@0.0.82 | 0 | todo | |
 | S13 | 16 | liquid-metal-monogram | WebGL | adapt-code | @paper-design/shaders@0.0.82 | 1 | todo | uses img/brand/tj-mark.svg, no monogram image |
 | S14 | 17 | shape-shifter | WebGL | adapt-code | three@0.186.1 (not 0.162.0: brief §2) | 0 | todo | |
-| S15 | 18 | gpu-fluid | WebGL | adapt-code | none | 0 | todo | |
+| S15 | 18 | gpu-fluid | WebGL | adapt-code (MIT, commit a2d2929) | none | 0 | **gated 03:50** | night screen; CSS poster if no float targets; 16.7 ms; card C15 |
 | S16 | 19 | scroll-zoom-tunnel | Scroll | rebuild-from-idea (CodePen 403) | none | 0 | **gated 03:19** | scroll page; still grid without scroll timelines (Firefox fallback); 16.7 ms; card C16 |
 | S17 | 20 | glass-card-flow | Scroll | adapt-code | none | 0 | todo | |
 | S18 | 21 | horizontal-journey | Scroll | adapt-code | none | 0 | todo | |
@@ -142,6 +142,7 @@ None yet.
 
 - [P4] "How it's made" notes too long (about seven lines at 375): S16, S06, S01, S03, S22, S07. Trim to two sentences. The builder brief now says so (§8a).
 - [P4] Titles: builders wrote Title Case ("Coral Ink Reactor"); the Lab uses sentence case ("Particle field"). Normalise every new sample's h1, `<title>`, og:title and samples.json title in one sweep.
+- [P5] S15: the dye reads murky steel-blue on navy; raise saturation and brightness toward cyan, azure and white so it reads as "liquid light".
 - [P5] S22: the curtain is subtle in a still; stronger folds or a corner already torn so the twist reads at a glance.
 - [P5] C04 (glitch card) reads as a stacked block; regenerate with clearer offset strips if the budget allows.
 - [P5] C07 (slime tray) and C06 (petri dish) have similar silhouettes on the home; regenerate C07 as a different object if the budget allows.
@@ -152,4 +153,4 @@ Firefox (QUESTION 1), Safari and iOS, real phones, other GPUs.
 
 ## Time log (UTC)
 
-- 02:28 session start (P0). 02:41 RUNLOG start. 02:50 P0 end, P1 start. 02:58 wave 1 builders launched. 03:04 P2 pilot (C01, C24: both kept). 03:09 card queue (58) started. 03:12 P1 end; PR #4 opened (draft, base feat/lab-mvp-2026-10-15). 03:15 S06 gated and committed. 03:19 S16 gated (waits for C16). 03:22 S01 gated and committed. 03:26 share images for new samples via `render-og.mjs --only`.
+- 02:28 session start (P0). 02:41 RUNLOG start. 02:50 P0 end, P1 start. 02:58 wave 1 builders launched. 03:04 P2 pilot (C01, C24: both kept). 03:09 card queue (58) started. 03:12 P1 end; PR #4 opened (draft, base feat/lab-mvp-2026-10-15). 03:15 S06 gated and committed. 03:19 S16 gated (waits for C16). 03:22 S01 gated and committed. 03:26 share images for new samples via `render-og.mjs --only`. 03:30 S03, S16 committed; pushed `57d60a5`. 03:40 S07 committed. 03:43 S22, S23 committed; pushed `d05104d`. 03:45 wave check `npm test -- --only` the 7 new samples: 20 passed, 0 failed, 4 skipped in 115 s (`evidence/lab-05/wave-1-2.txt`); about 11 s per sample in parallel, so the full suite at 63 projects to about 14 min.
