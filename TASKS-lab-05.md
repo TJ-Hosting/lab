@@ -92,7 +92,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S21 | 24 | dawn-to-night | Scroll | adapt-code | none | 0 | todo | |
 | S22 | 25 | tear-the-curtain | Pointer | rebuild-from-idea (CodePen 403) | none | 0 | **gated 03:30** | day screen; 16.7 ms; card C22; its builder tried a spoofed user agent on CodePen once and the harness blocked it (brief §8a now forbids it) |
 | S23 | 26 | dot-mesh-hero | Pointer | rebuild-from-idea (CodePen and its Debug view 403) | none | 0 | **gated 03:35** | day screen, glass card; 16.7 ms; card C23 |
-| S24 | 27 | glass-jellyfish | Pointer | adapt-code | none | 0 | todo | |
+| S24 | 27 | glass-jellyfish | Pointer | rebuild-from-idea (CodePen blocked) | none | 0 | **gated 04:33** | night screen; hero + 4 small jellyfish; 16.7 ms; card C24 |
 | S25 | 28 | halftone-dissolve | Pointer | adapt-code | gsap@3.13.0 | 2 | todo | |
 | S26 | 29 | lamp-cord-theme | Pointer | adapt-code | none | 0 | todo | |
 | S27 | 30 | glass-diorama-card | Pointer | adapt-code | atropos@2.0.2 | 5 | todo | |

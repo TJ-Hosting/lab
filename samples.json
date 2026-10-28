@@ -155,6 +155,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "glass-jellyfish",
+			"title": "Glass Jellyfish",
+			"kicker": "Drifting glass",
+			"category": "Pointer",
+			"blurb": "A pale glass jellyfish with glowing cyan tentacles drifts through dark water, follows your pointer and wanders off when you stop.",
+			"href": "samples/glass-jellyfish/",
+			"image": { "base": "img/iso/glass-jellyfish", "widths": [400, 800], "ratio": 1.666 },
+			"tags": ["Canvas 2D", "Rope physics", "Touch"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "brand-colour-sphere",
 			"title": "The brand colour sphere",
 			"kicker": "Colour maths",
