@@ -82,6 +82,7 @@ CUTOUTS = [
 	('iso/gpu-fluid', 'lab05-gpu-fluid.png', [400, 800], None),
 	('iso/brand-colour-sphere', 'lab05-brand-colour-sphere.png', [400, 800], None),
 	('iso/integration-beams', 'lab05-integration-beams.png', [400, 800], None),
+	('iso/glass-card-flow', 'lab05-glass-card-flow.png', [400, 800], None),
 	# lab-05 end
 ]
 

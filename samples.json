@@ -100,6 +100,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "glass-card-flow",
+			"title": "Glass Card Flow",
+			"kicker": "Card flow",
+			"category": "Scroll",
+			"blurb": "A fanned row of glass cards, each a tiny website drawn in CSS, that turn to face you as they reach the middle.",
+			"href": "samples/glass-card-flow/",
+			"image": { "base": "img/iso/glass-card-flow", "widths": [400, 800], "ratio": 0.463 },
+			"tags": ["CSS 3D", "Scroll-driven animation", "Scroll-snap"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "tear-the-curtain",
 			"title": "Tear the glass curtain",
 			"kicker": "Cloth physics",

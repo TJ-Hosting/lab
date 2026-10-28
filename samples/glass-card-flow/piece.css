@@ -1,0 +1,402 @@
+/* Sample 20 — Glass Card Flow, on the open day sky.
+
+   Adapted from "Cover Flow: Single Animation", a CSS scroll-driven animations demo by Bramus
+   (https://scroll-driven-animations.style/demos/cover-flow/css/), Apache License 2.0.
+   Copyright Bramus (the site publishes no separate copyright line; its footer reads "Built by Bramus, Chrome
+   Developer Relations Engineer at Google").
+   Licensed under the Apache License, Version 2.0 (https://www.apache.org/licenses/LICENSE-2.0). Unless required
+   by applicable law or agreed to in writing, the work is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR
+   CONDITIONS OF ANY KIND, either express or implied.
+   Changes: the album images became CSS-drawn glass mini-site cards (light glass, DS v9 blues); a mirrored floor
+   reflection is a scaleY(-1) copy of each card; the keyframes are rewritten (own angles, a lift and a glow ring,
+   all transform and opacity, one matching function list so they interpolate); the demo's z-index animation is
+   dropped (the 3D depth does the ordering); scroll-snap, the view timeline and the 3D chain are kept in idea;
+   everything is gated with @supports and prefers-reduced-motion, with a flat row as the fallback; the polyfill,
+   the debug controls and the drag script are not used.
+
+   The shell (sky, top bar, panel) comes from css/. Motion here is scroll-driven, transform and opacity only. */
+
+.flow-stage {
+	/* the card width: from the width of the screen and from its height, so the lifted card, its reflection and its
+	   name clear the panel at the bottom left */
+	--w: clamp(150px, min(24vw, calc((100dvh - 390px) * 0.58)), 250px);
+	display: block;
+	padding: clamp(64px, 8dvh, 96px) 0 0;
+}
+.piece-open.flow {
+	position: relative;
+	width: 100%;
+	max-width: none;
+}
+
+/* the soft floor the cards stand on */
+.flow::before {
+	content: "";
+	position: absolute;
+	left: 2%;
+	right: 2%;
+	top: calc(var(--w) * 1.04);
+	height: calc(var(--w) * 1.1);
+	background: radial-gradient(50% 50% at 50% 50%, rgba(77, 159, 243, 0.24), rgba(77, 159, 243, 0.08) 55%, rgba(77, 159, 243, 0) 100%);
+	pointer-events: none;
+}
+
+/* ---------- the scroller ---------- */
+
+.flow__scroller {
+	position: relative;
+	container-type: inline-size;
+	overflow-x: auto;
+	overflow-y: hidden;
+	overscroll-behavior-x: contain;
+	scroll-snap-type: x mandatory;
+	scrollbar-width: none;
+	/* room above for the lifted card and below for its reflection; nothing here changes while scrolling */
+	padding: calc(var(--w) * 0.4) 0 calc(var(--w) * 0.8);
+	-webkit-user-select: none;
+	user-select: none;
+	-webkit-tap-highlight-color: transparent;
+}
+.flow__scroller::-webkit-scrollbar { display: none; }
+@media (hover: hover) and (pointer: fine) {
+	.flow__scroller { cursor: grab; }
+	.flow__item:not(.is-centre) .card { cursor: pointer; }
+}
+.flow__scroller.is-dragging, .flow__scroller.is-dragging .card { cursor: grabbing; }
+.flow__scroller.is-dragging { scroll-snap-type: none; }
+.flow__scroller:focus-visible {
+	outline: 2px solid var(--focus);
+	outline-offset: -6px;
+	border-radius: var(--radius-xl);
+}
+
+.flow__row {
+	display: flex;
+	align-items: flex-start;
+	width: max-content;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+/* spacers, so the first and the last card can reach the middle */
+.flow__row::before,
+.flow__row::after {
+	content: "";
+	flex: none;
+	width: calc(50cqw - var(--w) / 2);
+	height: 1px;
+}
+
+.flow__item {
+	flex: none;
+	width: var(--w);
+	scroll-snap-align: center;
+	scroll-snap-stop: always;
+	/* each item is the subject of its own view timeline (used only where scroll-driven animations exist) */
+	view-timeline: --item inline;
+}
+
+/* ---------- a card: the transformed part (the item's own box never changes, so the scroll length stays fixed) ---------- */
+
+.card {
+	position: relative;
+	/* 1em is a twenty-second of the card, so everything drawn inside scales with it */
+	font-size: calc(var(--w) / 22);
+	transition: transform 0.5s var(--ease-out);
+}
+
+.card__face.glass {
+	width: 100%;
+	aspect-ratio: 4 / 3;
+	border-radius: 1.3em;
+	/* no backdrop blur: nine blurred layers in a 3D scene would cost too much, and the white tint alone is the glass */
+	-webkit-backdrop-filter: none;
+	backdrop-filter: none;
+	background-color: rgba(255, 255, 255, 0.92);
+	box-shadow: var(--glass-inner), 0 1em 1.8em -1em rgba(22, 66, 140, 0.5), 0 0.3em 0.8em -0.4em rgba(5, 95, 233, 0.22);
+}
+.card__face.glass::before { padding: max(1px, 0.07em); }
+
+/* the ring of cyan light that marks the centred card (opacity only) */
+.card__ring {
+	position: absolute;
+	inset: -0.25em;
+	border-radius: 1.5em;
+	border: 0.15em solid rgba(70, 208, 251, 0.95);
+	box-shadow: 0 0 0 0.45em rgba(70, 208, 251, 0.2), 0 0 2.4em 0.3em rgba(70, 208, 251, 0.45);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.35s var(--ease-out);
+}
+.flow__item.is-centre .card__ring { opacity: 1; }
+
+/* the floor reflection: a flipped copy of the face (made by piece.js), faded out with a mask */
+.card__mirror {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: calc(100% + 0.5em);
+	height: 52%;
+	overflow: hidden;
+	pointer-events: none;
+	-webkit-mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.18) 45%, rgba(0, 0, 0, 0) 92%);
+	mask-image: linear-gradient(to bottom, rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.18) 45%, rgba(0, 0, 0, 0) 92%);
+}
+.card__mirror .card__face.glass {
+	position: absolute;
+	left: 0;
+	top: 0;
+	transform: scaleY(-1);
+	box-shadow: none;
+}
+
+/* ---------- the mini sites (decorative; every shape is drawn here) ---------- */
+
+.mk { display: flex; flex-direction: column; height: 100%; }
+.mk__bar {
+	flex: none;
+	display: flex;
+	align-items: center;
+	gap: 0.4em;
+	height: 2em;
+	padding: 0 0.9em;
+	background: rgba(238, 247, 252, 0.9);
+	border-bottom: 1px solid rgba(94, 128, 174, 0.18);
+}
+.mk__bar i { width: 0.55em; height: 0.55em; border-radius: 50%; background: var(--t); }
+.mk__bar i:nth-child(2) { background: var(--brand-azure); }
+.mk__bar i:nth-child(3) { background: #c9e7fc; }
+.mk__bar b { flex: 1; max-width: 52%; height: 0.8em; margin-left: 0.7em; border-radius: 1em; background: rgba(94, 128, 174, 0.16); }
+
+.mk__body {
+	flex: 1;
+	min-height: 0;
+	padding: 0.9em;
+	display: grid;
+	gap: 0.6em;
+	align-content: start;
+}
+.mk i { display: block; }
+.mk__col { display: grid; gap: 0.45em; align-content: start; min-width: 0; }
+
+.ln { height: 0.5em; border-radius: 0.3em; background: rgba(7, 16, 34, 0.16); }
+.hd { height: 0.95em; border-radius: 0.4em; background: rgba(10, 50, 144, 0.82); }
+.ln.lt, .hd.lt { background: rgba(255, 255, 255, 0.85); }
+.hd.lt { background: #ffffff; }
+.bt { height: 1.5em; width: 4.6em; border-radius: 0.5em; background: var(--t); box-shadow: 0 0.2em 0.5em -0.2em rgba(5, 95, 233, 0.6); }
+.im { border-radius: 0.6em; background: linear-gradient(145deg, var(--a, #4d9ff3), var(--b, #0c6bed)); }
+.bx { border-radius: 0.6em; background: rgba(77, 159, 243, 0.17); }
+.w1 { width: 100%; } .w2 { width: 72%; } .w3 { width: 48%; }
+
+/* the icon chip: a round disc with a plus */
+.ico {
+	position: relative;
+	width: 2.1em;
+	height: 2.1em;
+	border-radius: 50%;
+	background: linear-gradient(150deg, #8fe3fd, var(--brand-azure));
+}
+.ico::before, .ico::after { content: ""; position: absolute; left: 50%; top: 50%; background: #fff; border-radius: 0.2em; transform: translate(-50%, -50%); }
+.ico::before { width: 1em; height: 0.28em; }
+.ico::after { width: 0.28em; height: 1em; }
+
+/* portfolio */
+.mk--folio { grid-template-columns: 1.25fr 1fr; grid-template-rows: auto 1fr; }
+.orb {
+	aspect-ratio: 1;
+	width: 86%;
+	justify-self: center;
+	align-self: center;
+	border-radius: 50%;
+	background: radial-gradient(circle at 34% 28%, #ffffff 0, #bfe6ff 16%, var(--brand-azure) 52%, #0a3290 100%);
+	box-shadow: 0 0 1.6em rgba(70, 208, 251, 0.6);
+}
+.mk__tri { grid-column: 1 / -1; display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.5em; min-height: 0; }
+
+/* clinic */
+.mk--clinic { grid-template-rows: 1fr auto; }
+.cl__hero { display: grid; grid-template-columns: 1.15fr 1fr; gap: 0.7em; min-height: 0; }
+.cl__book { display: grid; gap: 0.4em; align-content: start; padding: 0.6em; border-radius: 0.8em; background: #fff; box-shadow: 0 0 0 1px rgba(94, 128, 174, 0.22), 0 0.5em 1em -0.5em rgba(22, 66, 140, 0.4); }
+.cl__book .bx { height: 1em; }
+.cl__book .bt { width: 100%; height: 1.2em; }
+.cl__svc { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6em; }
+.cl__svc span { display: grid; justify-items: center; gap: 0.4em; }
+.cl__svc .ln { width: 70%; }
+
+/* blog */
+.mk--blog { grid-template-columns: 1.1fr 1fr; grid-template-rows: 1fr; gap: 0.8em; }
+.bl__feature { display: grid; grid-template-rows: 1fr auto auto auto; gap: 0.45em; min-height: 0; }
+.bl__list { display: grid; gap: 0.55em; align-content: stretch; }
+.bl__row { display: grid; grid-template-columns: 2.6em 1fr; gap: 0.5em; align-items: center; }
+.bl__row .im { height: 2.6em; }
+.bl__row div { display: grid; gap: 0.4em; }
+
+/* shop */
+.mk--shop { grid-template-rows: auto auto 1fr; }
+.sh__head { display: grid; grid-template-columns: 1.6em 1fr 1em; align-items: center; gap: 0.6em; }
+.sh__head .logo { height: 1.5em; border-radius: 0.4em; background: var(--t); }
+.sh__head .ln { height: 1em; border-radius: 1em; background: rgba(94, 128, 174, 0.16); }
+.sh__head .dot { width: 1em; height: 1em; border-radius: 50%; background: var(--brand-azure); }
+.promo { position: relative; height: 3em; border-radius: 0.7em; background: linear-gradient(100deg, #0a3290, var(--brand-royal) 60%, #46d0fb); overflow: hidden; }
+.promo::before { content: ""; position: absolute; left: 0.8em; top: 0.8em; width: 38%; height: 0.55em; border-radius: 0.3em; background: rgba(255, 255, 255, 0.9); box-shadow: 0 0.9em 0 -0.05em rgba(255, 255, 255, 0.55); }
+.promo::after { content: ""; position: absolute; right: 0.8em; top: 50%; width: 2em; height: 2em; border-radius: 50%; background: var(--honey); transform: translateY(-50%); }
+.sh__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.55em; min-height: 0; }
+.prod { display: grid; grid-template-rows: 1fr auto auto; gap: 0.35em; min-height: 0; }
+.prod .ln { height: 0.45em; }
+.price { width: 1.5em; height: 0.6em; border-radius: 0.3em; background: var(--honey); }
+
+/* cafe */
+.mk--cafe { grid-template-rows: 3.4fr 2fr; }
+.cafe__hero {
+	border-radius: 0.8em;
+	background:
+		radial-gradient(circle at 74% 38%, #ffe2a8 0, var(--honey) 9%, rgba(255, 181, 71, 0) 11%),
+		radial-gradient(60% 90% at 30% 120%, #0a3290 0, rgba(10, 50, 144, 0) 70%),
+		linear-gradient(180deg, #8fd3fb, #daeffc 74%, #fff7e6);
+}
+.cafe__menu { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2em; }
+.cafe__menu .row { display: grid; grid-template-columns: 1fr 1.3em; gap: 0.5em; align-items: center; }
+.cafe__menu .ln.pr { background: rgba(255, 138, 61, 0.7); }
+.cafe__menu .mk__col { gap: 0.55em; align-content: center; }
+
+/* agency */
+.mk--agency { grid-template-rows: 1fr auto; }
+.ag__hero { position: relative; display: grid; align-content: space-between; gap: 0.6em; padding: 0.9em; border-radius: 0.8em; background: linear-gradient(160deg, #0a3290, #071022 90%); overflow: hidden; }
+.ag__hero::after { content: ""; position: absolute; right: -1.8em; top: -1.8em; width: 7em; height: 7em; border-radius: 50%; border: 0.9em solid rgba(70, 208, 251, 0.5); }
+.ag__hero .hd { height: 1.2em; }
+.ag__hero .bt { width: 4.2em; height: 1.4em; background: var(--glow-cyan); box-shadow: none; }
+.ag__stats { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6em; }
+.ag__stats .bx { position: relative; height: 2.4em; }
+.ag__stats .bx b { position: absolute; left: 0.5em; top: 0.55em; width: 55%; height: 0.7em; border-radius: 0.3em; background: rgba(10, 50, 144, 0.6); }
+
+/* course */
+.mk--course { grid-template-columns: 1.5fr 1fr; grid-template-rows: 1fr; gap: 0.8em; }
+.co__video { position: relative; border-radius: 0.7em; background: linear-gradient(150deg, #4d9ff3, #0a3290); overflow: hidden; }
+.co__video .play { position: absolute; left: 50%; top: 46%; width: 3em; height: 3em; border-radius: 50%; background: rgba(255, 255, 255, 0.92); transform: translate(-50%, -50%); }
+.co__video .play::after { content: ""; position: absolute; left: 1.15em; top: 0.85em; border-left: 1em solid var(--brand-royal); border-top: 0.65em solid transparent; border-bottom: 0.65em solid transparent; }
+.co__video .prog { position: absolute; left: 0.8em; right: 0.8em; bottom: 0.7em; height: 0.4em; border-radius: 0.3em; background: linear-gradient(90deg, #46d0fb 38%, rgba(255, 255, 255, 0.4) 38%); }
+.co__list { display: grid; gap: 0.7em; align-content: center; }
+.lesson { display: grid; grid-template-columns: 1.1em 1fr; gap: 0.5em; align-items: center; }
+.chk { width: 1.1em; height: 1.1em; border-radius: 50%; border: 0.18em solid var(--brand-azure); }
+.chk.on { background: var(--brand-royal); border-color: var(--brand-royal); }
+
+/* events */
+.mk--events { grid-template-columns: 1.15fr 1fr; grid-template-rows: 1fr; gap: 0.8em; }
+.ev__cal { display: grid; grid-template-columns: repeat(7, 1fr); grid-template-rows: repeat(4, 1fr); gap: 0.28em; padding: 0.5em; border-radius: 0.7em; background: rgba(77, 159, 243, 0.1); }
+.ev__cal i { border-radius: 0.28em; background: rgba(255, 255, 255, 0.95); box-shadow: 0 0 0 1px rgba(94, 128, 174, 0.16); }
+.ev__cal i.on { background: var(--t); box-shadow: none; }
+.ev__list { display: grid; gap: 0.7em; align-content: center; }
+.ev__row { display: grid; grid-template-columns: 2.2em 1fr; gap: 0.6em; align-items: center; }
+.ev__row .date { height: 2.2em; border-radius: 0.5em; background: linear-gradient(160deg, var(--brand-azure), var(--brand-royal)); }
+.ev__row div { display: grid; gap: 0.4em; }
+
+/* landing */
+.mk--landing { grid-template-rows: 1fr auto; }
+.ld__hero { display: grid; justify-items: center; align-content: center; gap: 0.5em; padding: 0.4em; border-radius: 0.8em; background: radial-gradient(70% 90% at 50% 0%, rgba(70, 208, 251, 0.3), rgba(70, 208, 251, 0) 72%), rgba(77, 159, 243, 0.1); }
+.ld__hero .hd { height: 1.05em; }
+.ld__hero .ln { width: 62%; }
+.ld__hero .bt { margin-top: 0.2em; }
+.ld__feat { display: grid; grid-template-columns: repeat(3, 1fr); gap: 0.6em; }
+.feat { display: grid; justify-items: start; gap: 0.35em; padding: 0.55em; border-radius: 0.7em; background: #fff; box-shadow: 0 0 0 1px rgba(94, 128, 174, 0.2); }
+.feat .ico { width: 1.5em; height: 1.5em; }
+.feat .ico::before { width: 0.7em; height: 0.2em; }
+.feat .ico::after { width: 0.2em; height: 0.7em; }
+
+/* ---------- the name label ---------- */
+
+.flow__label {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2px;
+	width: max-content;
+	max-width: calc(100% - 2 * var(--gutter));
+	margin: calc(var(--w) * -0.24) auto 0;
+	padding: 10px 26px 11px;
+	background-color: var(--glass-tint-strong);
+	text-align: center;
+}
+.flow__name {
+	font: 900 clamp(22px, 2.4vw, 28px) / 1.15 var(--font-display);
+	font-stretch: 90%;
+	letter-spacing: -0.015em;
+	color: var(--ink);
+}
+.flow__meta {
+	font-size: 12px;
+	line-height: 16px;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--muted);
+}
+
+/* ---------- where nothing scroll-driven runs: a flat row with the centred card marked ---------- */
+
+/* a browser with no scroll-driven animations, and motion allowed: the centred card steps up a little */
+.flow__item .card { transform: scale(0.92); }
+.flow__item.is-centre .card { transform: none; }
+@media (prefers-reduced-motion: no-preference) {
+	.flow__item.is-centre .card { transform: scale(1.08); }
+}
+
+/* ---------- the fan: scroll-driven, only where supported and only when motion is welcome ---------- */
+
+@media (prefers-reduced-motion: no-preference) {
+	@supports (animation-timeline: view()) {
+		/* one vanishing point for the whole row, at the middle of the cards */
+		.flow__scroller {
+			perspective: calc(var(--w) * 2.6);
+			perspective-origin: 50% calc(var(--w) * 0.775);
+		}
+		.flow__row,
+		.flow__item { transform-style: preserve-3d; }
+
+		.card {
+			transition: none;
+			will-change: transform;
+			animation: card-fan linear both;
+			animation-timeline: --item;
+		}
+		.flow__item .card,
+		.flow__item.is-centre .card { transform: none; }
+		.card__ring {
+			transition: none;
+			animation: ring-glow linear both;
+			animation-timeline: --item;
+		}
+
+		/* the item's whole pass through the scroller is 0% to 100%, and 50% is the middle. One function list in every
+		   step, so the steps interpolate one by one. The sides sit tilted and tucked in; the middle faces you, lifts and grows. */
+		@keyframes card-fan {
+			0% { transform: translateX(-76%) rotateY(-52deg) translateZ(-1.5em) scale(0.9); }
+			33% { transform: translateX(24%) rotateY(-52deg) translateZ(-0.5em) scale(0.94); }
+			50% { transform: translateX(0) rotateY(0deg) translateZ(1.2em) scale(1.5); }
+			67% { transform: translateX(-24%) rotateY(52deg) translateZ(-0.5em) scale(0.94); }
+			100% { transform: translateX(76%) rotateY(52deg) translateZ(-1.5em) scale(0.9); }
+		}
+		@keyframes ring-glow {
+			0%, 44% { opacity: 0; }
+			50% { opacity: 1; }
+			56%, 100% { opacity: 0; }
+		}
+	}
+}
+
+/* ---------- phones ---------- */
+
+/* tall screens: the row sits a little lower, nearer the middle of the room above the panel */
+@media (min-width: 721px) and (max-aspect-ratio: 4 / 5) {
+	.flow-stage { padding-top: 15dvh; }
+}
+
+@media (max-width: 720px) {
+	.flow-stage {
+		--w: clamp(108px, 34vw, 160px);
+		padding-top: 124px;
+	}
+	.flow__label { padding: 8px 20px 9px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.card, .card__ring { transition: none; }
+}
