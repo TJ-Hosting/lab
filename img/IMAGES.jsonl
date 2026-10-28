@@ -233,6 +233,10 @@
 {"file":"img/iso/server-404-400.webp","source":"assets/pack/tj-state-404.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/server-404-800.avif","source":"assets/pack/tj-state-404.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/server-404-800.webp","source":"assets/pack/tj-state-404.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/shader-swatchbook-400.avif","source":"assets/pack/lab05-shader-swatchbook.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/shader-swatchbook-400.webp","source":"assets/pack/lab05-shader-swatchbook.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/shader-swatchbook-800.avif","source":"assets/pack/lab05-shader-swatchbook.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/shader-swatchbook-800.webp","source":"assets/pack/lab05-shader-swatchbook.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/shield-book-320.avif","source":"assets/pack/lab-shield-book.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/shield-book-320.webp","source":"assets/pack/lab-shield-book.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/shield-book-640.avif","source":"assets/pack/lab-shield-book.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
@@ -290,6 +294,7 @@
 {"file":"img/og/particle-field.jpg","source":"assets/pack/lab-particles.png","op":"tools/render-og.mjs (lab-04): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/pendulum-wave.jpg","source":"assets/pack/lab05-pendulum-wave.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/scroll-zoom-tunnel.jpg","source":"assets/pack/lab05-scroll-zoom-tunnel.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
+{"file":"img/og/shader-swatchbook.jpg","source":"assets/pack/lab05-shader-swatchbook.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/slime-network.jpg","source":"assets/pack/lab05-slime-network.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/split-flap-board.jpg","source":"assets/pack/lab05-split-flap-board.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/star-trail-text.jpg","source":"assets/pack/lab05-star-trail-text.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}

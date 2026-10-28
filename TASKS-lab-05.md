@@ -80,7 +80,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S09 | 12 | contour-map | Generative | rebuild-from-idea (CodePen blocked) | none | 0 | **committed 04:07Z** | day screen, map key labelled illustrative; 16.7 ms; card C09 |
 | S10 | 13 | dither-flow-ink | WebGL | adapt-code (MIT, b154ad8) | none | 0 | committed (see git) | day screen, navy/royal dots; Canvas 2D still without WebGL2; 16.7 ms; card C10 |
 | S11 | 14 | glass-orbs | WebGL | adapt-code | three@0.186.1 | 0 | todo | |
-| S12 | 15 | shader-swatchbook | WebGL | adapt-code | @paper-design/shaders@0.0.82 | 0 | todo | |
+| S12 | 15 | shader-swatchbook | WebGL | built on the library (Apache-2.0) | @paper-design/shaders@0.0.82 | 0 | committed (see git) | open sky; all mounts at speed 0, the live one stepped by setFrame() from loop(); CSS swatches without WebGL; 16.7 ms; card C12 |
 | S13 | 16 | liquid-metal-monogram | WebGL | adapt-code | @paper-design/shaders@0.0.82 | 1 | todo | uses img/brand/tj-mark.svg, no monogram image |
 | S14 | 17 | shape-shifter | WebGL | adapt-code | three@0.186.1 (not 0.162.0: brief §2) | 0 | todo | |
 | S15 | 18 | gpu-fluid | WebGL | adapt-code (MIT, commit a2d2929) | none | 0 | **committed 03:43Z** | night screen; CSS poster if no float targets; 16.7 ms; card C15 |
@@ -156,6 +156,12 @@ None yet.
 - [P5] S22: the curtain is subtle in a still; stronger folds or a corner already torn so the twist reads at a glance.
 - [P5] C04 (glitch card) reads as a stacked block; regenerate with clearer offset strips if the budget allows.
 - [P5] C07 (slime tray) and C06 (petri dish) have similar silhouettes on the home; regenerate C07 as a different object if the budget allows.
+
+## Incidents
+
+- 04:58Z: S24's card cut-out is 688 px wide after trim; the integration assumed 800, so the pushed `samples.json` named a missing `glass-jellyfish-800` and the 688 files were never staged (S24 commit 04:20Z). Found by test 10; fixed and pushed in `e0eea4d` (widths [400, 688], files committed, share image re-rendered); the integration now reads the width from the build. Origin carried the broken reference for about 38 min.
+- 04:59Z: four untracked screenshots (`b-*.png`, written 04:51Z by a builder's scratch script with relative paths) were found at the repo root and deleted; never committed. Builder brief §8a now says to write scratch output by absolute path.
+- One builder tried a spoofed user agent on CodePen; the harness blocked it (S22).
 
 ## Not tested (so far)
 

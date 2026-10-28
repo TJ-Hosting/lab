@@ -111,6 +111,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "shader-swatchbook",
+			"title": "Shader Swatchbook",
+			"kicker": "Pick a background",
+			"category": "WebGL",
+			"blurb": "Eight blue shader backgrounds on frosted tiles: point at one to play it, open it full screen, tune it and copy the settings.",
+			"href": "samples/shader-swatchbook/",
+			"image": { "base": "img/iso/shader-swatchbook", "widths": [400, 800], "ratio": 0.989 },
+			"tags": ["WebGL", "GLSL", "Paper Shaders"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "gpu-fluid",
 			"title": "Ink Tide GPU Fluid",
 			"kicker": "Liquid light",
