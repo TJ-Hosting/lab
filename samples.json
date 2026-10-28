@@ -79,7 +79,7 @@
 		},
 		{
 			"slug": "coral-ink",
-			"title": "Coral Ink Reactor",
+			"title": "Coral ink reactor",
 			"kicker": "Living ink",
 			"category": "Generative",
 			"blurb": "Blue ink grows into coral, stripes and spots by itself, and you can drag to paint more.",
@@ -90,7 +90,7 @@
 		},
 		{
 			"slug": "slime-network",
-			"title": "Slime Network",
+			"title": "Slime network",
 			"kicker": "Slime mould",
 			"category": "Generative",
 			"blurb": "Thousands of tiny agents leave glowing trails and grow a living network of veins between pulsing food spots.",
@@ -101,7 +101,7 @@
 		},
 		{
 			"slug": "streamline-poster",
-			"title": "Streamline Ink Poster",
+			"title": "Streamline ink poster",
 			"kicker": "Flow ribbons",
 			"category": "Generative",
 			"blurb": "A seeded poster of tapered ribbons packed along a noise flow field, drawn in a few at a time in four blue palettes, with a new composition on request or after a rest.",
@@ -112,7 +112,7 @@
 		},
 		{
 			"slug": "contour-map",
-			"title": "Breathing Contour Map",
+			"title": "Breathing contour map",
 			"kicker": "Contour lines",
 			"category": "Generative",
 			"blurb": "A light topographic map that slowly breathes, with a hill that rises where you point.",
@@ -123,7 +123,7 @@
 		},
 		{
 			"slug": "dither-flow-ink",
-			"title": "Dither Flow Ink",
+			"title": "Dither flow ink",
 			"kicker": "One-bit ink",
 			"category": "WebGL",
 			"blurb": "The words TJ-Hosting Lab in navy and blue pixel dots, smeared by a ghost pointer and slowly dithered back into place.",
@@ -134,7 +134,7 @@
 		},
 		{
 			"slug": "glass-orbs",
-			"title": "Glass Orbs",
+			"title": "Glass orbs",
 			"kicker": "Refracted light",
 			"category": "WebGL",
 			"blurb": "Clear glass spheres and capsules you can drag over a blue wordmark, bending and splitting its letters as real glass would.",
@@ -145,7 +145,7 @@
 		},
 		{
 			"slug": "shader-swatchbook",
-			"title": "Shader Swatchbook",
+			"title": "Shader swatchbook",
 			"kicker": "Pick a background",
 			"category": "WebGL",
 			"blurb": "Eight blue shader backgrounds on frosted tiles: point at one to play it, open it full screen, tune it and copy the settings.",
@@ -167,7 +167,7 @@
 		},
 		{
 			"slug": "shape-shifter",
-			"title": "Service Shape-Shifter",
+			"title": "Service shape-shifter",
 			"kicker": "Particle morph",
 			"category": "WebGL",
 			"blurb": "Thousands of glowing points that morph between a server stack, a cloud, a shield and code brackets, with bloom and a colour-split flash.",
@@ -178,7 +178,7 @@
 		},
 		{
 			"slug": "gpu-fluid",
-			"title": "Ink Tide GPU Fluid",
+			"title": "Ink tide GPU fluid",
 			"kicker": "Liquid light",
 			"category": "WebGL",
 			"blurb": "Cyan and blue ink swirls through dark water where you drag, and a ghost finger keeps it moving when you don't.",
@@ -200,7 +200,7 @@
 		},
 		{
 			"slug": "glass-card-flow",
-			"title": "Glass Card Flow",
+			"title": "Glass card flow",
 			"kicker": "Card flow",
 			"category": "Scroll",
 			"blurb": "A fanned row of glass cards, each a tiny website drawn in CSS, that turn to face you as they reach the middle.",
@@ -211,7 +211,7 @@
 		},
 		{
 			"slug": "horizontal-journey",
-			"title": "Brief-to-Launch Horizontal Journey",
+			"title": "Brief-to-launch horizontal journey",
 			"kicker": "Sideways scroll",
 			"category": "Scroll",
 			"blurb": "Five glass panels, from Brief to Launch, ride sideways as you scroll down, past shapes moving at different speeds.",
@@ -255,7 +255,7 @@
 		},
 		{
 			"slug": "glass-jellyfish",
-			"title": "Glass Jellyfish",
+			"title": "Glass jellyfish",
 			"kicker": "Drifting glass",
 			"category": "Pointer",
 			"blurb": "A pale glass jellyfish with glowing cyan tentacles drifts through dark water, follows your pointer and wanders off when you stop.",
@@ -266,7 +266,7 @@
 		},
 		{
 			"slug": "lamp-cord-theme",
-			"title": "Pull-Cord Theme Lamp",
+			"title": "Pull-cord theme lamp",
 			"kicker": "Rope physics",
 			"category": "Pointer",
 			"blurb": "A glass lamp swings on a rope above a small sample page; pull its cord and the page turns from day to night in a spreading circle.",
@@ -299,7 +299,7 @@
 		},
 		{
 			"slug": "wavy-lines-hero",
-			"title": "Wavy Lines Hero",
+			"title": "Wavy lines hero",
 			"kicker": "Silk lines",
 			"category": "SVG",
 			"blurb": "Glowing cyan-to-blue lines drift like silk on a night screen, bow around a glass headline card and give way to your touch.",
@@ -332,7 +332,7 @@
 		},
 		{
 			"slug": "bento-grid",
-			"title": "Living Glass Bento Grid",
+			"title": "Living glass bento grid",
 			"kicker": "Bento tiles",
 			"category": "UI",
 			"blurb": "Six frosted tiles for hosting services, each with a small looping drawing, that lift on hover and slide up a Learn more bar.",
@@ -343,7 +343,7 @@
 		},
 		{
 			"slug": "focus-trail-form",
-			"title": "Focus-Trail Contact Form",
+			"title": "Focus-trail contact form",
 			"kicker": "Form focus",
 			"category": "UI",
 			"blurb": "A frosted demo contact form where a glowing head with a fading tail slides to the focused field, ticks valid fields, shakes invalid ones and flies off as a paper plane; nothing is sent.",
@@ -354,7 +354,7 @@
 		},
 		{
 			"slug": "edge-network-globe",
-			"title": "Edge Network Globe",
+			"title": "Edge network globe",
 			"kicker": "Dotted globe",
 			"category": "Data",
 			"blurb": "A dotted cyan globe turns slowly while pulses run along glowing arcs from a Toronto hub to ten cities. Drag to turn it.",
@@ -365,7 +365,7 @@
 		},
 		{
 			"slug": "clock-wall",
-			"title": "Clock Wall",
+			"title": "Clock wall",
 			"kicker": "Clocks as pixels",
 			"category": "Data",
 			"blurb": "Your local time drawn by about a hundred small glass clocks whose hands turn into the digits, with a wave every minute.",
@@ -376,7 +376,7 @@
 		},
 		{
 			"slug": "epicycle-machine",
-			"title": "Epicycle Drawing Machine",
+			"title": "Epicycle drawing machine",
 			"kicker": "Circles that draw",
 			"category": "Data",
 			"blurb": "Up to 300 spinning circles, laid end to end, redraw the TJ letterform; draw a line of your own and they copy it.",
@@ -387,7 +387,7 @@
 		},
 		{
 			"slug": "pendulum-wave",
-			"title": "Pendulum Wave",
+			"title": "Pendulum wave",
 			"kicker": "Waves from drift",
 			"category": "Data",
 			"blurb": "Eighteen glass pendulums drift out of step into snakes and waves, then line up again every 60 seconds.",
@@ -398,7 +398,7 @@
 		},
 		{
 			"slug": "glass-sandbox",
-			"title": "Glass Sandbox",
+			"title": "Glass sandbox",
 			"kicker": "Falling sand",
 			"category": "Toys",
 			"blurb": "A tiny falling-sand toy in a night-blue box: pour sand, water, oil, fire, plants, ice and lava, and watch lava turn sand to glass.",
@@ -409,7 +409,7 @@
 		},
 		{
 			"slug": "marble-harp",
-			"title": "Marble Harp",
+			"title": "Marble harp",
 			"kicker": "Glass strings",
 			"category": "Toys",
 			"blurb": "Cyan drops of light fall from clouds and bounce down glowing glass strings, and every bounce plays a note.",
@@ -420,7 +420,7 @@
 		},
 		{
 			"slug": "lantern-pond",
-			"title": "Lantern Pond Ripples",
+			"title": "Lantern pond ripples",
 			"kicker": "Dusk water",
 			"category": "Image",
 			"blurb": "A dusk pond with two paper lanterns that ripples where you touch it, while a golden leaf lands with a ring every few seconds.",
@@ -431,7 +431,7 @@
 		},
 		{
 			"slug": "transition-slider",
-			"title": "Transition Lab Hero Slider",
+			"title": "Transition lab hero slider",
 			"kicker": "Shader transitions",
 			"category": "Image",
 			"blurb": "Three pictures blend through eight shader transitions; let it play, or switch to Scrub and drag the blend by hand.",
@@ -442,7 +442,7 @@
 		},
 		{
 			"slug": "liquid-hover-gallery",
-			"title": "Liquid Hover Gallery",
+			"title": "Liquid hover gallery",
 			"kicker": "Liquid morph",
 			"category": "Image",
 			"blurb": "Hover or tap a glass card and a glass wave melts into a field of cornflowers through a liquid, a swirl or a stripe, all drawn by one three.js shader.",
@@ -453,7 +453,7 @@
 		},
 		{
 			"slug": "relief-light-board",
-			"title": "Relief Light Texture Board",
+			"title": "Relief light texture board",
 			"kicker": "Raking light",
 			"category": "Image",
 			"blurb": "A board of carved stone, tooled leather or hammered metal, lit by a lamp that follows your pointer so every carved edge catches the light.",
