@@ -87,6 +87,17 @@
 			"image": { "base": "img/iso/scroll-zoom-tunnel", "widths": [400, 800], "ratio": 1.271 },
 			"tags": ["CSS 3D", "Scroll-driven animation"],
 			"added": "2026-10-28"
+		},
+		{
+			"slug": "tear-the-curtain",
+			"title": "Tear the glass curtain",
+			"kicker": "Cloth physics",
+			"category": "Pointer",
+			"blurb": "A frosted curtain sways over a message: pull it until it tears, slice it open, or part it with one click.",
+			"href": "samples/tear-the-curtain/",
+			"image": { "base": "img/iso/tear-the-curtain", "widths": [400, 800], "ratio": 1.116 },
+			"tags": ["Canvas 2D", "Verlet cloth", "Touch"],
+			"added": "2026-10-28"
 		}
 	],
 	"exhibits": [
