@@ -287,6 +287,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "halftone-dissolve",
+			"title": "Halftone dissolve",
+			"kicker": "Dot trail",
+			"category": "Pointer",
+			"blurb": "Move across a blue photo and it breaks into halftone dots that slowly heal back; click to swap the lake for a glass facade with the dissolve sweeping across.",
+			"href": "samples/halftone-dissolve/",
+			"image": { "base": "img/iso/halftone-dissolve", "widths": [400, 800], "ratio": 0.758 },
+			"tags": ["Canvas 2D", "GSAP", "Halftone"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "lamp-cord-theme",
 			"title": "Pull-cord theme lamp",
 			"kicker": "Rope physics",
