@@ -98,6 +98,17 @@
 			"image": { "base": "img/iso/tear-the-curtain", "widths": [400, 800], "ratio": 1.116 },
 			"tags": ["Canvas 2D", "Verlet cloth", "Touch"],
 			"added": "2026-10-28"
+		},
+		{
+			"slug": "dot-mesh-hero",
+			"title": "Magnetic dot mesh",
+			"kicker": "Springy mesh",
+			"category": "Pointer",
+			"blurb": "A lattice of blue dots springs away from your pointer, ripples when you tap and flows around a glass headline card.",
+			"href": "samples/dot-mesh-hero/",
+			"image": { "base": "img/iso/dot-mesh-hero", "widths": [400, 800], "ratio": 0.668 },
+			"tags": ["Canvas 2D", "Spring physics", "Touch"],
+			"added": "2026-10-28"
 		}
 	],
 	"exhibits": [

@@ -35,6 +35,7 @@ Each line: the sample, the project it comes from, and its licence. "Written from
 - **Slime Network** (`samples/slime-network/`): written from the idea of [Physarum Transport Network](https://apps.amandaghassaei.com/) by Amanda Ghassaei (no licence stated; none of its code was read), using the published Physarum agent model of Jeff Jones (2010). New CPU code in Canvas 2D.
 - **The scroll tunnel** (`samples/scroll-zoom-tunnel/`): written from the idea of [3D spacial scroll zoom with CSS Scroll Animation](https://codepen.io/argyleink/pen/ZEdrzJZ) by Adam Argyle; no source code was read or copied (CodePen refused the download). New code: hosting-word glass tiles on a scroll timeline, a Your site landing tile, a still grid where scroll timelines are missing.
 - **Tear the glass curtain** (`samples/tear-the-curtain/`): written from the idea of [Tearable Cloth](https://codepen.io/Kudriavaya/pen/ALMBPg) by Kudriavaya (after Suffick), a Verlet cloth pinned along its top row that tears when stretched; no source code was read or copied (CodePen refused the download). The cloth, drawing, controls and look are new.
+- **Magnetic dot mesh** (`samples/dot-mesh-hero/`): written from the idea of [Magnetic dot mesh](https://codepen.io/jpbelley/pen/jEMwLXv) by JP (jpbelley); no source code was read or copied (CodePen refused the download). New code: a triangle lattice of springs, shockwaves, a ghost pointer, a glass card the mesh bends around.
 
 ## Code and libraries
 

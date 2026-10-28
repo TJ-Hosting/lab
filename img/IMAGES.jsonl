@@ -29,6 +29,10 @@
 {"file":"img/iso/cube-320.webp","source":"assets/pack/lab-cube.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/cube-640.avif","source":"assets/pack/lab-cube.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/cube-640.webp","source":"assets/pack/lab-cube.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/dot-mesh-hero-400.avif","source":"assets/pack/lab05-dot-mesh-hero.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/dot-mesh-hero-400.webp","source":"assets/pack/lab05-dot-mesh-hero.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/dot-mesh-hero-800.avif","source":"assets/pack/lab05-dot-mesh-hero.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/dot-mesh-hero-800.webp","source":"assets/pack/lab05-dot-mesh-hero.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/flask-320.avif","source":"assets/pack/lab-flask.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/flask-320.webp","source":"assets/pack/lab-flask.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/flask-640.avif","source":"assets/pack/lab-flask.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
@@ -110,6 +114,7 @@
 {"file":"img/iso/type-blocks-960.avif","source":"assets/pack/lab-type-blocks.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/type-blocks-960.webp","source":"assets/pack/lab-type-blocks.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/og/coral-ink.jpg","source":"assets/pack/lab05-coral-ink.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
+{"file":"img/og/dot-mesh-hero.jpg","source":"assets/pack/lab05-dot-mesh-hero.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/exhibit.jpg","source":"assets/pack/lab-og-honeypot.png","op":"tools/render-og.mjs (lab-04): 1200x630 share card, the share-card base, code-set type in Nunito Sans"}
 {"file":"img/og/home.jpg","source":"assets/pack/lab-og-base.png","op":"tools/render-og.mjs (lab-04): 1200x630 share card, the share-card base, code-set type in Nunito Sans"}
 {"file":"img/og/honeypot.jpg","source":"assets/pack/lab-og-honeypot.png","op":"tools/render-og.mjs (lab-04): 1200x630 share card, the share-card base, code-set type in Nunito Sans"}

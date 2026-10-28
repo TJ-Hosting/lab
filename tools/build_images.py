@@ -78,6 +78,7 @@ CUTOUTS = [
 	('iso/scroll-zoom-tunnel', 'lab05-scroll-zoom-tunnel.png', [400, 800], None),
 	('iso/slime-network', 'lab05-slime-network.png', [400, 800], None),
 	('iso/tear-the-curtain', 'lab05-tear-the-curtain.png', [400, 800], None),
+	('iso/dot-mesh-hero', 'lab05-dot-mesh-hero.png', [400, 800], None),
 	# lab-05 end
 ]
 
