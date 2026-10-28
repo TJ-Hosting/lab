@@ -34,6 +34,17 @@
 			"added": "2026-10-16"
 		},
 		{
+			"slug": "split-flap-board",
+			"title": "The split-flap board",
+			"kicker": "Flip type",
+			"category": "Type",
+			"blurb": "A navy departures board that flips letter by letter, row by row, with room for your own line.",
+			"href": "samples/split-flap-board/",
+			"image": { "base": "img/iso/split-flap-board", "widths": [400, 800], "ratio": 1.401 },
+			"tags": ["CSS 3D", "WAAPI", "Web Audio"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "coral-ink",
 			"title": "Coral Ink Reactor",
 			"kicker": "Living ink",

@@ -69,7 +69,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 
 | S | NN | slug | category | reuse | library | img | state | notes |
 |---|---|---|---|---|---|---|---|---|
-| S01 | 04 | split-flap-board | Type | adapt-code | none | 0 | todo | |
+| S01 | 04 | split-flap-board | Type | adapt-code (MIT, CodePen Debug view) | none | 0 | **gated 03:22** | open sky, navy board object; 16.7 ms; card C01 |
 | S02 | 05 | liquid-distort-headline | Type | adapt-code | blotter@0.1.0 | 0 | todo | |
 | S03 | 06 | star-trail-text | Type | adapt-code | none | 0 | todo | |
 | S04 | 07 | glitch-headline | Type | adapt-code | none | 0 | todo | |
@@ -140,7 +140,7 @@ None yet.
 
 ## Defects (P4) and improvements (P5, P6)
 
-- [P4] S16 scroll-zoom-tunnel: the "How it's made" note runs to about seven lines at 375; trim to two sentences. (S06 is three sentences: same.)
+- [P4] "How it's made" notes too long (about seven lines at 375): S16, S06, S01. Trim to two sentences. The builder brief now says so (§8a).
 - [P5] C04 (glitch card) reads as a stacked block; regenerate with clearer offset strips if the budget allows.
 
 ## Not tested (so far)

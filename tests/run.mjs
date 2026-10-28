@@ -289,6 +289,10 @@ await test('images: every shipped image is in img/IMAGES.jsonl, traced to a pack
 				.forEach((u) => refs.add(normalize(u.startsWith('/') ? u.slice(1) : join(dirname(p), u))));
 		}
 	}
+	// lab-05: every card image samples.json names exists in both formats at each width
+	for (const s of [...SAMPLE_DATA.samples, ...SAMPLE_DATA.exhibits]) {
+		for (const w of s.image.widths) for (const ext of ['avif', 'webp']) refs.add(normalize(`${s.image.base}-${w}.${ext}`));
+	}
 	const broken = [...refs].filter((r) => /\.(png|jpe?g|webp|avif|svg)$/.test(r) && !existsSync(join(ROOT, r)));
 	assert(!broken.length, `broken image references: ${broken.join(', ')}`);
 	const generated = existsSync(join(ROOT, 'assets/LEDGER.jsonl')) ? read('assets/LEDGER.jsonl').split('\n').filter(Boolean).length : 0;

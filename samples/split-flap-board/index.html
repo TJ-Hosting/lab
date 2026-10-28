@@ -1,0 +1,85 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<title>The split-flap board — flip type · TJ-Hosting Lab</title>
+	<meta name="description" content="A departures board whose tiles flip through letters, row by row, with a box for your own message. CSS 3D transforms and the Web Animations API.">
+	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/split-flap-board/">
+	<meta name="theme-color" content="#eef7fc">
+	<link rel="icon" href="../../img/brand/tj-mark.svg" type="image/svg+xml">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="TJ-Hosting Lab">
+	<meta property="og:title" content="The split-flap board — TJ-Hosting Lab">
+	<meta property="og:description" content="A navy departures board that flips letter by letter, with room for your own line.">
+	<meta property="og:url" content="https://lab.tj-hosting.ca/samples/split-flap-board/">
+	<meta property="og:image" content="https://lab.tj-hosting.ca/img/og/split-flap-board.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="A navy split-flap departures board resting on a pale blue sky">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="preload" href="../../fonts/nunito-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="../../fonts/jetbrains-mono-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="../../css/glass.css">
+	<link rel="stylesheet" href="../../css/lab.css">
+	<link rel="stylesheet" href="../../css/sample.css">
+	<link rel="stylesheet" href="piece.css">
+	<script src="../../js/early.js"></script>
+	<script type="module" src="piece.js"></script>
+</head>
+<body class="sample sample--split-flap-board">
+	<a class="skip" href="#about-piece">Skip to the description</a>
+
+	<div class="sky" aria-hidden="true"></div>
+
+	<header class="topbar">
+		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
+			<img src="../../img/brand/tj-mark.svg" alt="" width="34" height="34">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Lab">
+			<a href="../../#samples">All samples</a>
+		</nav>
+	</header>
+
+	<!-- stage C: open sky. The board is a navy object resting on the sky; its tiles are built by piece.js -->
+	<main id="main" class="stage board-stage" data-motion>
+		<div class="piece-open">
+			<section class="board" id="board" role="img" aria-label="A split-flap departures board showing sample lines and your own message.">
+				<header class="board__head" aria-hidden="true">
+					<span class="board__id"><span class="board__lamp"></span><span class="board__title">Departures</span></span>
+					<span class="board__sample">Sample content<span class="board__long"> · times and gates are made up</span></span>
+				</header>
+				<div class="board__grid" id="board-grid"></div>
+			</section>
+
+			<form class="msg glass glass--soft" id="msg-form" novalidate autocomplete="off">
+				<label class="msg__label" for="msg-input">Your own line for the board <span>(4 to 20 characters)</span></label>
+				<div class="msg__row">
+					<input class="msg__input" id="msg-input" name="message" type="text" maxlength="20" minlength="4" size="20" inputmode="text" autocapitalize="characters" autocomplete="off" spellcheck="false" placeholder="SEE YOU AT GATE 4" aria-describedby="msg-note">
+					<button class="btn btn--sm btn--primary" type="submit">Show it</button>
+				</div>
+				<p class="msg__note" id="msg-note" role="status">Letters, numbers and . : - ! ? &amp; only. Nothing is sent.</p>
+			</form>
+			<noscript><p class="msg__note">The board needs JavaScript to run.</p></noscript>
+		</div>
+	</main>
+
+	<p class="hint glass glass--pill" aria-hidden="true">Type a line below · press Enter</p>
+
+	<aside class="sample-info glass glass--strong" id="about-piece" aria-labelledby="piece-title">
+		<p class="eyebrow">Sample 04 · Flip type</p>
+		<h1 id="piece-title">The split-flap board</h1>
+		<p class="how"><b>How it's made:</b> every tile is four small panels: two halves held still behind a clip-path mask, and two flaps that turn with rotateX through the Web Animations API, shaded by an overlay's opacity.
+		Staggered delays ripple the refresh down the board every few seconds; it pauses off-screen or in a hidden tab.</p>
+		<div class="controls">
+			<button class="btn btn--sm btn--primary" type="button" data-action="flip">Flip now</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="pause" aria-pressed="false">Pause</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="sound" aria-pressed="false">Sound</button>
+			<a class="back" href="../../#samples">← Back to the lab</a>
+		</div>
+	</aside>
+</body>
+</html>

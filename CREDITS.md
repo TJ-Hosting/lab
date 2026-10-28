@@ -29,6 +29,7 @@
 
 Each line: the sample, the project it comes from, and its licence. "Written from the idea" means no source code was read or copied. Vendored libraries keep their licence files under `vendor/`.
 
+- **The split-flap board** (`samples/split-flap-board/`): adapted from [Craft of UI: WAAPI split-flap board](https://codepen.io/jh3y/pen/dPyBXOG) by Jhey (jh3y), MIT (a public CodePen; code read from its Debug view). Rebuilt as a navy departures board with a message box; the brightness filter became an overlay's opacity; no Tweakpane.
 - **Coral Ink Reactor** (`samples/coral-ink/`): written from the idea of [Reaction Diffusion Lab (Ink + Presets)](https://codepen.io/VlasovDevCore/pen/azmeJGr) by Vlasov.Dev Core; no source code was read or copied (CodePen refused the download). New Gray-Scott code, with ink on the day sky, a drifting cycle of six patterns and a ghost brush.
 
 ## Code and libraries
