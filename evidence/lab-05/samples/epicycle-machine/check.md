@@ -1,17 +1,17 @@
 # check-sample: epicycle-machine — PASS
 
-2026-10-28T04:37:15.514Z · Chromium WebGL: ANGLE (AMD, AMD Radeon (TM) Graphics (0x000015E7) Direct3D11 vs_5_0 ps_5_0, D3D11) · Firefox: not run (browserType.launch: spawn UNKNOWN)
+2026-10-28T06:01:00.450Z · Chromium WebGL: ANGLE (AMD, AMD Radeon (TM) Graphics (0x000015E7) Direct3D11 vs_5_0 ps_5_0, D3D11) · Firefox: not run (browserType.launch: spawn UNKNOWN)
 
 ## Notes
 - loads 8 local files: samples/epicycle-machine/index.html, css/glass.css, css/lab.css, css/sample.css, samples/epicycle-machine/piece.css, js/early.js, samples/epicycle-machine/piece.js, js/lab.js
 - Chromium 141.0.7390.37, WebGL renderer: ANGLE (AMD, AMD Radeon (TM) Graphics (0x000015E7) Direct3D11 vs_5_0 ps_5_0, D3D11)
-- frame time: median 16.7 ms, p95 16.8 ms at 1440
+- frame time: median 16.7 ms, p95 16.7 ms at 1440
 - Firefox: not run (browserType.launch: spawn UNKNOWN)
 
 ## Motion
 - reduced motion: {"anims":[],"loops":[],"rafPerSecond":0}
 - hidden tab: {"movingBefore":true,"hiddenRafIn1500ms":0,"hiddenAnims":[],"hiddenLoops":[],"resumed":true}
-- frame time: {"median":16.7,"p95":16.8,"frames":301} (gpu GL)
+- frame time: {"median":16.7,"p95":16.7,"frames":301} (gpu GL)
 
 ## Shell contrast (Chromium)
 width | selector | # | polarity | text | worst behind | ratio | need

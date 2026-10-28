@@ -361,9 +361,9 @@ function draw() {
 	const nb = 28;
 	const per = Math.max(2, Math.ceil((M - 1) / nb));
 	const full = reduced ? N : TRAIL * N;
-	const minA = reduced ? 0.42 : 0.1;
+	const minA = reduced ? 0.5 : 0.24;
 	ctx.lineCap = 'butt';
-	ctx.lineWidth = wide ? 2.8 : 2.3;
+	ctx.lineWidth = wide ? 4.2 : 3.4;
 	for (let b = Math.floor((M - 2) / per); b >= 0; b--) {
 		const j0 = b * per;
 		const j1 = Math.min(M - 1, (b + 1) * per);
@@ -397,6 +397,14 @@ function draw() {
 }
 
 function penTip(px, py) {
+	// a soft cyan halo first, so the tip reads on the sky at a glance
+	const halo = ctx.createRadialGradient(px, py, 4, px, py, 20);
+	halo.addColorStop(0, 'rgba(70, 208, 251, 0.55)');
+	halo.addColorStop(1, 'rgba(70, 208, 251, 0)');
+	ctx.fillStyle = halo;
+	ctx.beginPath();
+	ctx.arc(px, py, 20, 0, TAU);
+	ctx.fill();
 	ctx.save();
 	ctx.shadowColor = 'rgba(22, 66, 140, 0.45)';
 	ctx.shadowBlur = 9;
