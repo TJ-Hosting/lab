@@ -80,6 +80,7 @@ CUTOUTS = [
 	('iso/tear-the-curtain', 'lab05-tear-the-curtain.png', [400, 800], None),
 	('iso/dot-mesh-hero', 'lab05-dot-mesh-hero.png', [400, 800], None),
 	('iso/gpu-fluid', 'lab05-gpu-fluid.png', [400, 800], None),
+	('iso/brand-colour-sphere', 'lab05-brand-colour-sphere.png', [400, 800], None),
 	# lab-05 end
 ]
 

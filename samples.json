@@ -120,6 +120,17 @@
 			"image": { "base": "img/iso/dot-mesh-hero", "widths": [400, 800], "ratio": 0.668 },
 			"tags": ["Canvas 2D", "Spring physics", "Touch"],
 			"added": "2026-10-28"
+		},
+		{
+			"slug": "brand-colour-sphere",
+			"title": "The brand colour sphere",
+			"kicker": "Colour maths",
+			"category": "SVG",
+			"blurb": "A turning sphere of colour patches around a base colour you pick: tints, shades and neighbouring hues. Click a patch to copy its hex.",
+			"href": "samples/brand-colour-sphere/",
+			"image": { "base": "img/iso/brand-colour-sphere", "widths": [400, 800], "ratio": 0.923 },
+			"tags": ["SVG", "OKLCH", "Quaternions"],
+			"added": "2026-10-28"
 		}
 	],
 	"exhibits": [

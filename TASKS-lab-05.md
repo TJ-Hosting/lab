@@ -97,14 +97,14 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S26 | 29 | lamp-cord-theme | Pointer | adapt-code | none | 0 | todo | |
 | S27 | 30 | glass-diorama-card | Pointer | adapt-code | atropos@2.0.2 | 5 | todo | |
 | S28 | 31 | skill-chips | Pointer | rebuild-from-idea | matter-js@0.20.0 | 0 | todo | |
-| S29 | 32 | brand-colour-sphere | SVG | adapt-code | none | 0 | todo | |
+| S29 | 32 | brand-colour-sphere | SVG | rebuild-from-idea (CodePen 403) | none | 0 | **gated 04:00** | open sky; SVG polygons redrawn per frame (D2); full hue wheel includes violet/pink as artwork; 16.7 ms; card C29 |
 | S30 | 33 | wavy-lines-hero | SVG | adapt-code | none | 0 | todo | |
 | S31 | 34 | icon-micro-set | SVG | adapt-code | gsap@3.13.0 | 0 | todo | |
 | S32 | 35 | weather-window | SVG | adapt-code | none (Meteocons SVGs as its one library, if licence confirmed) | 0 | todo | |
 | S33 | 36 | liquid-glass-lens | UI | adapt-code | liquid-glass-js@0.1.0 | 1 | todo | |
 | S34 | 37 | pricing-rolling-digits | UI | adapt-code | number-flow@0.6.2 | 0 | todo | |
 | S35 | 38 | glass-hero-kit | UI | adapt-code | none | 0 | todo | |
-| S36 | 39 | integration-beams | UI | adapt-code | none | 0 | todo | |
+| S36 | 39 | integration-beams | UI | adapt-code (MIT, magicui efe76fc) | none | 0 | **gated 03:56** | open sky; "Sample content · no real connections"; 16.7 ms; card C36 |
 | S37 | 40 | bento-grid | UI | adapt-code | none | 0 | todo | |
 | S38 | 41 | mega-menu | UI | rebuild-from-idea | none | 0 | todo | |
 | S39 | 42 | testimonial-wall | UI | adapt-code | none | 0 | todo | |
@@ -143,6 +143,7 @@ None yet.
 - [P4] "How it's made" notes too long (about seven lines at 375): S16, S06, S01, S03, S22, S07. Trim to two sentences. The builder brief now says so (§8a).
 - [P4] Titles: builders wrote Title Case ("Coral Ink Reactor"); the Lab uses sentence case ("Particle field"). Normalise every new sample's h1, `<title>`, og:title and samples.json title in one sweep.
 - [P5] S15: the dye reads murky steel-blue on navy; raise saturation and brightness toward cyan, azure and white so it reads as "liquid light".
+- [P5] S36: at rest the beams are often between runs; keep at least two in flight so the idle hub always shows light moving.
 - [P5] S22: the curtain is subtle in a still; stronger folds or a corner already torn so the twist reads at a glance.
 - [P5] C04 (glitch card) reads as a stacked block; regenerate with clearer offset strips if the budget allows.
 - [P5] C07 (slime tray) and C06 (petri dish) have similar silhouettes on the home; regenerate C07 as a different object if the budget allows.
