@@ -1,0 +1,130 @@
+/* Sample 59 — Liquid Hover Gallery, on the open day sky. The shell (sky, top bar, panel) comes from css/; only the piece is styled here.
+   Three light glass cards in a row (DS v9's .glass). Each has a window with the first picture as a plain image, and a short label.
+   One transparent WebGL canvas lies over the row; piece.js draws the morph inside the three windows, so the cards themselves
+   never move or change size (a transform on a card would pull it away from its picture). Nothing here animates: the pictures
+   change in the canvas, and only the focus ring and the pressed ring switch on and off. */
+
+.gallery-stage {
+	/* the info panel is fixed at the bottom left: piece.js sets --dock to its height, so the row sits above it */
+	--dock: 270px;
+	padding: 72px var(--gutter) var(--dock);
+	place-items: center;
+}
+
+.piece-open.gallery {
+	/* --w is one window's width: three windows and their frames fit the width, and the whole card fits above the panel */
+	--gap: 20px;
+	--pad: 10px;
+	--r: 12px;
+	--w: clamp(60px, min(330px, calc((100vw - 2 * var(--gutter) - 2 * var(--gap)) / 3 - 2 * var(--pad)), calc((100dvh - 72px - var(--dock) - 120px) / 1.5)), 330px);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 16px;
+	min-width: 0;
+}
+
+.gallery__row {
+	position: relative;
+	display: flex;
+	justify-content: center;
+	gap: var(--gap);
+}
+
+/* ---------- a card: light glass, a window, a label ---------- */
+
+.card {
+	flex: none;
+	width: calc(var(--w) + 2 * var(--pad));
+	display: grid;
+	gap: 8px;
+	padding: var(--pad) var(--pad) 12px;
+	border-radius: calc(var(--r) + var(--pad));
+	font: inherit;
+	color: var(--ink);
+	text-align: center;
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
+	touch-action: manipulation;
+	appearance: none;
+}
+.card:disabled { cursor: default; }
+.card:focus-visible {
+	outline: 3px solid var(--focus);
+	outline-offset: 3px;
+}
+/* a card you have switched on (tap, click, Enter) keeps a thin royal ring; no transition, it just switches */
+.card[aria-pressed="true"] {
+	box-shadow: var(--glass-shadow), 0 0 0 2px var(--action);
+}
+
+.card__view {
+	display: block;
+	position: relative;
+	width: 100%;
+	aspect-ratio: 2 / 3;
+	overflow: hidden;
+	border-radius: var(--r);
+	background: linear-gradient(170deg, var(--sky-mid), var(--sky-deep));
+	box-shadow: 0 0 0 1px rgba(94, 128, 174, 0.22);
+}
+.card__view img {
+	position: absolute;
+	inset: 0;
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+
+.card__label {
+	display: block;
+	font: 900 clamp(16px, 1.5vw, 19px) / 1.2 var(--font-display);
+	font-stretch: 92%;
+	letter-spacing: -0.01em;
+	color: var(--ink);
+}
+
+/* the shared canvas: over the row, never in the way of a click */
+.gallery__gl {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 4;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+}
+.is-fallback .gallery__gl { display: none; }
+
+/* ---------- the labels under the row ---------- */
+
+.note {
+	margin: 0;
+	padding: 5px 14px;
+	font: 600 12px/18px var(--font-mono);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	text-align: center;
+	color: var(--muted);
+	white-space: normal;
+}
+.note[hidden] { display: none; }
+.note--fallback { text-transform: none; letter-spacing: 0; font-family: var(--font-sans); font-size: 13px; max-width: min(560px, calc(100vw - 2 * var(--gutter))); }
+
+/* ---------- smaller screens ---------- */
+
+@media (max-width: 720px) {
+	.gallery-stage { --dock: 300px; padding-top: 68px; }
+	.piece-open.gallery { --gap: 10px; --pad: 6px; --r: 10px; gap: 12px; }
+	.card { gap: 6px; padding-bottom: 8px; }
+	.card__label { font-size: 15px; }
+	.note { font-size: 11px; padding: 4px 12px; letter-spacing: 0.06em; }
+}
+
+/* a short, wide window (a phone on its side): the panel is at the left, so the row sits to the right of it */
+@media (min-width: 721px) and (max-height: 600px) {
+	.gallery-stage { --dock: 0px !important; padding: 68px var(--gutter) 16px calc(max(var(--gutter), (100vw - var(--page-max)) / 2) + 460px); }
+	.piece-open.gallery { --gap: 14px; --pad: 8px; --r: 10px; --w: clamp(60px, min(330px, calc((100vw - 460px - 2 * var(--gutter) - 2 * var(--gap)) / 3 - 2 * var(--pad)), calc((100dvh - 68px - 16px - 70px) / 1.5)), 330px); gap: 8px; }
+	.card { gap: 6px; padding-bottom: 8px; }
+}

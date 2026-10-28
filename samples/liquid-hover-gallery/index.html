@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<!-- the base policy; additions only as the brief allows ('wasm-unsafe-eval', blob:), and only with the lead -->
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<title>Liquid Hover Gallery — displacement morph · TJ-Hosting Lab</title>
+	<meta name="description" content="Three glass cards that melt one picture into another when you hover or tap them, each steered by a different displacement map drawn in code: liquid noise, a swirl and diagonal stripes. One three.js renderer paints all three.">
+	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/liquid-hover-gallery/">
+	<meta name="theme-color" content="#eef7fc">
+	<link rel="icon" href="../../img/brand/tj-mark.svg" type="image/svg+xml">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="TJ-Hosting Lab">
+	<meta property="og:title" content="Liquid Hover Gallery — TJ-Hosting Lab">
+	<meta property="og:description" content="Hover or tap a glass card and one picture melts into another through a liquid, a swirl or a stripe.">
+	<meta property="og:url" content="https://lab.tj-hosting.ca/samples/liquid-hover-gallery/">
+	<meta property="og:image" content="https://lab.tj-hosting.ca/img/og/liquid-hover-gallery.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="Three frosted glass cards on a pale blue sky, each showing a clear glass wave sculpture that is melting into a field of blue cornflowers">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="preload" href="../../fonts/nunito-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="../../css/glass.css">
+	<link rel="stylesheet" href="../../css/lab.css">
+	<link rel="stylesheet" href="../../css/sample.css">
+	<link rel="stylesheet" href="piece.css">
+	<script src="../../js/early.js"></script>
+	<script type="module" src="piece.js"></script>
+</head>
+<body class="sample sample--liquid-hover-gallery">
+	<a class="skip" href="#about-piece">Skip to the description</a>
+
+	<div class="sky" aria-hidden="true"></div>
+
+	<header class="topbar">
+		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
+			<img src="../../img/brand/tj-mark.svg" alt="" width="34" height="34">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Lab">
+			<a href="../../#samples">All samples</a>
+		</nav>
+	</header>
+
+	<!-- stage C: open sky. Three light glass cards in a row. Each window holds the first picture as a plain image;
+	     one shared WebGL canvas lies over the row and draws the morph inside the three windows (piece.js), so a browser
+	     without WebGL, or one that has not started yet, still shows the first picture in every card. -->
+	<main id="main" class="stage gallery-stage" data-motion>
+		<div class="piece-open gallery">
+			<div class="gallery__row" role="group" aria-label="Three cards. Each melts a glass wave into a field of cornflowers in its own way.">
+				<button class="card glass" type="button" aria-pressed="false" aria-label="Liquid: melt the glass wave into cornflowers like water">
+					<span class="card__view"><img src="../../img/art/liquid-hover-gallery-wave-512.webp" srcset="../../img/art/liquid-hover-gallery-wave-512.webp 512w, ../../img/art/liquid-hover-gallery-wave-1024.webp 1024w" sizes="(max-width: 720px) 110px, 340px" width="512" height="768" alt="" decoding="async"></span>
+					<span class="card__label" aria-hidden="true">Liquid</span>
+				</button>
+				<button class="card glass" type="button" aria-pressed="false" aria-label="Swirl: melt the glass wave into cornflowers in a whirl">
+					<span class="card__view"><img src="../../img/art/liquid-hover-gallery-wave-512.webp" srcset="../../img/art/liquid-hover-gallery-wave-512.webp 512w, ../../img/art/liquid-hover-gallery-wave-1024.webp 1024w" sizes="(max-width: 720px) 110px, 340px" width="512" height="768" alt="" decoding="async"></span>
+					<span class="card__label" aria-hidden="true">Swirl</span>
+				</button>
+				<button class="card glass" type="button" aria-pressed="false" aria-label="Stripes: melt the glass wave into cornflowers in diagonal slats">
+					<span class="card__view"><img src="../../img/art/liquid-hover-gallery-wave-512.webp" srcset="../../img/art/liquid-hover-gallery-wave-512.webp 512w, ../../img/art/liquid-hover-gallery-wave-1024.webp 1024w" sizes="(max-width: 720px) 110px, 340px" width="512" height="768" alt="" decoding="async"></span>
+					<span class="card__label" aria-hidden="true">Stripes</span>
+				</button>
+				<canvas class="gallery__gl" aria-hidden="true"></canvas>
+			</div>
+			<p class="note pill">Sample images</p>
+			<p class="note note--fallback pill" role="status" hidden>Sample images. This browser can't run WebGL, so each card shows its first picture.</p>
+		</div>
+	</main>
+
+	<p class="hint glass glass--pill" aria-hidden="true">Hover or tap a card</p>
+
+	<aside class="sample-info glass glass--strong" id="about-piece" aria-labelledby="piece-title">
+		<p class="eyebrow">Sample 59 · Liquid morph</p>
+		<h1 id="piece-title">Liquid Hover Gallery</h1>
+		<p class="how"><b>How it's made:</b> One three.js shader melts two pictures into each other through a map drawn in code: liquid noise, a swirl or stripes.
+		A slow demo hovers each card in turn and rests off-screen or in a hidden tab.</p>
+		<div class="controls">
+			<button class="btn btn--sm btn--primary" type="button" data-action="swap">Swap all</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="pause" aria-pressed="false">Pause</button>
+			<a class="back" href="../../#samples">← Back to the lab</a>
+		</div>
+	</aside>
+</body>
+</html>

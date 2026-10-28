@@ -124,7 +124,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S53 | 56 | ascii-sculpture | Toys | adapt-code | three@0.186.1 | 0 | todo | |
 | S54 | 57 | lantern-pond | Image | adapt-code (MIT, e90bd54) | none | 1 (A54) | committed (see git) | night screen framing the pond photo; photo shown plain without WebGL/float targets; 16.7 ms; card C54 |
 | S55 | 58 | transition-slider | Image | adapt-code (MIT, gl-transitions 0efa165; 8 files each MIT) | ogl@1.0.11 | 3 (A55a-c) | committed (see git) | day screen; first photo as <img> without WebGL2; 16.7 ms; card C55 |
-| S56 | 59 | liquid-hover-gallery | Image | adapt-code | three@0.186.1 | 2 | todo | |
+| S56 | 59 | liquid-hover-gallery | Image | adapt-code (MIT, 1938cbf) | three@0.186.1 | 2 (A56) | committed (see git) | three glass cards on the open sky, one renderer, maps drawn in code; plain-picture fallback; 16.7 ms; card C56 |
 | S57 | 60 | relief-light-board | Image | adapt-code (idea only, Unlicense, b9e653c) | ogl@1.0.11 | 3 (A57) | committed (see git) | night screen; normals from luminance, self-shadow, 3 materials; 16.7 ms; card C57 |
 | S58 | 61 | lenticular-print | Image | adapt-code | vanilla-tilt@1.8.1 | 2 | todo | |
 | S59 | 62 | frosted-window | Image | adapt-code | ogl@1.0.11 | 1 | todo | |
@@ -160,6 +160,7 @@ None yet.
 - [P4] OGL samples (S55, S57) import `vendor/ogl@1.0.11/src/index.js`, which pulls 72 module files; import only the core and extras modules used.
 - [P4] S57: the phone chips read lowercase "stone / leather / metal"; use sentence case.
 - [P5] S57: the leather texture has a visible vertical seam at the centre; regenerate A57 leather (one Codex attempt).
+- [P5] S56: at 375 the three cards are about 96 px wide with empty sky above; larger cards (a scroll-snap row or two plus one) would show the morph better on phones.
 
 ## Incidents
 

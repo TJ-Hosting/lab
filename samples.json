@@ -375,6 +375,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "liquid-hover-gallery",
+			"title": "Liquid Hover Gallery",
+			"kicker": "Liquid morph",
+			"category": "Image",
+			"blurb": "Hover or tap a glass card and a glass wave melts into a field of cornflowers through a liquid, a swirl or a stripe, all drawn by one three.js shader.",
+			"href": "samples/liquid-hover-gallery/",
+			"image": { "base": "img/iso/liquid-hover-gallery", "widths": [400, 800], "ratio": 0.515 },
+			"tags": ["three.js", "GLSL", "Displacement map"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "relief-light-board",
 			"title": "Relief Light Texture Board",
 			"kicker": "Raking light",
