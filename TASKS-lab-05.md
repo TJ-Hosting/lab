@@ -76,7 +76,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S05 | 08 | scramble-titles | Type | adapt-code | animejs@4.4.0 | 0 | todo | |
 | S06 | 09 | coral-ink | Generative | rebuild-from-idea (CodePen 403) | none | 0 | **committed 03:17Z** | day screen; 16.7 ms GPU; card C06; Firefox not run (Q1) |
 | S07 | 10 | slime-network | Generative | rebuild-from-idea | none | 0 | **committed 03:36Z** | night screen; about 14,400 agents, sheds agents if over 12 ms; 16.7 ms; card C07 |
-| S08 | 11 | streamline-poster | Generative | adapt-code | none | 0 | todo | |
+| S08 | 11 | streamline-poster | Generative | rebuild-from-idea (pen 403, no code read) | none | 0 | committed (see git) | light poster card, 1,800-2,700 ribbons drawn in; card glass without backdrop-filter (re-blur cost 16 ms a frame); 16.7 ms; card C08 |
 | S09 | 12 | contour-map | Generative | rebuild-from-idea (CodePen blocked) | none | 0 | **committed 04:07Z** | day screen, map key labelled illustrative; 16.7 ms; card C09 |
 | S10 | 13 | dither-flow-ink | WebGL | adapt-code (MIT, b154ad8) | none | 0 | committed (see git) | day screen, navy/royal dots; Canvas 2D still without WebGL2; 16.7 ms; card C10 |
 | S11 | 14 | glass-orbs | WebGL | adapt-code (MIT, three r186) | three@0.186.1 | 0 | committed (see git) | day screen; transmission + dispersion; CSS still without WebGL2; 16.7 ms; card C11 |

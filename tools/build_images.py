@@ -129,6 +129,7 @@ CUTOUTS = [
 	('art/glass-diorama-card-tower', 'lab05-glass-diorama-card-tower.png', [480, 960], None),
 	('art/glass-diorama-card-clouds', 'lab05-glass-diorama-card-clouds.png', [480, 960], None),
 	('iso/liquid-hover-gallery', 'lab05-liquid-hover-gallery.png', [400, 800], None),
+	('iso/streamline-poster', 'lab05-streamline-poster.png', [400, 800], None),
 	# lab-05 end
 ]
 

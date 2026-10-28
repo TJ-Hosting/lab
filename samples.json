@@ -89,6 +89,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "streamline-poster",
+			"title": "Streamline Ink Poster",
+			"kicker": "Flow ribbons",
+			"category": "Generative",
+			"blurb": "A seeded poster of tapered ribbons packed along a noise flow field, drawn in a few at a time in four blue palettes, with a new composition on request or after a rest.",
+			"href": "samples/streamline-poster/",
+			"image": { "base": "img/iso/streamline-poster", "widths": [400, 800], "ratio": 1.27 },
+			"tags": ["Canvas 2D", "Simplex noise", "Flow field"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "contour-map",
 			"title": "Breathing Contour Map",
 			"kicker": "Contour lines",
