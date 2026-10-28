@@ -42,6 +42,7 @@ const backdropImg = backdrop.querySelector('img');
 const navEl = document.getElementById('lens-nav');
 const roundEl = document.getElementById('lens-round');
 const stateEl = document.getElementById('lens-state');
+const stateText = document.getElementById('lens-state-text'); // the chip's words (its cyan dot stays)
 const cardEl = document.getElementById('lens-card'); // the plain frosted stand-in, shown only without the lenses
 const panelEl = document.querySelector('.sample-info');
 const hintEl = document.querySelector('.hint');
@@ -251,7 +252,7 @@ function tick(dt, t) {
 function applyPreset(i) {
 	const p = PRESETS[i];
 	if (mode === 'on') lenses.card.set(p);
-	stateEl.textContent = `Sample UI · Lens: ${p.name}`;
+	stateText.textContent = `Sample UI · Lens: ${p.name}`;
 }
 
 /* plain frosted glass: the labels keep their .glass look and the card is a frosted stand-in moved by transform */
@@ -264,7 +265,7 @@ function useFrosted() {
 	root.dataset.lens = 'off';
 	cardEl.hidden = false;
 	roundEl.disabled = true;
-	stateEl.textContent = 'Sample UI · Plain frosted glass';
+	stateText.textContent = 'Sample UI · Plain frosted glass';
 	hintEl.textContent = 'Frosted glass';
 	layout(true);
 }
@@ -322,7 +323,7 @@ function makeLenses() {
 
 async function start() {
 	boot();
-	stateEl.textContent = `Sample UI · Lens: ${PRESETS[presetIndex].name}`;
+	stateText.textContent = `Sample UI · Lens: ${PRESETS[presetIndex].name}`;
 
 	// the sample menu goes nowhere: it only moves its highlight
 	navEl.addEventListener('click', (ev) => {

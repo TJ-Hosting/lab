@@ -176,7 +176,7 @@ One Opus 5.5 sub-agent, images only: tj-hosting.ca's DS v9 shots and banner, the
 2. (medium) lantern-pond green and warm photo: **fixed 10:24Z**: the shader grades it to a navy/royal/sky tritone and maps the lanterns' amber to cyan-white; the no-WebGL poster gets the same grade by an SVG filter; the golden leaf stays as the one warm note. Re-gated 16.7 ms.
 3. (medium) icon-micro-set script-only heading in navy: **fixed 10:24Z**: a heavy sans line in ink with one script word in ink. The same rule (script in ink, as the home's lockup) applied to glass-hero-kit, request-in-ms and stacking-plan-cards, whose script word was royal.
 4. (medium) bento-grid flat line art; pricing plan glyphs: open.
-5. (low) four styles of sample/disclaimer chip: open (sweep to the shared `.pill` + `.pill__dot`).
+5. (low) four styles of sample/disclaimer chip: **fixed 10:33Z** for glass-hero-kit, integration-beams, liquid-hover-gallery, edge-network-globe (navy glass on its night window), liquid-glass-lens and dot-mesh-hero: all now the shared `.pill` with its cyan dot in sans (a grep of every sample's disclaimer labels found the other 20 already on it); bento-grid's follows after its fixer. In-art captions (split-flap board, card-flow meta, plate kickers) stay as they are.
 6. (low) in-art controls: pressed toggles **fixed 10:24Z** for every page in `css/lab.css` (ink text in a 2px royal ring, so only the primary is blue-filled); liquid-glass-lens's capsule tab bar: open.
 7. (low) two frame-bar colours: **fixed 10:24Z** for liquid-glass-lens (mid-dark art, now the navy bar); the white bar stays on day screens whose art is light.
 8. (low) back link inline on some phones, own line on others: **fixed 10:24Z** in `css/sample.css`: own line on every phone.

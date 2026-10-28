@@ -21,11 +21,12 @@
 .note {
 	margin: 0;
 	padding: 5px 14px;
-	font: 600 12px/18px var(--font-mono);
-	letter-spacing: 0.08em;
-	text-transform: uppercase;
+	/* the Lab's one chip (lab-05 P5 review): sans, ink, a cyan dot */
+	font: 600 13.5px/20px var(--font-sans);
+	letter-spacing: 0;
+	text-transform: none;
 	text-align: center;
-	color: var(--muted);
+	color: var(--ink);
 	white-space: normal;
 }
 noscript .note { text-transform: none; letter-spacing: 0; }
@@ -174,7 +175,7 @@ button.node__tile:disabled { cursor: default; color: var(--ink); transform: none
 @media (max-width: 760px) {
 	.hub-stage { padding-top: 76px; }
 	.piece-open { gap: 10px; }
-	.note { font-size: 11px; padding: 4px 12px; letter-spacing: 0.06em; }
+	.note { font-size: 12.5px; padding: 4px 12px; }
 	.hub {
 		--hub-h: clamp(280px, calc(100vh - 400px), 440px);
 		--hub-h: clamp(280px, calc(100dvh - 400px), 440px);

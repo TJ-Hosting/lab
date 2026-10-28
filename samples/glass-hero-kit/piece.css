@@ -29,11 +29,12 @@
 	align-self: center;
 	margin: 0;
 	padding: 5px 14px;
-	font: 600 12px/18px var(--font-mono);
-	letter-spacing: 0.08em;
-	text-transform: uppercase;
+	/* the Lab's one chip (lab-05 P5 review): sans, ink, a cyan dot */
+	font: 600 13.5px/20px var(--font-sans);
+	letter-spacing: 0;
+	text-transform: none;
 	text-align: center;
-	color: var(--muted);
+	color: var(--ink);
 	white-space: normal;
 }
 noscript .note { text-transform: none; letter-spacing: 0; }
@@ -302,7 +303,7 @@ noscript .note { text-transform: none; letter-spacing: 0; }
 	/* room under the last card so it can scroll clear of the fixed panel */
 	.kit-stage { padding-top: 76px; padding-bottom: 340px; }
 	.piece-open { gap: 12px; }
-	.note { font-size: 11px; padding: 4px 12px; letter-spacing: 0.06em; }
+	.note { font-size: 12.5px; padding: 4px 12px; }
 	.kit-hero { padding: 16px 16px 20px; }
 	.kit-hero__top { margin-bottom: 14px; }
 	.kit-hero__lede { font-size: 15.5px; line-height: 24px; }

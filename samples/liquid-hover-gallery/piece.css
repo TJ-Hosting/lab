@@ -102,11 +102,12 @@
 .note {
 	margin: 0;
 	padding: 5px 14px;
-	font: 600 12px/18px var(--font-mono);
-	letter-spacing: 0.08em;
-	text-transform: uppercase;
+	/* the Lab's one chip (lab-05 P5 review): sans, ink, a cyan dot */
+	font: 600 13.5px/20px var(--font-sans);
+	letter-spacing: 0;
+	text-transform: none;
 	text-align: center;
-	color: var(--muted);
+	color: var(--ink);
 	white-space: normal;
 }
 .note[hidden] { display: none; }
@@ -119,7 +120,7 @@
 	.piece-open.gallery { --gap: 10px; --pad: 6px; --r: 10px; gap: 12px; }
 	.card { gap: 6px; padding-bottom: 8px; }
 	.card__label { font-size: 15px; }
-	.note { font-size: 11px; padding: 4px 12px; letter-spacing: 0.06em; }
+	.note { font-size: 12.5px; padding: 4px 12px; }
 }
 
 /* a short, wide window (a phone on its side): the panel is at the left, so the row sits to the right of it */
