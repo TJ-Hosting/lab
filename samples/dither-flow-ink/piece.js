@@ -63,6 +63,7 @@ const INK_A = hexRGB('#0a2a72'); // the letters of "TJ-Hosting"
 const INK_B = hexRGB('#0c6bed'); // the letters of "Lab"
 const SMOKE = hexRGB('#3b8ff2'); // dense ink in the air
 const WISP = hexRGB('#46d0fb'); // its thin edge, DS v9's cyan light
+const AMB = hexRGB('#b4d6f8'); // the faint ambient currents across the window, a pale azure
 
 const STEP = 1 / 60; // the sim runs at 60 steps a second, whatever the display does
 const MAX_SPLATS = 12;
@@ -243,9 +244,16 @@ precision highp sampler2D;
 uniform sampler2D uSim;
 uniform sampler2D uMask;
 uniform vec2 uRes;
-uniform float uCell, uLod;
-uniform vec3 uInkA, uInkB, uSmoke, uWisp;
+uniform float uCell, uLod, uTime;
+uniform vec3 uInkA, uInkB, uSmoke, uWisp, uAmb;
 in vec2 vUv; out vec4 outC;
+
+float h21(vec2 p){ p = fract(p*vec2(234.34,435.345)); p += dot(p,p+34.23); return fract(p.x*p.y); }
+float vn(vec2 p){
+  vec2 i = floor(p), f = fract(p);
+  f = f*f*(3.-2.*f);
+  return mix(mix(h21(i), h21(i+vec2(1,0)), f.x), mix(h21(i+vec2(0,1)), h21(i+vec2(1,1)), f.x), f.y);
+}
 
 float bayer8(ivec2 p){
   int x = p.x & 7, y = p.y & 7, v = 0;
@@ -263,9 +271,15 @@ void main(){
   vec4 mk = textureLod(uMask, vec2(cuv.x, 1.-cuv.y), uLod);
   float cov = clamp((max(mk.r, mk.g) - 0.5) * 3. + 0.5, 0., 1.);
   float letter = cov * (1. - clamp(f.g, 0., 1.));       // a worn letter thins out as a dither
+  // ambient currents: faint warped streaks of sparse dither drifting across the whole window, so it lives at rest
+  vec2 q = cuv * vec2(uRes.x / uRes.y, 1.);
+  float warp = vn(q * 2.2 + vec2(uTime * 0.05, 0.)) * 2.4;
+  float band = 0.5 + 0.5 * sin((q.y * 5. + warp - uTime * 0.12) * 3.14159);
+  float amb = smoothstep(0.84, 1., band) * (0.05 + 0.07 * vn(q * 6. - uTime * 0.03));
   vec4 c = vec4(0.);
   if (letter > t)  c = vec4(mk.g > mk.r ? uInkB : uInkA, 1.);
   else if (f.r > t) c = vec4(f.r > 0.45 ? uSmoke : uWisp, 1.);
+  else if (amb > t) c = vec4(uAmb, 1.);
   outC = c;
 }`;
 
@@ -493,6 +507,8 @@ function createField(cv) {
 		gl.uniform3f(u(renderProg, 'uInkB'), ...INK_B);
 		gl.uniform3f(u(renderProg, 'uSmoke'), ...SMOKE);
 		gl.uniform3f(u(renderProg, 'uWisp'), ...WISP);
+		gl.uniform3f(u(renderProg, 'uAmb'), ...AMB);
+		gl.uniform1f(u(renderProg, 'uTime'), F.time);
 		gl.drawArrays(gl.TRIANGLES, 0, 3);
 	};
 
