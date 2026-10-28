@@ -229,6 +229,10 @@
 {"file":"img/iso/relay-480.webp","source":"assets/pack/lab-relay.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/relay-960.avif","source":"assets/pack/lab-relay.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/relay-960.webp","source":"assets/pack/lab-relay.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/relief-light-board-400.avif","source":"assets/pack/lab05-relief-light-board.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/relief-light-board-400.webp","source":"assets/pack/lab05-relief-light-board.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/relief-light-board-800.avif","source":"assets/pack/lab05-relief-light-board.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/relief-light-board-800.webp","source":"assets/pack/lab05-relief-light-board.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/ring-320.avif","source":"assets/pack/lab-ring.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/ring-320.webp","source":"assets/pack/lab-ring.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/ring-640.avif","source":"assets/pack/lab-ring.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
@@ -321,6 +325,7 @@
 {"file":"img/og/marble-harp.jpg","source":"assets/pack/lab05-marble-harp.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/particle-field.jpg","source":"assets/pack/lab-particles.png","op":"tools/render-og.mjs (lab-04): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/pendulum-wave.jpg","source":"assets/pack/lab05-pendulum-wave.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
+{"file":"img/og/relief-light-board.jpg","source":"assets/pack/lab05-relief-light-board.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/scroll-zoom-tunnel.jpg","source":"assets/pack/lab05-scroll-zoom-tunnel.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/shader-swatchbook.jpg","source":"assets/pack/lab05-shader-swatchbook.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/shape-shifter.jpg","source":"assets/pack/lab05-shape-shifter.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}

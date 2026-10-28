@@ -125,7 +125,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S54 | 57 | lantern-pond | Image | adapt-code (MIT, e90bd54) | none | 1 (A54) | committed (see git) | night screen framing the pond photo; photo shown plain without WebGL/float targets; 16.7 ms; card C54 |
 | S55 | 58 | transition-slider | Image | adapt-code (MIT, gl-transitions 0efa165; 8 files each MIT) | ogl@1.0.11 | 3 (A55a-c) | committed (see git) | day screen; first photo as <img> without WebGL2; 16.7 ms; card C55 |
 | S56 | 59 | liquid-hover-gallery | Image | adapt-code | three@0.186.1 | 2 | todo | |
-| S57 | 60 | relief-light-board | Image | adapt-code | ogl@1.0.11 | 3 | todo | |
+| S57 | 60 | relief-light-board | Image | adapt-code (idea only, Unlicense, b9e653c) | ogl@1.0.11 | 3 (A57) | committed (see git) | night screen; normals from luminance, self-shadow, 3 materials; 16.7 ms; card C57 |
 | S58 | 61 | lenticular-print | Image | adapt-code | vanilla-tilt@1.8.1 | 2 | todo | |
 | S59 | 62 | frosted-window | Image | adapt-code | ogl@1.0.11 | 1 | todo | |
 | S60 | 63 | page-turn-lookbook | Image | adapt-code | page-flip@2.0.7 | 3 | todo | wordless layout art |
@@ -157,6 +157,9 @@ None yet.
 - [P5] S22: the curtain is subtle in a still; stronger folds or a corner already torn so the twist reads at a glance.
 - [P5] C04 (glitch card) reads as a stacked block; regenerate with clearer offset strips if the budget allows.
 - [P5] C07 (slime tray) and C06 (petri dish) have similar silhouettes on the home; regenerate C07 as a different object if the budget allows.
+- [P4] OGL samples (S55, S57) import `vendor/ogl@1.0.11/src/index.js`, which pulls 72 module files; import only the core and extras modules used.
+- [P4] S57: the phone chips read lowercase "stone / leather / metal"; use sentence case.
+- [P5] S57: the leather texture has a visible vertical seam at the centre; regenerate A57 leather (one Codex attempt).
 
 ## Incidents
 

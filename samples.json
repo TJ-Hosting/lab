@@ -373,6 +373,17 @@
 			"image": { "base": "img/iso/transition-slider", "widths": [400, 800], "ratio": 0.969 },
 			"tags": ["WebGL", "GLSL", "OGL"],
 			"added": "2026-10-28"
+		},
+		{
+			"slug": "relief-light-board",
+			"title": "Relief Light Texture Board",
+			"kicker": "Raking light",
+			"category": "Image",
+			"blurb": "A board of carved stone, tooled leather or hammered metal, lit by a lamp that follows your pointer so every carved edge catches the light.",
+			"href": "samples/relief-light-board/",
+			"image": { "base": "img/iso/relief-light-board", "widths": [400, 800], "ratio": 0.802 },
+			"tags": ["WebGL", "OGL", "Normal mapping"],
+			"added": "2026-10-28"
 		}
 	],
 	"exhibits": [
