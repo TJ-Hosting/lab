@@ -1,0 +1,106 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://*.google.com; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<script src="../../js/ga4.js"></script>
+	<title>Pull-cord theme lamp — rope physics · TJ-Hosting Lab</title>
+	<meta name="description" content="A pendant lamp hangs on a rope above a small sample web page. Drag it to swing it, or pull its cord: the page changes theme in a circle that spreads from the lamp. A Verlet rope on Canvas 2D with a View Transition.">
+	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/lamp-cord-theme/">
+	<meta name="theme-color" content="#eef7fc">
+	<link rel="icon" href="../../img/brand/tj-mark.svg" type="image/svg+xml">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="TJ-Hosting Lab">
+	<meta property="og:title" content="Pull-cord theme lamp — TJ-Hosting Lab">
+	<meta property="og:description" content="Pull a lamp's cord and the page changes its light in a circle.">
+	<meta property="og:url" content="https://lab.tj-hosting.ca/samples/lamp-cord-theme/">
+	<meta property="og:image" content="https://lab.tj-hosting.ca/img/og/lamp-cord-theme.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="A glass pendant lamp on a rope above a small web page that is half day and half night">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="preload" href="../../fonts/nunito-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="../../css/glass.css">
+	<link rel="stylesheet" href="../../css/lab.css">
+	<link rel="stylesheet" href="../../css/sample.css">
+	<link rel="stylesheet" href="piece.css">
+	<script src="../../js/early.js"></script>
+	<script type="module" src="piece.js"></script>
+</head>
+<body class="sample sample--lamp-cord-theme">
+	<a class="skip" href="#about-piece">Skip to the description</a>
+
+	<div class="sky" aria-hidden="true"></div>
+
+	<header class="topbar">
+		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
+			<img src="../../img/brand/tj-mark.svg" alt="" width="34" height="34">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Lab">
+			<a href="../../#samples">All samples</a>
+		</nav>
+	</header>
+
+	<!-- STAGE B: a framed day window. Inside it is a small mock web page whose theme flips between DS v9's day values and
+	     the night values (the [data-night] block); the lamp is a canvas over it, and two invisible handles follow the lamp
+	     and its bead so the pointer can take hold of them. -->
+	<main id="main" class="stage stage--screen">
+		<div class="piece-screen screen screen--day">
+			<div class="site" id="site">
+				<div class="site__nav">
+					<p class="pill site__tag"><span class="pill__dot" aria-hidden="true"></span>Sample site</p>
+					<p class="site__links"><span>Home</span><span>Work</span><span>About</span></p>
+				</div>
+				<div class="site__hero">
+					<h2 class="site__title">Day or <span class="script">night</span>, one page</h2>
+					<p class="site__lede">A sample page with two themes. Pull the lamp's cord and the light changes.</p>
+					<p class="site__state pill" id="state" role="status">Day theme</p>
+				</div>
+				<div class="site__board">
+					<p class="site__note">Sample content · illustrative numbers</p>
+					<ul class="site__cards">
+						<li class="glass glass--sm site__card"><p class="site__k">Visits today</p><p class="site__v">1,284</p><p class="site__s">Up 4 percent</p></li>
+						<li class="glass glass--sm site__card"><p class="site__k">Page load</p><p class="site__v">0.8 s</p><p class="site__s">Under target</p></li>
+						<li class="glass glass--sm site__card"><p class="site__k">Uptime</p><p class="site__v">99.9%</p><p class="site__s">Last 30 days</p></li>
+					</ul>
+				</div>
+			</div>
+			<canvas class="piece" role="img" aria-label="A glass pendant lamp hangs from the top of a small sample web page on a rope, swaying a little. Dragging the lamp swings it. Pulling its cord down switches the page between a day theme and a night theme, in a circle that spreads from the lamp."></canvas>
+			<div class="grab grab--lamp" aria-hidden="true"></div>
+			<div class="grab grab--bead" aria-hidden="true"></div>
+		</div>
+	</main>
+
+	<p class="hint glass glass--pill" aria-hidden="true">Drag the lamp · pull its cord</p>
+
+	<aside class="sample-info glass glass--strong" id="about-piece" aria-labelledby="piece-title">
+		<p class="eyebrow">Sample 29 · Rope physics</p>
+		<h1 id="piece-title">Pull-cord theme lamp</h1>
+		<p class="how"><b>How it's made:</b> a Verlet rope on Canvas 2D holds the lamp, and pulling its cord spreads the new theme as a circle (a View Transition, or a plain switch where it is missing).
+		A breeze sways it and, left alone, it pulls its own cord now and then; it pauses off-screen or in a hidden tab, and hangs still with reduced motion.</p>
+		<div class="controls">
+			<button class="btn btn--sm btn--primary" type="button" data-action="pull" data-theme="day">
+				<svg class="tmorph" viewBox="0 0 24 24" aria-hidden="true">
+					<defs>
+						<mask id="moon-bite" maskUnits="userSpaceOnUse" x="0" y="0" width="24" height="24">
+							<rect width="24" height="24" fill="#fff"/>
+							<circle class="tmorph__bite" cx="17.5" cy="8" r="6" fill="#000"/>
+						</mask>
+					</defs>
+					<g class="tmorph__rays" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+						<path d="M12 2.2v2.6M12 19.2v2.6M2.2 12h2.6M19.2 12h2.6M5.1 5.1l1.8 1.8M17.1 17.1l1.8 1.8M5.1 18.9l1.8-1.8M17.1 6.9l1.8-1.8"/>
+					</g>
+					<circle class="tmorph__disc" cx="12" cy="12" r="4.6" fill="currentColor" mask="url(#moon-bite)"/>
+				</svg>
+				<span>Pull the cord</span>
+			</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="blur" aria-pressed="false">Motion blur</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="pause" aria-pressed="false">Pause</button>
+			<a class="back" href="../../#samples">← Back to the lab</a>
+		</div>
+	</aside>
+</body>
+</html>

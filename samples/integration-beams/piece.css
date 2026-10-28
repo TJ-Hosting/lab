@@ -1,0 +1,203 @@
+/* Sample 39 — Integration beams, on the open day sky.
+   Six light glass tiles sit on an oval glass ring around a round "Your site" tile with a cyan ring. The beams are drawn by
+   piece.js on the canvas under the tiles (cyan to royal light, DS v9's palette); a tile pulses as a beam lands.
+   The shell (sky, top bar, panel) comes from css/. Motion on the page is transform and opacity only (WAAPI, from piece.js);
+   the only CSS transition is the hover lift on a tile. */
+
+.hub-stage {
+	place-items: start center;
+	padding: 84px var(--gutter) 24px;
+}
+
+.piece-open {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 12px;
+}
+
+/* the "Sample content" label: a small pill above the hub */
+.note {
+	margin: 0;
+	padding: 5px 14px;
+	/* the Lab's one chip (lab-05 P5 review): sans, ink, a cyan dot */
+	font: 600 13.5px/20px var(--font-sans);
+	letter-spacing: 0;
+	text-transform: none;
+	text-align: center;
+	color: var(--ink);
+	white-space: normal;
+}
+noscript .note { text-transform: none; letter-spacing: 0; }
+
+/* ---------- the hub: a positioned box the tiles are measured against ---------- */
+
+.hub {
+	/* its height follows the screen's, so its bottom edge stays above the fixed panel (about 300 px tall) */
+	--hub-h: clamp(330px, calc(100vh - 420px), 480px);
+	--hub-h: clamp(330px, calc(100dvh - 420px), 480px);
+	/* the tile sizes, and the ring's radii: the outer tiles sit flush with the hub's sides */
+	--nw: clamp(100px, calc(var(--hub-h) * 0.26), 124px);
+	--nh: clamp(76px, calc(var(--hub-h) * 0.19), 92px);
+	--core: clamp(112px, calc(var(--hub-h) * 0.33), 152px);
+	--rx: calc(50% - var(--nw) / 2 - 2px);
+	--ry: 42%;
+	position: relative;
+	width: min(1000px, 100%, calc(var(--hub-h) * 2.35));
+	height: var(--hub-h);
+}
+
+/* the glass ring the tiles sit on: a pale band with blue hairlines and a soft blue shadow, cyan light inside it */
+.hub__ring {
+	position: absolute;
+	box-sizing: content-box;
+	border: 16px solid rgba(255, 255, 255, 0.4);
+	border-radius: 50%;
+	left: calc(50% - var(--rx) - 8px);
+	top: calc(50% - var(--ry) - 8px);
+	width: calc(var(--rx) * 2 - 16px);
+	height: calc(var(--ry) * 2 - 16px);
+	background: radial-gradient(closest-side, rgba(70, 208, 251, 0.22), rgba(70, 208, 251, 0.07) 55%, rgba(70, 208, 251, 0) 80%);
+	box-shadow:
+		0 0 0 1px rgba(94, 128, 174, 0.28),
+		inset 0 0 0 1px rgba(94, 128, 174, 0.28),
+		0 26px 40px -26px rgba(22, 66, 140, 0.34);
+	pointer-events: none;
+}
+
+/* the canvas fills the hub, under the tiles (later siblings paint above it) */
+.beams {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+}
+
+/* ---------- the tiles ---------- */
+
+.node {
+	position: absolute;
+	width: var(--nw);
+	height: var(--nh);
+	/* centred on a point of the ring: --c and --s are the cosine and sine of its angle */
+	left: calc(50% + var(--rx) * var(--c) - var(--nw) / 2);
+	top: calc(50% + var(--ry) * var(--s) - var(--nh) / 2);
+}
+
+.node__tile {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 5px;
+	margin: 0;
+	padding: 0 6px;
+	border: 0;
+	color: var(--ink);
+	text-align: center;
+	font: inherit;
+	border-radius: var(--glass-radius);
+}
+button.node__tile { cursor: pointer; touch-action: manipulation; transition: transform 0.4s var(--ease-out); }
+button.node__tile:hover { transform: translate3d(0, -2px, 0); }
+/* the page's focus rule rounds the corners to 6px; the tile keeps its own */
+button.node__tile:focus-visible { border-radius: var(--glass-radius); outline-offset: 4px; }
+button.node__tile:disabled { cursor: default; color: var(--ink); transform: none; }
+
+.node__icon {
+	width: 26px;
+	height: 26px;
+	flex: none;
+	color: var(--accent-text);
+}
+.node__label {
+	max-width: 100%;
+	font: 700 14px/18px var(--font-sans);
+	letter-spacing: -0.005em;
+	color: var(--ink);
+	white-space: nowrap;
+}
+
+/* a cyan wash that fades over the tile when a beam lands (opacity is animated by piece.js) */
+.node__tile > .node__lit {
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	border-radius: inherit;
+	background: radial-gradient(75% 85% at 50% 38%, rgba(70, 208, 251, 0.62), rgba(70, 208, 251, 0.16) 70%, rgba(70, 208, 251, 0) 100%);
+	opacity: 0;
+	pointer-events: none;
+}
+
+/* a ring that spreads out from the tile and fades (transform and opacity, animated by piece.js) */
+.node__ping {
+	position: absolute;
+	inset: -2px;
+	border-radius: 18px;
+	border: 2px solid var(--glow-cyan);
+	box-shadow: 0 0 14px rgba(70, 208, 251, 0.5);
+	opacity: 0;
+	pointer-events: none;
+}
+
+/* a disabled control (reduced motion switches the buttons off) reads as off */
+.sample-info .btn:disabled { opacity: 0.5; cursor: default; transform: none; box-shadow: none; }
+
+/* ---------- the centre tile: larger, round, ringed in cyan ---------- */
+
+.node--core {
+	width: var(--core);
+	height: var(--core);
+	left: calc(50% - var(--core) / 2);
+	top: calc(50% - var(--core) / 2);
+}
+.node--core .node__tile { border-radius: 50%; gap: 4px; }
+.node--core .node__icon { width: 32px; height: 32px; }
+.node--core .node__label { font: 800 16px/20px var(--font-display); font-stretch: 94%; }
+.node--core .node__ping { inset: -10px; border-radius: 50%; }
+.node__ring {
+	position: absolute;
+	inset: -9px;
+	border-radius: 50%;
+	border: 2px solid var(--glow-cyan);
+	box-shadow: 0 0 0 7px rgba(70, 208, 251, 0.16), 0 0 34px 2px rgba(70, 208, 251, 0.42), inset 0 0 22px rgba(70, 208, 251, 0.2);
+	pointer-events: none;
+}
+
+/* ---------- phones: the tiles shrink and the ring turns upright (six tiles on an upright oval) ---------- */
+
+@media (max-width: 760px) {
+	.hub-stage { padding-top: 76px; }
+	.piece-open { gap: 10px; }
+	.note { font-size: 12.5px; padding: 4px 12px; }
+	.hub {
+		--hub-h: clamp(280px, calc(100vh - 400px), 440px);
+		--hub-h: clamp(280px, calc(100dvh - 400px), 440px);
+		--nw: 68px;
+		--nh: 58px;
+		--core: 84px;
+		/* the side tiles sit at 0.866 of the width's radius: flush with the sides; the top and bottom tiles flush with the ends */
+		--rx: calc((50% - var(--nw) / 2 - 2px) / 0.866);
+		--ry: calc(50% - var(--nh) / 2 - 2px);
+		width: min(100%, 460px);
+	}
+	.node {
+		left: calc(50% + var(--rx) * var(--pc) - var(--nw) / 2);
+		top: calc(50% + var(--ry) * var(--ps) - var(--nh) / 2);
+	}
+	.node--core { left: calc(50% - var(--core) / 2); top: calc(50% - var(--core) / 2); }
+	.node__tile { gap: 3px; padding: 0 3px; }
+	.node__icon { width: 21px; height: 21px; }
+	.node__label { font-size: 12px; line-height: 15px; }
+	.node--core .node__icon { width: 26px; height: 26px; }
+	.node--core .node__label { font-size: 14px; line-height: 17px; }
+	.node__ping { border-radius: 14px; }
+	.node--core .node__ping { border-radius: 50%; }
+	.hub__ring { border-width: 12px; left: calc(50% - var(--rx) - 6px); top: calc(50% - var(--ry) - 6px); width: calc(var(--rx) * 2 - 12px); height: calc(var(--ry) * 2 - 12px); }
+}

@@ -1,0 +1,302 @@
+/* Sample 42 — Tilted testimonial wall, on the open day sky.
+
+   Adapted from "Marquee" (apps/www/registry/magicui/marquee.tsx, with its marquee and marquee-vertical keyframes in
+   apps/www/styles/globals.css) at commit efe76fc5755eca1142dd4f74c1d6f0ace2887e3c, by Magic UI,
+   https://github.com/magicuidesign/magicui, MIT licence (LICENSE.md in that repository).
+   Docs page: https://magicui.design/docs/components/marquee
+
+   MIT License
+
+   Copyright (c) Magic UI
+
+   Permission is hereby granted, free of charge, to any person obtaining a copy
+   of this software and associated documentation files (the "Software"), to deal
+   in the Software without restriction, including without limitation the rights
+   to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+   copies of the Software, and to permit persons to whom the Software is
+   furnished to do so, subject to the following conditions:
+
+   The above copyright notice and this permission notice shall be included in all
+   copies or substantial portions of the Software.
+
+   THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+   IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+   FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+   AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+   LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+   OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+   SOFTWARE.
+
+   What it keeps from Marquee: a list shown twice in a row; both copies slide by their own height plus the gap
+   (translateY(calc(-100% - var(--gap)))) on an endless linear loop, so the second copy lands exactly where the first
+   started; "reverse" is animation-direction: reverse; "pause on hover" is animation-play-state: paused on the group;
+   the vertical variant; the --duration and --gap custom properties.
+   What it changes: no React, no Tailwind, no repeat prop (one copy is added by piece.js, not four); three columns,
+   each with its own duration, direction and starting point; the columns sit on a CSS 3D plane (perspective, rotateX,
+   rotateZ) with soft fade masks; the cards are light glass with sample text; the group also stops on keyboard focus;
+   Pause and Flatten buttons; the whole wall pauses off-screen and in a hidden tab (lab.css); under reduced motion it
+   is a still, flat 3 x 3 grid.
+
+   The shell (sky, top bar, panel) comes from css/. Motion here is transform only. */
+
+.wall-stage {
+	/* the plane: three columns of cards. --cw is the card width, --pad keeps each card's shadow inside its column's clip */
+	--cw: 312px;
+	--pad: 24px;
+	--gap: 18px;
+	--wall-h: 1210px; /* the loop length of a column; its tracks are never shorter than this */
+	--rx: 43deg;
+	--rz: -16deg;
+	display: block;
+	/* clip, not hidden: a clip box is never a scroll box, so focusing a column cannot scroll the stage */
+	overflow: hidden;
+	overflow: clip;
+}
+
+.wall {
+	position: absolute;
+	inset: 0;
+}
+
+/* ---------- the "Sample reviews" label ---------- */
+
+.wall__note {
+	position: absolute;
+	z-index: 3;
+	top: 88px;
+	left: 50%;
+	transform: translateX(-50%);
+	margin: 0;
+	padding: 6px 14px;
+	font: 600 12px/18px var(--font-mono);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	text-align: center;
+	color: var(--ink);
+	background: var(--glass-sheen), linear-gradient(var(--glass-tint-strong), var(--glass-tint-strong));
+	white-space: normal;
+	box-shadow: var(--glass-inner), 0 10px 22px -12px rgba(22, 66, 140, 0.32);
+}
+
+/* ---------- the view: a flat box that fades the wall into the sky at the top and the bottom ---------- */
+
+.wall__view {
+	position: absolute;
+	inset: 0;
+	-webkit-mask-image: linear-gradient(to bottom, transparent 0, transparent 8%, #000 27%, #000 80%, transparent 100%);
+	mask-image: linear-gradient(to bottom, transparent 0, transparent 8%, #000 27%, #000 80%, transparent 100%);
+}
+
+/* a soft light under the plane, so the cards read as glass over something */
+.wall__view::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	background:
+		radial-gradient(34% 46% at 56% 48%, rgba(70, 208, 251, 0.26), rgba(70, 208, 251, 0) 100%),
+		radial-gradient(52% 58% at 46% 54%, rgba(77, 159, 243, 0.2), rgba(77, 159, 243, 0) 100%);
+	pointer-events: none;
+}
+
+.wall__persp {
+	position: absolute;
+	inset: 0;
+	perspective: 1700px;
+	perspective-origin: 50% 38%;
+}
+
+/* ---------- the plane ---------- */
+
+.wall__plane {
+	position: absolute;
+	left: calc(50% + 3vw);
+	top: 50%;
+	display: flex;
+	/* the same function list in both poses, so Flatten eases between them */
+	transform: translate(-50%, -50%) rotateX(var(--rx)) rotateZ(var(--rz));
+	transition: transform 1s var(--ease-out);
+}
+.wall.is-flat .wall__plane { --rx: 0deg; --rz: 0deg; }
+
+.col {
+	display: grid;
+	grid-template-rows: auto 0; /* the first copy sets the height; the second hangs below it, clipped */
+	width: calc(var(--cw) + 2 * var(--pad));
+	padding: 0 var(--pad);
+	overflow: hidden;
+	overflow: clip;
+	/* the ends of the plane fade out too, whatever the tilt */
+	-webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 9%, #000 91%, transparent 100%);
+	mask-image: linear-gradient(to bottom, transparent 0, #000 9%, #000 91%, transparent 100%);
+}
+.col:focus-visible {
+	outline: 3px solid var(--focus);
+	outline-offset: -3px;
+	border-radius: var(--radius-lg);
+}
+
+.track {
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	gap: var(--gap);
+	align-self: start;
+	min-height: var(--wall-h);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.track--copy { margin-top: var(--gap); }
+
+/* ---------- the loops: transform only; each column has its own pace, direction and starting point ---------- */
+
+.col--1 { --dur: 46s; --delay: -9s; }
+.col--2 { --dur: 34s; --delay: -21s; --dir: reverse; }
+.col--3 { --dur: 58s; --delay: -33s; }
+
+@keyframes wall-slide {
+	from { transform: translate3d(0, 0, 0); }
+	to { transform: translate3d(0, calc(-100% - var(--gap)), 0); }
+}
+
+/* only once piece.js has added the second copy, so a page without script shows one still column */
+.wall.is-ready .track {
+	animation: wall-slide var(--dur, 40s) linear infinite;
+	animation-delay: var(--delay, 0s);
+	animation-direction: var(--dir, normal);
+	will-change: transform;
+}
+/* pause on hover and on keyboard focus (Marquee's pauseOnHover, plus focus) */
+.wall.is-ready .col:hover .track,
+.wall.is-ready .col:focus-within .track { animation-play-state: paused; }
+/* the Pause button holds every column */
+.wall.is-user-paused .track { animation-play-state: paused !important; }
+
+/* ---------- a review card: light glass; every one says "Sample" ---------- */
+
+.rev {
+	display: flex;
+	flex-direction: column;
+	gap: 12px;
+	padding: 18px 20px 20px;
+	/* the frost is not used here: nothing sharp passes behind a card, so a blur would only cost frames; the glass
+	   system's own fallback tint, rim, sheen and blue shadow do the work */
+	-webkit-backdrop-filter: none;
+	backdrop-filter: none;
+	background-color: rgba(255, 255, 255, 0.84);
+	transition: transform 0.45s var(--ease-out);
+}
+.rev:hover { transform: translateY(-3px); }
+
+.rev__head { display: flex; align-items: center; gap: 12px; }
+.rev__who { min-width: 0; flex: 1 1 auto; }
+.rev__name { margin: 0; font: 800 15px/20px var(--font-display); color: var(--ink); }
+.rev__role { margin: 0; font: 500 13px/18px var(--font-sans); color: var(--muted); }
+
+/* an initials avatar on a blue gradient: white text on the dark pairs, ink on the light ones (both pass 4.5:1) */
+.rev__av {
+	display: grid;
+	flex: none;
+	place-items: center;
+	width: 42px;
+	height: 42px;
+	border-radius: 50%;
+	font: 800 13px/1 var(--font-display);
+	letter-spacing: 0.02em;
+	color: #fff;
+	background: linear-gradient(145deg, #0a3290, #0c6bed);
+	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5), 0 6px 12px -6px rgba(22, 66, 140, 0.5);
+}
+.rev__av[data-t="2"] { background: linear-gradient(145deg, #0558dc, #0c6bed 60%, #0a3290); }
+.rev__av[data-t="3"] { background: linear-gradient(145deg, #46d0fb, #4d9ff3); color: var(--ink); }
+.rev__av[data-t="4"] { background: linear-gradient(145deg, #c9e7fc, #4d9ff3); color: var(--ink); }
+
+/* the tag that marks the card as sample content */
+.rev__tag {
+	flex: none;
+	align-self: flex-start;
+	padding: 2px 8px;
+	border: 1px solid rgba(5, 95, 233, 0.28);
+	border-radius: 6px;
+	background: rgba(5, 95, 233, 0.08);
+	font: 600 11px/16px var(--font-mono);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--accent-text);
+}
+
+.rev__text { margin: 0; font: 450 15.5px/24px var(--font-sans); color: var(--ink-2); }
+
+/* a disabled control (reduced motion switches both off) reads as off */
+.sample-info .btn:disabled { opacity: 0.5; cursor: default; transform: none; box-shadow: none; }
+
+/* ---------- phones: smaller cards, fewer of them, a slightly flatter plane ---------- */
+
+@media (max-width: 720px) {
+	.wall-stage {
+		--cw: 250px;
+		--pad: 20px;
+		--gap: 14px;
+		--wall-h: 880px;
+		--rx: 42deg;
+		--rz: -15deg;
+	}
+	.wall__note { top: 82px; width: max-content; max-width: calc(100% - 2 * var(--gutter)); font-size: 11px; padding: 5px 12px; letter-spacing: 0.06em; }
+	.wall__plane { left: 50%; top: 46%; }
+	.wall__view { -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 16%, #000 70%, transparent 96%); mask-image: linear-gradient(to bottom, transparent 0, #000 16%, #000 70%, transparent 96%); }
+	/* five cards a column instead of seven */
+	.rev:nth-child(n+6) { display: none; }
+	.rev { padding: 14px 16px 16px; gap: 10px; }
+	.rev__av { width: 36px; height: 36px; font-size: 12px; }
+	.rev__head { gap: 10px; }
+	.rev__tag { padding: 1px 6px; font-size: 10px; letter-spacing: 0.06em; }
+	.rev__name { font-size: 14px; line-height: 18px; }
+	.rev__role { font-size: 12.5px; line-height: 16px; }
+	.rev__text { font-size: 14.5px; line-height: 22px; }
+}
+
+/* a short desktop: the plane sits a little higher and less tall in the frame */
+@media (min-width: 721px) and (max-height: 760px) {
+	.wall-stage { --rx: 50deg; }
+	.wall__plane { top: 48%; }
+}
+
+/* ---------- reduced motion: a still, flat 3 x 3 grid, no loop, no copy ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+	.wall-stage {
+		display: grid;
+		grid-template-columns: minmax(0, 1fr);
+		place-items: start center;
+		padding: 88px var(--gutter) 40px;
+	}
+	.wall { position: static; display: flex; flex-direction: column; align-items: center; gap: 18px; width: 100%; }
+	.wall__note { position: static; transform: none; }
+	.wall__view { position: static; -webkit-mask-image: none; mask-image: none; width: 100%; }
+	.wall__view::before { display: none; }
+	.wall__persp { position: static; perspective: none; }
+	.wall__plane {
+		position: static;
+		display: grid;
+		grid-template-columns: repeat(auto-fit, minmax(min(100%, 280px), 1fr));
+		gap: 0 18px;
+		max-width: 1000px;
+		margin: 0 auto;
+		transform: none !important;
+		transition: none;
+	}
+	.col { display: block; width: auto; padding: 0 0 var(--gap); overflow: visible; -webkit-mask-image: none; mask-image: none; }
+	.col:focus-visible { outline-offset: 2px; }
+	.track { min-height: 0; justify-content: flex-start; animation: none !important; transform: none !important; will-change: auto; }
+	.track--copy { display: none; }
+	.rev:nth-child(n+4) { display: none; }
+	.rev { transition: none; }
+	.rev:hover { transform: none; }
+}
+@media (prefers-reduced-motion: reduce) and (min-width: 721px) and (max-height: 820px) {
+	.wall-stage { padding-bottom: 290px; }
+}
+@media (prefers-reduced-motion: reduce) and (max-width: 720px) {
+	.wall-stage { padding-bottom: 360px; }
+	.wall__note { max-width: 100%; }
+}

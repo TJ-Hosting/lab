@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://*.google.com; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<script src="../../js/ga4.js"></script>
+	<title>Scramble title cards — scramble type · TJ-Hosting Lab</title>
+	<meta name="description" content="Three service title cards on one frosted glass card: every line scrambles through random characters and settles letter by letter. Hover or tap a label to scramble it again. Made with Anime.js scrambleText.">
+	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/scramble-titles/">
+	<meta name="theme-color" content="#eef7fc">
+	<link rel="icon" href="../../img/brand/tj-mark.svg" type="image/svg+xml">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="TJ-Hosting Lab">
+	<meta property="og:title" content="Scramble title cards — TJ-Hosting Lab">
+	<meta property="og:description" content="Title cards that decode themselves: random characters settle into words, one letter at a time.">
+	<meta property="og:url" content="https://lab.tj-hosting.ca/samples/scramble-titles/">
+	<meta property="og:image" content="https://lab.tj-hosting.ca/img/og/scramble-titles.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="A frosted glass card on a pale blue sky with a large monospace word, a short line and six service labels, a cyan and azure bar along its top edge">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="preload" href="../../fonts/nunito-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="../../fonts/jetbrains-mono-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="../../css/glass.css">
+	<link rel="stylesheet" href="../../css/lab.css">
+	<link rel="stylesheet" href="../../css/sample.css">
+	<link rel="stylesheet" href="piece.css">
+	<script src="../../js/early.js"></script>
+	<script type="module" src="piece.js"></script>
+</head>
+<body class="sample sample--scramble-titles">
+	<a class="skip" href="#about-piece">Skip to the description</a>
+
+	<div class="sky" aria-hidden="true"></div>
+
+	<header class="topbar">
+		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
+			<img src="../../img/brand/tj-mark.svg" alt="" width="34" height="34">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Lab">
+			<a href="../../#samples">All samples</a>
+		</nav>
+	</header>
+
+	<!-- stage C: open sky. One frosted card; piece.js scrambles its lines. The real words stay in the HTML
+	     (the first card as written here) and in aria-labels, so screen readers never read the noise. -->
+	<main id="main" class="stage scramble-stage" data-motion>
+		<div class="piece-open">
+			<section class="card glass glass--strong glass--xl" id="card" aria-label="Service title cards">
+				<span class="rail" aria-hidden="true"><span class="rail__fill" id="rail"></span></span>
+				<span class="card__wash" aria-hidden="true"></span>
+
+				<div class="tabs" role="group" aria-label="Choose a card">
+					<button class="btn btn--sm btn--ghost" type="button" data-card="0" aria-pressed="true">Hosting</button>
+					<button class="btn btn--sm btn--ghost" type="button" data-card="1" aria-pressed="false">Design</button>
+					<button class="btn btn--sm btn--ghost" type="button" data-card="2" aria-pressed="false">Care</button>
+				</div>
+
+				<h2 class="card__title" id="card-title" aria-label="Hosting. A home for your site">
+					<span class="slot slot--word" id="slot-word"><span class="scr" aria-hidden="true">Hosting</span><span class="blk" aria-hidden="true"></span></span>
+					<span class="slot slot--tag" id="slot-tag"><span class="scr" aria-hidden="true">A home for your site</span></span>
+				</h2>
+
+				<ul class="labels">
+					<li><button class="chip" type="button" aria-label="Web hosting"><span class="chip__dot" aria-hidden="true"></span><span class="slot"><span class="scr" aria-hidden="true">Web hosting</span><span class="blk" aria-hidden="true"></span></span></button></li>
+					<li><button class="chip" type="button" aria-label="Domain names"><span class="chip__dot" aria-hidden="true"></span><span class="slot"><span class="scr" aria-hidden="true">Domain names</span><span class="blk" aria-hidden="true"></span></span></button></li>
+					<li><button class="chip" type="button" aria-label="Business email"><span class="chip__dot" aria-hidden="true"></span><span class="slot"><span class="scr" aria-hidden="true">Business email</span><span class="blk" aria-hidden="true"></span></span></button></li>
+					<li><button class="chip" type="button" aria-label="SSL security"><span class="chip__dot" aria-hidden="true"></span><span class="slot"><span class="scr" aria-hidden="true">SSL security</span><span class="blk" aria-hidden="true"></span></span></button></li>
+					<li><button class="chip" type="button" aria-label="Site migration"><span class="chip__dot" aria-hidden="true"></span><span class="slot"><span class="scr" aria-hidden="true">Site migration</span><span class="blk" aria-hidden="true"></span></span></button></li>
+					<li><button class="chip" type="button" aria-label="Control panel"><span class="chip__dot" aria-hidden="true"></span><span class="slot"><span class="scr" aria-hidden="true">Control panel</span><span class="blk" aria-hidden="true"></span></span></button></li>
+				</ul>
+
+				<p class="card__note">Sample copy. Hover or tap a label to scramble it.</p>
+			</section>
+		</div>
+	</main>
+
+	<aside class="sample-info glass glass--strong" id="about-piece" aria-labelledby="piece-title">
+		<p class="eyebrow">Sample 08 · Scramble type</p>
+		<h1 id="piece-title">Scramble title cards</h1>
+		<p class="how"><b>How it's made:</b> Anime.js scrambleText turns each line into random characters and settles it letter by letter, sequenced with a timeline and stagger.
+		The lab's frame loop steps the timeline, so it pauses off-screen or in a hidden tab.</p>
+		<div class="controls">
+			<button class="btn btn--sm btn--primary" type="button" data-action="next">Next card</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="pause" aria-pressed="false">Pause</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="sound" aria-pressed="false">Sound</button>
+			<a class="back" href="../../#samples">← Back to the lab</a>
+		</div>
+	</aside>
+</body>
+</html>

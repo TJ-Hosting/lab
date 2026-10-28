@@ -1,0 +1,306 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://*.google.com; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<script src="../../js/ga4.js"></script>
+	<title>A web request in milliseconds — scroll timeline · TJ-Hosting Lab</title>
+	<meta name="description" content="One page request as a long vertical timeline: from the address lookup to the page on screen, every step sits as far down the page as its time. CSS scroll-driven animations; the timings are illustrative, not measured.">
+	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/request-in-ms/">
+	<meta name="theme-color" content="#eef7fc">
+	<link rel="icon" href="../../img/brand/tj-mark.svg" type="image/svg+xml">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="TJ-Hosting Lab">
+	<meta property="og:title" content="A web request in milliseconds — TJ-Hosting Lab">
+	<meta property="og:description" content="Scroll down a page request: the space between steps is the time between them. Illustrative timings.">
+	<meta property="og:url" content="https://lab.tj-hosting.ca/samples/request-in-ms/">
+	<meta property="og:image" content="https://lab.tj-hosting.ca/img/og/request-in-ms.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="A long blue timeline with glass cards for six steps of a web request and a small counter of milliseconds riding the line">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="preload" href="../../fonts/nunito-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="../../css/glass.css">
+	<link rel="stylesheet" href="../../css/lab.css">
+	<link rel="stylesheet" href="../../css/sample.css">
+	<link rel="stylesheet" href="piece.css">
+	<script src="../../js/early.js"></script>
+	<script type="module" src="piece.js"></script>
+</head>
+<body class="sample sample--request-in-ms">
+	<a class="skip" href="#about-piece">Skip to the description</a>
+
+	<div class="sky" aria-hidden="true"></div>
+
+	<header class="topbar">
+		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
+			<img src="../../img/brand/tj-mark.svg" alt="" width="34" height="34">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Lab">
+			<a href="../../#samples">All samples</a>
+		</nav>
+	</header>
+
+	<!-- STAGE D: a scrolling page. The hero comes first, then the trip: a tall box whose height is the whole request
+	     (--total milliseconds x --px pixels). Each step (.leg) is placed at its own start time (--at) and is as long as its
+	     own duration (--ms), so the gaps on the page are the gaps in time. Then the finale: two lanes on one time axis. -->
+	<main id="main" class="scroll-page" data-motion>
+		<div class="req">
+			<header class="hero">
+				<p class="pill hero__tag"><span class="pill__dot" aria-hidden="true"></span>Illustrative timings · not measured</p>
+				<h2 class="hero__title">Every page starts with a <span class="script">request</span></h2>
+				<p class="hero__lede">Scroll down. The space between steps is the time between them. <span class="hero__unit">A millisecond (ms) is a thousandth of a second.</span></p>
+			</header>
+
+			<section class="trip" id="trip" data-total="480" aria-label="One page request, step by step">
+				<!-- the rail: ruler, bands, line, nodes and the counter chip. It is decoration; the steps below carry the words. -->
+				<div class="rail" aria-hidden="true">
+					<div class="rail__col">
+						<div class="ruler"></div>
+						<ol class="ruler__labels">
+							<li class="is-start" style="--t:0"><b>0</b><small>ms</small></li>
+							<li class="is-start" style="--t:40"><b>40</b><small>ms</small></li>
+							<li style="--t:80"><b>80</b></li>
+							<li class="is-start" style="--t:120"><b>120</b><small>ms</small></li>
+							<li class="is-start" style="--t:160"><b>160</b><small>ms</small></li>
+							<li style="--t:200"><b>200</b></li>
+							<li style="--t:240"><b>240</b></li>
+							<li style="--t:280"><b>280</b></li>
+							<li class="is-start" style="--t:320"><b>320</b><small>ms</small></li>
+							<li class="is-start" style="--t:360"><b>360</b><small>ms</small></li>
+							<li style="--t:400"><b>400</b></li>
+							<li style="--t:440"><b>440</b></li>
+							<li class="is-start is-end" style="--t:480"><b>480</b><small>ms</small></li>
+						</ol>
+						<span class="band k-dns" style="--at:0;--ms:40"></span>
+						<span class="band k-tls" style="--at:40;--ms:80"></span>
+						<span class="band k-req" style="--at:120;--ms:40"></span>
+						<span class="band k-srv" style="--at:160;--ms:160"></span>
+						<span class="band k-byte" style="--at:320;--ms:40"></span>
+						<span class="band k-paint" style="--at:360;--ms:120"></span>
+						<span class="line"><span class="line__fill"></span></span>
+						<span class="node k-dns" style="--at:0"><i></i></span>
+						<span class="node k-tls" style="--at:40"><i></i></span>
+						<span class="node k-req" style="--at:120"><i></i></span>
+						<span class="node k-srv" style="--at:160"><i></i></span>
+						<span class="node k-byte" style="--at:320"><i></i></span>
+						<span class="node k-paint" style="--at:360"><i></i></span>
+						<span class="node node--end" style="--at:480"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M6 12.5l4 4 8-9"/></svg></span>
+						<div class="now">
+							<div class="now__chip glass glass--strong"><b id="ms-now">0</b><i>ms</i></div>
+						</div>
+					</div>
+				</div>
+
+				<ol class="legs">
+					<li class="leg k-dns" style="--at:0;--ms:40">
+						<div class="step">
+							<span class="step__ring" aria-hidden="true"></span>
+							<article class="card glass glass--strong glass--xl" aria-labelledby="leg-dns">
+								<header class="card__head">
+									<span class="glyph" aria-hidden="true">
+										<svg viewBox="0 0 64 64"><rect class="g-fill" x="7" y="13" width="40" height="30" rx="6"/><rect class="g-azure" x="13" y="20" width="18" height="5" rx="2.5"/><rect class="g-sky" x="13" y="29" width="26" height="4" rx="2"/><circle class="g-glass" cx="43" cy="41" r="11"/><path class="g-line" d="M51 49l8 8"/><circle class="g-cyan" cx="43" cy="41" r="3"/></svg>
+									</span>
+									<div class="card__id">
+										<p class="card__meta"><span class="card__no">01</span><span class="card__when" aria-hidden="true"><span class="when-wide">Lasts 40 ms</span><span class="when-narrow">0–40 ms</span></span><span class="visually-hidden">Starts at 0 ms and lasts 40 ms.</span></p>
+										<h3 id="leg-dns">DNS lookup</h3>
+									</div>
+								</header>
+								<p class="card__text">The browser asks which number goes with the web address.</p>
+								<span class="wf" aria-hidden="true"><i></i></span>
+							</article>
+						</div>
+					</li>
+
+					<li class="leg k-tls" style="--at:40;--ms:80">
+						<div class="step">
+							<span class="step__ring" aria-hidden="true"></span>
+							<article class="card glass glass--strong glass--xl" aria-labelledby="leg-tls">
+								<header class="card__head">
+									<span class="glyph" aria-hidden="true">
+										<svg viewBox="0 0 64 64"><path class="g-line" d="M22 30v-7a10 10 0 0 1 20 0v7"/><rect class="g-royal" x="15" y="29" width="34" height="25" rx="6"/><circle class="g-white" cx="32" cy="39" r="3.6"/><rect class="g-white" x="30.4" y="41" width="3.2" height="7" rx="1.6"/><circle class="g-cyan" cx="53" cy="13" r="4"/></svg>
+									</span>
+									<div class="card__id">
+										<p class="card__meta"><span class="card__no">02</span><span class="card__when" aria-hidden="true"><span class="when-wide">Lasts 80 ms</span><span class="when-narrow">40–120 ms</span></span><span class="visually-hidden">Starts at 40 ms and lasts 80 ms.</span></p>
+										<h3 id="leg-tls">Secure handshake</h3>
+									</div>
+								</header>
+								<p class="card__text">Browser and server swap keys, so nobody else can listen in.</p>
+								<span class="wf" aria-hidden="true"><i></i></span>
+							</article>
+						</div>
+					</li>
+
+					<li class="leg k-req" style="--at:120;--ms:40">
+						<div class="step">
+							<span class="step__ring" aria-hidden="true"></span>
+							<article class="card glass glass--strong glass--xl" aria-labelledby="leg-req">
+								<header class="card__head">
+									<span class="glyph" aria-hidden="true">
+										<svg viewBox="0 0 64 64"><path class="g-cyan-line" d="M3 26h11M1 35h13M6 44h8"/><path class="g-fill" d="M12 33L58 11 44 53 32 40Z"/><path class="g-azure" d="M58 11L32 40l-3 12-7-14Z"/><path class="g-line" d="M12 33L58 11 44 53 32 40Z"/><path class="g-line" d="M58 11L32 40"/></svg>
+									</span>
+									<div class="card__id">
+										<p class="card__meta"><span class="card__no">03</span><span class="card__when" aria-hidden="true"><span class="when-wide">Lasts 40 ms</span><span class="when-narrow">120–160 ms</span></span><span class="visually-hidden">Starts at 120 ms and lasts 40 ms.</span></p>
+										<h3 id="leg-req">Request sent</h3>
+									</div>
+								</header>
+								<p class="card__text">The browser asks the server for the page.</p>
+								<span class="wf" aria-hidden="true"><i></i></span>
+							</article>
+						</div>
+					</li>
+
+					<li class="leg k-srv" style="--at:160;--ms:160">
+						<div class="step">
+							<span class="step__ring" aria-hidden="true"></span>
+							<article class="card glass glass--strong glass--xl" aria-labelledby="leg-srv">
+								<header class="card__head">
+									<span class="glyph" aria-hidden="true">
+										<svg viewBox="0 0 64 64"><rect class="g-royal" x="10" y="9" width="44" height="13" rx="4.5"/><rect class="g-fill" x="10" y="25" width="44" height="13" rx="4.5"/><rect class="g-fill" x="10" y="41" width="44" height="13" rx="4.5"/><circle class="g-cyan" cx="18" cy="15.5" r="2.6"/><circle class="g-azure" cx="18" cy="31.5" r="2.6"/><circle class="g-azure" cx="18" cy="47.5" r="2.6"/><path class="g-white-line" d="M28 15.5h18"/><path class="g-sky-line" d="M28 31.5h18M28 47.5h18"/></svg>
+									</span>
+									<div class="card__id">
+										<p class="card__meta"><span class="card__no">04</span><span class="card__when" aria-hidden="true"><span class="when-wide">Lasts 160 ms</span><span class="when-narrow">160–320 ms</span></span><span class="visually-hidden">Starts at 160 ms and lasts 160 ms.</span></p>
+										<h3 id="leg-srv">Server work</h3>
+									</div>
+								</header>
+								<p class="card__text">The server builds the reply. It reads files and asks the database.</p>
+								<span class="wf" aria-hidden="true"><i></i></span>
+							</article>
+						</div>
+						<ul class="work" aria-label="What the server does, with illustrative timings">
+							<li class="work__item glass glass--soft" style="--w0:30;--wd:30">
+								<svg viewBox="0 0 24 24" aria-hidden="true"><path class="g-line" d="M7 3h7l4 4v14H7Z"/><path class="g-line" d="M14 3v4h4M10 12h5M10 16h5"/></svg>
+								<span class="work__text"><span class="work__name">Read the files</span><span class="work__note">Pages and pictures come off the disk.</span></span><span class="work__ms">30 ms</span>
+							</li>
+							<li class="work__item glass glass--soft" style="--w0:60;--wd:50">
+								<svg viewBox="0 0 24 24" aria-hidden="true"><ellipse class="g-line" cx="12" cy="6" rx="7" ry="3"/><path class="g-line" d="M5 6v12c0 1.7 3.1 3 7 3s7-1.3 7-3V6M5 12c0 1.7 3.1 3 7 3s7-1.3 7-3"/></svg>
+								<span class="work__text"><span class="work__name">Ask the database</span><span class="work__note">It looks up whatever the page needs.</span></span><span class="work__ms">50 ms</span>
+							</li>
+							<li class="work__item glass glass--soft" style="--w0:110;--wd:30">
+								<svg viewBox="0 0 24 24" aria-hidden="true"><rect class="g-line" x="4" y="4" width="7" height="7" rx="1.5"/><rect class="g-line" x="13" y="4" width="7" height="7" rx="1.5"/><rect class="g-line" x="4" y="13" width="16" height="7" rx="1.5"/></svg>
+								<span class="work__text"><span class="work__name">Build the page</span><span class="work__note">It fills the page in and packs it up.</span></span><span class="work__ms">30 ms</span>
+							</li>
+						</ul>
+					</li>
+
+					<li class="leg k-byte" style="--at:320;--ms:40">
+						<div class="step">
+							<span class="step__ring" aria-hidden="true"></span>
+							<article class="card glass glass--strong glass--xl" aria-labelledby="leg-byte">
+								<header class="card__head">
+									<span class="glyph" aria-hidden="true">
+										<svg viewBox="0 0 64 64"><path class="g-cyan-line" d="M2 24h9M0 33h11M4 42h7"/><path class="g-honey-top" d="M36 9l20 11-20 11-20-11Z"/><path class="g-honey" d="M16 20l20 11v24L16 44Z"/><path class="g-honey-deep" d="M56 20L36 31v24l20-11Z"/><path class="g-line" d="M36 9l20 11v24L36 55 16 44V20Z"/><path class="g-line" d="M16 20l20 11 20-11M36 31v24"/></svg>
+									</span>
+									<div class="card__id">
+										<p class="card__meta"><span class="card__no">05</span><span class="card__when" aria-hidden="true"><span class="when-wide">Lasts 40 ms</span><span class="when-narrow">320–360 ms</span></span><span class="visually-hidden">Starts at 320 ms and lasts 40 ms.</span></p>
+										<h3 id="leg-byte">First byte</h3>
+									</div>
+								</header>
+								<p class="card__text">The first piece of the page reaches the browser.</p>
+								<span class="wf" aria-hidden="true"><i></i></span>
+							</article>
+						</div>
+					</li>
+
+					<li class="leg k-paint" style="--at:360;--ms:120">
+						<div class="step">
+							<span class="step__ring" aria-hidden="true"></span>
+							<article class="card glass glass--strong glass--xl" aria-labelledby="leg-paint">
+								<header class="card__head">
+									<span class="glyph" aria-hidden="true">
+										<svg viewBox="0 0 64 64"><rect class="g-fill" x="6" y="10" width="52" height="43" rx="6"/><path class="g-sky" d="M6 16a6 6 0 0 1 6-6h40a6 6 0 0 1 6 6v5H6Z"/><circle class="g-royal" cx="13" cy="15.5" r="1.9"/><circle class="g-royal" cx="19" cy="15.5" r="1.9"/><circle class="g-royal" cx="25" cy="15.5" r="1.9"/><rect class="g-azure" x="12" y="27" width="40" height="11" rx="3"/><rect class="g-sky" x="12" y="42" width="21" height="4" rx="2"/><rect class="g-sky" x="12" y="48" width="14" height="3" rx="1.5"/><rect class="g-line" x="6" y="10" width="52" height="43" rx="6"/><path class="g-line" d="M6 21h52"/></svg>
+									</span>
+									<div class="card__id">
+										<p class="card__meta"><span class="card__no">06</span><span class="card__when" aria-hidden="true"><span class="when-wide">Lasts 120 ms</span><span class="when-narrow">360–480 ms</span></span><span class="visually-hidden">Starts at 360 ms and lasts 120 ms.</span></p>
+										<h3 id="leg-paint">Page painted</h3>
+									</div>
+								</header>
+								<p class="card__text">The browser reads the page and paints it on the screen.</p>
+								<span class="wf" aria-hidden="true"><i></i></span>
+							</article>
+						</div>
+						<div class="paint glass glass--soft" aria-hidden="true">
+							<div class="paint__bar"><i></i><i></i><i></i><span></span></div>
+							<div class="paint__page">
+								<div class="paint__nav" style="--i:0"><i></i><i></i><i></i></div>
+								<div class="paint__hero" style="--i:1"><b></b><u></u><u></u></div>
+								<div class="paint__row">
+									<div class="paint__tile" style="--i:2"><s></s><u></u><u></u></div>
+									<div class="paint__tile" style="--i:3"><s></s><u></u><u></u></div>
+								</div>
+							</div>
+						</div>
+					</li>
+				</ol>
+
+				<p class="trip__end glass glass--pill"><span class="pill__dot" aria-hidden="true"></span>Page ready at 480 ms</p>
+			</section>
+
+			<section class="finale" id="finale" aria-labelledby="finale-title">
+				<div class="finale__pin">
+				<div class="finale__card glass glass--strong glass--xl">
+					<div class="finale__head">
+						<div class="finale__intro">
+							<p class="pill finale__tag"><span class="pill__dot" aria-hidden="true"></span>Illustrative timings · not measured</p>
+							<h2 id="finale-title" class="finale__title">Same trip, two servers</h2>
+							<p class="finale__lede">Both reach Page ready. Only the server's share of the wait is different.</p>
+							<p class="finale__fine">Made-up numbers for a picture. Real requests vary with distance, devices and load.</p>
+						</div>
+						<div class="finale__side">
+							<p class="ready"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 12.5l4 4 8-9"/></svg>Page ready</p>
+							<ul class="key" aria-label="Colours of the six steps">
+							<li class="k-dns">DNS</li>
+							<li class="k-tls">Handshake</li>
+							<li class="k-req">Request</li>
+							<li class="k-srv">Server work</li>
+							<li class="k-byte">First byte</li>
+							<li class="k-paint">Painted</li>
+						</ul>
+						</div>
+					</div>
+
+					<div class="lanes" role="group" aria-label="Two illustrative timelines on one time axis, 0 to 800 milliseconds">
+						<div class="lanes__plot">
+							<div class="lane" style="--e:400">
+								<p class="lane__name">A fast server <span class="lane__sum"><span class="lane__long">Illustrative total: </span>400 ms</span></p>
+								<div class="lane__bar" aria-hidden="true">
+									<i class="seg k-dns" style="--s:0;--d:40"></i><i class="seg k-tls" style="--s:40;--d:80"></i><i class="seg k-req" style="--s:120;--d:40"></i><i class="seg k-srv" style="--s:160;--d:80"></i><i class="seg k-byte" style="--s:240;--d:40"></i><i class="seg k-paint" style="--s:280;--d:120"></i>
+								</div>
+								<div class="lane__end"><p class="lane__flag glass glass--pill"><span class="pill__dot" aria-hidden="true"></span>Page ready<span class="lane__t"> · 400 ms</span></p></div>
+								<p class="visually-hidden">DNS lookup 40 ms, secure handshake 80 ms, request sent 40 ms, server work 80 ms, first byte 40 ms, page painted 120 ms. Page ready at 400 ms.</p>
+							</div>
+							<div class="lane" style="--e:720">
+								<p class="lane__name">A slow server <span class="lane__sum"><span class="lane__long">Illustrative total: </span>720 ms</span></p>
+								<div class="lane__bar" aria-hidden="true">
+									<i class="seg k-dns" style="--s:0;--d:40"></i><i class="seg k-tls" style="--s:40;--d:80"></i><i class="seg k-req" style="--s:120;--d:40"></i><i class="seg k-srv" style="--s:160;--d:400"></i><i class="seg k-byte" style="--s:560;--d:40"></i><i class="seg k-paint" style="--s:600;--d:120"></i>
+								</div>
+								<div class="lane__end"><p class="lane__flag glass glass--pill"><span class="pill__dot" aria-hidden="true"></span>Page ready<span class="lane__t"> · 720 ms</span></p></div>
+								<p class="visually-hidden">DNS lookup 40 ms, secure handshake 80 ms, request sent 40 ms, server work 400 ms, first byte 40 ms, page painted 120 ms. Page ready at 720 ms.</p>
+							</div>
+							<ol class="axis" aria-hidden="true">
+								<li style="--x:0">0</li><li style="--x:200">200</li><li style="--x:400">400</li><li style="--x:600">600</li><li style="--x:800">800 ms</li>
+							</ol>
+						</div>
+					</div>
+				</div>
+				</div>
+			</section>
+		</div>
+	</main>
+
+	<aside class="sample-info glass glass--strong" id="about-piece" aria-labelledby="piece-title">
+		<p class="eyebrow">Sample 23 · Scroll timeline</p>
+		<h1 id="piece-title">A web request in milliseconds</h1>
+		<p class="how"><b>How it's made:</b> each step sits 5 px down the page for every millisecond before it, and CSS scroll timelines reveal the cards and lanes.
+		Only scrolling moves it; with reduced motion, or without scroll timelines, everything is already in place.</p>
+		<div class="controls">
+			<button class="btn btn--sm btn--primary" type="button" data-action="ride" aria-pressed="false">Ride the request</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="again">Start again</button>
+			<a class="back" href="../../#samples">← Back to the lab</a>
+		</div>
+	</aside>
+</body>
+</html>

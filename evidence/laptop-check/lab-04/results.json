@@ -1,0 +1,726 @@
+{
+	"label": "lab-04",
+	"started": "2026-10-27T22:22:40.402Z",
+	"base": "local static server, 404 fallback",
+	"items": [
+		{
+			"browser": "chrome 156.0.8078.48",
+			"width": 1440,
+			"check": "home (glass on)",
+			"pass": true,
+			"note": "backdrop-filter: blur(14px) saturate(1.5); 3 sample cards",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/chrome/home-1440.jpg",
+				"evidence/laptop-check/lab-04/chrome/home-samples-1440.jpg"
+			]
+		},
+		{
+			"browser": "chrome 156.0.8078.48",
+			"width": 1440,
+			"check": "home (glass fallback)",
+			"pass": true,
+			"note": "fill rgba(255, 255, 255, 0.9), backdrop-filter none",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/chrome/home-glass-fallback-1440.jpg"
+			]
+		},
+		{
+			"browser": "chrome 156.0.8078.48",
+			"width": 1440,
+			"check": "home (reduced motion, fonts)",
+			"pass": true,
+			"note": "running: 0 animations, 0 loops; Nunito Sans true, Great Vibes true",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/chrome/home-reduced-1440.jpg"
+			]
+		},
+		{
+			"browser": "chrome 156.0.8078.48",
+			"width": 1440,
+			"check": "exhibit (reduced motion, fonts)",
+			"pass": true,
+			"note": "running: 0 animations, 0 loops; Nunito Sans true, Great Vibes true",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/chrome/exhibit-reduced-1440.jpg"
+			]
+		},
+		{
+			"browser": "chrome 156.0.8078.48",
+			"width": 1440,
+			"check": "sample humanity-type",
+			"pass": true,
+			"note": "animating",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/chrome/sample-humanity-type-1440.jpg"
+			]
+		},
+		{
+			"browser": "chrome 156.0.8078.48",
+			"width": 1440,
+			"check": "sample humanity-type (reduced motion)",
+			"pass": true,
+			"note": "running: 0 animations, 0 loops",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/chrome/sample-humanity-type-reduced-1440.jpg"
+			]
+		},
+		{
+			"browser": "chrome 156.0.8078.48",
+			"width": 1440,
+			"check": "sample particle-field",
+			"pass": true,
+			"note": "animating",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/chrome/sample-particle-field-1440.jpg"
+			]
+		},
+		{
+			"browser": "chrome 156.0.8078.48",
+			"width": 1440,
+			"check": "sample particle-field (reduced motion)",
+			"pass": true,
+			"note": "running: 0 animations, 0 loops",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/chrome/sample-particle-field-reduced-1440.jpg"
+			]
+		},
+		{
+			"browser": "chrome 156.0.8078.48",
+			"width": 1440,
+			"check": "sample logo",
+			"pass": true,
+			"note": "animating",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/chrome/sample-logo-1440.jpg"
+			]
+		},
+		{
+			"browser": "chrome 156.0.8078.48",
+			"width": 1440,
+			"check": "sample logo (reduced motion)",
+			"pass": true,
+			"note": "running: 0 animations, 0 loops",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/chrome/sample-logo-reduced-1440.jpg"
+			]
+		},
+		{
+			"browser": "chrome 156.0.8078.48",
+			"width": 1440,
+			"check": "exhibit (banner first, reveal mode)",
+			"pass": true,
+			"note": "banner first element true, first Tab lands in banner true, banner top 14px; reveal 18/18 items, 18 pins",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/chrome/exhibit-banner-1440.jpg",
+				"evidence/laptop-check/lab-04/chrome/exhibit-reveal-1440.jpg"
+			]
+		},
+		{
+			"browser": "chrome 156.0.8078.48",
+			"width": 1440,
+			"check": "checker (sample answer, share link restores)",
+			"pass": true,
+			"note": "shown {\"LUMEN-R5\":\"obeyed\",\"ORCHID-B7\":\"obeyed\",\"GRANITE-S6\":\"flagged\"}; restored equal true",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/chrome/checker-result-1440.jpg",
+				"evidence/laptop-check/lab-04/chrome/checker-restored-1440.jpg"
+			]
+		},
+		{
+			"browser": "chrome 156.0.8078.48",
+			"width": 1440,
+			"check": "scoreboard",
+			"pass": true,
+			"note": "1/1 rows",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/chrome/scoreboard-1440.jpg"
+			]
+		},
+		{
+			"browser": "chrome 156.0.8078.48",
+			"width": 1440,
+			"check": "hub page",
+			"pass": true,
+			"note": "h1 \"The agent honeypot\"",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/chrome/hub-1440.jpg"
+			]
+		},
+		{
+			"browser": "chrome 156.0.8078.48",
+			"width": 1440,
+			"check": "about page",
+			"pass": true,
+			"note": "h1 \"A trap that only asks for a poem\"",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/chrome/about-1440.jpg"
+			]
+		},
+		{
+			"browser": "chrome 156.0.8078.48",
+			"width": 1440,
+			"check": "404.html at /no/such/page/",
+			"pass": true,
+			"note": "h1 \"This page slipped through the glass.\"",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/chrome/404-1440.jpg"
+			]
+		},
+		{
+			"browser": "chrome 156.0.8078.48",
+			"width": 375,
+			"check": "home (glass on)",
+			"pass": true,
+			"note": "backdrop-filter: blur(14px) saturate(1.5); 3 sample cards",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/chrome/home-375.jpg",
+				"evidence/laptop-check/lab-04/chrome/home-samples-375.jpg"
+			]
+		},
+		{
+			"browser": "chrome 156.0.8078.48",
+			"width": 375,
+			"check": "home (glass fallback)",
+			"pass": true,
+			"note": "fill rgba(255, 255, 255, 0.9), backdrop-filter none",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/chrome/home-glass-fallback-375.jpg"
+			]
+		},
+		{
+			"browser": "chrome 156.0.8078.48",
+			"width": 375,
+			"check": "home (reduced motion, fonts)",
+			"pass": true,
+			"note": "running: 0 animations, 0 loops; Nunito Sans true, Great Vibes true",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/chrome/home-reduced-375.jpg"
+			]
+		},
+		{
+			"browser": "chrome 156.0.8078.48",
+			"width": 375,
+			"check": "exhibit (reduced motion, fonts)",
+			"pass": true,
+			"note": "running: 0 animations, 0 loops; Nunito Sans true, Great Vibes true",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/chrome/exhibit-reduced-375.jpg"
+			]
+		},
+		{
+			"browser": "chrome 156.0.8078.48",
+			"width": 375,
+			"check": "sample humanity-type",
+			"pass": true,
+			"note": "animating",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/chrome/sample-humanity-type-375.jpg"
+			]
+		},
+		{
+			"browser": "chrome 156.0.8078.48",
+			"width": 375,
+			"check": "sample humanity-type (reduced motion)",
+			"pass": true,
+			"note": "running: 0 animations, 0 loops",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/chrome/sample-humanity-type-reduced-375.jpg"
+			]
+		},
+		{
+			"browser": "chrome 156.0.8078.48",
+			"width": 375,
+			"check": "sample particle-field",
+			"pass": true,
+			"note": "animating",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/chrome/sample-particle-field-375.jpg"
+			]
+		},
+		{
+			"browser": "chrome 156.0.8078.48",
+			"width": 375,
+			"check": "sample particle-field (reduced motion)",
+			"pass": true,
+			"note": "running: 0 animations, 0 loops",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/chrome/sample-particle-field-reduced-375.jpg"
+			]
+		},
+		{
+			"browser": "chrome 156.0.8078.48",
+			"width": 375,
+			"check": "sample logo",
+			"pass": true,
+			"note": "animating",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/chrome/sample-logo-375.jpg"
+			]
+		},
+		{
+			"browser": "chrome 156.0.8078.48",
+			"width": 375,
+			"check": "sample logo (reduced motion)",
+			"pass": true,
+			"note": "running: 0 animations, 0 loops",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/chrome/sample-logo-reduced-375.jpg"
+			]
+		},
+		{
+			"browser": "chrome 156.0.8078.48",
+			"width": 375,
+			"check": "exhibit (banner first, reveal mode)",
+			"pass": true,
+			"note": "banner first element true, first Tab lands in banner true, banner top 14px; reveal 18/18 items, 18 pins",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/chrome/exhibit-banner-375.jpg",
+				"evidence/laptop-check/lab-04/chrome/exhibit-reveal-375.jpg"
+			]
+		},
+		{
+			"browser": "chrome 156.0.8078.48",
+			"width": 375,
+			"check": "checker (sample answer, share link restores)",
+			"pass": true,
+			"note": "shown {\"LUMEN-R5\":\"obeyed\",\"ORCHID-B7\":\"obeyed\",\"GRANITE-S6\":\"flagged\"}; restored equal true",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/chrome/checker-result-375.jpg",
+				"evidence/laptop-check/lab-04/chrome/checker-restored-375.jpg"
+			]
+		},
+		{
+			"browser": "chrome 156.0.8078.48",
+			"width": 375,
+			"check": "scoreboard",
+			"pass": true,
+			"note": "1/1 rows",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/chrome/scoreboard-375.jpg"
+			]
+		},
+		{
+			"browser": "chrome 156.0.8078.48",
+			"width": 375,
+			"check": "hub page",
+			"pass": true,
+			"note": "h1 \"The agent honeypot\"",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/chrome/hub-375.jpg"
+			]
+		},
+		{
+			"browser": "chrome 156.0.8078.48",
+			"width": 375,
+			"check": "about page",
+			"pass": true,
+			"note": "h1 \"A trap that only asks for a poem\"",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/chrome/about-375.jpg"
+			]
+		},
+		{
+			"browser": "chrome 156.0.8078.48",
+			"width": 375,
+			"check": "404.html at /no/such/page/",
+			"pass": true,
+			"note": "h1 \"This page slipped through the glass.\"",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/chrome/404-375.jpg"
+			]
+		},
+		{
+			"browser": "msedge 156.0.4314.42",
+			"width": 1440,
+			"check": "home (glass on)",
+			"pass": true,
+			"note": "backdrop-filter: blur(14px) saturate(1.5); 3 sample cards",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/msedge/home-1440.jpg",
+				"evidence/laptop-check/lab-04/msedge/home-samples-1440.jpg"
+			]
+		},
+		{
+			"browser": "msedge 156.0.4314.42",
+			"width": 1440,
+			"check": "home (glass fallback)",
+			"pass": true,
+			"note": "fill rgba(255, 255, 255, 0.9), backdrop-filter none",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/msedge/home-glass-fallback-1440.jpg"
+			]
+		},
+		{
+			"browser": "msedge 156.0.4314.42",
+			"width": 1440,
+			"check": "home (reduced motion, fonts)",
+			"pass": true,
+			"note": "running: 0 animations, 0 loops; Nunito Sans true, Great Vibes true",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/msedge/home-reduced-1440.jpg"
+			]
+		},
+		{
+			"browser": "msedge 156.0.4314.42",
+			"width": 1440,
+			"check": "exhibit (reduced motion, fonts)",
+			"pass": true,
+			"note": "running: 0 animations, 0 loops; Nunito Sans true, Great Vibes true",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/msedge/exhibit-reduced-1440.jpg"
+			]
+		},
+		{
+			"browser": "msedge 156.0.4314.42",
+			"width": 1440,
+			"check": "sample humanity-type",
+			"pass": true,
+			"note": "animating",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/msedge/sample-humanity-type-1440.jpg"
+			]
+		},
+		{
+			"browser": "msedge 156.0.4314.42",
+			"width": 1440,
+			"check": "sample humanity-type (reduced motion)",
+			"pass": true,
+			"note": "running: 0 animations, 0 loops",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/msedge/sample-humanity-type-reduced-1440.jpg"
+			]
+		},
+		{
+			"browser": "msedge 156.0.4314.42",
+			"width": 1440,
+			"check": "sample particle-field",
+			"pass": true,
+			"note": "animating",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/msedge/sample-particle-field-1440.jpg"
+			]
+		},
+		{
+			"browser": "msedge 156.0.4314.42",
+			"width": 1440,
+			"check": "sample particle-field (reduced motion)",
+			"pass": true,
+			"note": "running: 0 animations, 0 loops",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/msedge/sample-particle-field-reduced-1440.jpg"
+			]
+		},
+		{
+			"browser": "msedge 156.0.4314.42",
+			"width": 1440,
+			"check": "sample logo",
+			"pass": true,
+			"note": "animating",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/msedge/sample-logo-1440.jpg"
+			]
+		},
+		{
+			"browser": "msedge 156.0.4314.42",
+			"width": 1440,
+			"check": "sample logo (reduced motion)",
+			"pass": true,
+			"note": "running: 0 animations, 0 loops",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/msedge/sample-logo-reduced-1440.jpg"
+			]
+		},
+		{
+			"browser": "msedge 156.0.4314.42",
+			"width": 1440,
+			"check": "exhibit (banner first, reveal mode)",
+			"pass": true,
+			"note": "banner first element true, first Tab lands in banner true, banner top 14px; reveal 18/18 items, 18 pins",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/msedge/exhibit-banner-1440.jpg",
+				"evidence/laptop-check/lab-04/msedge/exhibit-reveal-1440.jpg"
+			]
+		},
+		{
+			"browser": "msedge 156.0.4314.42",
+			"width": 1440,
+			"check": "checker (sample answer, share link restores)",
+			"pass": true,
+			"note": "shown {\"LUMEN-R5\":\"obeyed\",\"ORCHID-B7\":\"obeyed\",\"GRANITE-S6\":\"flagged\"}; restored equal true",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/msedge/checker-result-1440.jpg",
+				"evidence/laptop-check/lab-04/msedge/checker-restored-1440.jpg"
+			]
+		},
+		{
+			"browser": "msedge 156.0.4314.42",
+			"width": 1440,
+			"check": "scoreboard",
+			"pass": true,
+			"note": "1/1 rows",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/msedge/scoreboard-1440.jpg"
+			]
+		},
+		{
+			"browser": "msedge 156.0.4314.42",
+			"width": 1440,
+			"check": "hub page",
+			"pass": true,
+			"note": "h1 \"The agent honeypot\"",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/msedge/hub-1440.jpg"
+			]
+		},
+		{
+			"browser": "msedge 156.0.4314.42",
+			"width": 1440,
+			"check": "about page",
+			"pass": true,
+			"note": "h1 \"A trap that only asks for a poem\"",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/msedge/about-1440.jpg"
+			]
+		},
+		{
+			"browser": "msedge 156.0.4314.42",
+			"width": 1440,
+			"check": "404.html at /no/such/page/",
+			"pass": true,
+			"note": "h1 \"This page slipped through the glass.\"",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/msedge/404-1440.jpg"
+			]
+		},
+		{
+			"browser": "msedge 156.0.4314.42",
+			"width": 375,
+			"check": "home (glass on)",
+			"pass": true,
+			"note": "backdrop-filter: blur(14px) saturate(1.5); 3 sample cards",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/msedge/home-375.jpg",
+				"evidence/laptop-check/lab-04/msedge/home-samples-375.jpg"
+			]
+		},
+		{
+			"browser": "msedge 156.0.4314.42",
+			"width": 375,
+			"check": "home (glass fallback)",
+			"pass": true,
+			"note": "fill rgba(255, 255, 255, 0.9), backdrop-filter none",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/msedge/home-glass-fallback-375.jpg"
+			]
+		},
+		{
+			"browser": "msedge 156.0.4314.42",
+			"width": 375,
+			"check": "home (reduced motion, fonts)",
+			"pass": true,
+			"note": "running: 0 animations, 0 loops; Nunito Sans true, Great Vibes true",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/msedge/home-reduced-375.jpg"
+			]
+		},
+		{
+			"browser": "msedge 156.0.4314.42",
+			"width": 375,
+			"check": "exhibit (reduced motion, fonts)",
+			"pass": true,
+			"note": "running: 0 animations, 0 loops; Nunito Sans true, Great Vibes true",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/msedge/exhibit-reduced-375.jpg"
+			]
+		},
+		{
+			"browser": "msedge 156.0.4314.42",
+			"width": 375,
+			"check": "sample humanity-type",
+			"pass": true,
+			"note": "animating",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/msedge/sample-humanity-type-375.jpg"
+			]
+		},
+		{
+			"browser": "msedge 156.0.4314.42",
+			"width": 375,
+			"check": "sample humanity-type (reduced motion)",
+			"pass": true,
+			"note": "running: 0 animations, 0 loops",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/msedge/sample-humanity-type-reduced-375.jpg"
+			]
+		},
+		{
+			"browser": "msedge 156.0.4314.42",
+			"width": 375,
+			"check": "sample particle-field",
+			"pass": true,
+			"note": "animating",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/msedge/sample-particle-field-375.jpg"
+			]
+		},
+		{
+			"browser": "msedge 156.0.4314.42",
+			"width": 375,
+			"check": "sample particle-field (reduced motion)",
+			"pass": true,
+			"note": "running: 0 animations, 0 loops",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/msedge/sample-particle-field-reduced-375.jpg"
+			]
+		},
+		{
+			"browser": "msedge 156.0.4314.42",
+			"width": 375,
+			"check": "sample logo",
+			"pass": true,
+			"note": "animating",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/msedge/sample-logo-375.jpg"
+			]
+		},
+		{
+			"browser": "msedge 156.0.4314.42",
+			"width": 375,
+			"check": "sample logo (reduced motion)",
+			"pass": true,
+			"note": "running: 0 animations, 0 loops",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/msedge/sample-logo-reduced-375.jpg"
+			]
+		},
+		{
+			"browser": "msedge 156.0.4314.42",
+			"width": 375,
+			"check": "exhibit (banner first, reveal mode)",
+			"pass": true,
+			"note": "banner first element true, first Tab lands in banner true, banner top 14px; reveal 18/18 items, 18 pins",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/msedge/exhibit-banner-375.jpg",
+				"evidence/laptop-check/lab-04/msedge/exhibit-reveal-375.jpg"
+			]
+		},
+		{
+			"browser": "msedge 156.0.4314.42",
+			"width": 375,
+			"check": "checker (sample answer, share link restores)",
+			"pass": true,
+			"note": "shown {\"LUMEN-R5\":\"obeyed\",\"ORCHID-B7\":\"obeyed\",\"GRANITE-S6\":\"flagged\"}; restored equal true",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/msedge/checker-result-375.jpg",
+				"evidence/laptop-check/lab-04/msedge/checker-restored-375.jpg"
+			]
+		},
+		{
+			"browser": "msedge 156.0.4314.42",
+			"width": 375,
+			"check": "scoreboard",
+			"pass": true,
+			"note": "1/1 rows",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/msedge/scoreboard-375.jpg"
+			]
+		},
+		{
+			"browser": "msedge 156.0.4314.42",
+			"width": 375,
+			"check": "hub page",
+			"pass": true,
+			"note": "h1 \"The agent honeypot\"",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/msedge/hub-375.jpg"
+			]
+		},
+		{
+			"browser": "msedge 156.0.4314.42",
+			"width": 375,
+			"check": "about page",
+			"pass": true,
+			"note": "h1 \"A trap that only asks for a poem\"",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/msedge/about-375.jpg"
+			]
+		},
+		{
+			"browser": "msedge 156.0.4314.42",
+			"width": 375,
+			"check": "404.html at /no/such/page/",
+			"pass": true,
+			"note": "h1 \"This page slipped through the glass.\"",
+			"problems": [],
+			"shots": [
+				"evidence/laptop-check/lab-04/msedge/404-375.jpg"
+			]
+		}
+	],
+	"chrome": "156.0.8078.48",
+	"msedge": "156.0.4314.42",
+	"finished": "2026-10-27T22:26:24.376Z"
+}

@@ -1,0 +1,276 @@
+/* Sample 35 — Weather window. The shell (sky, top bar, panel) comes from css/; only the piece is styled here.
+   Stage C, open sky: a glass window frame whose pane shows a sky per weather (a stack of CSS gradients that cross-fade),
+   three layers of clouds (inline SVG, moved with transform), and the weather icon floating in front.
+   Everything that moves is moved with transform or opacity only; the sky colours are the piece's own artwork, kept to
+   DS v9's blues, with text always on a glass plate. */
+
+/* ---------- placement: beside the panel on a desktop, centred and above it on a phone ---------- */
+
+.weather-stage {
+	--edge: max(var(--gutter), calc((100vw - var(--page-max)) / 2));
+	display: grid;
+	place-items: center end;
+	padding: 76px var(--edge) 28px;
+}
+.wx {
+	position: relative;
+	display: grid;
+	gap: 14px;
+	width: min(740px, calc(100vw - 2 * var(--edge) - 464px));
+}
+.wx__defs { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+@media (max-width: 999px) {
+	.weather-stage { place-items: start center; padding: 84px var(--gutter) 340px; }
+	.wx { width: min(740px, 100%); }
+}
+
+/* ---------- the window ---------- */
+
+.wx__window { padding: 10px; border-radius: var(--glass-radius-xl); }
+.pane {
+	position: relative;
+	height: clamp(230px, calc(100vh - 400px), 410px);
+	height: clamp(230px, calc(100dvh - 400px), 410px);
+	border-radius: 12px;
+	overflow: hidden;
+	isolation: isolate;
+	background: #3f8ff0;
+	color: var(--ink);
+}
+@media (max-width: 720px) {
+	.pane { height: clamp(236px, 66vw, 300px); }
+}
+/* the glass edge of the pane and a glare across it: static, drawn over the sky and the icon, under the text plates */
+.pane::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 6;
+	border-radius: inherit;
+	box-shadow: inset 0 0 0 1px rgba(22, 66, 140, 0.4), inset 0 8px 20px -6px rgba(22, 66, 140, 0.34);
+	pointer-events: none;
+}
+.pane::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 6;
+	border-radius: inherit;
+	background: linear-gradient(112deg, rgba(255, 255, 255, 0.2) 0 15%, rgba(255, 255, 255, 0) 15% 22%, rgba(255, 255, 255, 0.11) 22% 27%, rgba(255, 255, 255, 0) 27%);
+	pointer-events: none;
+}
+
+/* the skies: one gradient each, stacked; the chosen one fades in (opacity only) */
+.pane__skies, .sky-l { position: absolute; inset: 0; }
+.sky-l { opacity: 0; background: var(--sky); transition: opacity 0.9s var(--ease-out); }
+.sky-l.is-on { opacity: 1; }
+/* each sky's gradient is a token on its data-k, so the small day tiles below wear the same sky */
+[data-k="clear-day"]    { --sky: linear-gradient(180deg, #2f7fe8 0%, #5fa8f4 46%, #bfe3fb 100%); }
+[data-k="cloudy-day"]   { --sky: linear-gradient(180deg, #5b84b8 0%, #8fb0d3 50%, #cfe0ee 100%); }
+[data-k="rain-day"]     { --sky: linear-gradient(180deg, #34558a 0%, #5679ab 52%, #93b0d0 100%); }
+[data-k="storm-day"]    { --sky: linear-gradient(180deg, #1c2f5e 0%, #2f4a80 54%, #5878a8 100%); }
+[data-k="snow-day"]     { --sky: linear-gradient(180deg, #5a86c0 0%, #8fb4dc 52%, #d3e5f4 100%); }
+[data-k="clear-night"]  { --sky: linear-gradient(180deg, #050b1e 0%, #0d1f4d 56%, #1c3c84 100%); }
+[data-k="cloudy-night"] { --sky: linear-gradient(180deg, #0a1331 0%, #19285a 56%, #2d4678 100%); }
+[data-k="rain-night"]   { --sky: linear-gradient(180deg, #070f29 0%, #13224c 56%, #263b6e 100%); }
+[data-k="storm-night"]  { --sky: linear-gradient(180deg, #040815 0%, #0c1636 56%, #1b2b5c 100%); }
+[data-k="snow-night"]   { --sky: linear-gradient(180deg, #101c42 0%, #223769 56%, #4a6ba5 100%); }
+
+/* stars: three unrelated tiles, only on a night sky and thinner under cloud */
+.pane__stars {
+	position: absolute;
+	inset: 0;
+	opacity: var(--star, 0);
+	transition: opacity 0.9s var(--ease-out);
+	background-image:
+		radial-gradient(1.4px 1.4px at 22px 34px, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0) 70%),
+		radial-gradient(1px 1px at 96px 76px, rgba(200, 228, 255, 0.85), rgba(200, 228, 255, 0) 70%),
+		radial-gradient(1.8px 1.8px at 158px 18px, rgba(255, 255, 255, 0.85), rgba(255, 255, 255, 0) 70%),
+		radial-gradient(1px 1px at 64px 122px, rgba(170, 215, 255, 0.8), rgba(170, 215, 255, 0) 70%),
+		radial-gradient(1.2px 1.2px at 184px 138px, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0) 70%),
+		radial-gradient(1px 1px at 41px 9px, rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0) 70%),
+		radial-gradient(1.5px 1.5px at 117px 101px, rgba(200, 228, 255, 0.8), rgba(200, 228, 255, 0) 70%),
+		radial-gradient(1px 1px at 263px 47px, rgba(255, 255, 255, 0.75), rgba(255, 255, 255, 0) 70%);
+	background-size: 210px 160px, 210px 160px, 210px 160px, 210px 160px, 210px 160px, 137px 113px, 137px 113px, 331px 197px;
+	-webkit-mask-image: linear-gradient(180deg, #000 0%, #000 55%, rgba(0, 0, 0, 0) 100%);
+	mask-image: linear-gradient(180deg, #000 0%, #000 55%, rgba(0, 0, 0, 0) 100%);
+}
+
+/* ---------- the clouds: three depths; each is a wrapper moved by script (drift and pointer parallax)
+   holding a pale and a dark copy of the same clouds, whose opacities set how overcast the sky is ---------- */
+
+.cl { position: absolute; left: 0; width: 100%; pointer-events: none; will-change: transform; }
+.cl--far  { top: 4%;  z-index: 3; }
+.cl--mid  { top: 20%; z-index: 3; }
+.cl--near { top: 40%; z-index: 4; }
+.cl svg {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 200%;
+	height: auto;
+	max-width: none;
+	aspect-ratio: 1200 / 160;
+	overflow: hidden;
+	transition: opacity 0.9s var(--ease-out);
+}
+.cl__pale { opacity: var(--p, 0); }
+.cl__dark { opacity: var(--d, 0); }
+
+.pane__flash {
+	position: absolute;
+	inset: 0;
+	z-index: 4;
+	opacity: 0;
+	pointer-events: none;
+	background: radial-gradient(60% 55% at 68% 32%, rgba(255, 255, 255, 0.95), rgba(214, 232, 255, 0.4) 55%, rgba(214, 232, 255, 0) 100%);
+}
+
+/* ---------- the icon: floats (script moves .icon__float), crossfades when the weather changes ---------- */
+
+.icon {
+	position: absolute;
+	right: 5%;
+	bottom: 2%;
+	z-index: 5;
+	height: 90%;
+	aspect-ratio: 1;
+	pointer-events: none;
+}
+.icon__float { position: absolute; inset: 0; will-change: transform; }
+.icon__slot { position: absolute; inset: 0; }
+.icon__item {
+	position: absolute;
+	inset: 0;
+	opacity: 1;
+	transform: none;
+	transition: opacity 0.6s var(--ease-out), transform 0.9s var(--ease-spring);
+}
+.icon__item.is-in  { opacity: 0; transform: translate3d(0, 16px, 0) scale(0.88); }
+.icon__item.is-out { opacity: 0; transform: translate3d(0, -10px, 0) scale(1.08); }
+.icon__item svg, .icon__item img { display: block; width: 100%; height: 100%; max-width: none; }
+/* a soft blue contact shadow under the floating icon (an element, so it scales with transform) */
+.icon__shadow {
+	position: absolute;
+	left: 24%;
+	right: 24%;
+	bottom: 4%;
+	height: 7%;
+	border-radius: 50%;
+	background: radial-gradient(closest-side, rgba(10, 40, 100, 0.38), rgba(10, 40, 100, 0));
+	will-change: transform;
+}
+
+/* ---------- the text plates: glass over the sky, so the words never sit on the art ---------- */
+
+.readout {
+	position: absolute;
+	left: 14px;
+	top: 14px;
+	z-index: 7;
+	min-width: 168px;
+	padding: 11px 16px 12px;
+}
+.readout p { margin: 0; }
+.readout__place { font: 600 11px / 16px var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.readout__temp {
+	margin: 2px 0 0 !important;
+	font: 900 clamp(44px, 5.4vw, 60px) / 1 var(--font-display);
+	font-stretch: 90%;
+	font-variant-numeric: tabular-nums;
+	letter-spacing: -0.03em;
+	color: var(--ink);
+}
+.readout__cond { margin-top: 4px !important; font: 800 18px / 24px var(--font-display); color: var(--ink); }
+.readout__sub { font: 500 13px / 18px var(--font-sans); color: var(--muted); }
+
+.moon {
+	position: absolute;
+	left: 14px;
+	bottom: 14px;
+	z-index: 7;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	padding: 6px 16px 6px 8px;
+	opacity: 0;
+	transform: translate3d(0, 8px, 0);
+	transition: opacity 0.6s var(--ease-out), transform 0.7s var(--ease-spring);
+	pointer-events: none;
+}
+.pane[data-night] .moon { opacity: 1; transform: none; }
+.moon img { width: 36px; height: 36px; flex: none; }
+.moon__txt { display: grid; margin: 0; }
+.moon__k { font: 600 10.5px / 14px var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.moon__name { font: 800 14px / 18px var(--font-display); color: var(--ink); }
+
+/* ---------- the sill, the controls, the forecast ---------- */
+
+.wx__sill { height: 12px; margin: -6px 18px 0; border-radius: 8px; }
+
+.wx__controls { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 10px 16px; }
+.wx__chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.wx__time { display: flex; gap: 4px; padding: 3px; }
+.wx__time .btn { min-height: 30px; padding-block: 4px; border-color: transparent; box-shadow: none; background: transparent; }
+.wx__time .btn:hover { background: var(--raised); }
+.wx__time .btn[aria-pressed="true"] { border-color: var(--action); background: var(--raised); box-shadow: inset 0 0 0 1px var(--action); }
+
+.wx__pill { justify-self: start; margin: 4px 0 -6px; padding: 5px 12px; font-size: 13px; line-height: 18px; }
+
+.strip-wrap { --gap: 8px; position: relative; }
+.strip { display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: var(--gap); margin: 0; padding: 0; list-style: none; }
+.day {
+	display: grid;
+	justify-items: center;
+	align-content: start;
+	gap: 1px;
+	width: 100%;
+	padding: 9px 4px 10px;
+	border: 0;
+	color: var(--ink);
+	text-align: center;
+	cursor: pointer;
+	transition: transform 0.35s var(--ease-spring);
+}
+.day:hover { transform: translate3d(0, -2px, 0); }
+.day__name { font: 600 11.5px / 16px var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.day__ico { display: grid; width: 54px; height: 54px; margin: 2px 0 3px; border-radius: 12px; overflow: hidden; background: var(--sky); box-shadow: inset 0 0 0 1px rgba(22, 66, 140, 0.3); }
+.day__ico img { width: 100%; height: 100%; }
+.day__hi { font: 800 16px / 20px var(--font-sans); font-variant-numeric: tabular-nums; }
+.day__lo { font: 500 13px / 18px var(--font-sans); font-variant-numeric: tabular-nums; color: var(--muted); }
+/* the marker: a ring that slides (transform) to the chosen day */
+.strip-wrap:not(.is-ready) .strip__mark { display: none; }
+.strip__mark {
+	position: absolute;
+	left: 0;
+	top: 0;
+	bottom: 0;
+	z-index: 2;
+	width: calc((100% - 4 * var(--gap)) / 5);
+	border-radius: var(--glass-radius-sm);
+	box-shadow: inset 0 0 0 2px var(--action), 0 10px 20px -10px rgba(5, 95, 233, 0.5);
+	transform: translate3d(calc(var(--i, 0) * (100% + var(--gap))), 0, 0);
+	transition: transform 0.55s var(--ease-spring);
+	pointer-events: none;
+}
+
+@media (max-width: 720px) {
+	.readout { left: 10px; top: 10px; min-width: 0; padding: 8px 12px 9px; }
+	.readout__temp { font-size: 40px; }
+	.readout__cond { font-size: 16px; line-height: 20px; }
+	.readout__sub { font-size: 12px; line-height: 16px; }
+	.icon { right: 0; bottom: 0; height: 80%; }
+	.moon { left: 10px; bottom: 10px; }
+	.strip-wrap { --gap: 6px; }
+	.wx__chips { gap: 6px; }
+	.wx__chips .btn { padding-inline: 10px; }
+	.day { padding-inline: 2px; }
+	.day__ico { width: 46px; height: 46px; border-radius: 10px; }
+	.day__hi { font-size: 15px; }
+}
+
+/* ---------- reduced motion: nothing fades or slides; a switch is instant, the icons are the still set ---------- */
+@media (prefers-reduced-motion: reduce) {
+	.sky-l, .pane__stars, .cl svg, .icon__item, .moon, .day, .strip__mark { transition: none !important; }
+}

@@ -1,0 +1,172 @@
+/* Sample 17 — Service Shape-Shifter. The shell (sky, top bar, panel, the night screen) comes from css/; only the piece is styled here.
+   Glowing points with bloom only read on dark, so the piece runs in a framed night screen (stage A).
+   The points, the stars and the haze are drawn by WebGL in piece.js in DS v9's blues (royal, azure, cyan #46d0fb, white),
+   with one small warm LED. Nothing here animates except a short opacity change on the caption. */
+
+.piece {
+	display: block;
+	width: 100%;
+	height: 100%;
+	touch-action: none; /* the canvas takes drags: they turn the shape */
+	cursor: grab;
+	outline: none;
+	-webkit-tap-highlight-color: transparent;
+}
+.piece.is-grabbing { cursor: grabbing; }
+.piece:focus-visible {
+	outline: 3px solid var(--focus);
+	outline-offset: -3px;
+}
+
+/* ---------- the deck: night glass at the top of the window, with the four shape chips and the caption ---------- */
+
+.deck {
+	position: absolute;
+	z-index: 5;
+	top: 44px; /* the window bar is 34 px; piece.js keeps the shape clear of this plate */
+	left: 50%;
+	width: min(500px, calc(100% - 24px));
+	margin: 0;
+	padding: 8px 10px 9px;
+	transform: translateX(-50%);
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 5px;
+	border-radius: var(--radius-lg);
+	color: var(--ink);
+}
+.chips {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 6px;
+}
+.chip {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	min-height: 34px;
+	padding: 5px 15px 5px 11px;
+	border: 1px solid rgba(150, 195, 255, 0.28);
+	border-radius: 999px;
+	background: rgba(22, 32, 58, 0.62);
+	box-shadow: inset 0 1px 0 rgba(220, 236, 255, 0.08);
+	color: var(--ink);
+	font: 700 13px/20px var(--font-sans);
+	letter-spacing: 0.005em;
+	white-space: nowrap;
+	cursor: pointer;
+	transition:
+		background-color var(--t-state) var(--ease-ui),
+		border-color var(--t-state) var(--ease-ui),
+		color var(--t-state) var(--ease-ui),
+		box-shadow var(--t-surface) var(--ease-ui),
+		transform 0.35s var(--ease-spring);
+}
+.chip svg { flex: none; width: 16px; height: 16px; }
+.chip:hover { border-color: rgba(70, 208, 251, 0.62); transform: translateY(-1px); }
+.chip:active { transform: translateY(0) scale(0.98); }
+.chip[aria-pressed="true"] {
+	border-color: var(--action);
+	background: var(--raised);
+	color: var(--accent-text);
+	box-shadow: inset 0 0 0 1px var(--action), 0 0 18px -4px rgba(70, 208, 251, 0.35);
+}
+.chip:disabled { cursor: default; opacity: 0.55; transform: none; }
+.chip:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+/* the caption: changes with the shape; it fades out and in (opacity only) */
+.caption {
+	margin: 0;
+	min-height: 18px;
+	font: 600 13px/18px var(--font-sans);
+	letter-spacing: 0.005em;
+	color: var(--ink);
+	text-align: center;
+	transition: opacity 0.18s var(--ease-out);
+}
+.caption.is-swap { opacity: 0; }
+
+@media (max-width: 560px) {
+	.deck { top: 42px; width: calc(100% - 16px); padding: 7px 6px 8px; }
+	.chips { gap: 4px; }
+	.chip { padding: 5px 11px 5px 9px; gap: 6px; font-size: 12.5px; }
+	.chip svg { width: 15px; height: 15px; }
+	.caption { font-size: 12.5px; }
+}
+@media (max-width: 420px) {
+	.chips { display: grid; grid-template-columns: repeat(4, auto); gap: 4px; }
+	.chip svg { display: none; }
+	.chip { padding: 5px 12px; justify-content: center; }
+}
+
+/* a short wide window (a phone on its side): the deck moves to the right, clear of the info panel */
+@media (max-height: 520px) and (min-width: 721px) {
+	.deck { left: auto; right: 12px; transform: none; width: 270px; padding: 7px 8px 8px; }
+	.chips { display: grid; grid-template-columns: repeat(4, auto); gap: 4px; }
+	.chip svg { display: none; }
+	.chip { padding: 5px 8px; justify-content: center; font-size: 12px; }
+	.caption { font-size: 12px; }
+	.hint { display: none; }
+}
+
+/* ---------- a browser without WebGL: a CSS still of the server stack, and a note ---------- */
+
+.poster {
+	position: absolute;
+	overflow: hidden;
+	cursor: default;
+	display: grid;
+	place-items: center;
+	background:
+		radial-gradient(40% 46% at 50% 54%, rgba(28, 128, 242, 0.26), rgba(28, 128, 242, 0) 72%),
+		radial-gradient(34% 30% at 78% 18%, rgba(70, 208, 251, 0.14), rgba(70, 208, 251, 0) 70%);
+}
+.poster__stack {
+	display: grid;
+	gap: clamp(10px, 2.2vh, 20px);
+	width: min(64%, 420px);
+	margin-top: 28px;
+}
+.poster__unit {
+	position: relative;
+	height: clamp(38px, 8vh, 68px);
+	border: 2px dotted rgba(120, 220, 252, 0.9);
+	border-radius: 8px;
+	background:
+		radial-gradient(circle at 12% 50%, rgba(255, 255, 255, 0.9) 0 2px, rgba(255, 255, 255, 0) 3px),
+		repeating-linear-gradient(90deg, rgba(70, 208, 251, 0.5) 0 2px, rgba(70, 208, 251, 0) 2px 9px) 52% 50% / 26% 54% no-repeat,
+		linear-gradient(rgba(28, 128, 242, 0.1), rgba(28, 128, 242, 0.1));
+	box-shadow: 0 0 22px -2px rgba(70, 208, 251, 0.42), inset 0 0 18px rgba(28, 128, 242, 0.22);
+}
+.poster__unit::after {
+	content: "";
+	position: absolute;
+	right: 7%;
+	top: 50%;
+	width: 8px;
+	height: 8px;
+	margin-top: -4px;
+	border-radius: 50%;
+	background: #ffffff;
+	box-shadow: 0 0 10px 2px rgba(70, 208, 251, 0.8);
+}
+.poster__note {
+	position: absolute;
+	z-index: 6;
+	left: 50%;
+	top: 130px;
+	width: max-content;
+	max-width: calc(100% - 24px);
+	margin: 0;
+	padding: 8px 18px;
+	transform: translateX(-50%);
+	font: 600 13px/20px var(--font-sans);
+	color: var(--ink);
+	text-align: center;
+}
+@media (max-width: 560px) {
+	.poster__note { top: 126px; }
+	.poster__stack { margin-top: -90px; }
+}

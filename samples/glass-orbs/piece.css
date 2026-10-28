@@ -1,0 +1,187 @@
+/* Sample 14 — Glass Orbs. The shell (sky, top bar, panel, the day screen) comes from css/; only the piece is styled here.
+   The glass and the wordmark plane are drawn by WebGL in piece.js, in DS v9's blues on the pale sky ground.
+   Nothing here animates: the canvas is redrawn by script, and the sliders and buttons only change state. */
+
+.piece {
+	display: block;
+	width: 100%;
+	height: 100%;
+	touch-action: none; /* the canvas takes drags: they move an orb */
+	cursor: default;
+}
+.piece.is-over { cursor: grab; }
+.piece.is-grabbing { cursor: grabbing; }
+.piece:focus-visible {
+	outline: 3px solid var(--focus);
+	outline-offset: -3px;
+}
+
+/* ---------- the control bar: a frosted light-glass plate at the top of the window, over the canvas ---------- */
+
+.bar {
+	position: absolute;
+	z-index: 5;
+	top: 46px; /* the window bar is 34 px; piece.js keeps the wordmark and the orbs clear of this plate */
+	left: 50%;
+	width: min(640px, calc(100% - 32px));
+	margin: 0;
+	padding: 8px 20px;
+	transform: translateX(-50%);
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 4px 28px;
+	border-radius: var(--radius-lg);
+	color: var(--ink);
+}
+.bar__slider {
+	flex: 1 1 250px;
+	min-width: 0;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+}
+.bar__label {
+	flex: none;
+	min-width: 5.6em;
+	font: 800 14px/20px var(--font-display);
+	color: var(--ink);
+}
+.bar__val {
+	flex: none;
+	min-width: 3.2ch;
+	text-align: right;
+	font: 700 13px/20px var(--font-mono);
+	font-variant-numeric: tabular-nums;
+	color: var(--ink);
+}
+
+/* the slider: a thin track filled royal to cyan up to the thumb (--p is set by piece.js), and a white glass thumb */
+.bar input[type="range"] {
+	--p: 50%;
+	flex: 1 1 auto;
+	min-width: 80px;
+	height: 28px;
+	margin: 0;
+	padding: 0;
+	background: transparent;
+	cursor: pointer;
+	-webkit-appearance: none;
+	appearance: none;
+}
+.bar input[type="range"]::-webkit-slider-runnable-track {
+	height: 6px;
+	border-radius: 999px;
+	background: linear-gradient(90deg, var(--brand-royal), var(--glow-cyan)) left center / var(--p) 100% no-repeat, var(--line);
+	box-shadow: inset 0 0 0 1px rgba(94, 128, 174, 0.28);
+}
+.bar input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 22px;
+	height: 22px;
+	margin-top: -8px;
+	border: 2px solid var(--action);
+	border-radius: 50%;
+	background: radial-gradient(circle at 35% 30%, #ffffff, #e6f3fc);
+	box-shadow: 0 3px 8px -2px rgba(22, 66, 140, 0.45);
+}
+.bar input[type="range"]::-moz-range-track {
+	height: 6px;
+	border-radius: 999px;
+	background: var(--line);
+	box-shadow: inset 0 0 0 1px rgba(94, 128, 174, 0.28);
+}
+.bar input[type="range"]::-moz-range-progress {
+	height: 6px;
+	border-radius: 999px;
+	background: linear-gradient(90deg, var(--brand-royal), var(--glow-cyan));
+}
+.bar input[type="range"]::-moz-range-thumb {
+	box-sizing: border-box;
+	width: 22px;
+	height: 22px;
+	border: 2px solid var(--action);
+	border-radius: 50%;
+	background: radial-gradient(circle at 35% 30%, #ffffff, #e6f3fc);
+	box-shadow: 0 3px 8px -2px rgba(22, 66, 140, 0.45);
+}
+.bar input[type="range"]:focus-visible {
+	outline: 2px solid var(--focus);
+	outline-offset: 4px;
+	border-radius: 999px;
+}
+.bar input[type="range"]:disabled { cursor: default; opacity: 0.5; }
+
+/* a short wide window (a phone on its side): the bar moves to the right, clear of the info panel */
+@media (max-height: 520px) and (min-width: 721px) {
+	.bar { left: auto; right: 16px; transform: none; width: min(340px, calc(100% - 32px)); }
+	.bar__slider { flex-basis: 100%; }
+}
+
+@media (max-width: 560px) {
+	.bar { top: 44px; padding: 4px 14px; gap: 0; }
+	.bar__slider { flex-basis: 100%; gap: 10px; }
+	.bar__label { min-width: 6em; }
+}
+
+/* ---------- the still picture a browser without WebGL sees: pale blue graph paper, the wordmark, three glass discs ---------- */
+
+.poster {
+	position: absolute;
+	overflow: hidden;
+	cursor: default;
+	background:
+		radial-gradient(60% 50% at 18% 92%, rgba(77, 159, 243, 0.24), rgba(77, 159, 243, 0) 70%),
+		radial-gradient(45% 40% at 86% 12%, rgba(70, 208, 251, 0.2), rgba(70, 208, 251, 0) 70%),
+		repeating-linear-gradient(0deg, rgba(12, 107, 237, 0.12) 0 1px, rgba(12, 107, 237, 0) 1px 48px),
+		repeating-linear-gradient(90deg, rgba(12, 107, 237, 0.12) 0 1px, rgba(12, 107, 237, 0) 1px 48px),
+		linear-gradient(180deg, var(--sky-top), var(--sky-mid) 50%, #cfe9fb);
+}
+.poster__word {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: max-content;
+	max-width: 92%;
+	margin: 0;
+	transform: translate(-50%, -50%);
+	font: 900 clamp(40px, 9.5vw, 132px) / 1 var(--font-display);
+	letter-spacing: -0.02em;
+	text-align: center;
+	color: #0a2a72;
+	text-shadow: 0 0 0.06em #fafcfd, 0 0 0.12em #fafcfd, 0 0.04em 0.08em rgba(22, 66, 140, 0.18);
+}
+.poster__word b { font-weight: 900; color: var(--brand-royal); }
+.poster__orb {
+	position: absolute;
+	border-radius: 50%;
+	background:
+		radial-gradient(circle at 30% 26%, rgba(255, 255, 255, 0.95) 0 6%, rgba(255, 255, 255, 0) 16%),
+		radial-gradient(circle at 50% 50%, rgba(255, 255, 255, 0.05) 0 52%, rgba(120, 190, 250, 0.22) 78%, rgba(255, 255, 255, 0.7) 100%);
+	box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.85), inset 0 -10px 22px rgba(12, 107, 237, 0.2), 0 26px 30px -18px rgba(22, 66, 140, 0.4);
+}
+.poster__orb--a { width: clamp(90px, 20vw, 250px); aspect-ratio: 1; left: 26%; top: 44%; transform: translate(-50%, -50%); }
+.poster__orb--b { width: clamp(56px, 11vw, 140px); aspect-ratio: 1; left: 70%; top: 36%; transform: translate(-50%, -50%); }
+.poster__orb--c { width: clamp(44px, 8vw, 100px); aspect-ratio: 1; left: 80%; top: 64%; transform: translate(-50%, -50%); }
+.poster__note {
+	position: absolute;
+	z-index: 6;
+	left: 50%;
+	top: 118px;
+	width: max-content;
+	max-width: calc(100% - 24px);
+	margin: 0;
+	padding: 8px 18px;
+	transform: translateX(-50%);
+	font: 600 13px/20px var(--font-sans);
+	color: var(--ink);
+	text-align: center;
+}
+@media (max-width: 560px) {
+	.poster__note { top: 160px; }
+	.poster__word { top: 46%; }
+	.poster__orb--a { left: 24%; top: 40%; }
+	.poster__orb--b { left: 76%; top: 33%; }
+	.poster__orb--c { left: 84%; top: 58%; }
+}

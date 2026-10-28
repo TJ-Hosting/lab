@@ -1,0 +1,230 @@
+/* Sample 51 — Shape-Shifting Chart Story, on the open day sky.
+   A frosted chart card (DS v9's .glass) holds the Vizzu canvas; its plot is transparent, so the glass shows through the chart.
+   Under it: five step buttons and a frosted caption card with Previous / Next and a thin countdown bar. The shell (sky, top bar,
+   panel) comes from css/. On a wide screen the steps and caption stand to the right of the fixed panel, level with it; on a phone
+   everything stacks and the stage keeps room under it for the panel.
+   Motion in this file: the countdown bar fills (transform, a Web Animation started by piece.js), the key fades (opacity and
+   transform), and the usual button transitions. The chart itself is a canvas; Vizzu moves it, only while a morph is in flight. */
+
+.story-stage {
+	place-items: start center;
+	/* a phone: the panel (about 300 px) stands over the foot of the page, so the page keeps room for it */
+	padding: 84px var(--gutter) 330px;
+}
+
+.piece-open {
+	width: min(1200px, 100%);
+	display: grid;
+	grid-template-columns: minmax(0, 1fr);
+	gap: 12px;
+}
+
+/* ---------- the chart card ---------- */
+
+.chart {
+	display: flex;
+	flex-direction: column;
+	height: clamp(280px, calc(100vh - 498px), 380px);
+	height: clamp(280px, calc(100dvh - 498px), 380px);
+	padding: 14px 16px 8px;
+	box-shadow: var(--glass-shadow-lift);
+}
+
+.chart__head {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 6px 14px;
+	min-height: 34px;
+}
+.chart__title {
+	margin: 0 auto 0 0;
+	font: 900 19px / 1.2 var(--font-display);
+	font-stretch: 94%;
+	letter-spacing: -0.01em;
+	color: var(--ink);
+}
+.chart__note {
+	padding: 4px 12px;
+	font: 600 11.5px / 18px var(--font-mono);
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--muted);
+	white-space: normal;
+}
+
+/* the key: the seasons in the chart's own colours, or (bars: one colour) a note that the seasons are added up.
+   Both sit in one grid cell and trade places, so the row never changes height. */
+.keys { display: grid; }
+.keys > * {
+	grid-area: 1 / 1;
+	align-self: center;
+	justify-self: end;
+	transition: opacity 0.35s var(--ease-out), transform 0.35s var(--ease-out), visibility 0s linear 0.35s;
+}
+.keys__total {
+	margin: 0;
+	font: 700 13.5px / 20px var(--font-sans);
+	color: var(--muted);
+}
+.key {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 4px 14px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.keys[data-mode="total"] .key,
+.keys[data-mode="seasons"] .keys__total {
+	opacity: 0;
+	visibility: hidden;
+	transform: translate3d(0, 4px, 0);
+}
+.keys[data-mode="total"] .keys__total,
+.keys[data-mode="seasons"] .key {
+	opacity: 1;
+	visibility: visible;
+	transform: none;
+	transition-delay: 0s;
+}
+.key li {
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	font: 700 13.5px / 20px var(--font-sans);
+	color: var(--ink);
+}
+.key li::before {
+	content: "";
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	background: var(--dot);
+	box-shadow: 0 0 0 1.5px rgba(22, 66, 140, 0.28);
+}
+
+.plot {
+	position: relative;
+	flex: 1 1 auto;
+	min-height: 0;
+	margin-top: 4px;
+}
+.plot > canvas { display: block; }
+
+/* the plain chart (no WebAssembly): an inline SVG of the same sample numbers */
+.story [hidden] { display: none !important; }
+.plain { display: block; width: 100%; height: 100%; }
+.plain__grid { stroke: var(--line); stroke-width: 1; }
+.plain__bar { fill: var(--brand-royal); }
+.plain__axis { font: 600 12px var(--font-sans); fill: var(--muted); }
+.plain__axis--title { font-weight: 700; }
+.plain__val { font: 800 13px var(--font-sans); fill: var(--ink); }
+
+/* ---------- the story: steps and caption ---------- */
+
+.story { display: grid; gap: 10px; min-width: 0; }
+
+.steps { display: flex; gap: 6px; }
+.step {
+	flex: 1 1 0;
+	min-width: 0;
+	padding-left: 4px;
+	padding-right: 4px;
+}
+
+.cap {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	min-height: 92px;
+	padding: 14px 16px 16px;
+}
+.cap__body { flex: 1 1 auto; min-width: 0; }
+.cap__kick {
+	margin: 0 0 4px;
+	font: 600 11.5px / 16px var(--font-mono);
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: var(--muted);
+}
+.cap__text {
+	margin: 0;
+	font: 800 16px / 1.35 var(--font-display);
+	letter-spacing: -0.005em;
+	color: var(--ink);
+}
+.cap__nav { display: flex; flex: none; gap: 8px; }
+.nav { width: 38px; padding: 0; }
+.nav--prev:hover svg { transform: translateX(-3px); }
+
+/* the countdown to the next step: a bar along the card's foot that fills left to right (transform only) */
+.cap .tick {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	z-index: 2;
+	height: 3px;
+	background: rgba(5, 95, 233, 0.12);
+}
+.cap .tick i {
+	display: block;
+	height: 100%;
+	background: linear-gradient(90deg, var(--brand-royal), var(--glow-cyan));
+	transform-origin: 0 50%;
+	transform: scaleX(0);
+}
+.story.is-paused .tick { opacity: 0.45; }
+.story.is-plain .tick { display: none; }
+
+.nojs { margin: 0; white-space: normal; }
+
+/* a control that has nothing to do (Pause under reduced motion, every control when only the plain chart shows) looks it */
+.sample--chart-story .btn:disabled { opacity: 0.5; cursor: default; transform: none; box-shadow: none; }
+
+@media (prefers-reduced-motion: reduce) {
+	.cap .tick { display: none; }
+}
+
+/* ---------- a tablet: stacked, with more height for the chart ---------- */
+
+@media (min-width: 721px) and (max-width: 1099px) {
+	.chart {
+		height: clamp(360px, calc(100vh - 560px), 520px);
+		height: clamp(360px, calc(100dvh - 560px), 520px);
+	}
+}
+
+/* ---------- a wide screen: the steps and the caption stand to the right of the fixed panel ---------- */
+
+@media (min-width: 1100px) {
+	.story-stage { padding-bottom: 24px; }
+	.chart {
+		/* the panel is about 250 px tall and 18 px off the floor: the chart takes everything above it */
+		height: clamp(280px, calc(100vh - 84px - 278px), 600px);
+		height: clamp(280px, calc(100dvh - 84px - 278px), 600px);
+		padding: 18px 22px 12px;
+	}
+	.chart__title { font-size: 22px; }
+	.story { margin-left: 468px; }
+	.cap { min-height: 108px; padding: 18px 20px 20px; }
+	.cap__text { font-size: 19px; }
+}
+
+/* ---------- a phone ---------- */
+
+@media (max-width: 720px) {
+	.chart { padding: 12px 12px 6px; }
+	.chart__title { font-size: 17px; flex: 1 1 100%; }
+	.chart__note { font-size: 10.5px; padding: 3px 10px; }
+	.key li { font-size: 13px; }
+	.keys { flex: 1 1 100%; }
+	.keys > * { justify-self: start; }
+	.keys__total { font-size: 13px; }
+	.step { font-size: 12.5px; }
+	.cap { min-height: 84px; padding: 12px 12px 14px; gap: 8px; }
+	.cap__text { font-size: 15px; }
+	.cap__nav { gap: 6px; }
+	.nav { width: 34px; min-height: 34px; }
+}

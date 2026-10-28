@@ -1,0 +1,124 @@
+/* Shared shell for sample pages: a full-viewport stage on the day sky, a light glass info panel, controls. */
+
+.sample {
+	min-height: 100vh;
+	min-height: 100dvh;
+}
+
+.sample .topbar { position: fixed; left: 0; right: 0; top: 0; }
+
+.stage {
+	position: relative;
+	min-height: 100vh;
+	min-height: 100dvh;
+	display: grid;
+	place-items: center;
+	overflow: hidden;
+}
+
+.sample-info {
+	position: fixed;
+	z-index: 40;
+	/* on the page grid, like the brand above it */
+	left: max(var(--gutter), env(safe-area-inset-left), calc((100vw - var(--page-max)) / 2));
+	bottom: max(18px, env(safe-area-inset-bottom));
+	width: min(440px, calc(100% - 2 * var(--gutter)));
+	padding: 20px 22px 18px;
+	/* denser than other glass: over a dark window the blur otherwise greys it; DS v9's cards stay white-blue */
+	--glass-tint: rgba(244, 248, 253, 0.97);
+	--glass-tint-strong: rgba(244, 248, 253, 0.98);
+}
+.sample-info h1 {
+	font: 900 clamp(22px, 2.2vw, 26px) / 1.15 var(--font-display);
+	font-stretch: 92%;
+	letter-spacing: -0.015em;
+	margin-bottom: 8px;
+}
+.sample-info .eyebrow { margin-bottom: 8px; }
+/* the fold toggle sits top right: the first two lines keep clear of it */
+.sample-info .eyebrow, .sample-info h1 { padding-right: 40px; }
+.sample-info .how {
+	margin: 0 0 14px;
+	font-size: 14.5px;
+	line-height: 1.55;
+	color: var(--muted);
+}
+.sample-info .how b { color: var(--ink); font-weight: 800; }
+
+.controls { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; }
+.controls .back {
+	margin-left: auto;
+	font-size: 14px;
+	font-weight: 700;
+	color: var(--accent-text);
+}
+.controls .back:hover { color: var(--ink); }
+/* on a phone the back link always takes its own line at the right, so the panel looks the same on every sample */
+@media (max-width: 560px) {
+	.controls .back { flex-basis: 100%; text-align: right; }
+}
+
+.hint {
+	position: fixed;
+	z-index: 30;
+	right: var(--gutter);
+	bottom: 22px;
+	padding: 9px 16px;
+	font: 500 12px/16px var(--font-mono);
+	letter-spacing: 0.08em;
+	color: var(--muted);
+}
+
+@media (max-width: 720px) {
+	.sample-info { padding: 16px 18px 14px; }
+	.sample-info .how { font-size: 14px; margin-bottom: 12px; }
+	.hint { display: none; }
+}
+
+/* ---------- lab-05: the shared stages (tools/sample-template) ---------- */
+
+/* A and B: the framed window (.screen, night or .screen--day), fixed on the page grid under the top bar:
+   the particle field's screen (lab-04 L3), made shared */
+.stage--screen { display: block; }
+.piece-screen {
+	position: fixed;
+	top: 72px;
+	left: max(var(--gutter), calc((100vw - var(--page-max)) / 2));
+	right: max(var(--gutter), calc((100vw - var(--page-max)) / 2));
+	bottom: max(16px, env(safe-area-inset-bottom));
+}
+/* the piece fills the window below its 34 px bar */
+.piece-screen > .piece {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 34px;
+	width: 100%;
+	height: calc(100% - 34px);
+}
+/* a hint over a window sits inside its corner */
+.stage--screen ~ .hint { right: calc(max(var(--gutter), (100vw - var(--page-max)) / 2) + 16px); bottom: calc(max(16px, env(safe-area-inset-bottom)) + 16px); }
+
+/* D: a scrolling page under the fixed top bar (the panel stays fixed over it) */
+.scroll-page { position: relative; padding-top: 72px; }
+
+/* collapsible info on very short or narrow screens */
+.sample-info[data-collapsed="true"] .how,
+.sample-info[data-collapsed="true"] .eyebrow { display: none; }
+.info-toggle {
+	position: absolute !important;
+	top: 12px;
+	right: 12px;
+	width: 34px;
+	height: 34px;
+	border-radius: 50%;
+	border: 1px solid var(--border-control);
+	background: var(--surface);
+	color: var(--ink);
+	cursor: pointer;
+	display: grid;
+	place-items: center;
+}
+.info-toggle svg { width: 16px; height: 16px; transition: transform 0.3s ease; }
+.sample-info[data-collapsed="true"] .info-toggle svg { transform: rotate(180deg); }

@@ -1,0 +1,488 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://*.google.com; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<script src="../../js/ga4.js"></script>
+	<title>Living glass bento grid — bento tiles · TJ-Hosting Lab</title>
+	<meta name="description" content="Six frosted glass tiles in a bento layout, each with a small looping drawing of a hosting service. A Learn more bar slides up on hover. HTML, CSS and a little JavaScript.">
+	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/bento-grid/">
+	<meta name="theme-color" content="#eef7fc">
+	<link rel="icon" href="../../img/brand/tj-mark.svg" type="image/svg+xml">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="TJ-Hosting Lab">
+	<meta property="og:title" content="Living glass bento grid — TJ-Hosting Lab">
+	<meta property="og:description" content="Six light glass tiles, each with a small looping drawing, on the day sky.">
+	<meta property="og:url" content="https://lab.tj-hosting.ca/samples/bento-grid/">
+	<meta property="og:image" content="https://lab.tj-hosting.ca/img/og/bento-grid.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="Six frosted glass tiles in a bento layout on a pale blue sky: a speed gauge, an envelope, a domain tag, a padlock, a heartbeat line and a pen stroke">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="preload" href="../../fonts/nunito-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="../../css/glass.css">
+	<link rel="stylesheet" href="../../css/lab.css">
+	<link rel="stylesheet" href="../../css/sample.css">
+	<link rel="stylesheet" href="piece.css">
+	<script src="../../js/early.js"></script>
+	<script type="module" src="piece.js"></script>
+</head>
+<body class="sample sample--bento-grid">
+	<a class="skip" href="#about-piece">Skip to the description</a>
+
+	<div class="sky" aria-hidden="true"></div>
+
+	<header class="topbar">
+		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
+			<img src="../../img/brand/tj-mark.svg" alt="" width="34" height="34">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Lab">
+			<a href="../../#samples">All samples</a>
+		</nav>
+	</header>
+
+	<!-- stage C: open sky. Each tile is its own [data-motion] region, so its drawing's loops pause when it scrolls off-screen -->
+	<main id="main" class="stage bento-stage" data-motion>
+		<div class="piece-open">
+			<!-- the shared "render" kit for the six drawings: blue gradients, a soft glow, a soft shadow and a low plinth (all static) -->
+			<svg class="bx-defs" width="0" height="0" aria-hidden="true" focusable="false">
+				<defs>
+					<linearGradient id="bx-royal" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#5eb0ff"/><stop offset=".5" stop-color="#1a78f2"/><stop offset="1" stop-color="#0553cf"/></linearGradient>
+					<linearGradient id="bx-azure" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b9e2ff"/><stop offset=".5" stop-color="#63b2fa"/><stop offset="1" stop-color="#2b8bf5"/></linearGradient>
+					<linearGradient id="bx-cyan" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c6f5ff"/><stop offset=".5" stop-color="#46d0fb"/><stop offset="1" stop-color="#14a2e8"/></linearGradient>
+					<linearGradient id="bx-navy" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#4f80d4"/><stop offset=".5" stop-color="#1c4fa6"/><stop offset="1" stop-color="#0f2f70"/></linearGradient>
+					<linearGradient id="bx-gold" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#ffe2a6"/><stop offset=".5" stop-color="#ffb547"/><stop offset="1" stop-color="#e58b1f"/></linearGradient>
+					<linearGradient id="bx-pale" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#fff"/><stop offset=".55" stop-color="#e6f1fd"/><stop offset="1" stop-color="#c6ddf8"/></linearGradient>
+					<linearGradient id="bx-cell" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#e9f3fe"/><stop offset="1" stop-color="#c8def8"/></linearGradient>
+					<linearGradient id="bx-track" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#b9d3f2"/><stop offset="1" stop-color="#e9f3fe"/></linearGradient>
+					<linearGradient id="bx-sheen" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#fff" stop-opacity=".15"/><stop offset="1" stop-color="#fff" stop-opacity="0"/></linearGradient>
+					<radialGradient id="bx-glow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#46d0fb" stop-opacity=".72"/><stop offset=".5" stop-color="#46d0fb" stop-opacity=".26"/><stop offset="1" stop-color="#46d0fb" stop-opacity="0"/></radialGradient>
+					<radialGradient id="bx-shadow" cx=".5" cy=".5" r=".5"><stop offset="0" stop-color="#16428c" stop-opacity=".36"/><stop offset=".6" stop-color="#16428c" stop-opacity=".14"/><stop offset="1" stop-color="#16428c" stop-opacity="0"/></radialGradient>
+					<radialGradient id="bx-orb" cx=".34" cy=".3" r=".8"><stop offset="0" stop-color="#8fb4ee"/><stop offset=".4" stop-color="#2a5fb8"/><stop offset=".8" stop-color="#16428c"/><stop offset="1" stop-color="#0c2d6b"/></radialGradient>
+					<linearGradient id="pl-top" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7fc3ff"/><stop offset=".55" stop-color="#2f8df6"/><stop offset="1" stop-color="#0f66ec"/></linearGradient>
+					<linearGradient id="pl-pad" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#b3deff"/><stop offset=".5" stop-color="#58aafc"/><stop offset="1" stop-color="#2181f4"/></linearGradient>
+					<linearGradient id="pl-left" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#2a82f4"/><stop offset="1" stop-color="#0a49bd"/></linearGradient>
+					<linearGradient id="pl-right" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#0f5bdb"/><stop offset="1" stop-color="#07338a"/></linearGradient>
+					<!-- the low plinth every drawing stands on: origin at the centre of its top, 200 wide, scaled where it is used -->
+					<g id="plinth">
+						<ellipse cx="0" cy="26" rx="116" ry="14" fill="url(#bx-shadow)"/>
+						<path d="M-97 3.8 0 27.1V30.9L-97 7.6Z" fill="url(#pl-left)" stroke="url(#pl-left)" stroke-width="6" stroke-linejoin="round"/>
+						<path d="M3 26.4 97 3.8V7.6L3 30.2Z" fill="url(#pl-right)" stroke="url(#pl-right)" stroke-width="6" stroke-linejoin="round"/>
+						<path d="M-90.3-2.3-9.7-21.7Q0-24 9.7-21.7L90.3-2.3Q100 0 90.3 2.3L9.7 21.7Q0 24-9.7 21.7L-90.3 2.3Q-100 0-90.3-2.3Z" fill="url(#pl-top)" stroke="#8be3ff" stroke-opacity=".85" stroke-width="1.4" stroke-linejoin="round"/>
+						<path transform="scale(.7)" d="M-90.3-2.3-9.7-21.7Q0-24 9.7-21.7L90.3-2.3Q100 0 90.3 2.3L9.7 21.7Q0 24-9.7 21.7L-90.3 2.3Q-100 0-90.3-2.3Z" fill="url(#pl-pad)" stroke="#46d0fb" stroke-opacity=".6" stroke-width="1.3" stroke-linejoin="round"/>
+						<path d="M-83-1.4-12-18.4" fill="none" stroke="#fff" stroke-opacity=".85" stroke-width="1.8" stroke-linecap="round"/>
+						<circle cx="-80" cy=".4" r="2.2" fill="#c9f4ff"/>
+						<circle cx="80" cy=".4" r="2.2" fill="#c9f4ff"/>
+					</g>
+				</defs>
+			</svg>
+
+			<p class="note pill"><span class="pill__dot" aria-hidden="true"></span>Sample content · illustrative</p>
+
+			<ul class="bento" id="bento" aria-label="Six hosting services, shown as sample tiles">
+
+				<!-- 1. speed: the wide tile -->
+				<li class="tile tile--wide" data-motion style="--n:0" data-more="Pages are kept light, pictures are sized to fit and nothing waits on a slow script.">
+					<span class="tile__halo" aria-hidden="true"></span>
+					<div class="tile__face glass glass--xl">
+						<div class="tile__art speed-art" aria-hidden="true">
+							<svg class="art art--bars art--bars-l" viewBox="0 0 160 160" preserveAspectRatio="xMidYMax meet" focusable="false">
+								<use href="#plinth" transform="translate(80 122) scale(.64)"/>
+								<ellipse cx="80" cy="121" rx="46" ry="7" fill="url(#bx-glow)"/>
+								<rect x="10" y="46" width="140" height="12" rx="6" fill="url(#bx-track)"/>
+								<g class="bar" style="--v:.92;--i:0">
+									<rect x="10" y="43" width="140" height="18" rx="9" fill="#46d0fb" fill-opacity=".2"/>
+									<rect x="10" y="46" width="140" height="12" rx="6" fill="url(#bx-royal)"/>
+									<rect x="13" y="47.4" width="134" height="2.8" rx="1.4" fill="#fff" fill-opacity=".55"/>
+								</g>
+								<rect x="10" y="70" width="140" height="12" rx="6" fill="url(#bx-track)"/>
+								<g class="bar" style="--v:.7;--i:1">
+									<rect x="10" y="67" width="140" height="18" rx="9" fill="#46d0fb" fill-opacity=".2"/>
+									<rect x="10" y="70" width="140" height="12" rx="6" fill="url(#bx-azure)"/>
+									<rect x="13" y="71.4" width="134" height="2.8" rx="1.4" fill="#fff" fill-opacity=".6"/>
+								</g>
+								<rect x="10" y="94" width="140" height="12" rx="6" fill="url(#bx-track)"/>
+								<g class="bar" style="--v:.82;--i:2">
+									<rect x="10" y="91" width="140" height="18" rx="9" fill="#46d0fb" fill-opacity=".2"/>
+									<rect x="10" y="94" width="140" height="12" rx="6" fill="url(#bx-cyan)"/>
+									<rect x="13" y="95.4" width="134" height="2.8" rx="1.4" fill="#fff" fill-opacity=".65"/>
+								</g>
+							</svg>
+							<svg class="art art--gauge" viewBox="0 6 250 154" preserveAspectRatio="xMidYMax meet" focusable="false">
+								<defs>
+									<linearGradient id="spd-arc" gradientUnits="userSpaceOnUse" x1="-100" y1="0" x2="100" y2="0">
+										<stop offset="0" stop-color="#0c6bed"/>
+										<stop offset=".5" stop-color="#4d9ff3"/>
+										<stop offset="1" stop-color="#46d0fb"/>
+									</linearGradient>
+									<radialGradient id="spd-face" cx=".5" cy="1" r="1">
+										<stop offset="0" stop-color="#fff" stop-opacity=".92"/>
+										<stop offset=".7" stop-color="#d4e7fb" stop-opacity=".5"/>
+										<stop offset="1" stop-color="#d4e7fb" stop-opacity="0"/>
+									</radialGradient>
+									<linearGradient id="spd-needle" x1="0" y1="0" x2="1" y2="0">
+										<stop offset="0" stop-color="#5a86d8"/>
+										<stop offset=".5" stop-color="#1c4fa6"/>
+										<stop offset="1" stop-color="#0c2d6b"/>
+									</linearGradient>
+								</defs>
+								<use href="#plinth" transform="translate(125 122) scale(1.1)"/>
+								<g transform="translate(125 120)">
+									<ellipse cx="0" cy="4" rx="104" ry="11" fill="url(#bx-shadow)"/>
+									<path d="M-91 0A91 91 0 0 1 91 0Z" fill="url(#spd-face)"/>
+									<path d="M-100 3A100 100 0 0 1 100 3" fill="none" stroke="#0a3ea6" stroke-opacity=".26" stroke-width="19" stroke-linecap="round"/>
+									<path d="M-100 0A100 100 0 0 1 100 0" fill="none" stroke="url(#spd-arc)" stroke-width="18" stroke-linecap="round"/>
+									<path d="M-103.5 0A103.5 103.5 0 0 1 103.5 0" fill="none" stroke="#fff" stroke-opacity=".28" stroke-width="4"/>
+									<path d="M-95.5 0A95.5 95.5 0 0 1 95.5 0" fill="none" stroke="#0a3ea6" stroke-opacity=".2" stroke-width="4"/>
+									<path d="M-98.5-26.4A102 102 0 0 1-43.1-92.4" fill="none" stroke="#fff" stroke-opacity=".85" stroke-width="2.8" stroke-linecap="round"/>
+									<path d="M-78 0A78 78 0 0 1 78 0" fill="none" stroke="#16428c" stroke-opacity=".4" stroke-width="7" stroke-dasharray="1.4 11.6"/>
+									<g class="needle">
+										<circle cx="0" cy="-84" r="27" fill="url(#bx-glow)"/>
+										<path d="M-5 4 0-86 5 4Z" fill="url(#spd-needle)"/>
+										<path d="M-2.6 0-.5-78" fill="none" stroke="#fff" stroke-opacity=".7" stroke-width="1.3" stroke-linecap="round"/>
+									</g>
+									<circle r="12.5" fill="url(#bx-orb)"/>
+									<circle r="4.4" fill="#ffb547"/>
+									<ellipse cx="-4.2" cy="-5.2" rx="4.6" ry="2.5" fill="#fff" fill-opacity=".8" transform="rotate(-32 -4.2 -5.2)"/>
+								</g>
+							</svg>
+							<svg class="art art--bars art--bars-r" viewBox="0 0 160 160" preserveAspectRatio="xMidYMax meet" focusable="false">
+								<use href="#plinth" transform="translate(80 122) scale(.64)"/>
+								<ellipse cx="80" cy="121" rx="46" ry="7" fill="url(#bx-glow)"/>
+								<rect x="10" y="46" width="140" height="12" rx="6" fill="url(#bx-track)"/>
+								<g class="bar bar--r" style="--v:.6;--i:1">
+									<rect x="10" y="43" width="140" height="18" rx="9" fill="#46d0fb" fill-opacity=".2"/>
+									<rect x="10" y="46" width="140" height="12" rx="6" fill="url(#bx-cyan)"/>
+									<rect x="13" y="47.4" width="134" height="2.8" rx="1.4" fill="#fff" fill-opacity=".65"/>
+								</g>
+								<rect x="10" y="70" width="140" height="12" rx="6" fill="url(#bx-track)"/>
+								<g class="bar bar--r" style="--v:.9;--i:2">
+									<rect x="10" y="67" width="140" height="18" rx="9" fill="#46d0fb" fill-opacity=".2"/>
+									<rect x="10" y="70" width="140" height="12" rx="6" fill="url(#bx-royal)"/>
+									<rect x="13" y="71.4" width="134" height="2.8" rx="1.4" fill="#fff" fill-opacity=".55"/>
+								</g>
+								<rect x="10" y="94" width="140" height="12" rx="6" fill="url(#bx-track)"/>
+								<g class="bar bar--r" style="--v:.74;--i:3">
+									<rect x="10" y="91" width="140" height="18" rx="9" fill="#46d0fb" fill-opacity=".2"/>
+									<rect x="10" y="94" width="140" height="12" rx="6" fill="url(#bx-azure)"/>
+									<rect x="13" y="95.4" width="134" height="2.8" rx="1.4" fill="#fff" fill-opacity=".6"/>
+								</g>
+							</svg>
+						</div>
+						<div class="tile__text">
+							<h2 class="tile__title"><svg class="tile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17a8 8 0 1 1 16 0"/><path d="m12 17 4-5"/></svg>Fast by default</h2>
+							<p class="tile__desc">Pages load quickly, so visitors stay.</p>
+						</div>
+						<div class="tile__cta"><button class="more" type="button" aria-expanded="false" aria-label="Learn more about fast by default">Learn more<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+					</div>
+				</li>
+
+				<!-- 2. email -->
+				<li class="tile" data-motion style="--n:1" data-more="Addresses at your own web name, with spam filtered out before it reaches you.">
+					<span class="tile__halo" aria-hidden="true"></span>
+					<div class="tile__face glass glass--xl">
+						<div class="tile__art" aria-hidden="true">
+							<svg class="art art--email" viewBox="0 0 270 150" preserveAspectRatio="xMidYMax meet" focusable="false">
+								<defs>
+									<linearGradient id="env-back" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3b93f6"/><stop offset="1" stop-color="#0a52cf"/></linearGradient>
+									<linearGradient id="env-front" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#7cc0ff"/><stop offset=".5" stop-color="#2184f4"/><stop offset="1" stop-color="#0b5ae0"/></linearGradient>
+								</defs>
+								<use href="#plinth" transform="translate(135 117) scale(.9)"/>
+								<g transform="translate(0 -8)">
+									<g class="lines" stroke="#46d0fb" stroke-width="4" stroke-linecap="round">
+										<path d="M22 70h34M12 86h44M26 102h30"/>
+									</g>
+									<g class="env">
+										<ellipse cx="135" cy="124" rx="80" ry="12" fill="url(#bx-glow)"/>
+										<ellipse cx="135" cy="123" rx="66" ry="6" fill="url(#bx-shadow)"/>
+										<rect x="70" y="52" width="130" height="70" rx="10" fill="url(#env-back)"/>
+										<g class="flap-open">
+											<path d="M74 52 135 12 196 52Z" fill="url(#bx-azure)" stroke="#0c6bed" stroke-opacity=".55" stroke-width="1.5" stroke-linejoin="round"/>
+											<path d="M80 49.5 133 17.5" fill="none" stroke="#fff" stroke-opacity=".85" stroke-width="2.2" stroke-linecap="round"/>
+										</g>
+										<g class="letter">
+											<ellipse cx="135" cy="84" rx="72" ry="42" fill="url(#bx-glow)"/>
+											<rect x="88" y="58" width="94" height="62" rx="6" fill="url(#bx-pale)" stroke="#8db8ee" stroke-width="1.5"/>
+											<path d="M100 74h46" stroke="#0c6bed" stroke-width="4.5" stroke-linecap="round"/>
+											<path d="M100 87h68M100 100h38" stroke="#4d9ff3" stroke-width="4.5" stroke-linecap="round"/>
+											<rect x="91" y="60.2" width="34" height="2.6" rx="1.3" fill="#fff"/>
+										</g>
+										<path d="M71.5 54 135 98 198.5 54V112a9 9 0 0 1-9 9H80.5a9 9 0 0 1-9-9Z" fill="url(#env-front)" stroke="#0a4fc4" stroke-opacity=".5" stroke-width="1.5" stroke-linejoin="round"/>
+										<path d="M76.5 61 131 98.5M75 70v39" fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="2.2" stroke-linecap="round"/>
+										<g class="flap-closed">
+											<path d="M71.5 52H198.5L135 98Z" fill="url(#bx-azure)" stroke="#0c6bed" stroke-opacity=".55" stroke-width="1.5" stroke-linejoin="round"/>
+											<path d="M78 55.2H136" fill="none" stroke="#fff" stroke-opacity=".85" stroke-width="2.2" stroke-linecap="round"/>
+										</g>
+									</g>
+								</g>
+							</svg>
+						</div>
+						<div class="tile__text">
+							<h2 class="tile__title"><svg class="tile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3.5 7.5 8.5 6 8.5-6"/></svg>Email that arrives</h2>
+							<p class="tile__desc">Your own address, with spam kept out.</p>
+						</div>
+						<div class="tile__cta"><button class="more" type="button" aria-expanded="false" aria-label="Learn more about email that arrives">Learn more<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+					</div>
+				</li>
+
+				<!-- 3. care plan: the tall tile -->
+				<li class="tile tile--tall" data-motion style="--n:2" data-more="Updates, backups and a regular check-up, so small problems are caught early.">
+					<span class="tile__halo" aria-hidden="true"></span>
+					<div class="tile__face glass glass--xl">
+						<div class="tile__art" aria-hidden="true">
+							<svg class="art art--care" viewBox="0 0 270 340" preserveAspectRatio="xMidYMax meet" focusable="false">
+								<defs>
+									<linearGradient id="care-edge" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="214" y2="0">
+										<stop offset="0" stop-color="#000"/>
+										<stop offset=".14" stop-color="#fff"/>
+										<stop offset=".86" stop-color="#fff"/>
+										<stop offset="1" stop-color="#000"/>
+									</linearGradient>
+									<pattern id="care-cells" patternUnits="userSpaceOnUse" x="31" y="52" width="31" height="28"><rect width="22" height="20" rx="6" fill="url(#bx-cell)"/></pattern>
+									<mask id="care-fade" maskUnits="userSpaceOnUse" x="0" y="0" width="214" height="78">
+										<rect x="0" y="0" width="214" height="78" fill="url(#care-edge)"/>
+									</mask>
+									<linearGradient id="care-screen" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#123a86"/><stop offset="1" stop-color="#0b2b69"/></linearGradient>
+								</defs>
+								<use href="#plinth" transform="translate(135 298) scale(1.18)"/>
+								<ellipse cx="135" cy="298" rx="112" ry="12" fill="url(#bx-shadow)"/>
+								<!-- the calendar -->
+								<rect x="24" y="10" width="230" height="160" rx="16" fill="#0a3ea6" fill-opacity=".26"/>
+								<rect x="20" y="6" width="230" height="160" rx="16" fill="url(#bx-pale)" stroke="#8db8ee" stroke-width="1.5"/>
+								<path d="M20 22a16 16 0 0 1 16-16H234a16 16 0 0 1 16 16V40H20Z" fill="url(#bx-royal)"/>
+								<rect x="28" y="9" width="170" height="8" rx="4" fill="#fff" fill-opacity=".3"/>
+								<rect x="36" y="20" width="62" height="9" rx="4.5" fill="#fff" fill-opacity=".92"/>
+								<rect x="64" y="0" width="9" height="17" rx="4.5" fill="url(#bx-navy)"/>
+								<rect x="197" y="0" width="9" height="17" rx="4.5" fill="url(#bx-navy)"/>
+								<rect x="66" y="2.5" width="2" height="9" rx="1" fill="#fff" fill-opacity=".6"/>
+								<rect x="199" y="2.5" width="2" height="9" rx="1" fill="#fff" fill-opacity=".6"/>
+								<rect x="31" y="52" width="208" height="104" fill="url(#care-cells)"/>
+								<g class="week">
+									<g class="done" style="--i:0"><rect x="31" y="80" width="22" height="20" rx="6" fill="url(#bx-royal)"/><rect x="34" y="81.6" width="16" height="3" rx="1.5" fill="#fff" fill-opacity=".4"/><path d="m37 90 4 4 8-8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
+									<g class="done" style="--i:1"><rect x="62" y="80" width="22" height="20" rx="6" fill="url(#bx-royal)"/><rect x="65" y="81.6" width="16" height="3" rx="1.5" fill="#fff" fill-opacity=".4"/><path d="m68 90 4 4 8-8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
+									<g class="done" style="--i:2"><rect x="93" y="80" width="22" height="20" rx="6" fill="url(#bx-royal)"/><rect x="96" y="81.6" width="16" height="3" rx="1.5" fill="#fff" fill-opacity=".4"/><path d="m99 90 4 4 8-8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
+									<g class="done" style="--i:3"><rect x="124" y="80" width="22" height="20" rx="6" fill="url(#bx-royal)"/><rect x="127" y="81.6" width="16" height="3" rx="1.5" fill="#fff" fill-opacity=".4"/><path d="m130 90 4 4 8-8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
+									<g class="done" style="--i:4"><rect x="155" y="80" width="22" height="20" rx="6" fill="url(#bx-royal)"/><rect x="158" y="81.6" width="16" height="3" rx="1.5" fill="#fff" fill-opacity=".4"/><path d="m161 90 4 4 8-8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
+									<g class="done" style="--i:5"><rect x="186" y="80" width="22" height="20" rx="6" fill="url(#bx-royal)"/><rect x="189" y="81.6" width="16" height="3" rx="1.5" fill="#fff" fill-opacity=".4"/><path d="m192 90 4 4 8-8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
+									<g class="done" style="--i:6"><rect x="217" y="80" width="22" height="20" rx="6" fill="url(#bx-royal)"/><rect x="220" y="81.6" width="16" height="3" rx="1.5" fill="#fff" fill-opacity=".4"/><path d="m223 90 4 4 8-8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
+									<g class="today">
+										<rect x="19" y="68" width="46" height="44" rx="16" fill="#46d0fb" fill-opacity=".12"/>
+										<rect x="23" y="72" width="38" height="36" rx="13" fill="#46d0fb" fill-opacity=".22"/>
+										<rect x="27" y="76" width="30" height="28" rx="9" fill="none" stroke="#46d0fb" stroke-width="3"/>
+									</g>
+								</g>
+								<!-- the heart -->
+								<g transform="translate(135 188)">
+									<g class="heart">
+										<circle cx="0" cy="-1.5" r="21" fill="url(#bx-glow)"/>
+										<path d="M0 9 -9.4 .2C-14.4-4.8-9.2-12.6-3.6-10.1-1.8-9.3-.6-8 0-6.8.6-8 1.8-9.3 3.6-10.1 9.2-12.6 14.4-4.8 9.4 .2Z" fill="url(#bx-royal)"/>
+										<ellipse cx="-6.2" cy="-6.4" rx="3.4" ry="2" fill="#fff" fill-opacity=".85" transform="rotate(-35 -6.2 -6.4)"/>
+									</g>
+								</g>
+								<!-- the monitor: a glossy slab on the plinth, the heartbeat line glowing on its screen -->
+								<rect x="22" y="204" width="226" height="90" rx="15" fill="url(#bx-royal)" stroke="#0a3ea6" stroke-opacity=".45" stroke-width="1"/>
+								<path d="M34 207.2H170" fill="none" stroke="#fff" stroke-opacity=".75" stroke-width="1.8" stroke-linecap="round"/>
+								<rect x="28" y="210" width="214" height="78" rx="10" fill="url(#care-screen)"/>
+								<svg x="28" y="210" width="214" height="78" viewBox="0 0 214 78">
+									<g mask="url(#care-fade)">
+										<path d="M0 14H214M0 46H214M0 78H214M30 0V78M60 0V78M90 0V78M120 0V78M150 0V78M180 0V78" stroke="#46d0fb" stroke-opacity=".14" stroke-width="1"/>
+										<g class="ecg" fill="none" stroke-linecap="round" stroke-linejoin="round">
+											<g transform="translate(0 -16)">
+												<path d="M0 62H50q9-12 18 0H92l7 9 11-52 11 70 8-27H150q16-18 32 0H270M270 62H320q9-12 18 0H362l7 9 11-52 11 70 8-27H420q16-18 32 0H540" stroke="#46d0fb" stroke-opacity=".28" stroke-width="10"/>
+												<path d="M0 62H50q9-12 18 0H92l7 9 11-52 11 70 8-27H150q16-18 32 0H270M270 62H320q9-12 18 0H362l7 9 11-52 11 70 8-27H420q16-18 32 0H540" stroke="#6fe0ff" stroke-width="3.4"/>
+												<path d="M0 62H50q9-12 18 0H92l7 9 11-52 11 70 8-27H150q16-18 32 0H270M270 62H320q9-12 18 0H362l7 9 11-52 11 70 8-27H420q16-18 32 0H540" stroke="#fff" stroke-opacity=".85" stroke-width="1.2"/>
+											</g>
+										</g>
+									</g>
+								</svg>
+								<path d="M38 210H134L88 288H38A10 10 0 0 1 28 278V220A10 10 0 0 1 38 210Z" fill="url(#bx-sheen)"/>
+							</svg>
+						</div>
+						<div class="tile__text">
+							<h2 class="tile__title"><svg class="tile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20S4.5 15.6 4.5 9.8A4.1 4.1 0 0 1 12 7.6a4.1 4.1 0 0 1 7.5 2.2C19.5 15.6 12 20 12 20Z"/></svg>A care plan</h2>
+							<p class="tile__desc">Updates, backups and a regular check-up, so the site stays well.</p>
+						</div>
+						<div class="tile__cta"><button class="more" type="button" aria-expanded="false" aria-label="Learn more about a care plan">Learn more<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+					</div>
+				</li>
+
+				<!-- 4. domains -->
+				<li class="tile" data-motion style="--n:3" data-more="We help you pick a name, register it and keep it renewed.">
+					<span class="tile__halo" aria-hidden="true"></span>
+					<div class="tile__face glass glass--xl">
+						<div class="tile__art" aria-hidden="true">
+							<svg class="art art--domain" viewBox="0 0 270 150" preserveAspectRatio="xMidYMax meet" focusable="false">
+								<defs>
+									<linearGradient id="dom-string" gradientUnits="userSpaceOnUse" x1="76" y1="6" x2="76" y2="74"><stop offset="0" stop-color="#4d9ff3" stop-opacity="0"/><stop offset=".45" stop-color="#4d9ff3" stop-opacity=".9"/><stop offset="1" stop-color="#0c6bed"/></linearGradient>
+									<linearGradient id="dom-ghost" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#c4e4ff"/><stop offset="1" stop-color="#7cbaf7"/></linearGradient>
+								</defs>
+								<use href="#plinth" transform="translate(135 117) scale(.9)"/>
+								<g fill="url(#dom-ghost)" stroke="#8db8ee" stroke-width="1.5" stroke-linejoin="round" opacity=".82">
+									<path transform="rotate(-9 76 8)" d="M62 80 84 52H190a8 8 0 0 1 8 8V94a8 8 0 0 1-8 8H84Z"/>
+									<path transform="rotate(10 76 8)" d="M62 80 84 52H190a8 8 0 0 1 8 8V94a8 8 0 0 1-8 8H84Z"/>
+								</g>
+								<g class="swing">
+									<ellipse cx="135" cy="116" rx="66" ry="9" fill="url(#bx-glow)"/>
+									<path d="M76 6V74" fill="none" stroke="url(#dom-string)" stroke-width="2.5" stroke-linecap="round"/>
+									<path d="M62 80 84 52H190a8 8 0 0 1 8 8V94a8 8 0 0 1-8 8H84Z" fill="url(#bx-royal)" stroke="#0a3ea6" stroke-opacity=".5" stroke-width="1.5" stroke-linejoin="round"/>
+									<path d="M67 78.5 85.5 55H188" fill="none" stroke="#fff" stroke-opacity=".8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+									<rect x="92" y="62" width="98" height="30" rx="8" fill="url(#bx-pale)" stroke="#8db8ee" stroke-width="1.2"/>
+									<circle cx="77" cy="77" r="5.5" fill="url(#bx-pale)" stroke="#0a4fc4" stroke-opacity=".7" stroke-width="1.2"/>
+									<circle cx="77" cy="77" r="2.6" fill="#0a3ea6"/>
+									<text x="97" y="81.5" fill="#16428c" font-family="JetBrains Mono, ui-monospace, monospace" font-size="13.5" font-weight="700">yourname.ca</text>
+									<circle class="ring" cx="198" cy="54" r="15" fill="none" stroke="#46d0fb" stroke-width="3"/>
+									<g class="tick">
+										<circle cx="198" cy="54" r="27" fill="url(#bx-glow)"/>
+										<circle cx="198" cy="54" r="15" fill="url(#bx-royal)" stroke="#8be3ff" stroke-width="1.5"/>
+										<ellipse cx="192.4" cy="47.6" rx="5" ry="2.6" fill="#fff" fill-opacity=".8" transform="rotate(-38 192.4 47.6)"/>
+										<path d="m191 54 5 5 9-10" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+									</g>
+								</g>
+							</svg>
+						</div>
+						<div class="tile__text">
+							<h2 class="tile__title"><svg class="tile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><ellipse cx="12" cy="12" rx="4" ry="9"/></svg>Your own web address</h2>
+							<p class="tile__desc">Find a name, register it and keep it renewed.</p>
+						</div>
+						<div class="tile__cta"><button class="more" type="button" aria-expanded="false" aria-label="Learn more about your own web address">Learn more<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+					</div>
+				</li>
+
+				<!-- 5. secure connections -->
+				<li class="tile" data-motion style="--n:4" data-more="Every page is served over a secure link, and the certificate renews itself.">
+					<span class="tile__halo" aria-hidden="true"></span>
+					<div class="tile__face glass glass--xl">
+						<div class="tile__art" aria-hidden="true">
+							<svg class="art art--lock" viewBox="0 0 270 150" preserveAspectRatio="xMidYMax meet" focusable="false">
+								<defs>
+									<radialGradient id="ssl-halo" cx=".5" cy=".5" r=".5">
+										<stop offset="0" stop-color="#46d0fb" stop-opacity=".55"/>
+										<stop offset=".6" stop-color="#46d0fb" stop-opacity=".16"/>
+										<stop offset="1" stop-color="#46d0fb" stop-opacity="0"/>
+									</radialGradient>
+									<linearGradient id="ssl-body" x1="0" y1="0" x2="0" y2="1">
+										<stop offset="0" stop-color="#4aa2fb"/>
+										<stop offset=".5" stop-color="#1470f0"/>
+										<stop offset="1" stop-color="#0653d2"/>
+									</linearGradient>
+									<linearGradient id="ssl-shackle" x1="0" y1="0" x2="1" y2="0">
+										<stop offset="0" stop-color="#5a86d8"/>
+										<stop offset=".5" stop-color="#1c4fa6"/>
+										<stop offset="1" stop-color="#0f2f70"/>
+									</linearGradient>
+								</defs>
+								<use href="#plinth" transform="translate(135 117) scale(.9)"/>
+								<rect x="32" y="2" width="206" height="24" rx="12" fill="url(#bx-pale)" stroke="#8db8ee" stroke-width="1.5"/>
+								<path d="M52 10.5V9a4 4 0 0 1 8 0v1.5" fill="none" stroke="#0c6bed" stroke-width="2" stroke-linecap="round"/>
+								<rect x="50" y="10.5" width="12" height="8.5" rx="2" fill="url(#bx-royal)"/>
+								<text x="70" y="18.5" fill="#16428c" font-family="JetBrains Mono, ui-monospace, monospace" font-size="11.5" font-weight="700">https://yourname.ca</text>
+								<g transform="translate(135 116) scale(.92) translate(-135 -124)">
+									<circle class="halo" cx="135" cy="92" r="52" fill="url(#ssl-halo)"/>
+									<circle class="pulse" cx="135" cy="94" r="36" fill="none" stroke="#46d0fb" stroke-width="3"/>
+									<ellipse cx="135" cy="125" rx="46" ry="6" fill="url(#bx-shadow)"/>
+									<g class="shackle">
+										<path d="M117 74V62a18 18 0 0 1 36 0V74" fill="none" stroke="url(#ssl-shackle)" stroke-width="9" stroke-linecap="round"/>
+										<path d="M115.2 71V62a19.8 19.8 0 0 1 19.8-19.8" fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="1.8" stroke-linecap="round"/>
+									</g>
+									<rect x="105" y="77" width="68" height="52" rx="12" fill="#0846b8"/>
+									<rect x="101" y="72" width="68" height="52" rx="12" fill="url(#ssl-body)" stroke="#0a4fc4" stroke-opacity=".5" stroke-width="1.5"/>
+									<rect x="108" y="75.4" width="38" height="5" rx="2.5" fill="#fff" fill-opacity=".6"/>
+									<path d="M103.6 84V104" fill="none" stroke="#fff" stroke-opacity=".4" stroke-width="2" stroke-linecap="round"/>
+									<circle cx="135" cy="95.5" r="7" fill="#0a3ea6" fill-opacity=".3"/>
+									<path d="M135 100v12" stroke="#0a3ea6" stroke-opacity=".3" stroke-width="5.5" stroke-linecap="round"/>
+									<circle cx="135" cy="94" r="7" fill="#fff"/>
+									<path d="M135 98v12" stroke="#fff" stroke-width="5.5" stroke-linecap="round"/>
+								</g>
+							</svg>
+						</div>
+						<div class="tile__text">
+							<h2 class="tile__title"><svg class="tile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9.5" rx="2.5"/><path d="M8.5 11V8a3.5 3.5 0 0 1 7 0v3"/></svg>Secure connections</h2>
+							<p class="tile__desc">A padlock on every page, renewed for you.</p>
+						</div>
+						<div class="tile__cta"><button class="more" type="button" aria-expanded="false" aria-label="Learn more about secure connections">Learn more<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+					</div>
+				</li>
+
+				<!-- 6. design -->
+				<li class="tile" data-motion style="--n:5" data-more="A layout drawn around your words and colours, tidy on a phone and on a desk.">
+					<span class="tile__halo" aria-hidden="true"></span>
+					<div class="tile__face glass glass--xl">
+						<div class="tile__art" aria-hidden="true">
+							<svg class="art art--pen" viewBox="0 0 270 150" preserveAspectRatio="xMidYMax meet" focusable="false">
+								<defs>
+									<mask id="pen-reveal" maskUnits="userSpaceOnUse" x="0" y="0" width="270" height="150">
+										<rect class="reveal" x="0" y="0" width="270" height="150" fill="#fff"/>
+									</mask>
+									<linearGradient id="pen-ink" gradientUnits="userSpaceOnUse" x1="30" y1="0" x2="240" y2="0"><stop offset="0" stop-color="#0c6bed"/><stop offset=".55" stop-color="#4d9ff3"/><stop offset="1" stop-color="#46d0fb"/></linearGradient>
+									<linearGradient id="pen-barrel" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#7cc0ff"/><stop offset=".4" stop-color="#1a78f2"/><stop offset="1" stop-color="#0553cf"/></linearGradient>
+									<linearGradient id="pen-cap" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#d6f8ff"/><stop offset=".45" stop-color="#46d0fb"/><stop offset="1" stop-color="#1ba5e8"/></linearGradient>
+									<linearGradient id="pen-nib" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#6b94d8"/><stop offset=".5" stop-color="#16428c"/><stop offset="1" stop-color="#0c2d6b"/></linearGradient>
+									<linearGradient id="pen-band" x1="0" y1="0" x2="1" y2="0"><stop offset="0" stop-color="#ffe2a6"/><stop offset=".45" stop-color="#ffb547"/><stop offset="1" stop-color="#e58b1f"/></linearGradient>
+								</defs>
+								<use href="#plinth" transform="translate(135 117) scale(.9)"/>
+								<ellipse cx="135" cy="117" rx="84" ry="10" fill="url(#bx-glow)"/>
+								<g transform="translate(135 10) scale(.84) translate(-135 0)">
+									<!-- the pen tool's skeleton: anchors and handles -->
+									<g stroke="#4d9ff3" stroke-width="1.6" fill="none" stroke-opacity=".75">
+										<path d="M30 100 70 28M112 28 160 124M205 128 240 52"/>
+									</g>
+									<g fill="url(#bx-pale)" stroke="#4d9ff3" stroke-width="1.8">
+										<circle cx="70" cy="28" r="3.5"/><circle cx="112" cy="28" r="3.5"/><circle cx="160" cy="124" r="3.5"/><circle cx="205" cy="128" r="3.5"/>
+									</g>
+									<g class="ink" mask="url(#pen-reveal)" fill="none" stroke-linecap="round">
+										<path d="M30 100C70 28 112 28 135 76S205 128 240 52" stroke="#46d0fb" stroke-opacity=".28" stroke-width="13"/>
+										<path d="M30 100C70 28 112 28 135 76S205 128 240 52" stroke="url(#pen-ink)" stroke-width="6.5"/>
+										<path d="M30 100C70 28 112 28 135 76S205 128 240 52" transform="translate(-1 -1.6)" stroke="#fff" stroke-opacity=".55" stroke-width="1.7"/>
+									</g>
+									<g fill="url(#bx-pale)" stroke="#0c6bed" stroke-width="2">
+										<rect x="25.5" y="95.5" width="9" height="9" rx="1.5"/><rect x="130.5" y="71.5" width="9" height="9" rx="1.5"/><rect x="235.5" y="47.5" width="9" height="9" rx="1.5"/>
+									</g>
+									<g transform="translate(30 100)">
+										<g class="pen-path">
+											<g class="pen-lift">
+												<circle cx="0" cy="0" r="21" fill="url(#bx-glow)"/>
+												<g transform="rotate(34)">
+													<path d="M-6-14H6L0 0Z" fill="url(#pen-nib)"/>
+													<path d="M-3.2-12.4-.6-2.6" fill="none" stroke="#fff" stroke-opacity=".6" stroke-width="1" stroke-linecap="round"/>
+													<rect x="-6" y="-19" width="12" height="5.5" fill="url(#pen-band)"/>
+													<rect x="-6" y="-46" width="12" height="27.5" rx="2.5" fill="url(#pen-barrel)"/>
+													<rect x="-3.8" y="-44" width="2.2" height="23" rx="1.1" fill="#fff" fill-opacity=".6"/>
+													<rect x="-6" y="-52" width="12" height="7" rx="3.5" fill="url(#pen-cap)"/>
+													<rect x="-4" y="-51" width="5" height="2" rx="1" fill="#fff" fill-opacity=".75"/>
+												</g>
+											</g>
+										</g>
+									</g>
+								</g>
+							</svg>
+						</div>
+						<div class="tile__text">
+							<h2 class="tile__title"><svg class="tile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 20 1-4.5L16.5 4a2.1 2.1 0 0 1 3 3L8 18.5Z"/><path d="m14.5 6 3.5 3.5"/></svg>Design that fits</h2>
+							<p class="tile__desc">A clean layout drawn for your words and your colours.</p>
+						</div>
+						<div class="tile__cta"><button class="more" type="button" aria-expanded="false" aria-label="Learn more about design that fits">Learn more<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+					</div>
+				</li>
+			</ul>
+			<noscript><p class="note">The tiles need JavaScript for the Learn more panels.</p></noscript>
+		</div>
+	</main>
+
+	<p class="hint glass glass--pill" aria-hidden="true">Hover or tap a tile</p>
+
+	<aside class="sample-info glass glass--strong" id="about-piece" aria-labelledby="piece-title">
+		<p class="eyebrow">Sample 40 · Bento tiles</p>
+		<h1 id="piece-title">Living glass bento grid</h1>
+		<p class="how"><b>How it's made:</b> six frosted tiles on a CSS grid, each with a small drawing of inline SVG that loops by itself.
+		Only transform and opacity move, and every loop pauses off-screen or in a hidden tab.</p>
+		<div class="controls">
+			<button class="btn btn--sm btn--primary" type="button" data-action="lift" aria-pressed="false">Lift all tiles</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="pause" aria-pressed="false">Pause</button>
+			<a class="back" href="../../#samples">← Back to the lab</a>
+		</div>
+	</aside>
+</body>
+</html>

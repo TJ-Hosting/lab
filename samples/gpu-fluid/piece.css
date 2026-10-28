@@ -1,0 +1,39 @@
+/* Sample 18 — Ink Tide GPU Fluid. The shell (sky, top bar, panel, the night screen) comes from css/; only the piece is styled here.
+   The ink is light on a deep navy ground, so the piece runs in a framed night screen (stage A). Its colours (cyan, azure,
+   royal, white on navy) are drawn by the shaders in piece.js; the poster below uses the same ones. */
+
+.piece {
+	display: block;
+	width: 100%;
+	height: 100%;
+	touch-action: none; /* the canvas takes drags: they stir the ink */
+	cursor: crosshair;
+}
+.piece[hidden] { display: none; }
+
+/* the still picture a browser without float render targets sees instead of the canvas: ink drawn in gradients */
+.poster {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 34px;
+	display: grid;
+	place-items: start center;
+	padding: 16px;
+	background:
+		radial-gradient(34% 26% at 30% 38%, rgba(70, 208, 251, 0.55), rgba(70, 208, 251, 0) 72%),
+		radial-gradient(30% 22% at 38% 46%, rgba(235, 247, 255, 0.42), rgba(235, 247, 255, 0) 66%),
+		radial-gradient(44% 30% at 64% 56%, rgba(40, 130, 240, 0.62), rgba(40, 130, 240, 0) 74%),
+		radial-gradient(26% 36% at 72% 30%, rgba(77, 159, 243, 0.42), rgba(77, 159, 243, 0) 72%),
+		radial-gradient(40% 34% at 46% 78%, rgba(10, 100, 214, 0.55), rgba(10, 100, 214, 0) 74%),
+		linear-gradient(180deg, #040918 0%, #07112d 52%, #0a1d4a 100%);
+}
+.poster[hidden] { display: none; }
+.poster__note {
+	margin: 0;
+	padding: 8px 18px;
+	font: 600 13px/20px var(--font-sans);
+	color: var(--ink);
+	text-align: center;
+}

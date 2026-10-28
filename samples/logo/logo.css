@@ -1,0 +1,73 @@
+/* Sample 03 — the TJ-Hosting mark, assembling, on the day sky (the mark's SVG and colours are unchanged) */
+
+.logo-stage {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: clamp(10px, 2vh, 24px);
+	padding: 96px var(--gutter) 210px;
+}
+
+.logo-scene {
+	position: relative;
+	width: min(62vmin, 500px);
+	aspect-ratio: 1;
+}
+
+/* a lens of light glass the mark assembles in, with a soft blue shadow under it */
+.lens {
+	position: absolute;
+	inset: 2%;
+	border-radius: 50%;
+	background-color: rgba(255, 255, 255, 0.62);
+	box-shadow: var(--glass-inner), 0 40px 70px -30px rgba(22, 66, 140, 0.42), 0 14px 28px -14px rgba(5, 95, 233, 0.2);
+}
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+	.lens { background-color: rgba(255, 255, 255, 0.5); }
+}
+.lens::after { border-radius: 50%; height: 50%; }
+.lens__glow {
+	position: absolute !important;
+	inset: 18%;
+	border-radius: 50%;
+	background: radial-gradient(circle, rgba(70, 208, 251, 0.34), rgba(77, 159, 243, 0.12) 55%, rgba(77, 159, 243, 0) 70%);
+	filter: blur(24px);
+}
+
+.logo {
+	position: absolute;
+	inset: 6%;
+	width: 88%;
+	height: 88%;
+	overflow: visible;
+	filter: drop-shadow(0 16px 22px rgba(22, 66, 140, 0.28));
+}
+.logo .ring,
+.logo .mer,
+.logo .par,
+.logo .node {
+	transform-box: fill-box;
+	transform-origin: center;
+}
+.logo .stripe,
+.logo .glint { transform-box: view-box; }
+
+/* the wordmark, set like tj-hosting.ca's: Nunito Sans at 900, narrowed and tracked in, near-black */
+.wordmark {
+	margin: 0;
+	display: flex;
+	font: 900 clamp(30px, 4.8vw, 60px) / 1.05 var(--font-display);
+	font-stretch: 85%;
+	letter-spacing: -0.04em;
+	color: var(--ink-black);
+}
+.wordmark span {
+	display: inline-block;
+	will-change: transform, opacity;
+}
+
+@media (max-width: 720px) {
+	.logo-stage { padding-bottom: 250px; justify-content: flex-start; padding-top: 110px; }
+	.logo-scene { width: min(78vw, 360px); }
+}

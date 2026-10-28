@@ -1,0 +1,187 @@
+/*
+ * TJ-Hosting Lab — glass system, on Design System v9 "Day sky" (tj-hosting.ca, tj-build-06).
+ * Every glass token lives here: tint, edge, light, shadow, radius, blur.
+ * Values are DS v9's (resources/css/v7/glass.css on TJ-Hosting/tj feat/iso-day-2026-10-26):
+ * frosted WHITE glass with a blue-tinged hairline, a white rim caught top-left, a top sheen
+ * and a soft blue shadow (never grey).
+ * The base rule is the fallback: a white tint dense enough that text passes contrast over the
+ * deepest sky and over the art with no blur at all. Frosting is layered on only where
+ * backdrop-filter is supported.
+ * Inside the night band ([data-night]: the footers and the framed night screens) the same
+ * names take DS v8's smoked glass, as on tj-hosting.ca, so a panel there is night glass
+ * without a second rule.
+ */
+
+:root {
+	/* blur: DS v9's chrome frost; the strong panels a little more */
+	--glass-blur: 14px;
+	--glass-blur-strong: 22px;
+	--glass-saturate: 150%;
+
+	/* tint: white. The frosted tint is DS v9's floor (white 0.8 over the deepest sky #c9e7fc is
+	   #f4fafe); the fallback fills are denser so text stays readable over art without blur. */
+	--glass-tint: rgba(255, 255, 255, 0.8);
+	--glass-tint-strong: rgba(255, 255, 255, 0.88);
+	--glass-tint-soft: rgba(255, 255, 255, 0.62);
+	--glass-fallback: rgba(255, 255, 255, 0.9);
+	--glass-fallback-strong: rgba(255, 255, 255, 0.94);
+
+	/* edge: a hairline plus the rim light, both drawn by ::before as a 1px ring */
+	--glass-border: rgba(94, 128, 174, 0.26);
+	--glass-rim: linear-gradient(155deg,
+		rgba(255, 255, 255, 1) 0%,
+		rgba(255, 255, 255, 0.55) 24%,
+		rgba(255, 255, 255, 0.05) 48%,
+		rgba(77, 159, 243, 0.18) 74%,
+		rgba(12, 107, 237, 0.34) 100%);
+	--glass-rim-width: 1px;
+
+	/* light: a top sheen and fine cool grain (an inline SVG, no request) */
+	--glass-sheen: linear-gradient(180deg, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0) 46%);
+	--glass-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='.2 0 0 0 0 .3 0 0 0 0 .55 0 0 0 0 0 0 0 0 .03'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+
+	/* shadow: blue, never grey (the sky's own hue, darkened) */
+	--glass-inner: inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 0 rgba(22, 66, 140, 0.08);
+	--glass-drop: 0 24px 48px -22px rgba(22, 66, 140, 0.32), 0 8px 18px -10px rgba(22, 66, 140, 0.16);
+	--glass-shadow-lift: inset 0 1px 0 rgba(255, 255, 255, 0.95), inset 0 -1px 0 rgba(22, 66, 140, 0.08), 0 34px 64px -24px rgba(22, 66, 140, 0.38), 0 14px 28px -14px rgba(5, 95, 233, 0.24);
+	--glass-glow: 0 0 0 1px rgba(5, 95, 233, 0.35), 0 8px 20px -6px rgba(5, 95, 233, 0.45);
+
+	/* radius: DS v9's softer scale */
+	--glass-radius-xl: 22px;
+	--glass-radius: 16px;
+	--glass-radius-sm: 8px;
+	--glass-radius-pill: 999px;
+
+	/* shine: a soft cyan-white spot that follows the pointer (moved with transform only) */
+	--glass-shine: radial-gradient(closest-side, rgba(70, 208, 251, 0.16), rgba(70, 208, 251, 0.05) 45%, rgba(70, 208, 251, 0) 70%);
+}
+
+/* the night band: DS v8's smoked glass under the same names (tj-hosting.ca's [data-night]) */
+[data-night] {
+	--glass-tint: rgba(14, 21, 38, 0.8);
+	--glass-tint-strong: rgba(14, 21, 38, 0.88);
+	--glass-tint-soft: rgba(14, 21, 38, 0.6);
+	--glass-fallback: rgba(14, 21, 38, 0.92);
+	--glass-fallback-strong: rgba(14, 21, 38, 0.95);
+	--glass-border: rgba(150, 195, 255, 0.16);
+	--glass-rim: linear-gradient(155deg,
+		rgba(215, 236, 255, 0.5) 0%,
+		rgba(120, 190, 255, 0.2) 22%,
+		rgba(255, 255, 255, 0.03) 46%,
+		rgba(76, 195, 255, 0.1) 72%,
+		rgba(130, 190, 255, 0.32) 100%);
+	--glass-sheen: linear-gradient(180deg, rgba(190, 220, 255, 0.075) 0%, rgba(190, 220, 255, 0) 46%);
+	--glass-grain: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='g'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='.75 0 0 0 0 .87 0 0 0 0 1 0 0 0 0 0 0 0 0 .04'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23g)'/%3E%3C/svg%3E");
+	--glass-inner: inset 0 1px 0 rgba(220, 236, 255, 0.1), inset 0 -1px 0 rgba(0, 0, 0, 0.28);
+	--glass-drop: 0 24px 48px -18px rgba(2, 5, 12, 0.78), 0 8px 18px -10px rgba(2, 5, 12, 0.6);
+	--glass-shadow-lift: inset 0 1px 0 rgba(220, 236, 255, 0.14), inset 0 -1px 0 rgba(0, 0, 0, 0.28), 0 38px 76px -24px rgba(2, 5, 12, 0.85), 0 14px 28px -14px rgba(10, 114, 224, 0.3);
+	--glass-glow: 0 0 0 1px rgba(7, 92, 188, 0.6), 0 6px 18px rgba(10, 114, 224, 0.28);
+	--glass-shine: radial-gradient(closest-side, rgba(76, 195, 255, 0.14), rgba(76, 195, 255, 0.04) 45%, rgba(76, 195, 255, 0) 70%);
+}
+
+/* composed once for both scopes: each resolves against its own leaves */
+:root,
+[data-night] {
+	--glass-shadow: var(--glass-inner), var(--glass-drop);
+}
+
+/* ---------- base glass: the fallback look ---------- */
+
+.glass {
+	position: relative;
+	isolation: isolate;
+	background: var(--glass-grain), var(--glass-fallback);
+	border: 0;
+	border-radius: var(--glass-radius);
+	box-shadow: var(--glass-shadow);
+	overflow: hidden;
+}
+
+.glass--strong { background-color: var(--glass-fallback-strong); }
+.glass--xl { border-radius: var(--glass-radius-xl); }
+.glass--sm { border-radius: var(--glass-radius-sm); }
+.glass--pill { border-radius: var(--glass-radius-pill); }
+
+/* the edge: the rim light over the hairline, masked to a 1px ring */
+.glass::before {
+	content: "";
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	padding: var(--glass-rim-width);
+	background: var(--glass-rim), linear-gradient(var(--glass-border), var(--glass-border));
+	-webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+	-webkit-mask-composite: xor;
+	mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+	mask-composite: exclude;
+	pointer-events: none;
+	z-index: 2;
+}
+
+/* top sheen: light caught on the upper edge */
+.glass::after {
+	content: "";
+	position: absolute;
+	inset: 0 0 auto 0;
+	height: 55%;
+	border-radius: inherit;
+	background: var(--glass-sheen);
+	pointer-events: none;
+	z-index: 0;
+}
+
+.glass > * { position: relative; z-index: 1; }
+
+/* the moving specular spot (child element, transform-only) */
+.glass__shine {
+	position: absolute !important;
+	z-index: 0 !important;
+	left: 0;
+	top: 0;
+	width: 520px;
+	height: 520px;
+	margin: -260px 0 0 -260px;
+	background: var(--glass-shine);
+	opacity: 0;
+	transform: translate3d(var(--shine-x, 50%), var(--shine-y, 0), 0);
+	transition: opacity 0.5s ease;
+	pointer-events: none;
+	will-change: transform;
+}
+.glass:hover > .glass__shine,
+.glass:focus-within > .glass__shine { opacity: 1; }
+
+/* ---------- frosted glass where supported ---------- */
+
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+	.glass {
+		background-color: var(--glass-tint);
+		-webkit-backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+		backdrop-filter: blur(var(--glass-blur)) saturate(var(--glass-saturate));
+	}
+	.glass--strong {
+		background-color: var(--glass-tint-strong);
+		-webkit-backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
+		backdrop-filter: blur(var(--glass-blur-strong)) saturate(var(--glass-saturate));
+	}
+	.glass--soft { background-color: var(--glass-tint-soft); }
+}
+
+/* ---------- hover lift for interactive glass ---------- */
+
+.glass--interactive {
+	transition: transform 0.6s cubic-bezier(0.2, 0.8, 0.2, 1), box-shadow 0.3s cubic-bezier(0.33, 0.9, 0.28, 1);
+	transform: perspective(1000px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateZ(0);
+}
+.glass--interactive:hover,
+.glass--interactive:focus-within { box-shadow: var(--glass-shadow-lift); }
+
+@media (prefers-reduced-motion: reduce) {
+	.glass__shine { display: none; }
+	.glass--interactive { transition: none; transform: none; }
+}
+
+@media (forced-colors: active) {
+	.glass { border: 1px solid CanvasText; background: Canvas; }
+	.glass::before, .glass::after, .glass__shine { display: none; }
+}

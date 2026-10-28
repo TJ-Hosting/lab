@@ -1,0 +1,75 @@
+/* Sample 53 — Marble Harp. The shell (sky, top bar, panel, the night screen) comes from css/; only the piece is styled here.
+   The night is DS v9's blues: navy water-dark with a cyan haze at the top, royal blue at the lower right and a few stars,
+   all painted in CSS under the canvas. The glass strings and the cyan drops of light are drawn on the canvas in piece.js. */
+
+.piece {
+	display: block;
+	width: 100%;
+	height: 100%;
+	touch-action: none; /* the canvas takes the drags that draw strings */
+	cursor: crosshair;
+	background:
+		radial-gradient(1.4px 1.4px at 9% 24%, rgba(214, 240, 255, 0.75), rgba(214, 240, 255, 0)),
+		radial-gradient(1.2px 1.2px at 17% 61%, rgba(214, 240, 255, 0.5), rgba(214, 240, 255, 0)),
+		radial-gradient(1.6px 1.6px at 26% 14%, rgba(214, 240, 255, 0.7), rgba(214, 240, 255, 0)),
+		radial-gradient(1.2px 1.2px at 33% 47%, rgba(214, 240, 255, 0.45), rgba(214, 240, 255, 0)),
+		radial-gradient(1.4px 1.4px at 41% 82%, rgba(214, 240, 255, 0.55), rgba(214, 240, 255, 0)),
+		radial-gradient(1.2px 1.2px at 52% 31%, rgba(214, 240, 255, 0.5), rgba(214, 240, 255, 0)),
+		radial-gradient(1.6px 1.6px at 61% 9%, rgba(214, 240, 255, 0.8), rgba(214, 240, 255, 0)),
+		radial-gradient(1.2px 1.2px at 68% 66%, rgba(214, 240, 255, 0.45), rgba(214, 240, 255, 0)),
+		radial-gradient(1.4px 1.4px at 77% 38%, rgba(214, 240, 255, 0.65), rgba(214, 240, 255, 0)),
+		radial-gradient(1.2px 1.2px at 85% 76%, rgba(214, 240, 255, 0.5), rgba(214, 240, 255, 0)),
+		radial-gradient(1.6px 1.6px at 92% 19%, rgba(214, 240, 255, 0.7), rgba(214, 240, 255, 0)),
+		radial-gradient(1.2px 1.2px at 96% 54%, rgba(214, 240, 255, 0.4), rgba(214, 240, 255, 0)),
+		radial-gradient(80% 50% at 56% -10%, rgba(70, 208, 251, 0.2), rgba(70, 208, 251, 0) 70%),
+		radial-gradient(60% 46% at 92% 108%, rgba(5, 95, 233, 0.3), rgba(5, 95, 233, 0) 72%),
+		radial-gradient(50% 40% at 4% 100%, rgba(77, 159, 243, 0.12), rgba(77, 159, 243, 0) 72%),
+		linear-gradient(180deg, #0a2a63 0%, #071b47 46%, #040d28 100%);
+}
+
+/* ---------- the tools: songs, clear, save, in a small night-glass strip at the top of the window ---------- */
+
+.piece-screen .harp-tools {
+	position: absolute;
+	z-index: 5;
+	top: 42px; /* under the window bar */
+	left: 50%;
+	transform: translateX(-50%);
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	max-width: calc(100% - 20px);
+	padding: 5px 6px;
+	border-radius: var(--radius-lg);
+}
+.harp-tools__label {
+	padding: 0 6px 0 10px;
+	font: 500 11px/16px var(--font-mono);
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--muted);
+}
+.harp-tools__sep {
+	align-self: stretch;
+	width: 1px;
+	margin: 5px 2px;
+	background: var(--line);
+}
+.harp-tools .btn { min-width: 36px; }
+.harp-tools .btn:focus-visible { outline-offset: 1px; }
+.harp-tools .btn .num { display: none; }
+.harp-tools .btn:disabled {
+	opacity: 0.5;
+	cursor: not-allowed;
+	transform: none;
+}
+.controls .btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+/* a phone: numbers instead of names, so the strip fits one row */
+@media (max-width: 560px) {
+	.piece-screen .harp-tools { gap: 4px; padding: 4px 5px; }
+	.harp-tools__label { display: none; }
+	.harp-tools .btn .nm { display: none; }
+	.harp-tools .btn .num { display: inline; }
+	.harp-tools .btn { padding-left: 11px; padding-right: 11px; }
+}

@@ -1,0 +1,138 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://*.google.com; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<script src="../../js/ga4.js"></script>
+	<title>Integration beams — beam hub · TJ-Hosting Lab</title>
+	<meta name="description" content="A site tile joined to six glass tiles by curved beams of light that run along each path and make the tile pulse as they land. Canvas 2D for the beams, the Web Animations API for the pulses.">
+	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/integration-beams/">
+	<meta name="theme-color" content="#eef7fc">
+	<link rel="icon" href="../../img/brand/tj-mark.svg" type="image/svg+xml">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="TJ-Hosting Lab">
+	<meta property="og:title" content="Integration beams — TJ-Hosting Lab">
+	<meta property="og:description" content="Cyan and royal light runs along curved paths from a hub to six glass tiles.">
+	<meta property="og:url" content="https://lab.tj-hosting.ca/samples/integration-beams/">
+	<meta property="og:image" content="https://lab.tj-hosting.ca/img/og/integration-beams.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="A round site tile with a cyan ring, joined by curved beams of light to six glass tiles on a pale blue sky">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="preload" href="../../fonts/nunito-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="../../css/glass.css">
+	<link rel="stylesheet" href="../../css/lab.css">
+	<link rel="stylesheet" href="../../css/sample.css">
+	<link rel="stylesheet" href="piece.css">
+	<script src="../../js/early.js"></script>
+	<script type="module" src="piece.js"></script>
+</head>
+<body class="sample sample--integration-beams">
+	<a class="skip" href="#about-piece">Skip to the description</a>
+
+	<div class="sky" aria-hidden="true"></div>
+
+	<header class="topbar">
+		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
+			<img src="../../img/brand/tj-mark.svg" alt="" width="34" height="34">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Lab">
+			<a href="../../#samples">All samples</a>
+		</nav>
+	</header>
+
+	<!-- stage C: open sky. The hub is built from real DOM tiles; the beams are drawn on the canvas under them by piece.js -->
+	<main id="main" class="stage hub-stage" data-motion>
+		<div class="piece-open">
+			<p class="note pill"><span class="pill__dot" aria-hidden="true"></span>Sample content · no real connections</p>
+
+			<section class="hub" id="hub" aria-label="A site tile joined by beams of light to six tiles: Domain, Email, Forms, Payments, CDN and Backups. Tap a tile to send its beam.">
+				<span class="hub__ring" aria-hidden="true"></span>
+				<canvas class="beams" aria-hidden="true"></canvas>
+
+				<div class="node node--core" data-node="core">
+					<span class="node__ping" aria-hidden="true"></span>
+					<span class="node__ring" aria-hidden="true"></span>
+					<div class="node__tile glass glass--strong">
+						<span class="node__lit" aria-hidden="true"></span>
+						<svg class="node__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4.5" width="18" height="15" rx="2.5"/><path d="M3 9.5h18"/><path d="M6.5 7.1h.01M9 7.1h.01"/><path d="M7 14h4.5M7 16.5h9"/></svg>
+						<span class="node__label">Your site</span>
+					</div>
+				</div>
+
+				<div class="node" data-node="domain" style="--c:-0.809;--s:-0.588;--pc:-0.866;--ps:-0.5">
+					<span class="node__ping" aria-hidden="true"></span>
+					<button class="node__tile glass" type="button" aria-label="Domain: send a beam">
+						<span class="node__lit" aria-hidden="true"></span>
+						<svg class="node__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><ellipse cx="12" cy="12" rx="4" ry="9"/></svg>
+						<span class="node__label">Domain</span>
+					</button>
+				</div>
+
+				<div class="node" data-node="email" style="--c:0.809;--s:-0.588;--pc:0.866;--ps:-0.5">
+					<span class="node__ping" aria-hidden="true"></span>
+					<button class="node__tile glass" type="button" aria-label="Email: send a beam">
+						<span class="node__lit" aria-hidden="true"></span>
+						<svg class="node__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="M3.5 7.5 12 13.2l8.5-5.7"/></svg>
+						<span class="node__label">Email</span>
+					</button>
+				</div>
+
+				<div class="node" data-node="forms" style="--c:-1;--s:0;--pc:-0.866;--ps:0.5">
+					<span class="node__ping" aria-hidden="true"></span>
+					<button class="node__tile glass" type="button" aria-label="Forms: send a beam">
+						<span class="node__lit" aria-hidden="true"></span>
+						<svg class="node__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="3" width="16" height="18" rx="2.5"/><rect x="7.5" y="6.5" width="9" height="3.2" rx="1"/><rect x="7.5" y="12" width="9" height="3.2" rx="1"/><path d="M7.5 18.2h4"/></svg>
+						<span class="node__label">Forms</span>
+					</button>
+				</div>
+
+				<div class="node" data-node="payments" style="--c:-0.809;--s:0.588;--pc:0;--ps:-1">
+					<span class="node__ping" aria-hidden="true"></span>
+					<button class="node__tile glass" type="button" aria-label="Payments: send a beam">
+						<span class="node__lit" aria-hidden="true"></span>
+						<svg class="node__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2.5" y="5" width="19" height="14" rx="2.5"/><path d="M2.5 10h19"/><path d="M6.5 15h4"/></svg>
+						<span class="node__label">Payments</span>
+					</button>
+				</div>
+
+				<div class="node" data-node="cdn" style="--c:1;--s:0;--pc:0.866;--ps:0.5">
+					<span class="node__ping" aria-hidden="true"></span>
+					<button class="node__tile glass" type="button" aria-label="CDN: send a beam">
+						<span class="node__lit" aria-hidden="true"></span>
+						<svg class="node__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18.5h10.2a4.1 4.1 0 0 0 .9-8.1 5.9 5.9 0 0 0-11.4-.9A4.6 4.6 0 0 0 7 18.5Z"/></svg>
+						<span class="node__label">CDN</span>
+					</button>
+				</div>
+
+				<div class="node" data-node="backups" style="--c:0.809;--s:0.588;--pc:0;--ps:1">
+					<span class="node__ping" aria-hidden="true"></span>
+					<button class="node__tile glass" type="button" aria-label="Backups: send a beam">
+						<span class="node__lit" aria-hidden="true"></span>
+						<svg class="node__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.75" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="4.5" rx="1.5"/><path d="M5 8.5V18a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8.5"/><path d="M10 12.5h4"/></svg>
+						<span class="node__label">Backups</span>
+					</button>
+				</div>
+			</section>
+			<noscript><p class="note">The beams need JavaScript to run.</p></noscript>
+		</div>
+	</main>
+
+	<p class="hint glass glass--pill" aria-hidden="true">Tap a tile to send its beam</p>
+
+	<aside class="sample-info glass glass--strong" id="about-piece" aria-labelledby="piece-title">
+		<p class="eyebrow">Sample 39 · Beam hub</p>
+		<h1 id="piece-title">Integration beams</h1>
+		<p class="how"><b>How it's made:</b> a canvas under the tiles draws each curved path and slides a gradient of light along it, re-measured from the tiles on every resize.
+		Each landing makes a tile pulse; it pauses off-screen or in a hidden tab.</p>
+		<div class="controls">
+			<button class="btn btn--sm btn--primary" type="button" data-action="send">Send beams</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="pause" aria-pressed="false">Pause</button>
+			<a class="back" href="../../#samples">← Back to the lab</a>
+		</div>
+	</aside>
+</body>
+</html>

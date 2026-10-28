@@ -1,0 +1,145 @@
+/* Sample 63 — Page-turn lookbook, on the open day sky. The shell (sky, top bar, panel) comes from css/; only the piece is styled here.
+   A label, a pale blue glass "desk" with the book on it, and a glass capsule with Previous, the page readout and Next.
+   The book is one canvas drawn by the page-flip library inside .book__flip. Nothing here animates except a one-off opacity
+   fade-in when the book is ready (switched off for reduced motion); piece.js slides the closed book to the middle by transform. */
+
+.lookbook-stage {
+	/* the info panel is fixed at the bottom left: piece.js sets --dock to its height, so the book sits above it */
+	--dock: 280px;
+	padding: 78px var(--gutter) var(--dock);
+	grid-template-columns: minmax(0, 1fr); /* the column is the stage's width, so max-width: 100% below means the screen */
+}
+
+.piece-open.lookbook {
+	--pad: clamp(10px, 1.3vw, 16px);
+	--ratio: 1.8;     /* two pages side by side: 2 x 0.9 (one page is 9 wide for 10 high) */
+	--chrome: 112px;  /* the label above and the capsule below, with their gaps */
+	--availw: calc(100vw - 2 * var(--gutter)); /* the width the book may take (less when the panel is beside it) */
+	--availh: calc(100dvh - 78px - var(--dock)); /* the height above the panel */
+	/* the book's height: what fits above the panel, what fits across the screen, and never more than 620 px */
+	--bookh: clamp(130px, min(calc(var(--availh) - var(--chrome) - 2.8 * var(--pad)), calc((var(--availw) - 2.8 * var(--pad)) / var(--ratio)), 620px), 620px);
+	position: relative;
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	max-width: 100%;
+	min-width: 0;
+}
+
+.note { margin: 12px 0 0; padding: 10px 16px; font-size: 14px; }
+
+/* ---------- the label ---------- */
+
+.lookbook__label {
+	max-width: 100%;
+	margin: 0 0 12px;
+	padding: 6px 14px;
+	font-size: 13.5px;
+	line-height: 22px;
+	white-space: normal;
+	text-align: center;
+}
+
+/* ---------- the desk: blue glass, the book sits on it ---------- */
+
+.desk {
+	padding: var(--pad) calc(var(--pad) * 1.4) calc(var(--pad) + 14px); /* a little more below, for the book's shadow */
+	background-color: rgba(138, 198, 250, 0.52);
+}
+
+.book {
+	position: relative;
+	width: calc(var(--bookh) * var(--ratio));
+	height: var(--bookh);
+	border-radius: 4px;
+}
+.book:focus-visible { outline: 3px solid var(--focus); outline-offset: 4px; }
+
+/* the library's own wrapper (.stf__parent) is this element: it fills .book and holds the canvas.
+   Its inline minimum sizes are cancelled so a narrow phone never gets sideways scroll. */
+.book__flip {
+	width: 100%;
+	height: 100%;
+	min-width: 0 !important;
+	min-height: 0 !important;
+	opacity: 0;
+	/* the book's shadow on the desk: soft and blue, never grey; it follows the pages' own outline (static, not animated) */
+	filter: drop-shadow(0 10px 10px rgba(22, 66, 140, 0.26)) drop-shadow(0 2px 2px rgba(22, 66, 140, 0.22));
+	will-change: transform;
+}
+.is-ready .book__flip { opacity: 1; transition: opacity 0.6s var(--ease-out); }
+.book__flip canvas { cursor: grab; }
+.book__flip canvas:active { cursor: grabbing; }
+
+/* ---------- the page controls ---------- */
+
+.bar {
+	display: inline-flex;
+	align-items: center;
+	gap: 4px;
+	margin-top: 14px;
+	padding: 5px;
+	max-width: 100%;
+}
+.bar__btn { min-width: 0; }
+.bar__btn svg { width: 15px; height: 15px; }
+.bar__btn:first-child:hover svg { transform: translateX(-3px); }
+.bar__read {
+	min-width: 9.6em;
+	padding: 0 8px;
+	text-align: center;
+	font: 700 14px/20px var(--font-sans);
+	font-variant-numeric: tabular-nums;
+	color: var(--ink);
+	white-space: nowrap;
+}
+
+.btn[aria-disabled="true"] { opacity: 0.6; cursor: default; transform: none; }
+
+/* ---------- smaller screens ---------- */
+
+/* one page at a time (the library's portrait mode; piece.js reads the same query): a page is 9 wide for 10 high */
+@media (max-width: 720px), (max-height: 600px) and (max-width: 1099px) {
+	.piece-open.lookbook { --ratio: 0.9; }
+}
+
+@media (max-width: 720px) {
+	.lookbook-stage { --dock: 300px; padding-top: 72px; }
+	.piece-open.lookbook { --chrome: 108px; }
+	.lookbook__label { font-size: 12.5px; line-height: 20px; padding: 5px 12px; }
+	.bar__read { min-width: 7.6em; }
+}
+
+/* a wide window that is not tall (a laptop, a phone on its side): the panel is at the left, so the book sits to the
+   right of it, in the middle of what is left, as big as the height allows */
+@media (min-width: 600px) and (max-height: 600px), (min-width: 1000px) and (max-height: 820px) {
+	.lookbook-stage {
+		--sx: max(var(--gutter), calc((100vw - var(--page-max)) / 2)); /* the page grid's side margin, like the panel's */
+		--dock: 0px !important;
+		padding: 68px var(--sx) 16px calc(var(--sx) + 460px);
+	}
+	.piece-open.lookbook {
+		--availw: calc(100vw - 2 * var(--sx) - 460px);
+		--availh: calc(100dvh - 68px - 16px);
+		--chrome: 104px;
+	}
+	.lookbook__label { margin-bottom: 8px; }
+	.bar { margin-top: 10px; }
+}
+
+/* little room beside the panel: the two buttons keep only their arrows */
+@media (max-width: 899px) and (max-height: 600px) {
+	.bar__label { display: none; }
+	.bar__btn { padding: 7px 10px; }
+	.bar__read { min-width: 0; padding: 0 4px; font-size: 13px; }
+}
+
+/* the hint would sit on the controls of a short window */
+@media (max-height: 600px) {
+	.hint { display: none; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.is-ready .book__flip { transition: none; }
+}

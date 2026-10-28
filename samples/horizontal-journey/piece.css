@@ -1,0 +1,350 @@
+/* Sample 21 — Brief-to-Launch Horizontal Journey. The shell (sky, top bar, panel) comes from css/; only the piece is styled here.
+ *
+ * Adapted from "Horizontal Scrolling Section with view-timeline", a CSS scroll-driven animations demo by Bramus
+ * (https://scroll-driven-animations.style/demos/horizontal-section/css/), Apache License 2.0. Copyright Bramus (the site
+ * publishes no separate copyright line; its footer reads "Built by Bramus, Chrome Developer Relations Engineer at Google").
+ * The demo page credits an original by Cameron Knight; that credit is kept here, and that original was not fetched or read.
+ * Licensed under the Apache License, Version 2.0 (https://www.apache.org/licenses/LICENSE-2.0). Unless required by applicable
+ * law or agreed to in writing, the work is distributed on an "AS IS" BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND,
+ * either express or implied.
+ * Changes: the demo's idea (a tall section with a view timeline, a sticky full-height stage, a wide strip moved with
+ * translateX) is kept; the strip's width, the scroll length and the track are derived from the panel count (--n), the
+ * strip is five glass panels, back and front shape layers ride the same timeline at 0.5x and 1.5x, a track with a
+ * travelling dot is added, and the fallback is a swipeable scroll-snap row.
+ *
+ * Two layouts share one page:
+ * - the row (the default): what you get with reduced motion, or in a browser without scroll-driven animations;
+ * - the ride, switched on only where `animation-timeline` exists and motion is allowed.
+ * Every animation below is tied to the page's scroll position (so nothing runs at rest, except the small arrow cue),
+ * and moves only transform and opacity.
+ */
+
+.journey {
+	--n: 5;                                        /* the number of panels: change it and everything below follows */
+	--pw: min(80vw, 880px);                        /* one panel's width */
+	--gap: clamp(20px, 5vw, 88px);
+	--pad: calc(50% - var(--pw) / 2);              /* so the first and the last panel can sit in the middle of the stage */
+	--strip-w: calc(var(--n) * var(--pw) + (var(--n) - 1) * var(--gap) + 2 * var(--pad));
+	--travel: calc((var(--n) - 1) * (var(--pw) + var(--gap)));  /* how far the strip moves, from panel 1 centred to panel n centred */
+	--ride: 1.1;                                   /* pixels of scrolling for each pixel of travel (the last panel also rests a little) */
+	--zone-top: 96px;                              /* the panels live between the top bar and the panel/track at the bottom */
+	--zone-bottom: max(128px, calc(930px - 100vh)); /* on a short screen the strip rises, clear of the description panel (about 290px tall) */
+	--num: clamp(150px, 31vh, 300px);              /* the giant numeral */
+	position: relative;
+}
+
+.scroll-page { padding-top: 0; }
+
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+/* ---------- the stage (the row layout) ---------- */
+
+.journey__pin {
+	position: relative;
+	height: 100vh;
+	height: 100dvh;
+}
+.journey__stick {
+	position: absolute;
+	inset: 0;
+	overflow-x: auto;
+	overflow-y: hidden;
+	scroll-snap-type: x mandatory;
+	overscroll-behavior-x: contain;
+	scrollbar-width: thin;
+	scrollbar-color: rgba(94, 128, 174, 0.6) transparent;
+}
+
+.journey__layer {
+	position: absolute;
+	left: 0;
+	top: 0;
+	height: 100%;
+	width: var(--strip-w);
+	pointer-events: none;
+}
+.journey__near { display: none; }
+
+.journey__strip {
+	position: relative;
+	z-index: 2;
+	display: flex;
+	align-items: center;
+	gap: var(--gap);
+	width: var(--strip-w);
+	height: 100%;
+	margin: 0;
+	padding: var(--zone-top) var(--pad) var(--zone-bottom);
+	list-style: none;
+}
+
+/* ---------- a panel: a giant numeral beside a glass card ---------- */
+
+.panel {
+	position: relative;
+	flex: none;
+	display: flex;
+	align-items: center;
+	width: var(--pw);
+	scroll-snap-align: center;
+}
+.panel__num {
+	position: relative;
+	z-index: 1;
+	flex: none;
+	font: 900 var(--num) / 0.78 var(--font-display);
+	font-stretch: 88%;
+	letter-spacing: -0.045em;
+	color: #082b5f;
+	color: color-mix(in srgb, var(--ink) 70%, var(--brand-royal)); /* a deep navy */
+	user-select: none;
+}
+.panel__card.glass {
+	z-index: 2;
+	flex: 1 1 0;
+	min-width: 0;
+	min-height: 232px;
+	padding: 26px 28px 24px;
+	box-shadow: var(--glass-inner), 0 26px 46px -22px rgba(22, 66, 140, 0.42), 0 8px 18px -10px rgba(22, 66, 140, 0.2);
+}
+.panel__card h2 {
+	margin: 0 0 10px;
+	padding-right: 96px;
+	font: 900 clamp(30px, 3.4vw, 44px) / 1 var(--font-display);
+	font-stretch: 90%;
+	letter-spacing: -0.02em;
+}
+.panel__card > .panel__ico {
+	position: absolute;
+	top: 14px;
+	right: 18px;
+	z-index: 1;
+	width: 88px;
+	height: auto;
+}
+.panel__lead { margin: 0 0 6px; font: 800 18px / 26px var(--font-sans); color: var(--ink); }
+.panel__copy { margin: 0; font: 500 15.5px / 24px var(--font-sans); color: var(--muted); }
+.panel__pills { gap: 8px; margin-top: 14px; }
+.panel__pills .pill { padding: 3px 12px; font-size: 13px; line-height: 20px; }
+
+/* the cue under the first card: an arrow that nudges the way the page will go */
+.cue {
+	position: absolute;
+	right: 0;
+	top: calc(100% + 16px);
+	margin: 0;
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	padding: 7px 16px;
+	font: 700 13px / 18px var(--font-sans);
+	color: var(--ink);
+	white-space: nowrap;
+}
+.cue svg { width: 16px; height: 16px; flex: none; color: var(--accent-text); }
+.cue__ride { display: none; }
+@media (prefers-reduced-motion: no-preference) {
+	.cue svg { animation: cue-nudge 1.8s var(--ease-ui) infinite; }
+	.cue[data-away] svg { animation-play-state: paused; } /* the first panel has slid out of view */
+	@keyframes cue-nudge {
+		0%, 100% { transform: translate3d(0, 0, 0); }
+		50% { transform: translate3d(6px, 0, 0); }
+	}
+}
+
+/* ---------- the shapes behind the panels ---------- */
+
+.orb, .blk { position: absolute; left: var(--x); top: var(--y); width: calc(var(--s) * var(--u, 1)); }
+.orb { display: block; aspect-ratio: 1; border-radius: 50%; }
+.blk { height: auto; }
+.orb--pale { background: radial-gradient(closest-side, rgba(255, 255, 255, 0.95), rgba(255, 255, 255, 0.55) 55%, rgba(255, 255, 255, 0)); }
+.orb--azure { background: radial-gradient(closest-side, rgba(77, 159, 243, 0.26), rgba(77, 159, 243, 0.1) 60%, rgba(77, 159, 243, 0)); }
+.orb--cyan { background: radial-gradient(circle at 32% 28%, #ffffff 0 7%, #9be8fe 26%, #46d0fb 68%, #27a9e2); box-shadow: 0 14px 20px -8px rgba(22, 66, 140, 0.32); }
+.orb--royal { background: radial-gradient(circle at 32% 28%, #d6e9ff 0 7%, #6db0f6 30%, #0c6bed 72%, #0a55bd); box-shadow: 0 14px 20px -8px rgba(22, 66, 140, 0.4); }
+.blk--pale { --t: #ffffff; --l: #d7eafb; --r: #b9dbf9; opacity: 0.85; }
+.blk--azure-soft { --t: #eaf4ff; --l: #a9d3f8; --r: #7fb9f5; opacity: 0.7; }
+.blk--azure { --t: #dcecff; --l: #4d9ff3; --r: #2c86ee; filter: drop-shadow(0 12px 10px rgba(22, 66, 140, 0.22)); }
+.blk--royal { --t: #cfe3fd; --l: #1f7cf0; --r: #0c5fd0; filter: drop-shadow(0 12px 10px rgba(22, 66, 140, 0.26)); }
+.blk--cyan { --t: #e8fbff; --l: #7fdcfb; --r: #46d0fb; filter: drop-shadow(0 12px 10px rgba(22, 66, 140, 0.2)); }
+
+/* ---------- the track: stops, a fill and a travelling dot, in a light glass bar ---------- */
+
+.track {
+	position: absolute;
+	z-index: 5;
+	bottom: max(26px, env(safe-area-inset-bottom));
+	/* to the right of the fixed description panel (440px wide, on the page grid) */
+	left: calc(max(var(--gutter), (100% - var(--page-max)) / 2) + 440px + 28px);
+	right: max(var(--gutter), (100% - var(--page-max)) / 2);
+	padding: 14px 34px 6px;
+}
+.track__inner { position: relative; height: 46px; }
+.track__rail {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 8px;
+	height: 4px;
+	border-radius: 4px;
+	background: rgba(94, 128, 174, 0.3);
+	overflow: hidden;
+}
+.track__fill {
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	background: linear-gradient(90deg, var(--brand-royal), var(--glow-cyan));
+	transform-origin: 0 50%;
+	transform: scaleX(var(--p, 0));
+}
+.track__stops { margin: 0; padding: 0; list-style: none; }
+.track__stops li {
+	position: absolute;
+	top: 0;
+	left: calc(var(--i) * 100% / (var(--n) - 1));
+	transform: translateX(-50%);
+}
+.stop {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 7px;
+	height: 44px;
+	padding: 4px 8px 0;
+	border: 0;
+	background: none;
+	color: var(--muted);
+	font: 600 11.5px / 16px var(--font-mono);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	cursor: pointer;
+}
+.stop__dot {
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	border: 2px solid var(--line-ui);
+	background: #ffffff;
+	transition: transform 0.35s var(--ease-spring);
+}
+.stop:hover { color: var(--ink); }
+.stop[aria-current="step"] { color: var(--ink); }
+.stop[aria-current="step"] .stop__dot { transform: scale(1.3); }
+.track__run {
+	position: absolute;
+	left: 0;
+	top: 4px;
+	width: 100%;
+	height: 12px;
+	pointer-events: none;
+	transform: translate3d(calc(var(--p, 0) * 100%), 0, 0);
+	transition: transform 0.2s var(--ease-out);
+}
+.track__dot {
+	position: absolute;
+	left: -9px;
+	top: -3px;
+	width: 18px;
+	height: 18px;
+	border-radius: 50%;
+	background: var(--action);
+	box-shadow: 0 0 0 4px rgba(70, 208, 251, 0.5), 0 5px 12px rgba(5, 95, 233, 0.55);
+}
+
+/* ---------- the ride: scroll-driven, only where supported and only when motion is welcome ---------- */
+
+@media (prefers-reduced-motion: no-preference) {
+	@supports (animation-timeline: view()) {
+		.journey {
+			/* a pinned stage for 100vh, plus the travel: the strip's width and the page's height both come from --n */
+			height: calc(100vh + var(--travel) * var(--ride));
+			height: calc(100dvh + var(--travel) * var(--ride));
+			view-timeline: --journey block;
+		}
+		.journey__pin { position: sticky; top: 0; }
+		.journey__stick { overflow: hidden; scroll-snap-type: none; }
+
+		/* all the movers share one timeline: the whole .journey passing through the screen, from its top reaching
+		   the top of the screen to its bottom reaching the bottom. The last panel rests for the final 6% of it. */
+		.journey__strip,
+		.journey__layer,
+		.track__run,
+		.track__fill {
+			animation-duration: auto;
+			animation-timing-function: linear;
+			animation-fill-mode: both;
+			animation-timeline: --journey;
+			animation-range: contain 0% contain 100%;
+		}
+		.journey__strip { will-change: transform; animation-name: ride; }
+		.journey__layer {
+			will-change: transform;
+			width: calc(100% + var(--travel) * var(--k));
+			animation-name: ride-layer;
+		}
+		.journey__near { display: block; }
+		.track__run { animation-name: ride-run; transition: none; }
+		.track__fill { animation-name: ride-fill; }
+		.cue__ride { display: inline; }
+		.cue__swipe { display: none; }
+
+		@keyframes ride {
+			0% { transform: translate3d(0, 0, 0); }
+			94%, 100% { transform: translate3d(calc(var(--travel) * -1), 0, 0); }
+		}
+		@keyframes ride-layer {
+			0% { transform: translate3d(0, 0, 0); }
+			94%, 100% { transform: translate3d(calc(var(--travel) * var(--k) * -1), 0, 0); }
+		}
+		@keyframes ride-run {
+			0% { transform: translate3d(0, 0, 0); }
+			94%, 100% { transform: translate3d(100%, 0, 0); }
+		}
+		@keyframes ride-fill {
+			0% { transform: scaleX(0); }
+			94%, 100% { transform: scaleX(1); }
+		}
+	}
+}
+
+/* ---------- smaller screens ---------- */
+
+/* below 900px the fixed description panel and the track can no longer sit side by side: the track rides above the panel */
+@media (max-width: 900px) {
+	.journey { --zone-bottom: 396px; --u: 0.7; }
+	.track { left: var(--gutter); right: var(--gutter); bottom: 332px; }
+	.panel__card > .panel__ico { top: 12px; right: 14px; width: 60px; }
+	.panel__card h2 { padding-right: 70px; }
+}
+/* phones: the numeral sits above its card */
+@media (max-width: 640px) {
+	.journey { --pw: 80vw; --num: clamp(88px, 17vh, 136px); --zone-top: 84px; }
+	.panel { flex-direction: column; align-items: stretch; justify-content: center; }
+	.panel__num { margin: 0 0 -0.1em 4px; }
+	.panel__card.glass { flex: none; min-height: 204px; padding: 16px 18px 16px; }
+	.panel__card h2 { font-size: 30px; padding-right: 70px; margin-bottom: 8px; }
+	.panel__card > .panel__ico { top: 10px; right: 12px; width: 54px; }
+	.panel__lead { font-size: 16px; line-height: 22px; }
+	.panel__copy { font-size: 14.5px; line-height: 21px; }
+	.panel__pills { margin-top: 10px; }
+	.cue { top: 6px; right: 0; padding: 6px 12px; font-size: 12.5px; }
+	.track { padding: 12px 28px 4px; }
+	.stop { font-size: 11px; letter-spacing: 0.04em; padding-left: 4px; padding-right: 4px; }
+}
+/* a short screen (a phone on its side): the strip is smaller and the track moves beside the description panel */
+@media (max-height: 560px) {
+	.journey { --zone-top: 62px; --zone-bottom: 70px; --num: clamp(84px, 30vh, 150px); }
+	.panel__card.glass { min-height: 0; padding: 12px 18px 12px; }
+	.panel__card h2 { font-size: 26px; margin-bottom: 4px; }
+	.panel__lead { font-size: 15px; line-height: 20px; margin-bottom: 2px; }
+	.panel__copy { font-size: 13.5px; line-height: 19px; }
+	.panel__pills { margin-top: 8px; }
+	.panel__card > .panel__ico { width: 50px; top: 8px; right: 12px; }
+	.cue { top: calc(100% + 8px); }
+}
+@media (max-height: 560px) and (min-width: 700px) {
+	.track { left: calc(max(var(--gutter), (100% - var(--page-max)) / 2) + 440px + 28px); right: max(var(--gutter), (100% - var(--page-max)) / 2); bottom: 12px; }
+}
+@media (max-width: 380px) {
+	.journey { --pw: 82vw; }
+}

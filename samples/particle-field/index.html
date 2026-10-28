@@ -1,0 +1,66 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://*.google.com; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<script src="../../js/ga4.js"></script>
+	<title>Particle field — generative motion · TJ-Hosting Lab</title>
+	<meta name="description" content="A generative particle field: glass sparks drift on a flow field and gather around your cursor or finger. Canvas 2D with additive blending and hand-made sprite sheets.">
+	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/particle-field/">
+	<meta name="theme-color" content="#eef7fc">
+	<link rel="icon" href="../../img/brand/tj-mark.svg" type="image/svg+xml">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="TJ-Hosting Lab">
+	<meta property="og:title" content="Particle field — TJ-Hosting Lab">
+	<meta property="og:description" content="Glass sparks on a flow field that gather around your cursor or finger.">
+	<meta property="og:url" content="https://lab.tj-hosting.ca/samples/particle-field/">
+	<meta property="og:image" content="https://lab.tj-hosting.ca/img/og/particle-field.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="Glowing glass particles swirling in the dark">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="stylesheet" href="../../css/glass.css">
+	<link rel="stylesheet" href="../../css/lab.css">
+	<link rel="stylesheet" href="../../css/sample.css">
+	<link rel="stylesheet" href="field.css">
+	<script src="../../js/early.js"></script>
+	<script type="module" src="field.js"></script>
+</head>
+<body class="sample sample--field">
+	<a class="skip" href="#about-piece">Skip to the description</a>
+
+	<div class="sky" aria-hidden="true"></div>
+
+	<header class="topbar">
+		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
+			<img src="../../img/brand/tj-mark.svg" alt="" width="34" height="34">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Lab">
+			<a href="../../#samples">All samples</a>
+		</nav>
+	</header>
+
+	<main id="main" class="stage field-stage">
+		<div class="field-screen screen" data-night>
+			<canvas class="field" role="img" aria-label="A field of glowing glass particles drifting in slow currents. Moving a pointer or finger over it draws the particles into a swirl."></canvas>
+		</div>
+	</main>
+
+	<p class="hint glass glass--pill" data-night aria-hidden="true">Move or touch to gather the light · tap to scatter</p>
+
+	<aside class="sample-info glass glass--strong" id="about-piece" aria-labelledby="piece-title">
+		<p class="eyebrow">Sample 02 · Generative</p>
+		<h1 id="piece-title">Particle field</h1>
+		<p class="how"><b>How it's made:</b> a Canvas 2D loop moves each spark along a slowly shifting flow field and draws it from a sprite sheet with additive blending.
+		Your pointer adds a pull and a swirl; the loop stops whenever the canvas is off-screen or the tab is hidden.</p>
+		<div class="controls">
+			<button class="btn btn--sm btn--primary" type="button" data-action="scatter">Scatter</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="pause" aria-pressed="false">Pause</button>
+			<a class="back" href="../../#samples">← Back to the lab</a>
+		</div>
+	</aside>
+</body>
+</html>

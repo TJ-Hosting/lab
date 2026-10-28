@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://*.google.com; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<script src="/js/ga4.js"></script>
+	<meta name="robots" content="noindex">
+	<title>Not found · TJ-Hosting Lab</title>
+	<meta name="theme-color" content="#eef7fc">
+	<link rel="icon" href="/img/brand/tj-mark.svg" type="image/svg+xml">
+	<!-- served for any missing path, so every URL here is root-absolute -->
+	<link rel="stylesheet" href="/css/glass.css">
+	<link rel="stylesheet" href="/css/lab.css">
+	<style>
+		.lost { min-height: calc(100vh - 80px); min-height: calc(100dvh - 80px); display: grid; place-items: center; padding: 24px var(--gutter) 48px; }
+		.lost__panel { max-width: 620px; padding: clamp(28px, 5vw, 52px); text-align: center; }
+		.lost__prop { width: min(300px, 70vw); margin: -6px auto 4px; filter: var(--shadow-object); animation: lost-bob 7s ease-in-out infinite alternate; }
+		@keyframes lost-bob { from { transform: translate3d(0, -6px, 0); } to { transform: translate3d(0, 6px, 0); } }
+		.lost__code { font: 900 clamp(76px, 16vw, 140px) / 0.9 var(--font-display); font-stretch: 85%; letter-spacing: -0.05em; margin: 0 0 12px; }
+		.lost__panel h1 { font: 900 clamp(24px, 3vw, 32px) / 1.15 var(--font-display); font-stretch: 92%; margin-bottom: 14px; }
+		.lost__panel p { color: var(--muted); }
+		.lost__panel .lost__code { color: var(--accent-text); }
+		.lost .actions { display: flex; gap: 10px; justify-content: center; flex-wrap: wrap; margin-top: 22px; }
+	</style>
+	<script src="/js/early.js"></script>
+	<!-- the shared motion helpers: pause the drift when the tab is hidden, fade the stuck bar -->
+	<script type="module" src="/js/lab.js"></script>
+</head>
+<body>
+	<div class="sky" aria-hidden="true"></div>
+
+	<header class="topbar">
+		<a class="brand" href="/" aria-label="TJ-Hosting Lab, home">
+			<img src="/img/brand/tj-mark.svg" alt="" width="34" height="34">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Lab">
+			<a href="/#samples">Samples</a>
+			<a href="/honeypot/">Honeypot</a>
+		</nav>
+	</header>
+
+	<main class="lost">
+		<div class="lost__panel glass glass--xl">
+			<img class="lost__prop" src="/img/iso/server-404-400.webp" srcset="/img/iso/server-404-400.webp 400w, /img/iso/server-404-800.webp 800w" sizes="300px" alt="" width="800" height="740">
+			<p class="lost__code grad-ink" aria-hidden="true">404</p>
+			<h1>This page <span class="grad-ink">slipped through the glass.</span></h1>
+			<p>Nothing lives at this address. The lab's samples and the honeypot are a click away.</p>
+			<div class="actions">
+				<a class="btn btn--primary" href="/">Back to the lab</a>
+				<a class="btn btn--ghost" href="/honeypot/">The honeypot</a>
+			</div>
+		</div>
+	</main>
+</body>
+</html>

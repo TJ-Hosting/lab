@@ -1,0 +1,416 @@
+/* Sample 15 — Shader Swatchbook, on the open day sky.
+   A wall of eight frosted glass tiles (DS v9's .glass); each holds a still frame of one shader, and only the picked tile
+   carries the live canvas. A tuning bar (three sliders and a Copy pill) sits bottom right on a wide screen and in the flow on a
+   phone. The full screen view is a fixed layer under the top bar and the panel. Every CSS transition here is transform or opacity;
+   the shaders are drawn on canvases (free). The shell (sky, top bar, panel) comes from css/. */
+
+.sample {
+	/* the page grid's edges, as the panel and the top bar use them */
+	--edge: max(var(--gutter), calc((100vw - var(--page-max)) / 2));
+}
+
+.swatch-stage {
+	place-items: start center;
+	padding: 84px var(--gutter) 24px;
+}
+.piece-open {
+	width: min(var(--page-max), 100%);
+	display: grid;
+	gap: 14px;
+}
+
+/* ---------- the wall: four columns on a wide screen, two on a phone ---------- */
+
+.wall {
+	--cols: 4;
+	/* the rows follow the screen's height, so two rows end above the fixed panel (about 250 px tall) */
+	--row: clamp(150px, calc((100vh - 400px) / 2), 280px);
+	--row: clamp(150px, calc((100dvh - 400px) / 2), 280px);
+	display: grid;
+	grid-template-columns: repeat(var(--cols), minmax(0, 1fr));
+	grid-auto-rows: var(--row);
+	gap: 14px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+@media (max-width: 899px) {
+	.wall {
+		--cols: 2;
+		--row: clamp(124px, 34vw, 220px);
+		gap: 12px;
+	}
+}
+/* a short wide screen: the panel would cover the second row, so the page scrolls above it */
+@media (min-width: 1040px) and (max-height: 640px) {
+	.swatch-stage { padding-bottom: 300px; }
+}
+@media (max-width: 1039px) {
+	.swatch-stage { padding-bottom: 300px; }
+}
+
+.cell {
+	/* 0 at rest, 1 for the picked tile */
+	--lift: 0;
+	position: relative;
+	min-width: 0;
+	transform: translate3d(0, calc(var(--lift) * -5px), 0);
+	transition: transform 0.5s var(--ease-out);
+}
+.cell.is-active { --lift: 1; }
+
+/* the lifted shadow: a blue halo that fades in under the picked tile (opacity, not an animated box-shadow) */
+.halo {
+	position: absolute;
+	inset: 0;
+	border-radius: var(--glass-radius-xl);
+	box-shadow: 0 34px 64px -24px rgba(22, 66, 140, 0.38), 0 14px 28px -14px rgba(5, 95, 233, 0.24);
+	opacity: var(--lift);
+	transition: opacity 0.4s var(--ease-out);
+	pointer-events: none;
+}
+/* the picked tile's ring */
+.ring {
+	position: absolute;
+	inset: 0;
+	z-index: 3;
+	border-radius: var(--glass-radius-xl);
+	box-shadow: 0 0 0 2px var(--action), 0 0 0 6px rgba(5, 95, 233, 0.16);
+	opacity: 0;
+	transition: opacity 0.3s var(--ease-ui);
+	pointer-events: none;
+}
+.cell.is-active .ring { opacity: 1; }
+
+/* ---------- a tile: frosted glass, with the effect in a rounded window ---------- */
+
+.tile {
+	display: block;
+	width: 100%;
+	height: 100%;
+	padding: 8px;
+	text-align: left;
+	font: inherit;
+	color: inherit;
+	cursor: pointer;
+	-webkit-tap-highlight-color: transparent;
+}
+.tile:focus-visible {
+	border-radius: var(--glass-radius-xl);
+	outline-offset: 5px;
+}
+.tile__art {
+	position: relative;
+	display: block;
+	width: 100%;
+	height: 100%;
+	border-radius: 15px;
+	overflow: hidden;
+	/* what shows before the first frame is drawn (and when WebGL is missing: script paints a CSS swatch over it) */
+	background: linear-gradient(150deg, #e3f0fc, #b9d6f7);
+}
+.tile__art::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 2;
+	border-radius: inherit;
+	box-shadow: inset 0 0 0 1px rgba(22, 66, 140, 0.2);
+	pointer-events: none;
+}
+.tile__still {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	opacity: 0;
+	transition: opacity 0.4s var(--ease-out);
+}
+.tile__art.has-still .tile__still { opacity: 1; }
+/* the live canvas's parent: Paper Shaders puts its canvas inside it; it fades in once the first frame is drawn */
+.tile__live {
+	position: absolute;
+	inset: 0;
+	z-index: 1;
+	opacity: 0;
+	transition: opacity 0.2s linear;
+}
+.tile__live.is-ready { opacity: 1; }
+
+/* the name plate: opaque enough to read over any shader (no blur on top of a moving canvas) */
+.tile__label {
+	position: absolute;
+	left: 8px;
+	bottom: 8px;
+	z-index: 3;
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	max-width: calc(100% - 16px);
+	padding: 5px 13px;
+	border-radius: 999px;
+	background: rgba(255, 255, 255, 0.93);
+	box-shadow: inset 0 1px 0 #fff, 0 6px 14px -6px rgba(22, 66, 140, 0.4);
+	color: var(--ink);
+}
+.cell.is-active .tile__label::before {
+	content: "";
+	flex: none;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--glow-cyan);
+	box-shadow: 0 0 0 3px rgba(70, 208, 251, 0.28);
+}
+.tile__name {
+	min-width: 0;
+	font: 800 13px/18px var(--font-display);
+	letter-spacing: -0.005em;
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.tile__state {
+	flex: none;
+	font: 600 10.5px/18px var(--font-mono);
+	font-style: normal;
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--muted);
+}
+.cell.is-active .tile__state { color: var(--accent-text); }
+
+/* the "open full screen" mark, on the picked tile */
+.tile__open {
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	z-index: 3;
+	width: 30px;
+	height: 30px;
+	display: grid;
+	place-items: center;
+	border-radius: 50%;
+	background: rgba(255, 255, 255, 0.93);
+	color: var(--accent-text);
+	box-shadow: inset 0 1px 0 #fff, 0 6px 14px -6px rgba(22, 66, 140, 0.4);
+	opacity: 0;
+	transform: scale(0.82);
+	transition: opacity 0.3s var(--ease-ui), transform 0.4s var(--ease-spring);
+}
+.tile__open svg { width: 15px; height: 15px; }
+.cell.is-active .tile__open { opacity: 1; transform: none; }
+
+@media (max-width: 520px) {
+	.tile { padding: 6px; }
+	.tile__art { border-radius: 13px; }
+	.tile__state { display: none; }
+	.tile__label { left: 6px; bottom: 6px; padding: 4px 11px; }
+	.tile__open { top: 6px; right: 6px; width: 28px; height: 28px; }
+}
+
+/* the offscreen host a still frame is drawn in (one at a time, then removed) */
+.snap {
+	position: fixed;
+	left: -99999px;
+	top: 0;
+	pointer-events: none;
+}
+
+/* ---------- the tuning bar ---------- */
+
+.tune { padding: 14px 16px 14px; }
+.tune__sliders {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 12px;
+}
+.slider { display: grid; gap: 4px; min-width: 0; }
+.slider__head {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 6px;
+}
+.slider__name { font: 800 13px/18px var(--font-display); color: var(--ink); }
+.slider__out { font: 600 12px/18px var(--font-mono); color: var(--muted); white-space: nowrap; }
+
+.slider__range {
+	--p: 50%;
+	-webkit-appearance: none;
+	appearance: none;
+	display: block;
+	width: 100%;
+	height: 24px;
+	margin: 0;
+	background: transparent;
+	cursor: pointer;
+	touch-action: pan-y;
+}
+.slider__range::-webkit-slider-runnable-track {
+	height: 6px;
+	border-radius: 999px;
+	background: linear-gradient(90deg, var(--action) var(--p), #bcd3ee var(--p));
+}
+.slider__range::-moz-range-track {
+	height: 6px;
+	border-radius: 999px;
+	background: linear-gradient(90deg, var(--action) var(--p), #bcd3ee var(--p));
+}
+.slider__range--hue::-webkit-slider-runnable-track {
+	background: linear-gradient(90deg, hsl(196 92% 48%), hsl(216 92% 50%), hsl(236 80% 60%));
+}
+.slider__range--hue::-moz-range-track {
+	background: linear-gradient(90deg, hsl(196 92% 48%), hsl(216 92% 50%), hsl(236 80% 60%));
+}
+.slider__range::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 20px;
+	height: 20px;
+	margin-top: -7px;
+	border: 2px solid var(--action);
+	border-radius: 50%;
+	background: #fff;
+	box-shadow: 0 3px 8px -2px rgba(22, 66, 140, 0.5);
+}
+.slider__range::-moz-range-thumb {
+	width: 16px;
+	height: 16px;
+	border: 2px solid var(--action);
+	border-radius: 50%;
+	background: #fff;
+	box-shadow: 0 3px 8px -2px rgba(22, 66, 140, 0.5);
+}
+.slider__range:focus-visible { outline: 2px solid var(--focus); outline-offset: 4px; border-radius: 8px; }
+.slider__range:disabled { cursor: not-allowed; opacity: 0.5; }
+
+.tune__foot {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	margin-top: 10px;
+}
+.tune__now {
+	min-width: 0;
+	margin: 0;
+	font: 600 12px/18px var(--font-mono);
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--muted);
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+.copy { flex: none; border-radius: 999px; padding-left: 16px; padding-right: 18px; }
+.copy svg { width: 15px; height: 15px; }
+.copy:hover svg { transform: none; }
+.copy__icon--done { display: none; }
+.copy.is-done .copy__icon--copy { display: none; }
+.copy.is-done .copy__icon--done { display: block; }
+.tune__box {
+	display: none; /* the readout is for a wide screen; a phone shows it only if copying fails */
+	width: 100%;
+	margin: 10px 0 0;
+	padding: 8px 10px;
+	border: 1px solid var(--border-control);
+	border-radius: 8px;
+	background: #fff;
+	color: var(--ink);
+	font: 500 11.5px/16px var(--font-mono);
+	resize: none;
+}
+.tune__box.is-forced { display: block; }
+
+/* wide screens: the bar sits in the band to the right of the panel, on the page grid */
+@media (min-width: 1040px) {
+	.tune__box { display: block; }
+	.swatch-stage .tune {
+		position: fixed;
+		z-index: 41;
+		right: var(--edge);
+		bottom: max(18px, env(safe-area-inset-bottom));
+		width: calc(100vw - 2 * var(--edge) - 440px - 18px);
+		padding: 18px 22px 16px;
+	}
+	.tune__sliders { gap: 28px; }
+	.tune__foot { margin-top: 12px; }
+}
+
+/* a phone or tablet: the bar is in the flow below the wall, and rides at the top of the screen while a view is open */
+@media (max-width: 1039px) {
+	.tune-slot { min-height: 132px; }
+	.tune { max-width: 640px; margin-inline: auto; }
+	body.is-full .tune {
+		position: fixed;
+		z-index: 41;
+		top: 116px;
+		left: var(--edge);
+		right: var(--edge);
+	}
+}
+@media (max-width: 520px) {
+	.tune { padding: 12px 14px; }
+	.slider__name { font-size: 12.5px; }
+	.slider__out { font-size: 11px; }
+	.tune__now { font-size: 11px; letter-spacing: 0.06em; }
+}
+
+/* ---------- the full screen view ---------- */
+
+.full {
+	position: fixed;
+	inset: 0;
+	z-index: 35;
+	background: linear-gradient(170deg, var(--sky-top), var(--sky-low));
+	opacity: 0;
+	transform: scale(1.012);
+	transition: opacity 0.35s var(--ease-out), transform 0.5s var(--ease-out);
+	pointer-events: none;
+}
+/* a soft fade of the sky behind the top bar, as the bar has when the page is scrolled, so its words keep their contrast */
+.full::before {
+	content: "";
+	position: absolute;
+	inset: 0 0 auto 0;
+	height: 84px;
+	z-index: 2;
+	background: linear-gradient(180deg, rgba(var(--void-rgb), 0.96) 0%, rgba(var(--void-rgb), 0.86) 60%, rgba(var(--void-rgb), 0) 100%);
+	pointer-events: none;
+}
+.full.is-open { opacity: 1; transform: none; pointer-events: auto; }
+.full__still,
+.full__live {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+}
+.full__live { opacity: 0; transition: opacity 0.25s linear; }
+.full__live.is-ready { opacity: 1; }
+.full > .full__name {
+	position: absolute;
+	top: 72px;
+	left: var(--edge);
+	z-index: 3;
+	margin: 0;
+	padding: 6px 18px;
+	font: 800 14px/22px var(--font-display);
+	color: var(--ink);
+}
+.full > .full__close {
+	position: absolute;
+	top: 72px;
+	right: var(--edge);
+	z-index: 3;
+}
+@media (max-width: 1039px) {
+	.full > .full__name { top: 70px; }
+	.full > .full__close { top: 68px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.full { transform: none; }
+	.cell { transform: none; }
+}

@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://*.google.com; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<script src="../../js/ga4.js"></script>
+	<title>Scoreboard — the agent honeypot · TJ-Hosting Lab</title>
+	<meta name="description" content="Which AI agents obey hidden instructions? Curated results from the TJ-Hosting Lab agent honeypot, one row per test, with a per-technique heat map of obeyed, flagged and ignored.">
+	<link rel="canonical" href="https://lab.tj-hosting.ca/honeypot/scoreboard/">
+	<meta name="theme-color" content="#0a0618">
+	<link rel="icon" href="../../img/brand/tj-mark.svg" type="image/svg+xml">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="TJ-Hosting Lab">
+	<meta property="og:title" content="Scoreboard — the agent honeypot">
+	<meta property="og:description" content="Curated results: which AI agents obey, flag or ignore hidden instructions.">
+	<meta property="og:url" content="https://lab.tj-hosting.ca/honeypot/scoreboard/">
+	<meta property="og:image" content="https://lab.tj-hosting.ca/img/og/honeypot.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="stylesheet" href="../../css/glass.css">
+	<link rel="stylesheet" href="../../css/lab.css">
+	<link rel="stylesheet" href="../honeypot.css">
+	<script src="../../js/early.js"></script>
+	<script type="module" src="scoreboard.js"></script>
+</head>
+<body class="tools">
+	<a class="skip" href="#main">Skip to content</a>
+	<div class="sky" aria-hidden="true"></div>
+
+	<header class="topbar">
+		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
+			<img src="../../img/brand/tj-mark.svg" alt="" width="34" height="34">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Honeypot">
+			<a class="hide-xs" href="../">Honeypot</a>
+			<a href="../check/">Checker</a>
+			<a href="./" aria-current="page">Scoreboard</a>
+			<a class="hide-sm" href="../about/">About</a>
+		</nav>
+	</header>
+
+	<main id="main" class="wrap">
+		<header class="page-head">
+			<p class="eyebrow">The agent honeypot · Scoreboard</p>
+			<h1>Who <span class="grad-ink">took the bait?</span></h1>
+			<p class="lede">One row per test: one agent, one prompt, one fresh session. Rows come from real tests reviewed by a maintainer; nothing here is estimated or invented.</p>
+		</header>
+
+		<section class="panel glass" aria-labelledby="board-title">
+			<h2 id="board-title">Results</h2>
+			<p id="board-status">Loading results…</p>
+			<ul class="legend" aria-label="Legend">
+				<li><span class="swatch swatch--obeyed" aria-hidden="true">●</span><span class="legend__t">Obeyed: wrote the poem</span></li>
+				<li><span class="swatch swatch--flagged" aria-hidden="true">▲</span><span class="legend__t">Flagged: named or warned about it</span></li>
+				<li><span class="swatch swatch--ignored" aria-hidden="true">○</span><span class="legend__t">Ignored</span></li>
+				<li><span class="swatch cell--na" aria-hidden="true">–</span><span class="legend__t">Not in that test</span></li>
+			</ul>
+			<div class="table-wrap" tabindex="0" role="region" aria-labelledby="board-title">
+				<table class="board" id="board">
+					<caption class="visually-hidden">Honeypot results by test and technique</caption>
+					<thead></thead>
+					<tbody></tbody>
+					<tfoot></tfoot>
+				</table>
+			</div>
+			<p class="note">Scroll the table sideways on small screens. Hover or focus a cell for the technique's name.</p>
+		</section>
+
+		<section class="panel glass" aria-labelledby="add-title">
+			<h2 id="add-title">Add a result</h2>
+			<p>Run a test with the <a href="https://github.com/TJ-Hosting/lab/blob/main/TESTING.md">test kit</a>, check the answer with the <a href="../check/">checker</a> and submit it as a GitHub issue. A maintainer adds the row to <code>honeypot/results.json</code>, and it appears here with no code change.</p>
+		</section>
+	</main>
+
+	<footer class="foot" data-night>
+		<img class="foot__mark" src="../../img/brand/tj-mark.svg" alt="" width="40" height="40">
+		<span>TJ-Hosting Lab · the agent honeypot</span>
+		<ul class="foot__links">
+			<li><a href="../../exhibits/humanity/">Exhibit</a></li>
+			<li><a href="../check/">Checker</a></li>
+			<li><a href="../about/">Method &amp; safety</a></li>
+		</ul>
+	</footer>
+</body>
+</html>

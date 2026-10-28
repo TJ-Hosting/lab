@@ -1,0 +1,162 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<!-- the base policy, unchanged: the icons and the forecast are fetched from this same origin -->
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://*.google.com; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<script src="../../js/ga4.js"></script>
+	<title>Weather window — animated icons · TJ-Hosting Lab</title>
+	<meta name="description" content="A glass window that cycles through clear, cloudy, rain, thunderstorm and snow, with a sky for each, drifting clouds and an animated weather icon, a day and night switch with moon phases, and a sample five-day forecast. Animated SVG icons, inlined.">
+	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/weather-window/">
+	<meta name="theme-color" content="#eef7fc">
+	<link rel="icon" href="../../img/brand/tj-mark.svg" type="image/svg+xml">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="TJ-Hosting Lab">
+	<meta property="og:title" content="Weather window — TJ-Hosting Lab">
+	<meta property="og:description" content="A glass window onto five kinds of sky, each with its own animated icon, from day to night.">
+	<meta property="og:url" content="https://lab.tj-hosting.ca/samples/weather-window/">
+	<meta property="og:image" content="https://lab.tj-hosting.ca/img/og/weather-window.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="A glass window frame onto a bright blue sky with white clouds and a spinning sun icon, a strip of five small weather icons below it">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="preload" href="../../fonts/nunito-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="../../css/glass.css">
+	<link rel="stylesheet" href="../../css/lab.css">
+	<link rel="stylesheet" href="../../css/sample.css">
+	<link rel="stylesheet" href="piece.css">
+	<script src="../../js/early.js"></script>
+	<script type="module" src="piece.js"></script>
+</head>
+<body class="sample sample--weather-window">
+	<a class="skip" href="#about-piece">Skip to the description</a>
+
+	<div class="sky" aria-hidden="true"></div>
+
+	<header class="topbar">
+		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
+			<img src="../../img/brand/tj-mark.svg" alt="" width="34" height="34">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Lab">
+			<a href="../../#samples">All samples</a>
+		</nav>
+	</header>
+
+	<!-- STAGE C: open sky. A glass window frame; its pane shows the sky for the chosen weather: a CSS gradient per sky,
+	     three layers of clouds drawn here in SVG, and the weather icon (inlined animated SVG) floating in front. -->
+	<main id="main" class="stage weather-stage" data-motion>
+		<div class="piece-open wx">
+			<!-- the cloud shapes, drawn once and reused by the three cloud layers (no size: it draws nothing itself) -->
+			<svg class="wx__defs" width="0" height="0" aria-hidden="true" focusable="false">
+				<defs>
+					<g id="wx-cl-a"><rect x="0" y="34" width="160" height="30" rx="15"/><circle cx="46" cy="38" r="24"/><circle cx="90" cy="30" r="30"/><circle cx="126" cy="42" r="20"/></g>
+					<g id="wx-cl-b"><rect x="0" y="36" width="190" height="26" rx="13"/><circle cx="52" cy="40" r="22"/><circle cx="104" cy="32" r="27"/><circle cx="150" cy="40" r="20"/></g>
+					<g id="wx-set-far">
+						<use href="#wx-cl-a" transform="translate(30 26) scale(0.55)"/>
+						<use href="#wx-cl-b" transform="translate(205 8) scale(0.5)"/>
+						<use href="#wx-cl-a" transform="translate(372 40) scale(0.6)"/>
+						<use href="#wx-cl-b" transform="translate(498 14) scale(0.42)"/>
+					</g>
+					<g id="wx-set-mid">
+						<use href="#wx-cl-a" transform="translate(12 40) scale(0.85)"/>
+						<use href="#wx-cl-b" transform="translate(190 18) scale(0.8)"/>
+						<use href="#wx-cl-a" transform="translate(386 52) scale(0.78)"/>
+					</g>
+					<g id="wx-set-near">
+						<use href="#wx-cl-b" transform="translate(44 52) scale(1.15)"/>
+						<use href="#wx-cl-a" transform="translate(338 40) scale(1.1)"/>
+					</g>
+				</defs>
+			</svg>
+
+			<section class="wx__window glass glass--xl" aria-label="Weather window, sample forecast">
+				<div class="pane" id="pane" data-k="clear-day">
+					<div class="pane__skies" aria-hidden="true">
+						<div class="sky-l" data-k="clear-day"></div>
+						<div class="sky-l" data-k="cloudy-day"></div>
+						<div class="sky-l" data-k="rain-day"></div>
+						<div class="sky-l" data-k="storm-day"></div>
+						<div class="sky-l" data-k="snow-day"></div>
+						<div class="sky-l" data-k="clear-night"></div>
+						<div class="sky-l" data-k="cloudy-night"></div>
+						<div class="sky-l" data-k="rain-night"></div>
+						<div class="sky-l" data-k="storm-night"></div>
+						<div class="sky-l" data-k="snow-night"></div>
+					</div>
+					<div class="pane__stars" aria-hidden="true"></div>
+
+					<div class="cl cl--far" aria-hidden="true">
+						<svg class="cl__pale" viewBox="0 0 1200 160" focusable="false"><g fill="#ffffff"><use href="#wx-set-far"/><use href="#wx-set-far" x="600"/></g></svg>
+						<svg class="cl__dark" viewBox="0 0 1200 160" focusable="false"><g fill="#4a6699"><use href="#wx-set-far"/><use href="#wx-set-far" x="600"/></g></svg>
+					</div>
+					<div class="cl cl--mid" aria-hidden="true">
+						<svg class="cl__pale" viewBox="0 0 1200 160" focusable="false"><g fill="#ffffff"><use href="#wx-set-mid"/><use href="#wx-set-mid" x="600"/></g></svg>
+						<svg class="cl__dark" viewBox="0 0 1200 160" focusable="false"><g fill="#3b5688"><use href="#wx-set-mid"/><use href="#wx-set-mid" x="600"/></g></svg>
+					</div>
+					<div class="cl cl--near" aria-hidden="true">
+						<svg class="cl__pale" viewBox="0 0 1200 160" focusable="false"><g fill="#ffffff"><use href="#wx-set-near"/><use href="#wx-set-near" x="600"/></g></svg>
+						<svg class="cl__dark" viewBox="0 0 1200 160" focusable="false"><g fill="#2c4577"><use href="#wx-set-near"/><use href="#wx-set-near" x="600"/></g></svg>
+					</div>
+
+					<div class="pane__flash" id="flash" aria-hidden="true"></div>
+
+					<div class="icon" aria-hidden="true">
+						<div class="icon__float" id="icon-float">
+							<span class="icon__shadow" id="icon-shadow"></span>
+							<div class="icon__slot" id="icon-slot"></div>
+						</div>
+					</div>
+
+					<div class="readout glass glass--strong glass--sm">
+						<p class="readout__place">Sample town · now</p>
+						<p class="readout__temp" id="temp">21°</p>
+						<p class="readout__cond" id="cond">Clear</p>
+						<p class="readout__sub" id="sub">High today, low 11°</p>
+					</div>
+					<div class="moon glass glass--strong glass--sm" id="moon" aria-hidden="true">
+						<img id="moon-img" src="../../vendor/meteocons@0.1.0/fill-static/moon-waxing-crescent.svg" alt="" width="36" height="36">
+						<p class="moon__txt"><span class="moon__k">Moon tonight</span><span class="moon__name" id="moon-name">Waxing crescent</span></p>
+					</div>
+				</div>
+			</section>
+			<div class="wx__sill glass glass--sm" aria-hidden="true"></div>
+
+			<div class="wx__controls">
+				<div class="wx__chips" role="group" aria-label="Weather">
+					<button class="btn btn--sm btn--ghost" type="button" data-cond="clear" aria-pressed="true">Clear</button>
+					<button class="btn btn--sm btn--ghost" type="button" data-cond="cloudy" aria-pressed="false">Cloudy</button>
+					<button class="btn btn--sm btn--ghost" type="button" data-cond="rain" aria-pressed="false">Rain</button>
+					<button class="btn btn--sm btn--ghost" type="button" data-cond="storm" aria-pressed="false">Storm</button>
+					<button class="btn btn--sm btn--ghost" type="button" data-cond="snow" aria-pressed="false">Snow</button>
+				</div>
+				<div class="wx__time glass glass--sm" role="group" aria-label="Time of day">
+					<button class="btn btn--sm btn--ghost" type="button" data-time="day" aria-pressed="true">Day</button>
+					<button class="btn btn--sm btn--ghost" type="button" data-time="night" aria-pressed="false">Night</button>
+				</div>
+			</div>
+
+			<p class="pill wx__pill"><span class="pill__dot" aria-hidden="true"></span>Sample forecast · not real weather</p>
+			<div class="strip-wrap" id="strip-wrap">
+				<ul class="strip" id="strip" aria-label="Five days, sample forecast"></ul>
+				<span class="strip__mark" id="strip-mark" aria-hidden="true"></span>
+			</div>
+
+			<p class="visually-hidden" id="announce" role="status"></p>
+		</div>
+	</main>
+
+	<aside class="sample-info glass glass--strong" id="about-piece" aria-labelledby="piece-title">
+		<p class="eyebrow">Sample 35 · Animated icons</p>
+		<h1 id="piece-title">Weather window</h1>
+		<p class="how"><b>How it's made:</b> Animated SVG weather icons are placed straight into the page, so a script can pause them. Three layers of clouds drift behind, and it all stops off-screen, in a hidden tab and on Pause.</p>
+		<div class="controls">
+			<button class="btn btn--sm btn--primary" type="button" data-action="next">Next weather</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="pause" aria-pressed="false">Pause</button>
+			<a class="back" href="../../#samples">← Back to the lab</a>
+		</div>
+	</aside>
+</body>
+</html>

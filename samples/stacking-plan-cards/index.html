@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://*.google.com; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<script src="../../js/ga4.js"></script>
+	<title>Sticky stacking plan cards — sticky stack · TJ-Hosting Lab</title>
+	<meta name="description" content="Five glass plan cards stick to the top of the page and shrink as the next one slides over them, beside a progress rail whose ticks light up. CSS position: sticky and scroll-driven animations, with plain stacking where they aren't supported.">
+	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/stacking-plan-cards/">
+	<meta name="theme-color" content="#eef7fc">
+	<link rel="icon" href="../../img/brand/tj-mark.svg" type="image/svg+xml">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="TJ-Hosting Lab">
+	<meta property="og:title" content="Sticky stacking plan cards — TJ-Hosting Lab">
+	<meta property="og:description" content="Scroll and each glass plan card tucks under the next, one by one.">
+	<meta property="og:url" content="https://lab.tj-hosting.ca/samples/stacking-plan-cards/">
+	<meta property="og:image" content="https://lab.tj-hosting.ca/img/og/stacking-plan-cards.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="A deck of pale blue glass plan cards stacked at the top of the page, each with a blue hills picture, beside a vertical row of progress dots">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="preload" href="../../fonts/nunito-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="../../css/glass.css">
+	<link rel="stylesheet" href="../../css/lab.css">
+	<link rel="stylesheet" href="../../css/sample.css">
+	<link rel="stylesheet" href="piece.css">
+	<script src="../../js/early.js"></script>
+	<script type="module" src="piece.js"></script>
+</head>
+<body class="sample sample--stacking-plan-cards">
+	<a class="skip" href="#about-piece">Skip to the description</a>
+
+	<div class="sky" aria-hidden="true"></div>
+
+	<header class="topbar">
+		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
+			<img src="../../img/brand/tj-mark.svg" alt="" width="34" height="34">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Lab">
+			<a href="../../#samples">All samples</a>
+		</nav>
+	</header>
+
+	<!-- the picture on every card is drawn here once: a sun and five ridges of hills, back to front.
+	     Each card sets which ridges show (--l1 to --l5) and its colours in piece.css, so a deeper plan has more hills. -->
+	<svg class="sprite" width="0" height="0" aria-hidden="true" focusable="false">
+		<defs>
+			<radialGradient id="sun-glow" cx="50%" cy="50%" r="50%">
+				<stop offset="0" stop-color="#ffffff" stop-opacity="0.95"/>
+				<stop offset="0.5" stop-color="#ffffff" stop-opacity="0.45"/>
+				<stop offset="1" stop-color="#ffffff" stop-opacity="0"/>
+			</radialGradient>
+			<symbol id="hills-tall" viewBox="0 0 200 300">
+				<circle cx="124" cy="64" r="58" fill="url(#sun-glow)"/>
+				<circle cx="124" cy="64" r="16" fill="#ffffff"/>
+				<rect x="22" y="40" width="58" height="9" rx="4.5" fill="#ffffff" opacity="0.8"/>
+				<rect x="40" y="53" width="38" height="8" rx="4" fill="#ffffff" opacity="0.6"/>
+				<rect x="96" y="108" width="66" height="9" rx="4.5" fill="#ffffff" opacity="0.7"/>
+				<path style="fill:var(--g1);opacity:var(--l1,1)" d="M0 128C30 102 62 98 96 112S158 136 200 110V300H0Z"/>
+				<path style="fill:var(--g2);opacity:var(--l2,1)" d="M0 168C34 146 70 144 104 156S164 180 200 158V300H0Z"/>
+				<path style="fill:var(--g3);opacity:var(--l3,1)" d="M0 204C40 188 82 188 118 200S172 216 200 198V300H0Z"/>
+				<path style="fill:var(--g4);opacity:var(--l4,1)" d="M0 238C36 226 80 228 120 238S176 250 200 236V300H0Z"/>
+				<path style="fill:var(--g5);opacity:var(--l5,1)" d="M0 270C44 262 94 264 136 272S182 278 200 270V300H0Z"/>
+			</symbol>
+			<symbol id="hills-wide" viewBox="0 0 400 80">
+				<circle cx="296" cy="24" r="30" fill="url(#sun-glow)"/>
+				<circle cx="296" cy="24" r="9" fill="#ffffff"/>
+				<rect x="40" y="12" width="46" height="6" rx="3" fill="#ffffff" opacity="0.8"/>
+				<rect x="150" y="22" width="34" height="5" rx="2.5" fill="#ffffff" opacity="0.6"/>
+				<path style="fill:var(--g1);opacity:var(--l1,1)" d="M0 38C60 26 110 24 160 32S260 44 320 30S380 24 400 28V80H0Z"/>
+				<path style="fill:var(--g2);opacity:var(--l2,1)" d="M0 48C50 38 110 38 170 44S270 54 330 44S385 40 400 42V80H0Z"/>
+				<path style="fill:var(--g3);opacity:var(--l3,1)" d="M0 56C60 48 120 48 180 54S280 62 340 54S388 50 400 52V80H0Z"/>
+				<path style="fill:var(--g4);opacity:var(--l4,1)" d="M0 64C70 57 130 57 190 62S290 69 350 62S392 59 400 61V80H0Z"/>
+				<path style="fill:var(--g5);opacity:var(--l5,1)" d="M0 72C60 67 120 68 180 72S280 77 340 71S390 69 400 70V80H0Z"/>
+			</symbol>
+		</defs>
+	</svg>
+
+	<!-- STAGE D: a scrolling page. The left column holds the sample label, a short heading and the progress rail; the right
+	     column is the stack. piece.js reads the number of cards from the list and numbers them (--n, --i); the CSS does the rest. -->
+	<main id="main" class="scroll-page" data-motion>
+		<section class="plans" id="plans" aria-labelledby="plans-title">
+			<div class="plans__aside">
+				<p class="pill plans__tag"><span class="pill__dot" aria-hidden="true"></span>Sample plans · not real offers</p>
+				<h2 class="plans__title" id="plans-title">Pick a <span class="script">plan</span></h2>
+				<p class="plans__lede">Scroll, and each card tucks under the next.</p>
+
+				<nav class="rail" aria-label="Plans">
+					<span class="rail__line" aria-hidden="true"><span class="rail__fill"></span></span>
+					<ol class="rail__list">
+						<li class="tick"><button class="tick__btn" type="button" aria-label="Go to plan 1, Starter site"><span class="tick__dot" aria-hidden="true"><i class="tick__ring"></i><i class="tick__lit"></i><i class="tick__halo"></i></span><span class="tick__label" aria-hidden="true"><span class="tick__num">01</span><span class="tick__name">Starter</span></span></button></li>
+						<li class="tick"><button class="tick__btn" type="button" aria-label="Go to plan 2, Studio site"><span class="tick__dot" aria-hidden="true"><i class="tick__ring"></i><i class="tick__lit"></i><i class="tick__halo"></i></span><span class="tick__label" aria-hidden="true"><span class="tick__num">02</span><span class="tick__name">Studio</span></span></button></li>
+						<li class="tick"><button class="tick__btn" type="button" aria-label="Go to plan 3, Shop"><span class="tick__dot" aria-hidden="true"><i class="tick__ring"></i><i class="tick__lit"></i><i class="tick__halo"></i></span><span class="tick__label" aria-hidden="true"><span class="tick__num">03</span><span class="tick__name">Shop</span></span></button></li>
+						<li class="tick"><button class="tick__btn" type="button" aria-label="Go to plan 4, Care plan"><span class="tick__dot" aria-hidden="true"><i class="tick__ring"></i><i class="tick__lit"></i><i class="tick__halo"></i></span><span class="tick__label" aria-hidden="true"><span class="tick__num">04</span><span class="tick__name">Care</span></span></button></li>
+						<li class="tick"><button class="tick__btn" type="button" aria-label="Go to plan 5, All-in-one"><span class="tick__dot" aria-hidden="true"><i class="tick__ring"></i><i class="tick__lit"></i><i class="tick__halo"></i></span><span class="tick__label" aria-hidden="true"><span class="tick__num">05</span><span class="tick__name">All-in-one</span></span></button></li>
+					</ol>
+				</nav>
+			</div>
+
+			<ol class="stack" id="stack" aria-label="Sample hosting plans">
+				<li class="plan">
+					<article class="plan__card glass glass--strong glass--xl" aria-labelledby="plan-starter">
+						<p class="plan__tab"><span class="plan__no">01</span><span class="plan__kind">Starter site</span><span class="plan__sample">Sample plan</span></p>
+						<div class="plan__art" aria-hidden="true"><svg class="art art--tall" viewBox="0 0 200 300" preserveAspectRatio="xMidYMid slice" focusable="false"><use href="#hills-tall" width="200" height="300"/></svg><svg class="art art--wide" viewBox="0 0 400 80" preserveAspectRatio="xMidYMid slice" focusable="false"><use href="#hills-wide" width="400" height="80"/></svg></div>
+						<div class="plan__body">
+							<h3 class="plan__name" id="plan-starter">Starter site</h3>
+							<p class="plan__lead">One page, up and running.</p>
+							<ul class="plan__list">
+								<li>One clean page with your name on it</li>
+								<li>A contact link visitors can use</li>
+								<li>Room for a few pictures</li>
+								<li>Easy to read on a phone</li>
+							</ul>
+							<div class="plan__meters" role="group" aria-label="Illustrative sizes">
+								<p class="plan__note" aria-hidden="true">Illustrative sizes</p>
+								<p class="meter"><span class="meter__k">Room</span><span class="meter__dots" role="img" aria-label="1 of 5"><i class="on"></i><i></i><i></i><i></i><i></i></span></p>
+								<p class="meter"><span class="meter__k">Help</span><span class="meter__dots" role="img" aria-label="1 of 5"><i class="on"></i><i></i><i></i><i></i><i></i></span></p>
+							</div>
+						</div>
+						<span class="plan__veil" aria-hidden="true"></span>
+					</article>
+				</li>
+				<li class="plan">
+					<article class="plan__card glass glass--strong glass--xl" aria-labelledby="plan-studio">
+						<p class="plan__tab"><span class="plan__no">02</span><span class="plan__kind">Studio site</span><span class="plan__sample">Sample plan</span></p>
+						<div class="plan__art" aria-hidden="true"><svg class="art art--tall" viewBox="0 0 200 300" preserveAspectRatio="xMidYMid slice" focusable="false"><use href="#hills-tall" width="200" height="300"/></svg><svg class="art art--wide" viewBox="0 0 400 80" preserveAspectRatio="xMidYMid slice" focusable="false"><use href="#hills-wide" width="400" height="80"/></svg></div>
+						<div class="plan__body">
+							<h3 class="plan__name" id="plan-studio">Studio site</h3>
+							<p class="plan__lead">A small site with a few rooms.</p>
+							<ul class="plan__list">
+								<li>A handful of pages and a menu</li>
+								<li>A gallery for your work</li>
+								<li>A page for news and notes</li>
+								<li>Pages that fit any screen</li>
+							</ul>
+							<div class="plan__meters" role="group" aria-label="Illustrative sizes">
+								<p class="plan__note" aria-hidden="true">Illustrative sizes</p>
+								<p class="meter"><span class="meter__k">Room</span><span class="meter__dots" role="img" aria-label="2 of 5"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span></p>
+								<p class="meter"><span class="meter__k">Help</span><span class="meter__dots" role="img" aria-label="1 of 5"><i class="on"></i><i></i><i></i><i></i><i></i></span></p>
+							</div>
+						</div>
+						<span class="plan__veil" aria-hidden="true"></span>
+					</article>
+				</li>
+				<li class="plan">
+					<article class="plan__card glass glass--strong glass--xl" aria-labelledby="plan-shop">
+						<p class="plan__tab"><span class="plan__no">03</span><span class="plan__kind">Shop</span><span class="plan__sample">Sample plan</span></p>
+						<div class="plan__art" aria-hidden="true"><svg class="art art--tall" viewBox="0 0 200 300" preserveAspectRatio="xMidYMid slice" focusable="false"><use href="#hills-tall" width="200" height="300"/></svg><svg class="art art--wide" viewBox="0 0 400 80" preserveAspectRatio="xMidYMid slice" focusable="false"><use href="#hills-wide" width="400" height="80"/></svg></div>
+						<div class="plan__body">
+							<h3 class="plan__name" id="plan-shop">Shop</h3>
+							<p class="plan__lead">Sell a few things online.</p>
+							<ul class="plan__list">
+								<li>A page for every item</li>
+								<li>A basket and an order page</li>
+								<li>A note when an order comes in</li>
+								<li>Pictures that load lightly</li>
+							</ul>
+							<div class="plan__meters" role="group" aria-label="Illustrative sizes">
+								<p class="plan__note" aria-hidden="true">Illustrative sizes</p>
+								<p class="meter"><span class="meter__k">Room</span><span class="meter__dots" role="img" aria-label="3 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></p>
+								<p class="meter"><span class="meter__k">Help</span><span class="meter__dots" role="img" aria-label="2 of 5"><i class="on"></i><i class="on"></i><i></i><i></i><i></i></span></p>
+							</div>
+						</div>
+						<span class="plan__veil" aria-hidden="true"></span>
+					</article>
+				</li>
+				<li class="plan">
+					<article class="plan__card glass glass--strong glass--xl" aria-labelledby="plan-care">
+						<p class="plan__tab"><span class="plan__no">04</span><span class="plan__kind">Care plan</span><span class="plan__sample">Sample plan</span></p>
+						<div class="plan__art" aria-hidden="true"><svg class="art art--tall" viewBox="0 0 200 300" preserveAspectRatio="xMidYMid slice" focusable="false"><use href="#hills-tall" width="200" height="300"/></svg><svg class="art art--wide" viewBox="0 0 400 80" preserveAspectRatio="xMidYMid slice" focusable="false"><use href="#hills-wide" width="400" height="80"/></svg></div>
+						<div class="plan__body">
+							<h3 class="plan__name" id="plan-care">Care plan</h3>
+							<p class="plan__lead">Someone looks after it for you.</p>
+							<ul class="plan__list">
+								<li>Updates done for you</li>
+								<li>A regular check-up</li>
+								<li>A person to ask</li>
+								<li>A short note on what was done</li>
+							</ul>
+							<div class="plan__meters" role="group" aria-label="Illustrative sizes">
+								<p class="plan__note" aria-hidden="true">Illustrative sizes</p>
+								<p class="meter"><span class="meter__k">Room</span><span class="meter__dots" role="img" aria-label="3 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i></i><i></i></span></p>
+								<p class="meter"><span class="meter__k">Help</span><span class="meter__dots" role="img" aria-label="5 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></p>
+							</div>
+						</div>
+						<span class="plan__veil" aria-hidden="true"></span>
+					</article>
+				</li>
+				<li class="plan">
+					<article class="plan__card glass glass--strong glass--xl" aria-labelledby="plan-all">
+						<p class="plan__tab"><span class="plan__no">05</span><span class="plan__kind">All-in-one</span><span class="plan__sample">Sample plan</span></p>
+						<div class="plan__art" aria-hidden="true"><svg class="art art--tall" viewBox="0 0 200 300" preserveAspectRatio="xMidYMid slice" focusable="false"><use href="#hills-tall" width="200" height="300"/></svg><svg class="art art--wide" viewBox="0 0 400 80" preserveAspectRatio="xMidYMid slice" focusable="false"><use href="#hills-wide" width="400" height="80"/></svg></div>
+						<div class="plan__body">
+							<h3 class="plan__name" id="plan-all">All-in-one</h3>
+							<p class="plan__lead">Site, shop and care together.</p>
+							<ul class="plan__list">
+								<li>Everything above, in one place</li>
+								<li>Extra room as you grow</li>
+								<li>One person to ask about all of it</li>
+								<li>Room to try new ideas</li>
+							</ul>
+							<div class="plan__meters" role="group" aria-label="Illustrative sizes">
+								<p class="plan__note" aria-hidden="true">Illustrative sizes</p>
+								<p class="meter"><span class="meter__k">Room</span><span class="meter__dots" role="img" aria-label="5 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></p>
+								<p class="meter"><span class="meter__k">Help</span><span class="meter__dots" role="img" aria-label="5 of 5"><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i><i class="on"></i></span></p>
+							</div>
+						</div>
+						<span class="plan__veil" aria-hidden="true"></span>
+					</article>
+				</li>
+			</ol>
+		</section>
+	</main>
+
+	<aside class="sample-info glass glass--strong" id="about-piece" aria-labelledby="piece-title">
+		<p class="eyebrow">Sample 22 · Sticky stack</p>
+		<h1 id="piece-title">Sticky stacking plan cards</h1>
+		<p class="how"><b>How it's made:</b> every card is position: sticky, and one CSS scroll timeline shrinks a card as the next one slides over it, with only transform and opacity.
+		Only scrolling moves it; with reduced motion, or in a browser without scroll-driven animations, the cards just stack.</p>
+		<div class="controls">
+			<button class="btn btn--sm btn--primary" type="button" data-action="next">Next plan</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="again">Start again</button>
+			<a class="back" href="../../#samples">← Back to the lab</a>
+		</div>
+	</aside>
+</body>
+</html>
