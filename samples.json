@@ -210,6 +210,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "lamp-cord-theme",
+			"title": "Pull-Cord Theme Lamp",
+			"kicker": "Rope physics",
+			"category": "Pointer",
+			"blurb": "A glass lamp swings on a rope above a small sample page; pull its cord and the page turns from day to night in a spreading circle.",
+			"href": "samples/lamp-cord-theme/",
+			"image": { "base": "img/iso/lamp-cord-theme", "widths": [400, 800], "ratio": 1.433 },
+			"tags": ["Canvas 2D", "Verlet rope", "View Transitions"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "brand-colour-sphere",
 			"title": "The brand colour sphere",
 			"kicker": "Colour maths",

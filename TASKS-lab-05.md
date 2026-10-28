@@ -94,7 +94,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S23 | 26 | dot-mesh-hero | Pointer | rebuild-from-idea (CodePen and its Debug view 403) | none | 0 | **committed 03:38Z** | day screen, glass card; 16.7 ms; card C23 |
 | S24 | 27 | glass-jellyfish | Pointer | rebuild-from-idea (CodePen blocked) | none | 0 | **committed 04:20Z** | night screen; hero + 4 small jellyfish; 16.7 ms; card C24 |
 | S25 | 28 | halftone-dissolve | Pointer | adapt-code | gsap@3.13.0 | 2 | todo | |
-| S26 | 29 | lamp-cord-theme | Pointer | adapt-code | none | 0 | todo | |
+| S26 | 29 | lamp-cord-theme | Pointer | adapt-code (MIT, cebf1f1) | none | 0 | committed (see git) | day screen holding a sample page whose theme flips via [data-night]; View Transition circle, instant without it; 16.7 ms; card C26 |
 | S27 | 30 | glass-diorama-card | Pointer | adapt-code | atropos@2.0.2 | 5 | todo | |
 | S28 | 31 | skill-chips | Pointer | rebuild-from-idea | matter-js@0.20.0 | 0 | todo | |
 | S29 | 32 | brand-colour-sphere | SVG | rebuild-from-idea (CodePen 403) | none | 0 | **committed 03:49Z** | open sky; SVG polygons redrawn per frame (D2); full hue wheel includes violet/pink as artwork; 16.7 ms; card C29 |
@@ -152,6 +152,7 @@ None yet.
 - [P5] S47: the tick fires on every centre crossing (about 40 a second) at an untuned level; thin it (e.g. one voice per crossing of the middle bob group, or a rate cap) and set a gentle level.
 - [P5] S10: the word sits in a mostly empty screen; add faint ambient dithered currents across the field so the whole window lives.
 - [P5] S46: the drawn trail is thin and faint on the sky; bolder royal trail with a brighter pen tip.
+- [P5] S26: the night theme never shows unless someone pulls; an idle pull every 20 s or so would show the twist at a glance.
 - [P5] S36: at rest the beams are often between runs; keep at least two in flight so the idle hub always shows light moving.
 - [P5] S22: the curtain is subtle in a still; stronger folds or a corner already torn so the twist reads at a glance.
 - [P5] C04 (glitch card) reads as a stacked block; regenerate with clearer offset strips if the budget allows.
