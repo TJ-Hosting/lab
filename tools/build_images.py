@@ -88,6 +88,7 @@ CUTOUTS = [
 	('iso/contour-map', 'lab05-contour-map.png', [400, 800], None),
 	('iso/bento-grid', 'lab05-bento-grid.png', [400, 800], None),
 	('iso/glass-jellyfish', 'lab05-glass-jellyfish.png', [400, 800], None),
+	('iso/pendulum-wave', 'lab05-pendulum-wave.png', [400, 800], None),
 	# lab-05 end
 ]
 

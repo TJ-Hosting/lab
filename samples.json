@@ -208,6 +208,17 @@
 			"image": { "base": "img/iso/clock-wall", "widths": [400, 800], "ratio": 1.186 },
 			"tags": ["Web Animations", "CSS transforms"],
 			"added": "2026-10-28"
+		},
+		{
+			"slug": "pendulum-wave",
+			"title": "Pendulum Wave",
+			"kicker": "Waves from drift",
+			"category": "Data",
+			"blurb": "Eighteen glass pendulums drift out of step into snakes and waves, then line up again every 60 seconds.",
+			"href": "samples/pendulum-wave/",
+			"image": { "base": "img/iso/pendulum-wave", "widths": [400, 800], "ratio": 0.742 },
+			"tags": ["Canvas 2D", "Web Audio"],
+			"added": "2026-10-28"
 		}
 	],
 	"exhibits": [

@@ -115,7 +115,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S44 | 47 | clock-wall | Data | rebuild-from-idea | none | 0 | **gated 04:05** | open sky; 102 WAAPI clock faces, local 24 h time; 16.7 ms; card C44 |
 | S45 | 48 | wind-snapshot | Data | adapt-code | wind-gl (repo dist at a commit SHA) | 0 | todo | data frames only if licence confirmed |
 | S46 | 49 | epicycle-machine | Data | adapt-code | none | 0 | todo | |
-| S47 | 50 | pendulum-wave | Data | adapt-code | none | 0 | todo | |
+| S47 | 50 | pendulum-wave | Data | adapt-code (MIT, a0ea040; maths only) | none | 0 | **gated 04:37** | open sky, 3D frame; sound off until pressed; 16.7 ms; card C47 |
 | S48 | 51 | chart-story | Data | adapt-code | vizzu@0.18.0 | 0 | todo | CSP 'wasm-unsafe-eval' |
 | S49 | 52 | glass-sandbox | Toys | rebuild-from-idea | none | 0 | todo | |
 | S50 | 53 | marble-harp | Toys | rebuild-from-idea | none | 0 | todo | |
@@ -146,6 +146,7 @@ None yet.
 - [P4] S44: "How it's made" says "a pose table I drew"; page copy speaks for the Lab, not a builder ("a pose table drawn for each digit").
 - [P5] S44: idle clocks show cyan hands at an angle that compete with the digits; dim or park the hands of clocks that are not part of a digit so the time reads at a glance.
 - [P5] C28 (skill chips card) looked like capsule pills; queued C28b (rounded glass tags).
+- [P5] S47: the tick fires on every centre crossing (about 40 a second) at an untuned level; thin it (e.g. one voice per crossing of the middle bob group, or a rate cap) and set a gentle level.
 - [P5] S36: at rest the beams are often between runs; keep at least two in flight so the idle hub always shows light moving.
 - [P5] S22: the curtain is subtle in a still; stronger folds or a corner already torn so the twist reads at a glance.
 - [P5] C04 (glitch card) reads as a stacked block; regenerate with clearer offset strips if the budget allows.
