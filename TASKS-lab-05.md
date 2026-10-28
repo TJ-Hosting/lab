@@ -157,8 +157,8 @@ None yet.
 - [P5] S22: the curtain is subtle in a still; stronger folds or a corner already torn so the twist reads at a glance.
 - [P5] C04 (glitch card) reads as a stacked block; regenerate with clearer offset strips if the budget allows.
 - [P5] C07 (slime tray) and C06 (petri dish) have similar silhouettes on the home; regenerate C07 as a different object if the budget allows.
-- [P4] OGL samples (S55, S57) import `vendor/ogl@1.0.11/src/index.js`, which pulls 72 module files; import only the core and extras modules used.
-- [P4] S57: the phone chips read lowercase "stone / leather / metal"; use sentence case.
+- [P4] OGL samples (S55, S57) import `vendor/ogl@1.0.11/src/index.js`, which pulls 72 module files; import only the core and extras modules used. **Done 05:52Z**: 26 and 27 files now; both re-gated (16.7 ms).
+- [P4] S57: the phone chips read lowercase "stone / leather / metal"; use sentence case. **Done 05:52Z.**
 - [P5] S57: the leather texture has a visible vertical seam at the centre; regenerate A57 leather (one Codex attempt).
 - [P5] S56: at 375 the three cards are about 96 px wide with empty sky above; larger cards (a scroll-snap row or two plus one) would show the morph better on phones.
 

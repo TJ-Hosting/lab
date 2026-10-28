@@ -23,7 +23,11 @@
  * as a compiled binary, for any purpose, commercial or non-commercial, and by any means. For more information, please
  * refer to <https://unlicense.org>. OGL (vendor/ogl@1.0.11) is Unlicense too; see vendor/ogl@1.0.11/LICENSE.txt.
  */
-import { Renderer, Program, Mesh, Triangle, Texture } from '../../vendor/ogl@1.0.11/src/index.js';
+import { Renderer } from '../../vendor/ogl@1.0.11/src/core/Renderer.js';
+import { Program } from '../../vendor/ogl@1.0.11/src/core/Program.js';
+import { Mesh } from '../../vendor/ogl@1.0.11/src/core/Mesh.js';
+import { Texture } from '../../vendor/ogl@1.0.11/src/core/Texture.js';
+import { Triangle } from '../../vendor/ogl@1.0.11/src/extras/Triangle.js';
 import { boot, loop, prefersReducedMotion } from '../../js/lab.js';
 
 const REDUCED = prefersReducedMotion();

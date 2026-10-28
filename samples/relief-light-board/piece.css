@@ -149,6 +149,8 @@
 /* a narrow phone: the chips drop the first word of their name, so the three fit in one row (their accessible names stay whole) */
 @media (max-width: 440px) {
 	.chip__pre { display: none; }
+	.chip__noun { display: inline-block; }
+	.chip__noun::first-letter { text-transform: uppercase; }
 }
 
 /* ---------- phones: the board stops above the panel, and the rail becomes a strip over the canvas rather than a plate on it ---------- */

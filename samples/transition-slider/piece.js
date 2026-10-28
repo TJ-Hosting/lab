@@ -41,7 +41,11 @@
  *
  * OGL (vendor/ogl@1.0.11) is Unlicense; see vendor/ogl@1.0.11/LICENSE.txt.
  */
-import { Renderer, Program, Mesh, Triangle, Texture } from '../../vendor/ogl@1.0.11/src/index.js';
+import { Renderer } from '../../vendor/ogl@1.0.11/src/core/Renderer.js';
+import { Program } from '../../vendor/ogl@1.0.11/src/core/Program.js';
+import { Mesh } from '../../vendor/ogl@1.0.11/src/core/Mesh.js';
+import { Texture } from '../../vendor/ogl@1.0.11/src/core/Texture.js';
+import { Triangle } from '../../vendor/ogl@1.0.11/src/extras/Triangle.js';
 import { boot, loop, prefersReducedMotion } from '../../js/lab.js';
 import { TRANSITIONS } from './transitions.js';
 
