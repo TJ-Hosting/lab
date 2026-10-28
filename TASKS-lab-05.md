@@ -73,7 +73,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S02 | 05 | liquid-distort-headline | Type | adapt-code | blotter@0.1.0 | 0 | todo | |
 | S03 | 06 | star-trail-text | Type | adapt-code (MIT, gist .block) | none | 0 | **committed 03:30Z** | night screen; stars.js (third-party pen) not used; 16.7 ms; card C03 |
 | S04 | 07 | glitch-headline | Type | adapt-code (Apache-2.0, gui-challenges 82317d0) | none | 0 | **committed 04:07Z** | open sky; animated clip-path replaced by still band clips + transform; 16.7 ms; card C04 |
-| S05 | 08 | scramble-titles | Type | adapt-code | animejs@4.4.0 | 0 | todo | |
+| S05 | 08 | scramble-titles | Type | adapt-code (MIT, Debug view) | animejs@4.4.0 | 0 | committed (see git) | open sky glass card; anime.js stepped by seek() from loop() (own rAF off); sample copy labelled; 16.7 ms; card C05 |
 | S06 | 09 | coral-ink | Generative | rebuild-from-idea (CodePen 403) | none | 0 | **committed 03:17Z** | day screen; 16.7 ms GPU; card C06; Firefox not run (Q1) |
 | S07 | 10 | slime-network | Generative | rebuild-from-idea | none | 0 | **committed 03:36Z** | night screen; about 14,400 agents, sheds agents if over 12 ms; 16.7 ms; card C07 |
 | S08 | 11 | streamline-poster | Generative | rebuild-from-idea (pen 403, no code read) | none | 0 | committed (see git) | light poster card, 1,800-2,700 ribbons drawn in; card glass without backdrop-filter (re-blur cost 16 ms a frame); 16.7 ms; card C08 |

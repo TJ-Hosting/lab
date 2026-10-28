@@ -67,6 +67,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "scramble-titles",
+			"title": "Scramble title cards",
+			"kicker": "Scramble type",
+			"category": "Type",
+			"blurb": "Three service title cards on one frosted glass card decode themselves from random characters, letter by letter; hover or tap a label to scramble it again.",
+			"href": "samples/scramble-titles/",
+			"image": { "base": "img/iso/scramble-titles", "widths": [400, 800], "ratio": 1.031 },
+			"tags": ["Anime.js", "scrambleText", "Web Audio"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "coral-ink",
 			"title": "Coral Ink Reactor",
 			"kicker": "Living ink",
