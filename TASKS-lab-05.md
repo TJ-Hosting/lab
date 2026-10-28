@@ -122,7 +122,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S51 | 54 | planet-maker | Toys | rebuild-from-idea | none | 0 | todo | |
 | S52 | 55 | glass-mandala | Toys | adapt-code | none | 0 | todo | |
 | S53 | 56 | ascii-sculpture | Toys | adapt-code | three@0.186.1 | 0 | todo | |
-| S54 | 57 | lantern-pond | Image | adapt-code | none | 1 | todo | |
+| S54 | 57 | lantern-pond | Image | adapt-code (MIT, e90bd54) | none | 1 (A54) | committed (see git) | night screen framing the pond photo; photo shown plain without WebGL/float targets; 16.7 ms; card C54 |
 | S55 | 58 | transition-slider | Image | adapt-code (MIT, gl-transitions 0efa165; 8 files each MIT) | ogl@1.0.11 | 3 (A55a-c) | committed (see git) | day screen; first photo as <img> without WebGL2; 16.7 ms; card C55 |
 | S56 | 59 | liquid-hover-gallery | Image | adapt-code | three@0.186.1 | 2 | todo | |
 | S57 | 60 | relief-light-board | Image | adapt-code | ogl@1.0.11 | 3 | todo | |

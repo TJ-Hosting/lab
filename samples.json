@@ -331,6 +331,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "lantern-pond",
+			"title": "Lantern Pond Ripples",
+			"kicker": "Dusk water",
+			"category": "Image",
+			"blurb": "A dusk pond with two paper lanterns that ripples where you touch it, while a golden leaf lands with a ring every few seconds.",
+			"href": "samples/lantern-pond/",
+			"image": { "base": "img/iso/lantern-pond", "widths": [400, 800], "ratio": 0.75 },
+			"tags": ["WebGL", "GLSL", "Water ripples"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "transition-slider",
 			"title": "Transition Lab Hero Slider",
 			"kicker": "Shader transitions",

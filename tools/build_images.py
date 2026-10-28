@@ -121,6 +121,7 @@ CUTOUTS = [
 	('iso/glass-orbs', 'lab05-glass-orbs.png', [400, 800], None),
 	('iso/lamp-cord-theme', 'lab05-lamp-cord-theme.png', [400, 800], None),
 	('iso/transition-slider', 'lab05-transition-slider.png', [400, 800], None),
+	('iso/lantern-pond', 'lab05-lantern-pond.png', [400, 800], None),
 	# lab-05 end
 ]
 
