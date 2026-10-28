@@ -29,6 +29,10 @@
 {"file":"img/iso/constellation-480.webp","source":"assets/pack/lab-constellation.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/constellation-960.avif","source":"assets/pack/lab-constellation.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/constellation-960.webp","source":"assets/pack/lab-constellation.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/contour-map-400.avif","source":"assets/pack/lab05-contour-map.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/contour-map-400.webp","source":"assets/pack/lab05-contour-map.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/contour-map-800.avif","source":"assets/pack/lab05-contour-map.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/contour-map-800.webp","source":"assets/pack/lab05-contour-map.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/coral-ink-400.avif","source":"assets/pack/lab05-coral-ink.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/coral-ink-400.webp","source":"assets/pack/lab05-coral-ink.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/coral-ink-800.avif","source":"assets/pack/lab05-coral-ink.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
@@ -139,6 +143,7 @@
 {"file":"img/iso/type-blocks-960.webp","source":"assets/pack/lab-type-blocks.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/og/brand-colour-sphere.jpg","source":"assets/pack/lab05-brand-colour-sphere.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/clock-wall.jpg","source":"assets/pack/lab05-clock-wall.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
+{"file":"img/og/contour-map.jpg","source":"assets/pack/lab05-contour-map.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/coral-ink.jpg","source":"assets/pack/lab05-coral-ink.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/dot-mesh-hero.jpg","source":"assets/pack/lab05-dot-mesh-hero.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/exhibit.jpg","source":"assets/pack/lab-og-honeypot.png","op":"tools/render-og.mjs (lab-04): 1200x630 share card, the share-card base, code-set type in Nunito Sans"}

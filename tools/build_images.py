@@ -85,6 +85,7 @@ CUTOUTS = [
 	('iso/glass-card-flow', 'lab05-glass-card-flow.png', [400, 800], None),
 	('iso/clock-wall', 'lab05-clock-wall.png', [400, 800], None),
 	('iso/glitch-headline', 'lab05-glitch-headline.png', [400, 800], None),
+	('iso/contour-map', 'lab05-contour-map.png', [400, 800], None),
 	# lab-05 end
 ]
 
