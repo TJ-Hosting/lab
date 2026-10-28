@@ -5,6 +5,10 @@
 {"file":"img/iso/bee-320.webp","source":"assets/pack/lab-bee.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/bee-640.avif","source":"assets/pack/lab-bee.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/bee-640.webp","source":"assets/pack/lab-bee.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/bento-grid-400.avif","source":"assets/pack/lab05-bento-grid.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/bento-grid-400.webp","source":"assets/pack/lab05-bento-grid.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/bento-grid-800.avif","source":"assets/pack/lab05-bento-grid.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/bento-grid-800.webp","source":"assets/pack/lab05-bento-grid.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/brand-colour-sphere-400.avif","source":"assets/pack/lab05-brand-colour-sphere.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/brand-colour-sphere-400.webp","source":"assets/pack/lab05-brand-colour-sphere.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/brand-colour-sphere-800.avif","source":"assets/pack/lab05-brand-colour-sphere.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
@@ -141,6 +145,7 @@
 {"file":"img/iso/type-blocks-480.webp","source":"assets/pack/lab-type-blocks.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/type-blocks-960.avif","source":"assets/pack/lab-type-blocks.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/type-blocks-960.webp","source":"assets/pack/lab-type-blocks.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/og/bento-grid.jpg","source":"assets/pack/lab05-bento-grid.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/brand-colour-sphere.jpg","source":"assets/pack/lab05-brand-colour-sphere.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/clock-wall.jpg","source":"assets/pack/lab05-clock-wall.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/contour-map.jpg","source":"assets/pack/lab05-contour-map.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}

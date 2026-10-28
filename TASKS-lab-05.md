@@ -105,7 +105,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S34 | 37 | pricing-rolling-digits | UI | adapt-code | number-flow@0.6.2 | 0 | todo | |
 | S35 | 38 | glass-hero-kit | UI | adapt-code | none | 0 | todo | |
 | S36 | 39 | integration-beams | UI | adapt-code (MIT, magicui efe76fc) | none | 0 | **gated 03:56** | open sky; "Sample content · no real connections"; 16.7 ms; card C36 |
-| S37 | 40 | bento-grid | UI | adapt-code | none | 0 | todo | |
+| S37 | 40 | bento-grid | UI | adapt-code (MIT, magicui efe76fc) | none | 0 | **gated 04:28** | open sky; CSS loops in [data-motion]; tile uses overflow: clip (focus scroll bug); 16.7 ms; card C37 |
 | S38 | 41 | mega-menu | UI | rebuild-from-idea | none | 0 | todo | |
 | S39 | 42 | testimonial-wall | UI | adapt-code | none | 0 | todo | |
 | S40 | 43 | browser-frame-showcase | UI | adapt-code | none | 4 | todo | wordless layout art |

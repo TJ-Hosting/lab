@@ -177,6 +177,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "bento-grid",
+			"title": "Living Glass Bento Grid",
+			"kicker": "Bento tiles",
+			"category": "UI",
+			"blurb": "Six frosted tiles for hosting services, each with a small looping drawing, that lift on hover and slide up a Learn more bar.",
+			"href": "samples/bento-grid/",
+			"image": { "base": "img/iso/bento-grid", "widths": [400, 800], "ratio": 0.804 },
+			"tags": ["CSS grid", "Inline SVG", "CSS animation"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "clock-wall",
 			"title": "Clock Wall",
 			"kicker": "Clocks as pixels",

@@ -86,6 +86,7 @@ CUTOUTS = [
 	('iso/clock-wall', 'lab05-clock-wall.png', [400, 800], None),
 	('iso/glitch-headline', 'lab05-glitch-headline.png', [400, 800], None),
 	('iso/contour-map', 'lab05-contour-map.png', [400, 800], None),
+	('iso/bento-grid', 'lab05-bento-grid.png', [400, 800], None),
 	# lab-05 end
 ]
 

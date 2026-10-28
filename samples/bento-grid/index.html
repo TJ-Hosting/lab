@@ -1,0 +1,321 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<title>Living Glass Bento Grid — bento tiles · TJ-Hosting Lab</title>
+	<meta name="description" content="Six frosted glass tiles in a bento layout, each with a small looping drawing of a hosting service. A Learn more bar slides up on hover. HTML, CSS and a little JavaScript.">
+	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/bento-grid/">
+	<meta name="theme-color" content="#eef7fc">
+	<link rel="icon" href="../../img/brand/tj-mark.svg" type="image/svg+xml">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="TJ-Hosting Lab">
+	<meta property="og:title" content="Living Glass Bento Grid — TJ-Hosting Lab">
+	<meta property="og:description" content="Six light glass tiles, each with a small looping drawing, on the day sky.">
+	<meta property="og:url" content="https://lab.tj-hosting.ca/samples/bento-grid/">
+	<meta property="og:image" content="https://lab.tj-hosting.ca/img/og/bento-grid.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="Six frosted glass tiles in a bento layout on a pale blue sky: a speed gauge, an envelope, a domain tag, a padlock, a heartbeat line and a pen stroke">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="preload" href="../../fonts/nunito-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="../../css/glass.css">
+	<link rel="stylesheet" href="../../css/lab.css">
+	<link rel="stylesheet" href="../../css/sample.css">
+	<link rel="stylesheet" href="piece.css">
+	<script src="../../js/early.js"></script>
+	<script type="module" src="piece.js"></script>
+</head>
+<body class="sample sample--bento-grid">
+	<a class="skip" href="#about-piece">Skip to the description</a>
+
+	<div class="sky" aria-hidden="true"></div>
+
+	<header class="topbar">
+		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
+			<img src="../../img/brand/tj-mark.svg" alt="" width="34" height="34">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Lab">
+			<a href="../../#samples">All samples</a>
+		</nav>
+	</header>
+
+	<!-- stage C: open sky. Each tile is its own [data-motion] region, so its drawing's loops pause when it scrolls off-screen -->
+	<main id="main" class="stage bento-stage" data-motion>
+		<div class="piece-open">
+			<p class="note pill">Sample content · illustrative</p>
+
+			<ul class="bento" id="bento" aria-label="Six hosting services, shown as sample tiles">
+
+				<!-- 1. speed: the wide tile -->
+				<li class="tile tile--wide" data-motion style="--n:0" data-more="Pages are kept light, pictures are sized to fit and nothing waits on a slow script.">
+					<span class="tile__halo" aria-hidden="true"></span>
+					<div class="tile__face glass glass--xl">
+						<div class="tile__art speed-art" aria-hidden="true">
+							<svg class="art art--bars art--bars-l" viewBox="0 0 160 120" focusable="false">
+								<rect x="10" y="28" width="140" height="10" rx="5" fill="#d4e7fb"/>
+								<rect class="bar" style="--v:.92;--i:0" x="10" y="28" width="140" height="10" rx="5" fill="#0c6bed"/>
+								<rect x="10" y="55" width="140" height="10" rx="5" fill="#d4e7fb"/>
+								<rect class="bar" style="--v:.7;--i:1" x="10" y="55" width="140" height="10" rx="5" fill="#4d9ff3"/>
+								<rect x="10" y="82" width="140" height="10" rx="5" fill="#d4e7fb"/>
+								<rect class="bar" style="--v:.82;--i:2" x="10" y="82" width="140" height="10" rx="5" fill="#46d0fb"/>
+							</svg>
+							<svg class="art art--gauge" viewBox="0 0 240 140" focusable="false">
+								<defs>
+									<linearGradient id="spd-arc" gradientUnits="userSpaceOnUse" x1="-100" y1="0" x2="100" y2="0">
+										<stop offset="0" stop-color="#4d9ff3"/>
+										<stop offset="1" stop-color="#46d0fb"/>
+									</linearGradient>
+								</defs>
+								<g transform="translate(120 120)">
+									<path d="M-100 0A100 100 0 0 1 100 0" fill="none" stroke="#d4e7fb" stroke-width="18" stroke-linecap="round"/>
+									<path d="M-100 0A100 100 0 0 1 100 0" fill="none" stroke="url(#spd-arc)" stroke-width="10" stroke-linecap="round"/>
+									<path d="M-78 0A78 78 0 0 1 78 0" fill="none" stroke="#5e80ae" stroke-opacity=".55" stroke-width="7" stroke-dasharray="1.4 11.6"/>
+									<g class="needle">
+										<path d="M-4.5 4 0-84 4.5 4Z" fill="#16428c"/>
+									</g>
+									<circle r="10" fill="#16428c"/>
+									<circle r="4" fill="#ffb547"/>
+								</g>
+							</svg>
+							<svg class="art art--bars art--bars-r" viewBox="0 0 160 120" focusable="false">
+								<rect x="10" y="28" width="140" height="10" rx="5" fill="#d4e7fb"/>
+								<rect class="bar bar--r" style="--v:.6;--i:1" x="10" y="28" width="140" height="10" rx="5" fill="#46d0fb"/>
+								<rect x="10" y="55" width="140" height="10" rx="5" fill="#d4e7fb"/>
+								<rect class="bar bar--r" style="--v:.9;--i:2" x="10" y="55" width="140" height="10" rx="5" fill="#0c6bed"/>
+								<rect x="10" y="82" width="140" height="10" rx="5" fill="#d4e7fb"/>
+								<rect class="bar bar--r" style="--v:.74;--i:3" x="10" y="82" width="140" height="10" rx="5" fill="#4d9ff3"/>
+							</svg>
+						</div>
+						<div class="tile__text">
+							<h2 class="tile__title"><svg class="tile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 17a8 8 0 1 1 16 0"/><path d="m12 17 4-5"/></svg>Fast by default</h2>
+							<p class="tile__desc">Pages load quickly, so visitors stay.</p>
+						</div>
+						<div class="tile__cta"><button class="more" type="button" aria-expanded="false" aria-label="Learn more about fast by default">Learn more<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+					</div>
+				</li>
+
+				<!-- 2. email -->
+				<li class="tile" data-motion style="--n:1" data-more="Addresses at your own web name, with spam filtered out before it reaches you.">
+					<span class="tile__halo" aria-hidden="true"></span>
+					<div class="tile__face glass glass--xl">
+						<div class="tile__art" aria-hidden="true">
+							<svg class="art art--email" viewBox="0 0 270 150" focusable="false">
+								<g class="lines" stroke="#4d9ff3" stroke-width="4" stroke-linecap="round">
+									<path d="M22 70h34M12 86h44M26 102h30"/>
+								</g>
+								<g class="env">
+									<rect x="70" y="52" width="130" height="70" rx="10" fill="#bcd9fa" stroke="#0c6bed" stroke-width="2.5"/>
+									<path class="flap-open" d="M74 52 135 12 196 52Z" fill="#a4c9f6" stroke="#0c6bed" stroke-width="2.5" stroke-linejoin="round"/>
+									<g class="letter">
+										<rect x="88" y="58" width="94" height="62" rx="6" fill="#fff" stroke="#8db8ee" stroke-width="2"/>
+										<path d="M100 74h46M100 87h68M100 100h38" stroke="#4d9ff3" stroke-width="4.5" stroke-linecap="round"/>
+									</g>
+									<path d="M71.5 54 135 98 198.5 54V112a9 9 0 0 1-9 9H80.5a9 9 0 0 1-9-9Z" fill="#eef6fe" stroke="#0c6bed" stroke-width="2.5" stroke-linejoin="round"/>
+									<path class="flap-closed" d="M71.5 52H198.5L135 98Z" fill="#d6e8fc" stroke="#0c6bed" stroke-width="2.5" stroke-linejoin="round"/>
+								</g>
+							</svg>
+						</div>
+						<div class="tile__text">
+							<h2 class="tile__title"><svg class="tile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="3"/><path d="m3.5 7.5 8.5 6 8.5-6"/></svg>Email that arrives</h2>
+							<p class="tile__desc">Your own address, with spam kept out.</p>
+						</div>
+						<div class="tile__cta"><button class="more" type="button" aria-expanded="false" aria-label="Learn more about email that arrives">Learn more<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+					</div>
+				</li>
+
+				<!-- 3. care plan: the tall tile -->
+				<li class="tile tile--tall" data-motion style="--n:2" data-more="Updates, backups and a regular check-up, so small problems are caught early.">
+					<span class="tile__halo" aria-hidden="true"></span>
+					<div class="tile__face glass glass--xl">
+						<div class="tile__art" aria-hidden="true">
+							<svg class="art art--care" viewBox="0 0 270 340" focusable="false">
+								<defs>
+									<linearGradient id="care-edge" gradientUnits="userSpaceOnUse" x1="0" y1="0" x2="270" y2="0">
+										<stop offset="0" stop-color="#000"/>
+										<stop offset=".14" stop-color="#fff"/>
+										<stop offset=".86" stop-color="#fff"/>
+										<stop offset="1" stop-color="#000"/>
+									</linearGradient>
+									<pattern id="care-cells" patternUnits="userSpaceOnUse" x="31" y="52" width="31" height="28"><rect width="22" height="20" rx="6" fill="#e4f0fd"/></pattern>
+									<mask id="care-fade" maskUnits="userSpaceOnUse" x="0" y="214" width="270" height="118">
+										<rect x="0" y="214" width="270" height="118" fill="url(#care-edge)"/>
+									</mask>
+								</defs>
+								<!-- the calendar -->
+								<rect x="20" y="6" width="230" height="168" rx="16" fill="#fff" stroke="#8db8ee" stroke-width="2"/>
+								<path d="M20 22a16 16 0 0 1 16-16H234a16 16 0 0 1 16 16V40H20Z" fill="#0c6bed"/>
+								<rect x="36" y="18" width="62" height="9" rx="4.5" fill="#fff" fill-opacity=".9"/>
+								<rect x="64" y="0" width="9" height="17" rx="4.5" fill="#16428c"/>
+								<rect x="197" y="0" width="9" height="17" rx="4.5" fill="#16428c"/>
+								<rect x="31" y="52" width="208" height="104" fill="url(#care-cells)"/>
+								<g class="week">
+									<g class="done" style="--i:0"><rect x="31" y="80" width="22" height="20" rx="6" fill="#0c6bed"/><path d="m37 90 4 4 8-8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
+									<g class="done" style="--i:1"><rect x="62" y="80" width="22" height="20" rx="6" fill="#0c6bed"/><path d="m68 90 4 4 8-8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
+									<g class="done" style="--i:2"><rect x="93" y="80" width="22" height="20" rx="6" fill="#0c6bed"/><path d="m99 90 4 4 8-8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
+									<g class="done" style="--i:3"><rect x="124" y="80" width="22" height="20" rx="6" fill="#0c6bed"/><path d="m130 90 4 4 8-8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
+									<g class="done" style="--i:4"><rect x="155" y="80" width="22" height="20" rx="6" fill="#0c6bed"/><path d="m161 90 4 4 8-8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
+									<g class="done" style="--i:5"><rect x="186" y="80" width="22" height="20" rx="6" fill="#0c6bed"/><path d="m192 90 4 4 8-8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
+									<g class="done" style="--i:6"><rect x="217" y="80" width="22" height="20" rx="6" fill="#0c6bed"/><path d="m223 90 4 4 8-8" fill="none" stroke="#fff" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"/></g>
+									<rect class="today" x="27" y="76" width="30" height="28" rx="9" fill="none" stroke="#46d0fb" stroke-width="3"/>
+								</g>
+								<!-- the heart -->
+								<g transform="translate(135 197)">
+									<path class="heart" d="M0 9 -9.4 .2C-14.4-4.8-9.2-12.6-3.6-10.1-1.8-9.3-.6-8 0-6.8.6-8 1.8-9.3 3.6-10.1 9.2-12.6 14.4-4.8 9.4 .2Z" fill="#0c6bed"/>
+								</g>
+								<!-- the heartbeat line -->
+								<g mask="url(#care-fade)">
+									<path d="M0 248H270M0 276H270M0 304H270" stroke="#8db8ee" stroke-opacity=".35" stroke-width="1.5"/>
+									<svg x="0" y="214" width="270" height="118" viewBox="0 0 270 118">
+										<g class="ecg" fill="none" stroke-linecap="round" stroke-linejoin="round">
+											<path d="M0 62H50q9-12 18 0H92l7 9 11-52 11 70 8-27H150q16-18 32 0H270M270 62H320q9-12 18 0H362l7 9 11-52 11 70 8-27H420q16-18 32 0H540" stroke="#46d0fb" stroke-opacity=".3" stroke-width="9"/>
+											<path d="M0 62H50q9-12 18 0H92l7 9 11-52 11 70 8-27H150q16-18 32 0H270M270 62H320q9-12 18 0H362l7 9 11-52 11 70 8-27H420q16-18 32 0H540" stroke="#0c6bed" stroke-width="3.5"/>
+										</g>
+									</svg>
+								</g>
+							</svg>
+						</div>
+						<div class="tile__text">
+							<h2 class="tile__title"><svg class="tile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 20S4.5 15.6 4.5 9.8A4.1 4.1 0 0 1 12 7.6a4.1 4.1 0 0 1 7.5 2.2C19.5 15.6 12 20 12 20Z"/></svg>A care plan</h2>
+							<p class="tile__desc">Updates, backups and a regular check-up, so the site stays well.</p>
+						</div>
+						<div class="tile__cta"><button class="more" type="button" aria-expanded="false" aria-label="Learn more about a care plan">Learn more<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+					</div>
+				</li>
+
+				<!-- 4. domains -->
+				<li class="tile" data-motion style="--n:3" data-more="We help you pick a name, register it and keep it renewed.">
+					<span class="tile__halo" aria-hidden="true"></span>
+					<div class="tile__face glass glass--xl">
+						<div class="tile__art" aria-hidden="true">
+							<svg class="art art--domain" viewBox="0 0 270 150" focusable="false">
+								<g fill="#cfe4fb" stroke="#8db8ee" stroke-width="2" stroke-linejoin="round" opacity=".7">
+									<path transform="rotate(-9 76 8)" d="M62 80 84 52H190a8 8 0 0 1 8 8V94a8 8 0 0 1-8 8H84Z"/>
+									<path transform="rotate(10 76 8)" d="M62 80 84 52H190a8 8 0 0 1 8 8V94a8 8 0 0 1-8 8H84Z"/>
+								</g>
+								<g class="swing">
+									<path d="M76 6V74" stroke="#4d9ff3" stroke-width="2.5" stroke-linecap="round"/>
+									<path d="M62 80 84 52H190a8 8 0 0 1 8 8V94a8 8 0 0 1-8 8H84Z" fill="#fff" stroke="#0c6bed" stroke-width="2.5" stroke-linejoin="round"/>
+									<circle cx="77" cy="77" r="4.5" fill="#d6e8fc" stroke="#0c6bed" stroke-width="2"/>
+									<text x="94" y="82" fill="#16428c" font-family="JetBrains Mono, ui-monospace, monospace" font-size="14" font-weight="700">yourname.ca</text>
+									<circle class="ring" cx="198" cy="54" r="15" fill="none" stroke="#46d0fb" stroke-width="3"/>
+									<g class="tick">
+										<circle cx="198" cy="54" r="15" fill="#0c6bed"/>
+										<path d="m191 54 5 5 9-10" fill="none" stroke="#fff" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+									</g>
+								</g>
+							</svg>
+						</div>
+						<div class="tile__text">
+							<h2 class="tile__title"><svg class="tile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="9"/><path d="M3 12h18"/><ellipse cx="12" cy="12" rx="4" ry="9"/></svg>Your own web address</h2>
+							<p class="tile__desc">Find a name, register it and keep it renewed.</p>
+						</div>
+						<div class="tile__cta"><button class="more" type="button" aria-expanded="false" aria-label="Learn more about your own web address">Learn more<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+					</div>
+				</li>
+
+				<!-- 5. secure connections -->
+				<li class="tile" data-motion style="--n:4" data-more="Every page is served over a secure link, and the certificate renews itself.">
+					<span class="tile__halo" aria-hidden="true"></span>
+					<div class="tile__face glass glass--xl">
+						<div class="tile__art" aria-hidden="true">
+							<svg class="art art--lock" viewBox="0 0 270 150" focusable="false">
+								<defs>
+									<radialGradient id="ssl-halo" cx=".5" cy=".5" r=".5">
+										<stop offset="0" stop-color="#46d0fb" stop-opacity=".55"/>
+										<stop offset=".6" stop-color="#46d0fb" stop-opacity=".16"/>
+										<stop offset="1" stop-color="#46d0fb" stop-opacity="0"/>
+									</radialGradient>
+									<linearGradient id="ssl-body" x1="0" y1="0" x2="0" y2="1">
+										<stop offset="0" stop-color="#2a86f5"/>
+										<stop offset="1" stop-color="#0558dc"/>
+									</linearGradient>
+								</defs>
+								<rect x="32" y="6" width="206" height="24" rx="12" fill="#fff" stroke="#8db8ee" stroke-width="2"/>
+								<path d="M52 14.5v-1.5a4 4 0 0 1 8 0v1.5" fill="none" stroke="#0c6bed" stroke-width="2" stroke-linecap="round"/>
+								<rect x="50" y="14.5" width="12" height="8.5" rx="2" fill="#0c6bed"/>
+								<text x="70" y="22.5" fill="#16428c" font-family="JetBrains Mono, ui-monospace, monospace" font-size="11.5" font-weight="700">https://yourname.ca</text>
+								<circle class="halo" cx="135" cy="92" r="52" fill="url(#ssl-halo)"/>
+								<circle class="pulse" cx="135" cy="94" r="36" fill="none" stroke="#46d0fb" stroke-width="3"/>
+								<path class="shackle" d="M117 74V62a18 18 0 0 1 36 0V74" fill="none" stroke="#16428c" stroke-width="9" stroke-linecap="round"/>
+								<rect x="101" y="72" width="68" height="52" rx="12" fill="url(#ssl-body)"/>
+								<circle cx="135" cy="94" r="7" fill="#fff"/>
+								<path d="M135 98v12" stroke="#fff" stroke-width="5.5" stroke-linecap="round"/>
+							</svg>
+						</div>
+						<div class="tile__text">
+							<h2 class="tile__title"><svg class="tile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="5" y="11" width="14" height="9.5" rx="2.5"/><path d="M8.5 11V8a3.5 3.5 0 0 1 7 0v3"/></svg>Secure connections</h2>
+							<p class="tile__desc">A padlock on every page, renewed for you.</p>
+						</div>
+						<div class="tile__cta"><button class="more" type="button" aria-expanded="false" aria-label="Learn more about secure connections">Learn more<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+					</div>
+				</li>
+
+				<!-- 6. design -->
+				<li class="tile" data-motion style="--n:5" data-more="A layout drawn around your words and colours, tidy on a phone and on a desk.">
+					<span class="tile__halo" aria-hidden="true"></span>
+					<div class="tile__face glass glass--xl">
+						<div class="tile__art" aria-hidden="true">
+							<svg class="art art--pen" viewBox="0 0 270 150" focusable="false">
+								<defs>
+									<mask id="pen-reveal" maskUnits="userSpaceOnUse" x="0" y="0" width="270" height="150">
+										<rect class="reveal" x="0" y="0" width="270" height="150" fill="#fff"/>
+									</mask>
+								</defs>
+								<!-- the pen tool's skeleton: anchors and handles -->
+								<g stroke="#4d9ff3" stroke-width="1.6" fill="none" stroke-opacity=".75">
+									<path d="M30 100 70 28M112 28 160 124M205 128 240 52"/>
+								</g>
+								<g fill="#fff" stroke="#4d9ff3" stroke-width="1.8">
+									<circle cx="70" cy="28" r="3.5"/><circle cx="112" cy="28" r="3.5"/><circle cx="160" cy="124" r="3.5"/><circle cx="205" cy="128" r="3.5"/>
+								</g>
+								<g class="ink">
+									<path d="M30 100C70 28 112 28 135 76S205 128 240 52" mask="url(#pen-reveal)" fill="none" stroke="#0c6bed" stroke-width="6" stroke-linecap="round"/>
+								</g>
+								<g fill="#fff" stroke="#0c6bed" stroke-width="2">
+									<rect x="25.5" y="95.5" width="9" height="9" rx="1.5"/><rect x="130.5" y="71.5" width="9" height="9" rx="1.5"/><rect x="235.5" y="47.5" width="9" height="9" rx="1.5"/>
+								</g>
+								<g transform="translate(30 100)">
+									<g class="pen-path">
+										<g class="pen-lift">
+											<g transform="rotate(34)">
+												<path d="M-6-14H6L0 0Z" fill="#16428c"/>
+												<rect x="-6" y="-19" width="12" height="5.5" fill="#ffb547"/>
+												<rect x="-6" y="-46" width="12" height="27.5" rx="2.5" fill="#0c6bed"/>
+												<rect x="-6" y="-52" width="12" height="7" rx="3.5" fill="#46d0fb"/>
+											</g>
+										</g>
+									</g>
+								</g>
+							</svg>
+						</div>
+						<div class="tile__text">
+							<h2 class="tile__title"><svg class="tile__icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m4 20 1-4.5L16.5 4a2.1 2.1 0 0 1 3 3L8 18.5Z"/><path d="m14.5 6 3.5 3.5"/></svg>Design that fits</h2>
+							<p class="tile__desc">A clean layout drawn for your words and your colours.</p>
+						</div>
+						<div class="tile__cta"><button class="more" type="button" aria-expanded="false" aria-label="Learn more about design that fits">Learn more<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></button></div>
+					</div>
+				</li>
+			</ul>
+			<noscript><p class="note">The tiles need JavaScript for the Learn more panels.</p></noscript>
+		</div>
+	</main>
+
+	<p class="hint glass glass--pill" aria-hidden="true">Hover or tap a tile</p>
+
+	<aside class="sample-info glass glass--strong" id="about-piece" aria-labelledby="piece-title">
+		<p class="eyebrow">Sample 40 · Bento tiles</p>
+		<h1 id="piece-title">Living Glass Bento Grid</h1>
+		<p class="how"><b>How it's made:</b> six frosted tiles on a CSS grid, each with a small drawing of inline SVG that loops by itself.
+		Only transform and opacity move, and every loop pauses off-screen or in a hidden tab.</p>
+		<div class="controls">
+			<button class="btn btn--sm btn--primary" type="button" data-action="lift" aria-pressed="false">Lift all tiles</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="pause" aria-pressed="false">Pause</button>
+			<a class="back" href="../../#samples">← Back to the lab</a>
+		</div>
+	</aside>
+</body>
+</html>

@@ -1,0 +1,450 @@
+/* Sample 40 — Living Glass Bento Grid, on the open day sky.
+   Six light glass tiles (DS v9's .glass) on a CSS grid: one spans two columns, one two rows. Each carries a small drawing of
+   inline SVG whose loop moves by transform and opacity only. A tile lifts on hover or focus, its words rise and a "Learn more"
+   bar slides up; on touch a tap does the same. The shell (sky, top bar, panel) comes from css/.
+   Loops are CSS animations, declared only under prefers-reduced-motion: no-preference, so reduced motion shows each drawing at
+   its resting pose (the base styles below). lab.css pauses them in a hidden tab and, per [data-motion] tile, off-screen. */
+
+.bento-stage {
+	place-items: start center;
+	padding: 84px var(--gutter) 40px;
+}
+
+.piece-open {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 12px;
+}
+
+/* the "Sample content" label: a small pill above the grid */
+.note {
+	margin: 0;
+	padding: 5px 14px;
+	font: 600 12px/18px var(--font-mono);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	text-align: center;
+	color: var(--muted);
+	white-space: normal;
+}
+noscript .note { text-transform: none; letter-spacing: 0; }
+
+/* ---------- the grid: four columns, two rows; speed spans two columns, the care plan two rows ---------- */
+
+.bento {
+	/* the row height follows the screen's, so two rows end above the fixed panel (about 250 px tall) */
+	--row: clamp(232px, calc((100vh - 410px) / 2), 300px);
+	--row: clamp(232px, calc((100dvh - 410px) / 2), 300px);
+	display: grid;
+	grid-template-columns: repeat(4, minmax(0, 1fr));
+	grid-auto-rows: var(--row);
+	gap: 14px;
+	width: min(1200px, 100%);
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.tile--wide { grid-column: span 2; }
+.tile--tall { grid-row: span 2; }
+
+/* a short desktop: the last row scrolls above the panel */
+@media (min-width: 1000px) and (max-height: 820px) {
+	.bento-stage { padding-bottom: 300px; }
+}
+
+/* ---------- a tile ---------- */
+
+.tile {
+	/* 0 at rest, 1 when lifted (hover, keyboard focus, a touch tap, or the "Lift all tiles" button) */
+	--lift: 0;
+	position: relative;
+	min-width: 0;
+	transform: translate3d(0, calc(var(--lift) * -6px), 0);
+	transition: transform 0.5s var(--ease-out);
+}
+@media (hover: hover) {
+	.tile:hover { --lift: 1; }
+	.tile:hover .more { pointer-events: auto; }
+}
+.tile.is-on, .tile.has-focus, .bento.all-on .tile { --lift: 1; }
+.tile.is-on .more, .tile.has-focus .more, .bento.all-on .more { pointer-events: auto; }
+
+/* the lifted shadow: a blue halo that fades in under the tile (opacity, not an animated box-shadow) */
+.tile__halo {
+	position: absolute;
+	inset: 0;
+	border-radius: var(--glass-radius-xl);
+	box-shadow: 0 34px 64px -24px rgba(22, 66, 140, 0.38), 0 14px 28px -14px rgba(5, 95, 233, 0.24);
+	opacity: var(--lift);
+	transition: opacity 0.4s var(--ease-out);
+	pointer-events: none;
+}
+
+.tile__face {
+	display: flex;
+	flex-direction: column;
+	height: 100%;
+	/* clip, not hidden: focus on the bar waiting under the bottom edge must not scroll the tile's content up */
+	overflow: hidden;
+	overflow: clip;
+}
+
+/* the drawing: fills what the words leave; it shrinks a little when the words rise */
+.tile__art {
+	z-index: 1;
+	flex: 1 1 0;
+	min-height: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	padding: 14px 14px 4px;
+	transform-origin: 50% 0;
+	transform: translate3d(0, calc(var(--lift) * -6px), 0) scale(calc(1 - var(--lift) * 0.12));
+	transition: transform 0.5s var(--ease-out);
+}
+.art {
+	display: block;
+	width: 100%;
+	height: 100%;
+	overflow: visible;
+}
+
+/* the words rise to make room for the bar */
+.tile__text {
+	z-index: 1;
+	flex: none;
+	padding: 0 20px 18px;
+	transform: translate3d(0, calc(var(--lift) * -36px), 0);
+	transition: transform 0.5s var(--ease-out);
+}
+.tile__title {
+	display: flex;
+	align-items: center;
+	gap: 9px;
+	font: 800 19px/24px var(--font-display);
+	font-stretch: 94%;
+	letter-spacing: -0.01em;
+	color: var(--ink);
+	text-wrap: pretty;
+}
+.tile__icon {
+	flex: none;
+	width: 20px;
+	height: 20px;
+	color: var(--accent-text);
+}
+.tile__desc {
+	margin: 4px 0 0;
+	max-width: 42ch;
+	font: 450 14px/20px var(--font-sans);
+	color: var(--muted);
+}
+
+/* the "Learn more" bar: slides up from the bottom edge as the words rise */
+.tile__cta {
+	position: absolute;
+	z-index: 2;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	padding: 0 18px 10px;
+	/* the bar waits under the tile's clipped bottom edge and slides up into view (transform only) */
+	transform: translate(0, calc((1 - var(--lift)) * 100%));
+	transition: transform 0.5s var(--ease-out);
+	pointer-events: none;
+}
+.more {
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	min-height: 36px;
+	margin: 0;
+	padding: 0 2px;
+	border: 0;
+	background: none;
+	color: var(--accent-text);
+	font: 800 14px/20px var(--font-sans);
+	text-decoration: underline;
+	text-decoration-thickness: 1px;
+	text-underline-offset: 4px;
+	cursor: pointer;
+	pointer-events: none;
+	touch-action: manipulation;
+}
+.more:hover { color: var(--ink); }
+.more svg { width: 16px; height: 16px; transition: transform 0.4s var(--ease-out); }
+.more:hover svg { transform: translate(3px, 0); }
+
+/* the detail panel a "Learn more" press opens (built by piece.js): it slides up over the tile */
+.tile__more {
+	position: absolute;
+	inset: 0;
+	z-index: 3;
+	display: flex;
+	flex-direction: column;
+	align-items: flex-start;
+	justify-content: center;
+	gap: 8px;
+	padding: 20px 22px;
+	background: #f7fbfe;
+	transform: translate3d(0, 100%, 0);
+	transition: transform 0.55s var(--ease-out);
+}
+.tile.is-more .tile__more { transform: none; }
+.tile__more .eyebrow { margin: 0; }
+.tile__more-title { font: 800 19px/24px var(--font-display); font-stretch: 94%; letter-spacing: -0.01em; color: var(--ink); }
+.tile__more-text { margin: 0; font: 450 14px/20px var(--font-sans); color: var(--muted); max-width: 44ch; }
+.tile__more .btn { margin-top: 4px; }
+
+/* a disabled control (reduced motion switches Pause off) reads as off */
+.sample-info .btn:disabled { opacity: 0.5; cursor: default; transform: none; box-shadow: none; }
+
+/* the user's Pause: every loop in the grid holds */
+.bento.is-user-paused, .bento.is-user-paused *, .bento.is-user-paused *::before, .bento.is-user-paused *::after { animation-play-state: paused !important; }
+
+/* ---------- the drawings at rest (the reduced-motion pose); the loops below only add motion ---------- */
+
+/* speed: the needle at "fast", the bars full */
+.speed-art { gap: 10px; }
+.art--gauge { flex: 0 1 270px; min-width: 0; }
+.art--bars { flex: 1 1 0; min-width: 0; max-width: 200px; }
+.needle { transform-origin: 0 0; transform: rotate(52deg); }
+.bar { transform-box: fill-box; transform-origin: 0 50%; transform: scaleX(var(--v)); }
+.bar--r { transform-origin: 100% 50%; }
+
+/* email: the letter out of an opened envelope */
+.env { transform: none; }
+.lines { opacity: 0; }
+.flap-closed, .flap-open { transform-origin: 0 52px; }
+.flap-closed { transform: scaleY(0); }
+.flap-open { transform: scaleY(1); }
+.letter { transform: translate(0, -34px); }
+
+/* domain: the tag hangs still, the tick is in place */
+.swing { transform-origin: 76px 6px; }
+.tick { transform-box: fill-box; transform-origin: center; }
+.ring { transform-box: fill-box; transform-origin: center; opacity: 0; }
+
+/* secure: the padlock closed, a faint glow */
+.shackle { transform-origin: 153px 74px; }
+.halo { transform-box: fill-box; transform-origin: center; opacity: 0.8; }
+.pulse { transform-box: fill-box; transform-origin: center; opacity: 0; }
+
+/* care plan: every day ticked, the ring on the last, the line mid-beat */
+.done { transform-box: fill-box; transform-origin: center; }
+.today { transform: translate(186px, 0); }
+.heart { transform-box: fill-box; transform-origin: center; }
+.ecg { transform: translate(-40px, 0); }
+
+/* design: the stroke fully drawn and the pen resting at its end */
+.reveal { transform-origin: 0 0; transform: scaleX(1); }
+.pen-path { transform: translate(210px, -48px); }
+
+/* ---------- the loops ---------- */
+
+@media (prefers-reduced-motion: no-preference) {
+	/* the tiles rise in, one after the other (once) */
+	.tile {
+		animation: tile-in 0.8s var(--ease-out) backwards;
+		animation-delay: calc(var(--n) * 70ms);
+	}
+	@keyframes tile-in {
+		from { opacity: 0; transform: translate(0, 24px); }
+		to { opacity: 1; transform: translate(0, 0); }
+	}
+
+	/* speed (6 s): the needle swings up to fast and settles, the bars fill in turn */
+	.needle { animation: gauge 6s infinite backwards; }
+	@keyframes gauge {
+		0%, 5% { transform: rotate(-76deg); animation-timing-function: cubic-bezier(0.2, 0.7, 0.2, 1); }
+		26% { transform: rotate(58deg); animation-timing-function: ease-in-out; }
+		31% { transform: rotate(46deg); animation-timing-function: ease-in-out; }
+		36% { transform: rotate(55deg); animation-timing-function: ease-in-out; }
+		40%, 78% { transform: rotate(52deg); animation-timing-function: ease-in-out; }
+		94%, 100% { transform: rotate(-76deg); }
+	}
+	.bar { animation: bar-fill 6s infinite backwards; animation-delay: calc(var(--i) * 0.12s); }
+	@keyframes bar-fill {
+		0%, 4% { transform: scaleX(0.06); animation-timing-function: var(--ease-out); }
+		28% { transform: scaleX(var(--v)); }
+		78% { transform: scaleX(var(--v)); animation-timing-function: ease-in-out; }
+		94%, 100% { transform: scaleX(0.06); }
+	}
+
+	/* email (6 s): an envelope slides in, opens, a letter rises out and goes back in, the envelope leaves */
+	.env { animation: env-move 6s infinite backwards; }
+	@keyframes env-move {
+		0% { transform: translate(-70px, 0); opacity: 0; animation-timing-function: var(--ease-out); }
+		12% { transform: translate(0, 0); opacity: 1; }
+		84% { transform: translate(0, 0); opacity: 1; animation-timing-function: ease-in; }
+		96%, 100% { transform: translate(70px, 0); opacity: 0; }
+	}
+	.lines { animation: env-lines 6s infinite backwards; }
+	@keyframes env-lines {
+		0% { opacity: 0; transform: translate(-24px, 0); }
+		5% { opacity: 0.75; }
+		13%, 100% { opacity: 0; transform: translate(14px, 0); }
+	}
+	.flap-closed { animation: flap-closed 6s infinite backwards; }
+	@keyframes flap-closed {
+		0%, 18% { transform: scaleY(1); animation-timing-function: ease-in-out; }
+		28%, 68% { transform: scaleY(0); animation-timing-function: ease-in-out; }
+		78%, 100% { transform: scaleY(1); }
+	}
+	.flap-open { animation: flap-open 6s infinite backwards; }
+	@keyframes flap-open {
+		0%, 18% { transform: scaleY(0); animation-timing-function: ease-in-out; }
+		28%, 68% { transform: scaleY(1); animation-timing-function: ease-in-out; }
+		78%, 100% { transform: scaleY(0); }
+	}
+	.letter { animation: letter-rise 6s infinite backwards; }
+	@keyframes letter-rise {
+		0%, 30% { transform: translate(0, 0); animation-timing-function: var(--ease-out); }
+		46%, 62% { transform: translate(0, -34px); animation-timing-function: ease-in-out; }
+		74%, 100% { transform: translate(0, 0); }
+	}
+
+	/* domain (5 s): the tag sways on its string, a tick pops onto it and rings out */
+	.swing { animation: tag-sway 5s ease-in-out infinite; }
+	@keyframes tag-sway {
+		0%, 100% { transform: rotate(-3.5deg); }
+		50% { transform: rotate(3.5deg); }
+	}
+	.tick { animation: tick-pop 5s infinite backwards; }
+	@keyframes tick-pop {
+		0%, 14% { transform: scale(0); opacity: 0; animation-timing-function: var(--ease-spring); }
+		26% { transform: scale(1); opacity: 1; }
+		84% { transform: scale(1); opacity: 1; animation-timing-function: ease-in; }
+		94%, 100% { transform: scale(0.4); opacity: 0; }
+	}
+	.ring { animation: ring-ping 5s infinite backwards; }
+	@keyframes ring-ping {
+		0%, 18% { transform: scale(1); opacity: 0; }
+		20% { transform: scale(1); opacity: 0.8; animation-timing-function: var(--ease-out); }
+		44%, 100% { transform: scale(2.3); opacity: 0; }
+	}
+
+	/* secure (5 s): the shackle is lifted, drops shut with a small bounce, a ring spreads, the glow comes up */
+	.shackle { animation: shackle 5s infinite backwards; }
+	@keyframes shackle {
+		0%, 14% { transform: translate(0, -13px) rotate(-12deg); animation-timing-function: cubic-bezier(0.55, 0, 0.9, 0.4); }
+		26% { transform: translate(0, 2px) rotate(0deg); animation-timing-function: ease-out; }
+		31%, 76% { transform: translate(0, 0) rotate(0deg); animation-timing-function: ease-in-out; }
+		88%, 100% { transform: translate(0, -13px) rotate(-12deg); }
+	}
+	.pulse { animation: lock-pulse 5s infinite backwards; }
+	@keyframes lock-pulse {
+		0%, 25% { transform: scale(0.6); opacity: 0; }
+		26% { transform: scale(0.6); opacity: 0.8; animation-timing-function: var(--ease-out); }
+		52%, 100% { transform: scale(1.6); opacity: 0; }
+	}
+	.halo { animation: lock-halo 5s infinite backwards; }
+	@keyframes lock-halo {
+		0%, 22% { opacity: 0; }
+		36% { opacity: 1; }
+		76% { opacity: 0.8; }
+		90%, 100% { opacity: 0; }
+	}
+
+	/* care plan (8 s): a ring hops along the week and each day it passes is ticked; the line scrolls, the heart beats */
+	.today { animation: week-hop 8s infinite backwards; }
+	@keyframes week-hop {
+		0% { transform: translate(0, 0); opacity: 0; }
+		2%, 7% { transform: translate(0, 0); opacity: 1; animation-timing-function: var(--ease-out); }
+		10%, 17% { transform: translate(31px, 0); animation-timing-function: var(--ease-out); }
+		20%, 27% { transform: translate(62px, 0); animation-timing-function: var(--ease-out); }
+		30%, 37% { transform: translate(93px, 0); animation-timing-function: var(--ease-out); }
+		40%, 47% { transform: translate(124px, 0); animation-timing-function: var(--ease-out); }
+		50%, 57% { transform: translate(155px, 0); animation-timing-function: var(--ease-out); }
+		60%, 86% { transform: translate(186px, 0); opacity: 1; }
+		94%, 100% { transform: translate(186px, 0); opacity: 0; }
+	}
+	.done { animation: day-done 8s infinite backwards; animation-delay: calc(var(--i) * 0.8s); }
+	@keyframes day-done {
+		0% { opacity: 0; transform: scale(0.6); }
+		4% { opacity: 1; transform: scale(1); }
+		74% { opacity: 1; transform: scale(1); }
+		84%, 100% { opacity: 0; transform: scale(1); }
+	}
+	.ecg { animation: ecg-scroll 3.2s linear infinite; }
+	@keyframes ecg-scroll {
+		from { transform: translate(0, 0); }
+		to { transform: translate(-270px, 0); }
+	}
+	.heart { animation: heart-beat 1.6s infinite; }
+	@keyframes heart-beat {
+		0%, 52%, 100% { transform: scale(1); }
+		8% { transform: scale(1.26); }
+		18% { transform: scale(1); }
+		28% { transform: scale(1.16); }
+		40% { transform: scale(1); }
+	}
+
+	/* design (7 s): a pen draws the stroke, lifts away, the stroke fades and it begins again */
+	.reveal { animation: ink-reveal 7s linear infinite; }
+	@keyframes ink-reveal {
+		0%, 8% { transform: scaleX(0); }
+		64%, 98% { transform: scaleX(1); }
+		98.01%, 100% { transform: scaleX(0); }
+	}
+	.ink { animation: ink-fade 7s infinite; }
+	@keyframes ink-fade {
+		0%, 88% { opacity: 1; }
+		96%, 99% { opacity: 0; }
+		100% { opacity: 1; }
+	}
+	.pen-path { animation: pen-draw 7s linear infinite; }
+	@keyframes pen-draw {
+		0%, 8% { transform: translate(0px, 0px); }
+		12% { transform: translate(15px, -22.3px); }
+		16% { transform: translate(30px, -40.9px); }
+		20% { transform: translate(45px, -52.4px); }
+		24% { transform: translate(60px, -57.3px); }
+		28% { transform: translate(75px, -55.7px); }
+		32% { transform: translate(90px, -45.4px); }
+		36% { transform: translate(105px, -24px); }
+		40% { transform: translate(120px, -2.3px); }
+		44% { transform: translate(135px, 8px); }
+		48% { transform: translate(150px, 10.8px); }
+		52% { transform: translate(165px, 7.1px); }
+		56% { transform: translate(180px, -3.6px); }
+		60% { transform: translate(195px, -21.8px); }
+		64%, 100% { transform: translate(210px, -48px); }
+	}
+	.pen-lift { animation: pen-lift 7s infinite; }
+	@keyframes pen-lift {
+		0% { opacity: 0; transform: translate(-6px, -8px); animation-timing-function: var(--ease-out); }
+		7%, 64% { opacity: 1; transform: translate(0, 0); animation-timing-function: ease-in; }
+		74%, 100% { opacity: 0; transform: translate(10px, -14px); }
+	}
+}
+
+/* ---------- phones and tablets ---------- */
+
+/* two columns: speed spans both, the care plan stays two rows high, so the six tiles still fill four rows with no hole */
+@media (max-width: 999px) {
+	.bento-stage { padding-bottom: 330px; }
+	.bento { grid-template-columns: repeat(2, minmax(0, 1fr)); --row: 252px; }
+}
+
+/* one column; the wide tile keeps just its gauge */
+@media (max-width: 639px) {
+	.bento-stage { padding-top: 76px; }
+	.piece-open { gap: 10px; }
+	.note { font-size: 11px; padding: 4px 12px; letter-spacing: 0.06em; }
+	.bento { grid-template-columns: minmax(0, 1fr); --row: 258px; }
+	.tile--wide { grid-column: auto; }
+	.art--bars { display: none; }
+	.tile__text { padding: 0 18px 16px; }
+}
+
+/* reduced motion: the tile does not lift and nothing slides: the bar and the detail panel simply appear (lab.css shortens the
+   transitions); the words still make room for the bar */
+@media (prefers-reduced-motion: reduce) {
+	.tile, .more svg { transform: none !important; }
+	.tile__cta { transform: none; opacity: var(--lift); }
+	.tile__more { transform: none; opacity: 0; }
+	.tile.is-more .tile__more { opacity: 1; }
+}
