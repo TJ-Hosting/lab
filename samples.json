@@ -32,6 +32,17 @@
 			"image": { "base": "img/iso/sphere-assembly", "widths": [400, 800], "ratio": 0.968 },
 			"tags": ["SVG", "Web Animations API"],
 			"added": "2026-10-16"
+		},
+		{
+			"slug": "coral-ink",
+			"title": "Coral Ink Reactor",
+			"kicker": "Living ink",
+			"category": "Generative",
+			"blurb": "Blue ink grows into coral, stripes and spots by itself, and you can drag to paint more.",
+			"href": "samples/coral-ink/",
+			"image": { "base": "img/iso/coral-ink", "widths": [400, 800], "ratio": 0.763 },
+			"tags": ["Canvas 2D", "Reaction-diffusion", "Touch"],
+			"added": "2026-10-28"
 		}
 	],
 	"exhibits": [

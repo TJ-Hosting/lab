@@ -72,6 +72,7 @@ CUTOUTS = [
 	('sky/cloud-4', 'tj-hero-clouds-sheet.png', [220, 420], (0.0478, 0.5696, 0.3660, 0.9309)),
 	('sky/cloud-5', 'tj-hero-clouds-sheet.png', [220, 420], (0.4067, 0.5866, 0.6651, 0.9267)),
 	# lab-05 card objects (one per new sample; added by agent-honeypot\imagepack\ingest-lab05.mjs)
+	('iso/coral-ink', 'lab05-coral-ink.png', [400, 800], None),
 	# lab-05 end
 ]
 

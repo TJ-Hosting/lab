@@ -732,7 +732,9 @@ await wholeSite('scoreboard: renders results.json with the example row labelled;
 const NEWEST = SAMPLE_DATA.samples.map((s) => s.added).filter(Boolean).sort();
 const HAS_NEW = NEWEST.length && NEWEST[0] !== NEWEST[NEWEST.length - 1];
 const CONTRAST = {
-	home: { at: [null, '#samples', ...(HAS_NEW ? ['.card__new'] : []), '#about', 'bottom'], sel: ['.topnav a', '.hero__copy .eyebrow', '.hero__copy .lede', '.hero__facts li', '.hero__cta .btn', '.section__head p:not(.eyebrow)', '.filters .chip', '.filters__count', '.card__kicker', '.card__title', '.card__blurb', '.tags li', ...(HAS_NEW ? ['.card__new'] : []), '.card__actions .btn', '.about p', '.foot span', '.foot a'] },
+	// anchored on the section titles: with more cards the samples section is taller than the screen, and
+	// scrolling the whole section into view no longer shows its heading
+	home: { at: [null, '#samples-title', ...(HAS_NEW ? ['.card__new'] : []), '#exhibits-title', '#about', 'bottom'], sel: ['.topnav a', '.hero__copy .eyebrow', '.hero__copy .lede', '.hero__facts li', '.hero__cta .btn', '.section__head p:not(.eyebrow)', '.filters .chip', '.filters__count', '.card__kicker', '.card__title', '.card__blurb', '.tags li', ...(HAS_NEW ? ['.card__new'] : []), '.card__actions .btn', '.about p', '.foot span', '.foot a'] },
 	'humanity-type': { at: [null], sel: ['.sample-info .eyebrow', '.sample-info h1', '.sample-info .how', '.controls .back', '.controls .btn'] },
 	'particle-field': { at: [null], sel: ['.sample-info .eyebrow', '.sample-info h1', '.sample-info .how', '.controls .back', '.hint'] },
 	logo: { at: [null], sel: ['.sample-info .eyebrow', '.sample-info h1', '.sample-info .how', '.controls .back'] },

@@ -74,7 +74,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S03 | 06 | star-trail-text | Type | adapt-code | none | 0 | todo | |
 | S04 | 07 | glitch-headline | Type | adapt-code | none | 0 | todo | |
 | S05 | 08 | scramble-titles | Type | adapt-code | animejs@4.4.0 | 0 | todo | |
-| S06 | 09 | coral-ink | Generative | adapt-code | none | 0 | todo | |
+| S06 | 09 | coral-ink | Generative | rebuild-from-idea (CodePen 403) | none | 0 | **gated 03:15** | day screen; 16.7 ms GPU; card C06; Firefox not run (Q1) |
 | S07 | 10 | slime-network | Generative | rebuild-from-idea | none | 0 | todo | |
 | S08 | 11 | streamline-poster | Generative | adapt-code | none | 0 | todo | |
 | S09 | 12 | contour-map | Generative | adapt-code | none | 0 | todo | |
@@ -140,7 +140,8 @@ None yet.
 
 ## Defects (P4) and improvements (P5, P6)
 
-None yet.
+- [P4] S16 scroll-zoom-tunnel: the "How it's made" note runs to about seven lines at 375; trim to two sentences. (S06 is three sentences: same.)
+- [P5] C04 (glitch card) reads as a stacked block; regenerate with clearer offset strips if the budget allows.
 
 ## Not tested (so far)
 

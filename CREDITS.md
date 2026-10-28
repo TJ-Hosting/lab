@@ -25,6 +25,12 @@
 - **JetBrains Mono** — Copyright 2020 The JetBrains Mono Project Authors. `fonts/OFL-jetbrainsmono.txt`
 - **Unbounded** and **Onest** (`fonts/OFL-unbounded.txt`, `fonts/OFL-onest.txt`) left the pages in lab-04 but stay in `fonts/`: `tools/render-vision-traps.mjs` embeds them, and the exhibit's two vision images must not change.
 
+## Samples added in lab-05 (2026-10-28)
+
+Each line: the sample, the project it comes from, and its licence. "Written from the idea" means no source code was read or copied. Vendored libraries keep their licence files under `vendor/`.
+
+- **Coral Ink Reactor** (`samples/coral-ink/`): written from the idea of [Reaction Diffusion Lab (Ink + Presets)](https://codepen.io/VlasovDevCore/pen/azmeJGr) by Vlasov.Dev Core; no source code was read or copied (CodePen refused the download). New Gray-Scott code, with ink on the day sky, a drifting cycle of six patterns and a ghost brush.
+
 ## Code and libraries
 
 - The site uses **no runtime libraries**: vanilla HTML, CSS and JavaScript, no build step.
