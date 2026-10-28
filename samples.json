@@ -45,6 +45,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "star-trail-text",
+			"title": "Star-trail text",
+			"kicker": "Star-trail type",
+			"category": "Type",
+			"blurb": "Words appear along curved lines behind a trail of cyan and white stars, then the whole sequence plays again.",
+			"href": "samples/star-trail-text/",
+			"image": { "base": "img/iso/star-trail-text", "widths": [400, 800], "ratio": 0.706 },
+			"tags": ["SVG textPath", "Canvas 2D"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "coral-ink",
 			"title": "Coral Ink Reactor",
 			"kicker": "Living ink",

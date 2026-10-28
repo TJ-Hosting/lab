@@ -89,16 +89,23 @@
 {"file":"img/iso/split-flap-board-400.webp","source":"assets/pack/lab05-split-flap-board.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/split-flap-board-800.avif","source":"assets/pack/lab05-split-flap-board.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/split-flap-board-800.webp","source":"assets/pack/lab05-split-flap-board.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/star-trail-text-400.avif","source":"assets/pack/lab05-star-trail-text.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/star-trail-text-400.webp","source":"assets/pack/lab05-star-trail-text.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/star-trail-text-800.avif","source":"assets/pack/lab05-star-trail-text.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/star-trail-text-800.webp","source":"assets/pack/lab05-star-trail-text.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/type-blocks-480.avif","source":"assets/pack/lab-type-blocks.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/type-blocks-480.webp","source":"assets/pack/lab-type-blocks.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/type-blocks-960.avif","source":"assets/pack/lab-type-blocks.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/type-blocks-960.webp","source":"assets/pack/lab-type-blocks.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/og/coral-ink.jpg","source":"assets/pack/lab05-coral-ink.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/exhibit.jpg","source":"assets/pack/lab-og-honeypot.png","op":"tools/render-og.mjs (lab-04): 1200x630 share card, the share-card base, code-set type in Nunito Sans"}
 {"file":"img/og/home.jpg","source":"assets/pack/lab-og-base.png","op":"tools/render-og.mjs (lab-04): 1200x630 share card, the share-card base, code-set type in Nunito Sans"}
 {"file":"img/og/honeypot.jpg","source":"assets/pack/lab-og-honeypot.png","op":"tools/render-og.mjs (lab-04): 1200x630 share card, the share-card base, code-set type in Nunito Sans"}
 {"file":"img/og/humanity-type.jpg","source":"assets/pack/lab-type-blocks.png","op":"tools/render-og.mjs (lab-04): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/logo.jpg","source":"tools/render-og.mjs","op":"tools/render-og.mjs (lab-04): 1200x630 share card, the CSS day sky + the mark's own SVG, code-set type in Nunito Sans"}
 {"file":"img/og/particle-field.jpg","source":"assets/pack/lab-particles.png","op":"tools/render-og.mjs (lab-04): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
+{"file":"img/og/split-flap-board.jpg","source":"assets/pack/lab05-split-flap-board.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
+{"file":"img/og/star-trail-text.jpg","source":"assets/pack/lab05-star-trail-text.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/sky/cloud-1-220.avif","source":"assets/pack/tj-hero-clouds-sheet.png","op":"crop (one cloud of the sheet), alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/sky/cloud-1-220.webp","source":"assets/pack/tj-hero-clouds-sheet.png","op":"crop (one cloud of the sheet), alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/sky/cloud-1-420.avif","source":"assets/pack/tj-hero-clouds-sheet.png","op":"crop (one cloud of the sheet), alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}

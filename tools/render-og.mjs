@@ -3,7 +3,10 @@
  * a light glass card in Nunito Sans on either a share-card base from the Lab pack (sky on the left,
  * isometric art on the right) or the CSS day sky with the sample's own cut-out.
  *
- *   node tools/render-og.mjs
+ *   node tools/render-og.mjs [--only slug,slug]
+ *
+ * lab-05: every sample in samples.json without a hand-written card below gets one from its entry (its number,
+ * kicker, title and blurb) on the CSS day sky with its card cut-out. --only renders just the named cards.
  *
  * Text is set in code (image models garble it). Each output is recorded in img/IMAGES.jsonl
  * with the pack file its picture came from.
@@ -43,6 +46,8 @@ const page = (c) => `<!doctype html><meta charset="utf-8"><base href="${HOST}">
 	}
 	.bg { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 	.art { position: absolute; right: 48px; top: 50%; width: 470px; transform: translateY(-50%); filter: drop-shadow(0 26px 22px rgba(22, 66, 140, 0.22)); }
+	/* lab-05: a tall cut-out keeps inside the frame, centred in the art column */
+	.art--fit { width: auto; height: auto; max-width: 470px; max-height: 500px; right: calc(48px + (470px - min(470px, 500px / var(--ratio))) / 2); }
 	.card {
 		position: absolute; left: 56px; top: 56px; bottom: 56px; width: 620px; padding: 46px 50px; border-radius: 22px;
 		background: rgba(255, 255, 255, 0.82); backdrop-filter: blur(14px) saturate(150%);
@@ -63,7 +68,7 @@ const page = (c) => `<!doctype html><meta charset="utf-8"><base href="${HOST}">
 	.mark svg { position: absolute; inset: 6%; width: 88%; height: 88%; filter: drop-shadow(0 16px 22px rgba(22, 66, 140, 0.28)); }
 </style>
 ${c.bg ? `<img class="bg" src="${c.bg}">` : ''}
-${c.art ? `<img class="art" src="${c.art}">` : ''}
+${c.art ? `<img class="art${c.ratio ? ' art--fit' : ''}" src="${c.art}"${c.ratio ? ` style="--ratio:${c.ratio}"` : ''}>` : ''}
 ${c.mark ? `<div class="mark">${logoSvg}</div>` : ''}
 <div class="card">
 	<p class="kicker">${c.kicker}</p>
@@ -87,7 +92,19 @@ await ctx.route(`${HOST}**`, (route) => {
 });
 const manifestPath = join(ROOT, 'img', 'IMAGES.jsonl');
 const rows = Object.fromEntries(readFileSync(manifestPath, 'utf8').split('\n').filter(Boolean).map((l) => { const r = JSON.parse(l); return [r.file, r]; }));
-for (const c of CARDS) {
+
+// lab-05: a card for every other sample, from its samples.json entry; the last word of the title takes the accent
+const esc = (s) => String(s).replace(/[&<>"]/g, (ch) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[ch]);
+JSON.parse(readFileSync(join(ROOT, 'samples.json'), 'utf8')).samples.forEach((s, i) => {
+	if (CARDS.some((c) => c.out === s.slug)) return;
+	const art = `${s.image.base}-${s.image.widths[s.image.widths.length - 1]}.webp`;
+	const words = esc(s.title).split(' ');
+	const title = words.length > 1 ? `${words.slice(0, -1).join(' ')} <em>${words[words.length - 1]}</em>` : `<em>${words[0]}</em>`;
+	CARDS.push({ out: s.slug, art, ratio: s.image.ratio, src: (rows[art]?.source || '').replace('assets/pack/', ''), kicker: `Sample ${String(i + 1).padStart(2, '0')} · ${esc(s.kicker)}`, title, sub: esc(s.blurb) });
+});
+const ONLY = process.argv.includes('--only') ? process.argv[process.argv.indexOf('--only') + 1].split(',') : null;
+
+for (const c of CARDS.filter((x) => !ONLY || ONLY.includes(x.out))) {
 	const p = await ctx.newPage();
 	await p.goto(`${HOST}__og__`).catch(() => {});
 	await p.setContent(page(c), { waitUntil: 'networkidle' });
@@ -96,7 +113,7 @@ for (const c of CARDS) {
 	const rel = `img/og/${c.out}.jpg`;
 	writeFileSync(join(ROOT, rel), jpg);
 	const how = c.bg ? 'the share-card base' : c.art ? 'the CSS day sky + the sample\'s cut-out' : 'the CSS day sky + the mark\'s own SVG';
-	rows[rel] = { file: rel, source: c.src ? `assets/pack/${c.src}` : 'tools/render-og.mjs', op: `tools/render-og.mjs (lab-04): 1200x630 share card, ${how}, code-set type in Nunito Sans` };
+	rows[rel] = { file: rel, source: c.src ? `assets/pack/${c.src}` : 'tools/render-og.mjs', op: `tools/render-og.mjs (${c.ratio ? 'lab-05' : 'lab-04'}): 1200x630 share card, ${how}, code-set type in Nunito Sans` };
 	console.log(`${rel} ${(jpg.length / 1024).toFixed(0)} KiB`);
 	await p.close();
 }

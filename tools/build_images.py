@@ -74,6 +74,7 @@ CUTOUTS = [
 	# lab-05 card objects (one per new sample; added by agent-honeypot\imagepack\ingest-lab05.mjs)
 	('iso/coral-ink', 'lab05-coral-ink.png', [400, 800], None),
 	('iso/split-flap-board', 'lab05-split-flap-board.png', [400, 800], None),
+	('iso/star-trail-text', 'lab05-star-trail-text.png', [400, 800], None),
 	# lab-05 end
 ]
 

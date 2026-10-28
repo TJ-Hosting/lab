@@ -30,6 +30,7 @@
 Each line: the sample, the project it comes from, and its licence. "Written from the idea" means no source code was read or copied. Vendored libraries keep their licence files under `vendor/`.
 
 - **The split-flap board** (`samples/split-flap-board/`): adapted from [Craft of UI: WAAPI split-flap board](https://codepen.io/jh3y/pen/dPyBXOG) by Jhey (jh3y), MIT (a public CodePen; code read from its Debug view). Rebuilt as a navy departures board with a message box; the brightness filter became an overlay's opacity; no Tweakpane.
+- **Star-trail text** (`samples/star-trail-text/`): adapted from [Animated Intro (6): SVG textPath with star particles](https://gist.github.com/EE2dev/d05b9df2833c9975e68a3828198edd74) by EE2dev, MIT (the gist's `.block` file). The d3 transitions became one requestAnimationFrame loop; the star particles, mask reveal, curves, night sky and type are new (the gist's stars.js, from a third-party pen, was not used).
 - **Coral Ink Reactor** (`samples/coral-ink/`): written from the idea of [Reaction Diffusion Lab (Ink + Presets)](https://codepen.io/VlasovDevCore/pen/azmeJGr) by Vlasov.Dev Core; no source code was read or copied (CodePen refused the download). New Gray-Scott code, with ink on the day sky, a drifting cycle of six patterns and a ghost brush.
 
 ## Code and libraries

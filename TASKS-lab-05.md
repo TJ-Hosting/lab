@@ -71,7 +71,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 |---|---|---|---|---|---|---|---|---|
 | S01 | 04 | split-flap-board | Type | adapt-code (MIT, CodePen Debug view) | none | 0 | **gated 03:22** | open sky, navy board object; 16.7 ms; card C01 |
 | S02 | 05 | liquid-distort-headline | Type | adapt-code | blotter@0.1.0 | 0 | todo | |
-| S03 | 06 | star-trail-text | Type | adapt-code | none | 0 | todo | |
+| S03 | 06 | star-trail-text | Type | adapt-code (MIT, gist .block) | none | 0 | **gated 03:28** | night screen; stars.js (third-party pen) not used; 16.7 ms; card C03 |
 | S04 | 07 | glitch-headline | Type | adapt-code | none | 0 | todo | |
 | S05 | 08 | scramble-titles | Type | adapt-code | animejs@4.4.0 | 0 | todo | |
 | S06 | 09 | coral-ink | Generative | rebuild-from-idea (CodePen 403) | none | 0 | **gated 03:15** | day screen; 16.7 ms GPU; card C06; Firefox not run (Q1) |
@@ -84,7 +84,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S13 | 16 | liquid-metal-monogram | WebGL | adapt-code | @paper-design/shaders@0.0.82 | 1 | todo | uses img/brand/tj-mark.svg, no monogram image |
 | S14 | 17 | shape-shifter | WebGL | adapt-code | three@0.186.1 (not 0.162.0: brief §2) | 0 | todo | |
 | S15 | 18 | gpu-fluid | WebGL | adapt-code | none | 0 | todo | |
-| S16 | 19 | scroll-zoom-tunnel | Scroll | adapt-code | none | 0 | todo | |
+| S16 | 19 | scroll-zoom-tunnel | Scroll | rebuild-from-idea (CodePen 403) | none | 0 | **gated 03:19** | scroll page; still grid without scroll timelines (Firefox fallback); 16.7 ms; card C16 |
 | S17 | 20 | glass-card-flow | Scroll | adapt-code | none | 0 | todo | |
 | S18 | 21 | horizontal-journey | Scroll | adapt-code | none | 0 | todo | |
 | S19 | 22 | stacking-plan-cards | Scroll | adapt-code | none | 0 | todo | |
@@ -142,6 +142,7 @@ None yet.
 
 - [P4] "How it's made" notes too long (about seven lines at 375): S16, S06, S01. Trim to two sentences. The builder brief now says so (§8a).
 - [P5] C04 (glitch card) reads as a stacked block; regenerate with clearer offset strips if the budget allows.
+- [P5] C07 (slime tray) and C06 (petri dish) have similar silhouettes on the home; regenerate C07 as a different object if the budget allows.
 
 ## Not tested (so far)
 
@@ -149,4 +150,4 @@ Firefox (QUESTION 1), Safari and iOS, real phones, other GPUs.
 
 ## Time log (UTC)
 
-- 02:28 session start (P0). 02:41 RUNLOG start. 02:50 P0 end, P1 start. 02:58 wave 1 builders launched. 03:04 P2 pilot (C01, C24: both kept). 03:09 card queue (58) started. 03:12 P1 end.
+- 02:28 session start (P0). 02:41 RUNLOG start. 02:50 P0 end, P1 start. 02:58 wave 1 builders launched. 03:04 P2 pilot (C01, C24: both kept). 03:09 card queue (58) started. 03:12 P1 end; PR #4 opened (draft, base feat/lab-mvp-2026-10-15). 03:15 S06 gated and committed. 03:19 S16 gated (waits for C16). 03:22 S01 gated and committed. 03:26 share images for new samples via `render-og.mjs --only`.
