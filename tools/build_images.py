@@ -151,6 +151,7 @@ CUTOUTS = [
 	('iso/wind-snapshot', 'lab05-wind-snapshot.png', [400, 800], None),
 	('iso/glass-mandala', 'lab05-glass-mandala.png', [400, 800], None),
 	('iso/planet-maker', 'lab05-planet-maker.png', [400, 800], None),
+	('iso/lenticular-print', 'lab05-lenticular-print.png', [400, 800], None),
 	# lab-05 end
 ]
 

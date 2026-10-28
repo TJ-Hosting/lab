@@ -637,6 +637,17 @@
 			"image": { "base": "img/iso/relief-light-board", "widths": [400, 800], "ratio": 0.802 },
 			"tags": ["WebGL", "OGL", "Normal mapping"],
 			"added": "2026-10-28"
+		},
+		{
+			"slug": "lenticular-print",
+			"title": "Lenticular tilt print",
+			"kicker": "Tilt morph",
+			"category": "Image",
+			"blurb": "A square plastic print that turns from a sunrise into a moonrise as you tilt it, two pictures woven into fine stripes with a ribbed lens look and a cool sheen.",
+			"href": "samples/lenticular-print/",
+			"image": { "base": "img/iso/lenticular-print", "widths": [400, 800], "ratio": 1.151 },
+			"tags": ["Canvas 2D", "vanilla-tilt", "DeviceOrientation"],
+			"added": "2026-10-28"
 		}
 	],
 	"exhibits": [
