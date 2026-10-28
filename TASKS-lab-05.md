@@ -180,10 +180,10 @@ One Opus 5.5 sub-agent, images only: tj-hosting.ca's DS v9 shots and banner, the
 6. (low) in-art controls: pressed toggles **fixed 10:24Z** for every page in `css/lab.css` (ink text in a 2px royal ring, so only the primary is blue-filled); liquid-glass-lens's capsule tab bar: open.
 7. (low) two frame-bar colours: **fixed 10:24Z** for liquid-glass-lens (mid-dark art, now the navy bar); the white bar stays on day screens whose art is light.
 8. (low) back link inline on some phones, own line on others: **fixed 10:24Z** in `css/sample.css`: own line on every phone.
-9. (low) panel greys over dark windows: **fixed 10:24Z** in `css/sample.css`: the panel's tint is 0.97 white-blue (sampled over three dark windows: about #e3e9f0 before, #eaeef6 after).
+9. (low) panel greys over dark windows: **fixed 10:24Z** in `css/sample.css`: the panel's tint is 0.97 white-blue (the reviewer sampled about #dee3ee over dark windows; sampled again over three: about #eaeef6).
 10. (low) coral-ink soft edges: open.
 11. (low) icon-micro-set navy burst specks: **fixed 10:24Z**: bursts are cyan and azure only.
-12. (low) glass-card-flow amber as a second accent: open.
+12. (low) glass-card-flow amber as a second accent: **fixed 10:26Z**: the cafe card's sun keeps the honey; the promo sun is cyan glass and the price pills and menu prices are azure and cyan.
 
 ## Incidents
 

@@ -239,11 +239,12 @@
 .sh__head .dot { width: 1em; height: 1em; border-radius: 50%; background: var(--brand-azure); }
 .promo { position: relative; height: 3em; border-radius: 0.7em; background: linear-gradient(100deg, #0a3290, var(--brand-royal) 60%, #46d0fb); overflow: hidden; }
 .promo::before { content: ""; position: absolute; left: 0.8em; top: 0.8em; width: 38%; height: 0.55em; border-radius: 0.3em; background: rgba(255, 255, 255, 0.9); box-shadow: 0 0.9em 0 -0.05em rgba(255, 255, 255, 0.55); }
-.promo::after { content: ""; position: absolute; right: 0.8em; top: 50%; width: 2em; height: 2em; border-radius: 50%; background: var(--honey); transform: translateY(-50%); }
+.promo::after { content: ""; position: absolute; right: 0.8em; top: 50%; width: 2em; height: 2em; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #e0f7ff, #46d0fb 70%); transform: translateY(-50%); }
 .sh__grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 0.55em; min-height: 0; }
 .prod { display: grid; grid-template-rows: 1fr auto auto; gap: 0.35em; min-height: 0; }
 .prod .ln { height: 0.45em; }
-.price { width: 1.5em; height: 0.6em; border-radius: 0.3em; background: var(--honey); }
+/* one warm note only (lab-05 P5 review): the cafe's sun keeps the honey; prices and ticks are azure and cyan */
+.price { width: 1.5em; height: 0.6em; border-radius: 0.3em; background: #4d9ff3; }
 
 /* cafe */
 .mk--cafe { grid-template-rows: 3.4fr 2fr; }
@@ -256,7 +257,7 @@
 }
 .cafe__menu { display: grid; grid-template-columns: 1fr 1fr; gap: 1.2em; }
 .cafe__menu .row { display: grid; grid-template-columns: 1fr 1.3em; gap: 0.5em; align-items: center; }
-.cafe__menu .ln.pr { background: rgba(255, 138, 61, 0.7); }
+.cafe__menu .ln.pr { background: rgba(70, 208, 251, 0.75); }
 .cafe__menu .mk__col { gap: 0.55em; align-content: center; }
 
 /* agency */
