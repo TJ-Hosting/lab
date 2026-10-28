@@ -232,6 +232,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "request-in-ms",
+			"title": "A web request in milliseconds",
+			"kicker": "Scroll timeline",
+			"category": "Scroll",
+			"blurb": "One page request as a long vertical timeline: every step sits as far down the page as its illustrative time says, and a fast server and a slow server both reach Page ready.",
+			"href": "samples/request-in-ms/",
+			"image": { "base": "img/iso/request-in-ms", "widths": [400, 800], "ratio": 0.569 },
+			"tags": ["CSS scroll timelines", "Inline SVG", "position: sticky"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "tear-the-curtain",
 			"title": "Tear the glass curtain",
 			"kicker": "Cloth physics",
