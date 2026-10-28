@@ -169,6 +169,22 @@ None yet.
 
 51 of 60 samples committed and pushed (last: S40). Builders for S38 mega-menu, S45 wind-snapshot, S51 planet-maker and S52 glass-mandala were stopped mid-build: their partial files are in `samples/<slug>/` (uncommitted; S38 had passed its first --no-perf check). On resume: re-check each (or relaunch its builder), gate, integrate. S45 needs `vendor/natural-earth@ca96624/` (fetched, uncommitted) added with `-Extra`. Not started: S02, S53, S58, S59, S60. Then P4 (S37 focus-scroll check, S42 still), P5 blind Opus review, P7 (README, full npm test, RESULT-lab-05.md, CMHS Memory, RUNLOG end).
 
+## P5 blind review (`evidence/lab-05/review-1.md`)
+
+One Opus 5.5 sub-agent, images only: tj-hosting.ca's DS v9 shots and banner, the Lab's 29 lab-04 after-shots, and 12 new-sample shots drawn at random (seed 20261028) from the 56 then committed and re-shot fresh (key appended to the review). Verdict: mostly, 7.5/10 (the shell matches DS v9; the drift is in four pieces' art). What was done:
+1. (high) glass-sandbox earth/lava palette, grey tray: fixer running (recolour into DS v9 blues, glass tray, softer grain).
+2. (medium) lantern-pond green and warm photo: **fixed 10:24Z**: the shader grades it to a navy/royal/sky tritone and maps the lanterns' amber to cyan-white; the no-WebGL poster gets the same grade by an SVG filter; the golden leaf stays as the one warm note. Re-gated 16.7 ms.
+3. (medium) icon-micro-set script-only heading in navy: **fixed 10:24Z**: a heavy sans line in ink with one script word in ink. The same rule (script in ink, as the home's lockup) applied to glass-hero-kit, request-in-ms and stacking-plan-cards, whose script word was royal.
+4. (medium) bento-grid flat line art; pricing plan glyphs: open.
+5. (low) four styles of sample/disclaimer chip: open (sweep to the shared `.pill` + `.pill__dot`).
+6. (low) in-art controls: pressed toggles **fixed 10:24Z** for every page in `css/lab.css` (ink text in a 2px royal ring, so only the primary is blue-filled); liquid-glass-lens's capsule tab bar: open.
+7. (low) two frame-bar colours: **fixed 10:24Z** for liquid-glass-lens (mid-dark art, now the navy bar); the white bar stays on day screens whose art is light.
+8. (low) back link inline on some phones, own line on others: **fixed 10:24Z** in `css/sample.css`: own line on every phone.
+9. (low) panel greys over dark windows: **fixed 10:24Z** in `css/sample.css`: the panel's tint is 0.97 white-blue (sampled over three dark windows: about #e3e9f0 before, #eaeef6 after).
+10. (low) coral-ink soft edges: open.
+11. (low) icon-micro-set navy burst specks: **fixed 10:24Z**: bursts are cyan and azure only.
+12. (low) glass-card-flow amber as a second accent: open.
+
 ## Incidents
 
 - 04:58Z: S24's card cut-out is 688 px wide after trim; the integration assumed 800, so the pushed `samples.json` named a missing `glass-jellyfish-800` and the 688 files were never staged (S24 commit 04:20Z). Found by test 10; fixed and pushed in `e0eea4d` (widths [400, 688], files committed, share image re-rendered); the integration now reads the width from the build. Origin carried the broken reference for about 38 min.

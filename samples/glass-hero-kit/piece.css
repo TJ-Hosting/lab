@@ -167,7 +167,7 @@ noscript .note { text-transform: none; letter-spacing: 0; }
 	line-height: 1.04;
 	text-wrap: balance;
 }
-.kit-hero__title .script { font-size: 1.22em; line-height: 0.9; color: var(--accent-text); white-space: nowrap; }
+.kit-hero__title .script { font-size: 1.22em; line-height: 0.9; color: var(--ink-black); white-space: nowrap; }
 
 .kit-hero__lede {
 	margin: 14px auto 0;

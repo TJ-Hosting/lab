@@ -184,3 +184,9 @@ body .lqg-glass:focus-visible { outline: 3px solid var(--action); outline-offset
 @media (prefers-reduced-motion: reduce) {
 	.lens-round, .lens-round:hover, .lens-round:active { transform: none; }
 }
+
+/* lab-05 P5 review: the art is mid-to-dark blue, so the window takes the navy bar of the night frame, not the day frame's white one */
+.screen--day::before {
+	background: linear-gradient(180deg, #1a2440, #111a30);
+	border-bottom: 1px solid #22304f;
+}

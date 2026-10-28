@@ -4,7 +4,7 @@
  * float textures; each step every cell is pulled toward the average of its neighbours, damped, and added to itself;
  * a "drop" lifts a smooth bump that spreads out as rings. The render shader reads the slope of that field, bends the
  * photo along it, and adds a cyan glint and a cyan caustic where the surface catches the light. Pointer and finger
- * leave ripples; a golden leaf falls and lands with a ring every few seconds, and the two lanterns shed a faint ring
+ * leave ripples; a small golden leaf (the one warm accent) falls and lands with a ring every few seconds, and the two lanterns shed a faint ring
  * now and then, so the pond is alive on load. One loop() drives the simulation, the render and the leaf, so no WebGL
  * work runs off-screen or in a hidden tab. Under reduced motion a few rings are simulated at once, one still frame is
  * drawn and nothing moves. A browser without WebGL float textures gets the photo as a plain picture with a note.
@@ -19,7 +19,8 @@
  * at the next step; the simulation runs on a fixed 60 Hz clock; render() reads the newest height texture (the
  * source reads the one before it on every other frame); the texture probing runs in the page's own context and also
  * accepts half floats alone; precision falls back to mediump; the picture is drawn opaque; the render shader adds the
- * cyan caustic and glint (the glint was white); pointer events replace mouse and touch events and trace the stroke
+ * cyan caustic and glint (the glint was white); the photo is graded in the shader to a night-blue luminance tritone with
+ * the warm lantern light turned cyan-white; pointer events replace mouse and touch events and trace the stroke
  * between events; a lost context is rebuilt; the resolution and the render scale are picked by device and lowered if
  * frames run slow. New: the falling leaf, the lantern rings, the idle life, the reduced-motion still, the fallback.
  *
@@ -144,8 +145,10 @@ void main() {
 	gl_Position = vec4(vertex.x, -vertex.y, 0.0, 1.0);
 }`;
 
-/* the photo bent along the slope of the water, then a cyan glint where the slope faces the light,
-   and a cyan caustic where the surface curves like a lens (crests) */
+/* the photo bent along the slope of the water, graded to the site's night blues (a luminance tritone; the warm
+   lantern light becomes cyan-white glass light), then a cyan glint where the slope faces the light,
+   and a cyan caustic where the surface curves like a lens (crests).
+   The ramps are mirrored by the SVG filter #pond-grade in index.html (the no-WebGL picture), so keep them in step. */
 const RENDER_FRAGMENT = `${PRECISION}
 uniform sampler2D samplerBackground;
 uniform sampler2D samplerRipples;
@@ -153,7 +156,23 @@ uniform vec2 delta;
 uniform float perturbance;
 varying vec2 ripplesCoord;
 varying vec2 backgroundCoord;
-const vec3 CYAN = vec3(0.275, 0.816, 0.984);
+const vec3 CYAN = vec3(0.275, 0.816, 0.984);   // #46d0fb
+const vec3 SHADOW = vec3(0.0235, 0.0471, 0.0941); // #060c18
+const vec3 MID = vec3(0.0431, 0.2275, 0.5412);    // #0b3a8a
+const vec3 HIGH = vec3(0.6235, 0.8157, 0.9843);   // #9fd0fb
+const vec3 ICE = vec3(0.8784, 0.9686, 1.0);       // #e0f7ff
+const float MID_AT = 0.42;
+vec3 tritone(float l) {
+	return mix(mix(SHADOW, MID, clamp(l / MID_AT, 0.0, 1.0)), mix(MID, HIGH, clamp((l - MID_AT) / (1.0 - MID_AT), 0.0, 1.0)), step(MID_AT, l));
+}
+vec3 glowRamp(float l) {
+	return mix(mix(MID, CYAN, smoothstep(0.18, 0.55, l)), ICE, smoothstep(0.55, 0.92, l));
+}
+vec3 grade(vec3 c) {
+	float l = pow(dot(c, vec3(0.2126, 0.7152, 0.0722)), 0.78); // a gentle lift, so the water reads royal rather than black
+	float warm = clamp((c.r - c.b) * 3.0 - 0.2, 0.0, 1.0); // amber and orange (the lanterns and their reflections); water, pads and clouds sit at 0
+	return mix(tritone(l), glowRamp(l), warm);
+}
 void main() {
 	float height = texture2D(samplerRipples, ripplesCoord).r;
 	float heightX = texture2D(samplerRipples, vec2(ripplesCoord.x + delta.x, ripplesCoord.y)).r;
@@ -165,7 +184,7 @@ void main() {
 	vec2 offset = -normalize(cross(dy, dx)).xz;
 	float specular = pow(max(0.0, dot(offset, normalize(vec2(-0.6, 1.0)))), 4.0);
 	float lens = max(0.0, (4.0 * height - heightX - heightY - heightMX - heightMY)) * 55.0;
-	vec3 photo = texture2D(samplerBackground, backgroundCoord + offset * perturbance).rgb;
+	vec3 photo = grade(texture2D(samplerBackground, backgroundCoord + offset * perturbance).rgb);
 	vec3 light = mix(vec3(1.0), CYAN, 0.55) * specular * 0.85 + CYAN * min(lens, 1.0) * 0.45;
 	gl_FragColor = vec4(photo + light, 1.0);
 }`;

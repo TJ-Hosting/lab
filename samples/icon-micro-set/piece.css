@@ -35,13 +35,16 @@
 	width: min(960px, 100%);
 }
 
+/* the heading as the Lab writes one (lab-05 P5 review): a heavy sans line in ink with one script word, also in ink */
 .lead-script {
 	margin: 0;
-	color: var(--ic-navy);
-	font-size: clamp(34px, 4.4vw, 52px);
-	line-height: 1.1;
+	color: var(--ink-black);
+	font: 900 clamp(30px, 3.6vw, 44px) / 1.1 var(--font-display);
+	font-stretch: 92%;
+	letter-spacing: -0.015em;
 	text-align: center;
 }
+.lead-script .script { font-size: 1.25em; line-height: 0.9; }
 .demo {
 	max-width: 100%;
 	padding: 6px 14px;
@@ -194,7 +197,7 @@
 @media (max-width: 720px) {
 	.stage { padding: 80px var(--gutter) 292px; }
 	.piece-open { gap: 10px; }
-	.lead-script { font-size: 32px; }
+	.lead-script { font-size: 28px; }
 	.demo { padding: 5px 12px; font-size: 13px; line-height: 19px; }
 }
 @media (max-height: 640px) {

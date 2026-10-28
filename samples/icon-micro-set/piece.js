@@ -172,7 +172,8 @@ function flip(t, on, { dots = 14 } = {}) {
 
 /* ---------- the burst: small dots on a ballistic arc, written fresh with the Web Animations API ---------- */
 
-const COLORS = ['#0c6bed', '#4d9ff3', '#46d0fb', '#0b2a63', '#ffffff', '#46d0fb'];
+// light only (lab-05 P5 review): cyan and azure sparks, no navy, so a dot that strays past the card reads as light, not a speck
+const COLORS = ['#46d0fb', '#4d9ff3', '#46d0fb', '#8fd8fb', '#2b8ff0', '#46d0fb'];
 const rand = (a, b) => a + Math.random() * (b - a);
 
 function burst(t, count) {

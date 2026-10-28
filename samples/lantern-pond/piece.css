@@ -1,6 +1,6 @@
 /* Sample 57 — Lantern Pond Ripples. The shell (sky, top bar, panel, the night screen) comes from css/; only the piece is styled here.
-   The pond is a dusk photograph (dark blue water, warm lantern light), so the piece runs in a framed night screen (stage A).
-   The water is drawn by the shaders in piece.js. The leaf is a small inline drawing in a warm gold, moved only by transform and opacity. */
+   The pond is a dusk photograph graded to night blues (lantern light turned cyan), so the piece runs in a framed night screen (stage A).
+   The water is drawn by the shaders in piece.js. The leaf is a small inline drawing in a warm gold (the piece's one warm accent), moved only by transform and opacity. */
 
 .piece {
 	display: block;
@@ -55,7 +55,8 @@
 	width: 100%;
 	height: 100%;
 }
-.poster img { object-fit: cover; object-position: 64% 50%; }
+.poster img { object-fit: cover; object-position: 64% 50%; filter: url(#pond-grade); } /* the same night-blue grade as the shader */
+.grade-defs { position: absolute; width: 0; height: 0; overflow: hidden; pointer-events: none; }
 .poster__note {
 	position: relative;
 	margin: 0;

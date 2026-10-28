@@ -34,6 +34,30 @@
 
 	<div class="sky" aria-hidden="true"></div>
 
+	<!-- the night-blue grade for the plain photo (the no-WebGL picture): the same luminance tritone and cyan lantern light as the shader in piece.js -->
+	<svg class="grade-defs" width="0" height="0" aria-hidden="true" focusable="false">
+		<filter id="pond-grade" x="0" y="0" width="1" height="1" color-interpolation-filters="sRGB">
+			<feColorMatrix in="SourceGraphic" type="matrix" values="0.2126 0.7152 0.0722 0 0  0.2126 0.7152 0.0722 0 0  0.2126 0.7152 0.0722 0 0  0 0 0 1 0" result="lum0"/>
+			<feComponentTransfer in="lum0" result="lum">
+				<feFuncR type="gamma" exponent="0.78"/><feFuncG type="gamma" exponent="0.78"/><feFuncB type="gamma" exponent="0.78"/>
+			</feComponentTransfer>
+			<feComponentTransfer in="lum" result="tri">
+				<feFuncR type="table" tableValues="0.024 0.026 0.029 0.032 0.035 0.038 0.041 0.061 0.123 0.186 0.248 0.311 0.373 0.436 0.498 0.561 0.624"/>
+				<feFuncG type="table" tableValues="0.047 0.074 0.101 0.128 0.154 0.181 0.208 0.245 0.309 0.372 0.435 0.499 0.562 0.626 0.689 0.752 0.816"/>
+				<feFuncB type="table" tableValues="0.094 0.161 0.227 0.294 0.360 0.427 0.493 0.555 0.602 0.650 0.698 0.746 0.793 0.841 0.889 0.937 0.984"/>
+			</feComponentTransfer>
+			<feComponentTransfer in="lum" result="glow">
+				<feFuncR type="table" tableValues="0.043 0.043 0.043 0.043 0.065 0.111 0.168 0.223 0.263 0.277 0.339 0.463 0.613 0.755 0.854 0.878 0.878"/>
+				<feFuncG type="table" tableValues="0.227 0.227 0.227 0.228 0.283 0.400 0.545 0.686 0.786 0.816 0.832 0.863 0.901 0.937 0.962 0.969 0.969"/>
+				<feFuncB type="table" tableValues="0.541 0.541 0.541 0.542 0.583 0.671 0.781 0.886 0.962 0.984 0.986 0.989 0.993 0.997 0.999 1.000 1.000"/>
+			</feComponentTransfer>
+			<feColorMatrix in="SourceGraphic" type="matrix" values="0 0 0 0 0  0 0 0 0 0  0 0 0 0 0  3 0 -3 0 -0.2" result="warm"/>
+			<feComposite in="glow" in2="warm" operator="in" result="glow-part"/>
+			<feComposite in="tri" in2="warm" operator="out" result="tri-part"/>
+			<feComposite in="glow-part" in2="tri-part" operator="arithmetic" k1="0" k2="1" k3="1" k4="0"/>
+		</filter>
+	</svg>
+
 	<header class="topbar">
 		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
 			<img src="../../img/brand/tj-mark.svg" alt="" width="34" height="34">
@@ -44,7 +68,7 @@
 		</nav>
 	</header>
 
-	<!-- stage A: a framed night screen. The pond is a dusk photograph, dark blue with warm lantern light, so it reads on dark.
+	<!-- stage A: a framed night screen. The pond is a dusk photograph, graded in the shader to the site's night blues with the lantern light turned cyan, so it reads on dark.
 	     The leaf is a small inline drawing moved by transform and opacity from the loop. The poster appears only if WebGL is missing. -->
 	<main id="main" class="stage stage--screen">
 		<div class="piece-screen screen" data-night>
