@@ -143,10 +143,10 @@ None yet.
 
 ## Defects (P4) and improvements (P5, P6)
 
-- [P4] "How it's made" notes too long (about seven lines at 375): S16, S06, S01, S03, S22, S07. Trim to two sentences. The builder brief now says so (§8a). **Done 05:50Z**: all six now 35-43 words (were 50-60); copy only, re-checked in the P7 full suite.
+- [P4] "How it's made" notes too long (about seven lines at 375): S16, S06, S01, S03, S22, S07. Trim to two sentences. The builder brief now says so (§8a). **Done 05:45Z**: all six now 35-43 words (were 50-60); copy only, re-checked in the P7 full suite.
 - [P4] Titles: builders wrote Title Case ("Coral Ink Reactor"); the Lab uses sentence case ("Particle field"). Normalise every new sample's h1, `<title>`, og:title and samples.json title in one sweep.
 - [P5] S15: the dye reads murky steel-blue on navy; raise saturation and brightness toward cyan, azure and white so it reads as "liquid light".
-- [P4] S44: "How it's made" says "a pose table I drew"; page copy speaks for the Lab, not a builder ("a pose table drawn for each digit").
+- [P4] S44: "How it's made" says "a pose table I drew"; page copy speaks for the Lab, not a builder ("a pose table drawn for each digit"). **Done 05:46Z**; no other first-person page copy found (grep).
 - [P5] S44: idle clocks show cyan hands at an angle that compete with the digits; dim or park the hands of clocks that are not part of a digit so the time reads at a glance.
 - [P5] C28 (skill chips card) looked like capsule pills; queued C28b (rounded glass tags).
 - [P5] S47: the tick fires on every centre crossing (about 40 a second) at an untuned level; thin it (e.g. one voice per crossing of the middle bob group, or a rate cap) and set a gentle level.
