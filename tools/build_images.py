@@ -29,7 +29,10 @@ OUT = os.path.join(ROOT, 'img')
 # lab-04 retired every photo and dark object (the aurora, prism, bokeh, liquid-chrome and honeycomb
 # backdrops, the dark card art, the luma-keyed glass objects): the day sky is CSS and the art is the
 # cut-outs below. The kinds stay for later use; the pack originals stay in assets/pack/.
-PHOTOS = []
+PHOTOS = [
+	# lab-05 in-piece art (photos and textures inside a sample; added by ingest-lab05.mjs)
+	# lab-05 end
+]
 OBJECTS = []
 # name, source, grid (cols, rows), cell size out. The particle field's atlases, inside its night screen.
 SPRITES = [
@@ -68,6 +71,8 @@ CUTOUTS = [
 	('sky/cloud-2', 'tj-hero-clouds-sheet.png', [220, 420], (0.3852, 0.1275, 0.6579, 0.4803)),
 	('sky/cloud-4', 'tj-hero-clouds-sheet.png', [220, 420], (0.0478, 0.5696, 0.3660, 0.9309)),
 	('sky/cloud-5', 'tj-hero-clouds-sheet.png', [220, 420], (0.4067, 0.5866, 0.6651, 0.9267)),
+	# lab-05 card objects (one per new sample; added by agent-honeypot\imagepack\ingest-lab05.mjs)
+	# lab-05 end
 ]
 
 manifest = []
@@ -264,7 +269,17 @@ def build_cutouts():
 
 def main():
 	groups = {'photos': build_photos, 'objects': build_objects, 'sprites': build_sprites, 'cutouts': build_cutouts}
-	wanted = sys.argv[1:] or list(groups)
+	args = sys.argv[1:]
+	# lab-05: --only iso/a,art/b builds just those names (new images), leaving every other output and its
+	# manifest row untouched, so a rebuild never re-encodes the images already shipped
+	if '--only' in args:
+		k = args.index('--only')
+		only = set(args[k + 1].split(','))
+		del args[k:k + 2]
+		for table in (PHOTOS, OBJECTS, CUTOUTS):
+			table[:] = [row for row in table if row[0] in only]
+		SPRITES[:] = [row for row in SPRITES if row[0] in only]
+	wanted = args or list(groups)
 	for g in wanted:
 		groups[g]()
 	ledger = set()

@@ -687,6 +687,19 @@ main { display: block; overflow-x: clip; } /* decorative art may hang past the e
 	pointer-events: none;
 }
 
+/* the day window (lab-05): the same frame in DS v9's light glass, for a framed piece tuned to the light sky.
+   Its ground is the cards' patch of sky; its bar is the nav capsule's glass; its shadow is the lifted glass. */
+.screen--day {
+	background:
+		radial-gradient(60% 55% at 50% 62%, rgba(77, 159, 243, 0.18), rgba(77, 159, 243, 0) 72%),
+		linear-gradient(170deg, var(--sky-top) 0%, var(--sky-mid) 45%, var(--sky-low) 100%);
+	box-shadow: 0 0 0 1px rgba(94, 128, 174, 0.26), 0 34px 64px -24px rgba(22, 66, 140, 0.38), 0 14px 28px -14px rgba(5, 95, 233, 0.24);
+}
+.screen--day::before {
+	background: var(--glass-sheen), linear-gradient(rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.86));
+	border-bottom: 1px solid var(--line);
+}
+
 /* ---------- motion governance ---------- */
 
 /* the tab is hidden: everything stops */
