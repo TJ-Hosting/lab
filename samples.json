@@ -648,6 +648,17 @@
 			"image": { "base": "img/iso/lenticular-print", "widths": [400, 800], "ratio": 1.151 },
 			"tags": ["Canvas 2D", "vanilla-tilt", "DeviceOrientation"],
 			"added": "2026-10-28"
+		},
+		{
+			"slug": "frosted-window",
+			"title": "Frosted window wipe",
+			"kicker": "Winter glass",
+			"category": "Image",
+			"blurb": "Wipe a fogged winter window clear with a finger and the snowy street shows through, then the fog creeps back.",
+			"href": "samples/frosted-window/",
+			"image": { "base": "img/iso/frosted-window", "widths": [400, 800], "ratio": 1.261 },
+			"tags": ["WebGL", "OGL", "GLSL"],
+			"added": "2026-10-28"
 		}
 	],
 	"exhibits": [
