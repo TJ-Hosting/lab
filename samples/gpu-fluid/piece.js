@@ -80,10 +80,11 @@ function ramp(u) {
 	return { r: a[0] + (b[0] - a[0]) * f, g: a[1] + (b[1] - a[1]) * f, b: a[2] + (b[2] - a[2]) * f };
 }
 
-/* a random dye colour: mostly royal to cyan, white now and then; brightness as the source's 0.15 splat */
-const DYE_GAIN = 0.13;
+/* a random dye colour: mostly azure to cyan, royal and white now and then; a little brighter than the source's 0.15
+   splat after the saturation lift in the display */
+const DYE_GAIN = 0.16;
 function dyeColor(rnd, gain = DYE_GAIN) {
-	const u = rnd() < 0.08 ? 0.86 + rnd() * 0.14 : rnd() * 0.52;
+	const u = rnd() < 0.1 ? 0.86 + rnd() * 0.14 : 0.12 + rnd() * 0.58;
 	const c = ramp(u);
 	return { r: c.r * gain, g: c.g * gain, b: c.b * gain };
 }
@@ -292,7 +293,10 @@ function createFluid(cnv, preserve) {
 			vec3 ground = mix(low, top, smoothstep(0.0, 1.0, vUv.y));
 			ground *= 1.0 - 0.4 * smoothstep(0.35, 0.95, distance(vUv, vec2(0.5)));
 
-			vec3 col = vec3(1.0) - (vec3(1.0) - ground) * exp(-c * 2.0);
+			vec3 col = vec3(1.0) - (vec3(1.0) - ground) * exp(-c * 2.4);
+			// lift the saturation the tone curve washes out, so thin dye reads as light, not steel
+			float luma = dot(col, vec3(0.2126, 0.7152, 0.0722));
+			col = clamp(mix(vec3(luma), col, 1.35), 0.0, 1.0);
 			col += (hash(gl_FragCoord.xy) - 0.5) / 255.0;
 			gl_FragColor = vec4(col, 1.0);
 		}`;
