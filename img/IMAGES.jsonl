@@ -1,5 +1,77 @@
 {"file":"exhibits/humanity/haze.png","source":"honeypot/techniques.json (vision text)","op":"tools/render-vision-traps.mjs: text drawn in code, no image model"}
 {"file":"exhibits/humanity/placard.png","source":"honeypot/techniques.json (vision text)","op":"tools/render-vision-traps.mjs: text drawn in code, no image model"}
+{"file":"img/art/browser-frame-showcase-bakery-1024.avif","source":"assets/pack/lab05-browser-frame-showcase-bakery.png","op":"resize"}
+{"file":"img/art/browser-frame-showcase-bakery-1024.webp","source":"assets/pack/lab05-browser-frame-showcase-bakery.png","op":"resize"}
+{"file":"img/art/browser-frame-showcase-bakery-512.avif","source":"assets/pack/lab05-browser-frame-showcase-bakery.png","op":"resize"}
+{"file":"img/art/browser-frame-showcase-bakery-512.webp","source":"assets/pack/lab05-browser-frame-showcase-bakery.png","op":"resize"}
+{"file":"img/art/browser-frame-showcase-garden-1024.avif","source":"assets/pack/lab05-browser-frame-showcase-garden.png","op":"resize"}
+{"file":"img/art/browser-frame-showcase-garden-1024.webp","source":"assets/pack/lab05-browser-frame-showcase-garden.png","op":"resize"}
+{"file":"img/art/browser-frame-showcase-garden-512.avif","source":"assets/pack/lab05-browser-frame-showcase-garden.png","op":"resize"}
+{"file":"img/art/browser-frame-showcase-garden-512.webp","source":"assets/pack/lab05-browser-frame-showcase-garden.png","op":"resize"}
+{"file":"img/art/browser-frame-showcase-studio-1024.avif","source":"assets/pack/lab05-browser-frame-showcase-studio.png","op":"resize"}
+{"file":"img/art/browser-frame-showcase-studio-1024.webp","source":"assets/pack/lab05-browser-frame-showcase-studio.png","op":"resize"}
+{"file":"img/art/browser-frame-showcase-studio-512.avif","source":"assets/pack/lab05-browser-frame-showcase-studio.png","op":"resize"}
+{"file":"img/art/browser-frame-showcase-studio-512.webp","source":"assets/pack/lab05-browser-frame-showcase-studio.png","op":"resize"}
+{"file":"img/art/frosted-window-street-1536.avif","source":"assets/pack/lab05-frosted-window-street.png","op":"resize"}
+{"file":"img/art/frosted-window-street-1536.webp","source":"assets/pack/lab05-frosted-window-street.png","op":"resize"}
+{"file":"img/art/frosted-window-street-768.avif","source":"assets/pack/lab05-frosted-window-street.png","op":"resize"}
+{"file":"img/art/frosted-window-street-768.webp","source":"assets/pack/lab05-frosted-window-street.png","op":"resize"}
+{"file":"img/art/halftone-dissolve-facade-1536.avif","source":"assets/pack/lab05-halftone-dissolve-facade.png","op":"resize"}
+{"file":"img/art/halftone-dissolve-facade-1536.webp","source":"assets/pack/lab05-halftone-dissolve-facade.png","op":"resize"}
+{"file":"img/art/halftone-dissolve-facade-768.avif","source":"assets/pack/lab05-halftone-dissolve-facade.png","op":"resize"}
+{"file":"img/art/halftone-dissolve-facade-768.webp","source":"assets/pack/lab05-halftone-dissolve-facade.png","op":"resize"}
+{"file":"img/art/halftone-dissolve-lake-1536.avif","source":"assets/pack/lab05-halftone-dissolve-lake.png","op":"resize"}
+{"file":"img/art/halftone-dissolve-lake-1536.webp","source":"assets/pack/lab05-halftone-dissolve-lake.png","op":"resize"}
+{"file":"img/art/halftone-dissolve-lake-768.avif","source":"assets/pack/lab05-halftone-dissolve-lake.png","op":"resize"}
+{"file":"img/art/halftone-dissolve-lake-768.webp","source":"assets/pack/lab05-halftone-dissolve-lake.png","op":"resize"}
+{"file":"img/art/lantern-pond-pond-1536.avif","source":"assets/pack/lab05-lantern-pond-pond.png","op":"resize"}
+{"file":"img/art/lantern-pond-pond-1536.webp","source":"assets/pack/lab05-lantern-pond-pond.png","op":"resize"}
+{"file":"img/art/lantern-pond-pond-768.avif","source":"assets/pack/lab05-lantern-pond-pond.png","op":"resize"}
+{"file":"img/art/lantern-pond-pond-768.webp","source":"assets/pack/lab05-lantern-pond-pond.png","op":"resize"}
+{"file":"img/art/lenticular-print-moonrise-1254.avif","source":"assets/pack/lab05-lenticular-print-moonrise.png","op":"resize"}
+{"file":"img/art/lenticular-print-moonrise-1254.webp","source":"assets/pack/lab05-lenticular-print-moonrise.png","op":"resize"}
+{"file":"img/art/lenticular-print-moonrise-640.avif","source":"assets/pack/lab05-lenticular-print-moonrise.png","op":"resize"}
+{"file":"img/art/lenticular-print-moonrise-640.webp","source":"assets/pack/lab05-lenticular-print-moonrise.png","op":"resize"}
+{"file":"img/art/lenticular-print-sunrise-1254.avif","source":"assets/pack/lab05-lenticular-print-sunrise.png","op":"resize"}
+{"file":"img/art/lenticular-print-sunrise-1254.webp","source":"assets/pack/lab05-lenticular-print-sunrise.png","op":"resize"}
+{"file":"img/art/lenticular-print-sunrise-640.avif","source":"assets/pack/lab05-lenticular-print-sunrise.png","op":"resize"}
+{"file":"img/art/lenticular-print-sunrise-640.webp","source":"assets/pack/lab05-lenticular-print-sunrise.png","op":"resize"}
+{"file":"img/art/liquid-glass-lens-ribbons-1536.avif","source":"assets/pack/lab05-liquid-glass-lens-ribbons.png","op":"resize"}
+{"file":"img/art/liquid-glass-lens-ribbons-1536.webp","source":"assets/pack/lab05-liquid-glass-lens-ribbons.png","op":"resize"}
+{"file":"img/art/liquid-glass-lens-ribbons-768.avif","source":"assets/pack/lab05-liquid-glass-lens-ribbons.png","op":"resize"}
+{"file":"img/art/liquid-glass-lens-ribbons-768.webp","source":"assets/pack/lab05-liquid-glass-lens-ribbons.png","op":"resize"}
+{"file":"img/art/liquid-hover-gallery-cornflowers-1024.avif","source":"assets/pack/lab05-liquid-hover-gallery-cornflowers.png","op":"resize"}
+{"file":"img/art/liquid-hover-gallery-cornflowers-1024.webp","source":"assets/pack/lab05-liquid-hover-gallery-cornflowers.png","op":"resize"}
+{"file":"img/art/liquid-hover-gallery-cornflowers-512.avif","source":"assets/pack/lab05-liquid-hover-gallery-cornflowers.png","op":"resize"}
+{"file":"img/art/liquid-hover-gallery-cornflowers-512.webp","source":"assets/pack/lab05-liquid-hover-gallery-cornflowers.png","op":"resize"}
+{"file":"img/art/liquid-hover-gallery-wave-1024.avif","source":"assets/pack/lab05-liquid-hover-gallery-wave.png","op":"resize"}
+{"file":"img/art/liquid-hover-gallery-wave-1024.webp","source":"assets/pack/lab05-liquid-hover-gallery-wave.png","op":"resize"}
+{"file":"img/art/liquid-hover-gallery-wave-512.avif","source":"assets/pack/lab05-liquid-hover-gallery-wave.png","op":"resize"}
+{"file":"img/art/liquid-hover-gallery-wave-512.webp","source":"assets/pack/lab05-liquid-hover-gallery-wave.png","op":"resize"}
+{"file":"img/art/page-turn-lookbook-cover-1024.avif","source":"assets/pack/lab05-page-turn-lookbook-cover.png","op":"resize"}
+{"file":"img/art/page-turn-lookbook-cover-1024.webp","source":"assets/pack/lab05-page-turn-lookbook-cover.png","op":"resize"}
+{"file":"img/art/page-turn-lookbook-cover-512.avif","source":"assets/pack/lab05-page-turn-lookbook-cover.png","op":"resize"}
+{"file":"img/art/page-turn-lookbook-cover-512.webp","source":"assets/pack/lab05-page-turn-lookbook-cover.png","op":"resize"}
+{"file":"img/art/page-turn-lookbook-spread-1-1536.avif","source":"assets/pack/lab05-page-turn-lookbook-spread-1.png","op":"resize"}
+{"file":"img/art/page-turn-lookbook-spread-1-1536.webp","source":"assets/pack/lab05-page-turn-lookbook-spread-1.png","op":"resize"}
+{"file":"img/art/page-turn-lookbook-spread-1-768.avif","source":"assets/pack/lab05-page-turn-lookbook-spread-1.png","op":"resize"}
+{"file":"img/art/page-turn-lookbook-spread-1-768.webp","source":"assets/pack/lab05-page-turn-lookbook-spread-1.png","op":"resize"}
+{"file":"img/art/page-turn-lookbook-spread-2-1536.avif","source":"assets/pack/lab05-page-turn-lookbook-spread-2.png","op":"resize"}
+{"file":"img/art/page-turn-lookbook-spread-2-1536.webp","source":"assets/pack/lab05-page-turn-lookbook-spread-2.png","op":"resize"}
+{"file":"img/art/page-turn-lookbook-spread-2-768.avif","source":"assets/pack/lab05-page-turn-lookbook-spread-2.png","op":"resize"}
+{"file":"img/art/page-turn-lookbook-spread-2-768.webp","source":"assets/pack/lab05-page-turn-lookbook-spread-2.png","op":"resize"}
+{"file":"img/art/relief-light-board-leather-1254.avif","source":"assets/pack/lab05-relief-light-board-leather.png","op":"resize"}
+{"file":"img/art/relief-light-board-leather-1254.webp","source":"assets/pack/lab05-relief-light-board-leather.png","op":"resize"}
+{"file":"img/art/relief-light-board-leather-640.avif","source":"assets/pack/lab05-relief-light-board-leather.png","op":"resize"}
+{"file":"img/art/relief-light-board-leather-640.webp","source":"assets/pack/lab05-relief-light-board-leather.png","op":"resize"}
+{"file":"img/art/relief-light-board-metal-1254.avif","source":"assets/pack/lab05-relief-light-board-metal.png","op":"resize"}
+{"file":"img/art/relief-light-board-metal-1254.webp","source":"assets/pack/lab05-relief-light-board-metal.png","op":"resize"}
+{"file":"img/art/relief-light-board-metal-640.avif","source":"assets/pack/lab05-relief-light-board-metal.png","op":"resize"}
+{"file":"img/art/relief-light-board-metal-640.webp","source":"assets/pack/lab05-relief-light-board-metal.png","op":"resize"}
+{"file":"img/art/relief-light-board-stone-1254.avif","source":"assets/pack/lab05-relief-light-board-stone.png","op":"resize"}
+{"file":"img/art/relief-light-board-stone-1254.webp","source":"assets/pack/lab05-relief-light-board-stone.png","op":"resize"}
+{"file":"img/art/relief-light-board-stone-640.avif","source":"assets/pack/lab05-relief-light-board-stone.png","op":"resize"}
+{"file":"img/art/relief-light-board-stone-640.webp","source":"assets/pack/lab05-relief-light-board-stone.png","op":"resize"}
 {"file":"img/art/transition-slider-aurora-1536.avif","source":"assets/pack/lab05-transition-slider-aurora.png","op":"resize"}
 {"file":"img/art/transition-slider-aurora-1536.webp","source":"assets/pack/lab05-transition-slider-aurora.png","op":"resize"}
 {"file":"img/art/transition-slider-aurora-768.avif","source":"assets/pack/lab05-transition-slider-aurora.png","op":"resize"}
@@ -204,7 +276,7 @@
 {"file":"img/og/epicycle-machine.jpg","source":"assets/pack/lab05-epicycle-machine.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/exhibit.jpg","source":"assets/pack/lab-og-honeypot.png","op":"tools/render-og.mjs (lab-04): 1200x630 share card, the share-card base, code-set type in Nunito Sans"}
 {"file":"img/og/glass-card-flow.jpg","source":"assets/pack/lab05-glass-card-flow.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
-{"file":"img/og/glass-jellyfish.jpg","source":"tools/render-og.mjs","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
+{"file":"img/og/glass-jellyfish.jpg","source":"assets/pack/lab05-glass-jellyfish.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/glass-sandbox.jpg","source":"assets/pack/lab05-glass-sandbox.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/glitch-headline.jpg","source":"assets/pack/lab05-glitch-headline.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/gpu-fluid.jpg","source":"assets/pack/lab05-gpu-fluid.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
