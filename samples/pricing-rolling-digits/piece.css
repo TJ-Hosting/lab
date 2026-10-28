@@ -207,10 +207,12 @@ number-flow::part(suffix) {
 .is-held .plan__spin { animation-play-state: paused; }
 
 .plan__head { display: flex; align-items: center; gap: 10px; min-height: 36px; }
-.plan__icon { flex: none; width: 28px; height: 28px; }
-.plan__icon .slab { fill: var(--brand-royal); }
-.plan__icon .face { fill: rgba(255, 255, 255, 0.34); }
-.plan__icon .led { fill: var(--glow-cyan); }
+/* the plan glyphs take DS v9's render cues (lab-05 P5 review): a royal-to-azure gradient, a lit top face, glowing
+   cyan LEDs and a soft blue shadow, so they sit with the glossy renders rather than read as flat line icons */
+.plan__icon { flex: none; width: 28px; height: 28px; overflow: visible; filter: drop-shadow(0 3px 3px rgba(22, 66, 140, 0.32)); }
+.plan__icon .slab { fill: url(#plan-slab); }
+.plan__icon .face { fill: rgba(255, 255, 255, 0.72); }
+.plan__icon .led { fill: #b9f0ff; filter: drop-shadow(0 0 2px var(--glow-cyan)); }
 .plan h2.plan__name { font: 900 20px/1.1 var(--font-display); font-stretch: 92%; letter-spacing: -0.015em; }
 /* "Featured": a small tab at the top edge, in the extra padding of the featured card */
 .plan__flag.pill {
