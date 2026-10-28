@@ -507,6 +507,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "wind-snapshot",
+			"title": "Wind snapshot",
+			"kicker": "Wind trails",
+			"category": "Data",
+			"blurb": "Forty-eight hours of global wind from November 2016: tens of thousands of glowing particles on a world map, cyan where it is calm and amber where it is strong. Saved data, not live weather.",
+			"href": "samples/wind-snapshot/",
+			"image": { "base": "img/iso/wind-snapshot", "widths": [400, 800], "ratio": 0.686 },
+			"tags": ["WebGL", "wind-gl", "NOAA GFS"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "epicycle-machine",
 			"title": "Epicycle drawing machine",
 			"kicker": "Circles that draw",
