@@ -297,6 +297,10 @@
 {"file":"img/iso/shield-book-320.webp","source":"assets/pack/lab-shield-book.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/shield-book-640.avif","source":"assets/pack/lab-shield-book.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/shield-book-640.webp","source":"assets/pack/lab-shield-book.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/skill-chips-400.avif","source":"assets/pack/lab05-skill-chips.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/skill-chips-400.webp","source":"assets/pack/lab05-skill-chips.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/skill-chips-800.avif","source":"assets/pack/lab05-skill-chips.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/skill-chips-800.webp","source":"assets/pack/lab05-skill-chips.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/slime-network-400.avif","source":"assets/pack/lab05-slime-network.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/slime-network-400.webp","source":"assets/pack/lab05-slime-network.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/slime-network-800.avif","source":"assets/pack/lab05-slime-network.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
@@ -374,6 +378,7 @@
 {"file":"img/og/scroll-zoom-tunnel.jpg","source":"assets/pack/lab05-scroll-zoom-tunnel.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/shader-swatchbook.jpg","source":"assets/pack/lab05-shader-swatchbook.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/shape-shifter.jpg","source":"assets/pack/lab05-shape-shifter.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
+{"file":"img/og/skill-chips.jpg","source":"assets/pack/lab05-skill-chips.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/slime-network.jpg","source":"assets/pack/lab05-slime-network.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/split-flap-board.jpg","source":"assets/pack/lab05-split-flap-board.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/stacking-plan-cards.jpg","source":"assets/pack/lab05-stacking-plan-cards.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}

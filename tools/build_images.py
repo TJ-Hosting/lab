@@ -135,6 +135,7 @@ CUTOUTS = [
 	('iso/glitch-headline', 'lab05-glitch-headline.png', [400, 800], None),
 	('iso/slime-network', 'lab05-slime-network.png', [400, 800], None),
 	('iso/pricing-rolling-digits', 'lab05-pricing-rolling-digits.png', [400, 800], None),
+	('iso/skill-chips', 'lab05-skill-chips.png', [400, 800], None),
 	# lab-05 end
 ]
 
