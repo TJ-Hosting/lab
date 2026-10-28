@@ -1,6 +1,6 @@
 # check-sample: lamp-cord-theme — PASS
 
-2026-10-28T05:13:00.161Z · Chromium WebGL: ANGLE (AMD, AMD Radeon (TM) Graphics (0x000015E7) Direct3D11 vs_5_0 ps_5_0, D3D11) · Firefox: not run (browserType.launch: spawn UNKNOWN)
+2026-10-28T05:47:17.965Z · Chromium WebGL: ANGLE (AMD, AMD Radeon (TM) Graphics (0x000015E7) Direct3D11 vs_5_0 ps_5_0, D3D11) · Firefox: not run (browserType.launch: spawn UNKNOWN)
 
 ## Notes
 - loads 10 local files: samples/lamp-cord-theme/index.html, css/glass.css, css/lab.css, css/sample.css, samples/lamp-cord-theme/piece.css, js/early.js, samples/lamp-cord-theme/piece.js, js/lab.js, samples/lamp-cord-theme/lamp.js, samples/lamp-cord-theme/rope.js
@@ -16,7 +16,7 @@
 ## Shell contrast (Chromium)
 width | selector | # | polarity | text | worst behind | ratio | need
 ---|---|---|---|---|---|---|---
-1440 | .sample-info .eyebrow | 0 | dark | rgb(59, 74, 102) | rgb(246, 249, 251) | 8.43 | 4.5
+1440 | .sample-info .eyebrow | 0 | dark | rgb(59, 74, 102) | rgb(247, 250, 251) | 8.49 | 4.5
 1440 | .sample-info h1 | 0 | dark | rgb(7, 16, 34) | rgb(244, 247, 250) | 17.66 | 3
 1440 | .sample-info .how | 0 | dark | rgb(59, 74, 102) | rgb(243, 246, 249) | 8.21 | 4.5
 1440 | .controls .back | 0 | dark | rgb(6, 75, 219) | rgb(241, 245, 249) | 6.31 | 4.5
@@ -24,10 +24,10 @@ width | selector | # | polarity | text | worst behind | ratio | need
 1440 | .controls .btn | 1 | dark | rgb(6, 75, 219) | rgb(230, 243, 252) | 6.12 | 4.5
 1440 | .controls .btn | 2 | dark | rgb(7, 16, 34) | rgb(251, 252, 252) | 18.47 | 4.5
 1440 | .hint | 0 | dark | rgb(59, 74, 102) | rgb(238, 245, 249) | 8.09 | 4.5
-375 | .sample-info .eyebrow | 0 | dark | rgb(59, 74, 102) | rgb(247, 249, 251) | 8.44 | 4.5
-375 | .sample-info h1 | 0 | dark | rgb(7, 16, 34) | rgb(243, 246, 250) | 17.51 | 3
-375 | .sample-info .how | 0 | dark | rgb(59, 74, 102) | rgb(241, 245, 249) | 8.13 | 4.5
-375 | .controls .back | 0 | dark | rgb(6, 75, 219) | rgb(242, 246, 250) | 6.37 | 4.5
+375 | .sample-info .eyebrow | 0 | dark | rgb(59, 74, 102) | rgb(246, 248, 251) | 8.37 | 4.5
+375 | .sample-info h1 | 0 | dark | rgb(7, 16, 34) | rgb(243, 247, 250) | 17.62 | 3
+375 | .sample-info .how | 0 | dark | rgb(59, 74, 102) | rgb(242, 246, 249) | 8.20 | 4.5
+375 | .controls .back | 0 | dark | rgb(6, 75, 219) | rgb(243, 246, 250) | 6.38 | 4.5
 375 | .controls .btn | 0 | light | rgb(255, 255, 255) | rgb(5, 88, 220) | 6.11 | 4.5
 375 | .controls .btn | 1 | dark | rgb(7, 16, 34) | rgb(252, 253, 253) | 18.63 | 4.5
 375 | .controls .btn | 2 | dark | rgb(7, 16, 34) | rgb(250, 251, 252) | 18.32 | 4.5

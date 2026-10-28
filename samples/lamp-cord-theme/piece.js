@@ -434,6 +434,7 @@ function bindHandle(el, kind) {
 		if (!lamp.grab(kind, px, py)) return;
 		try { el.setPointerCapture(ev.pointerId); } catch { /* a pointer that is already gone */ }
 		drag = { id: ev.pointerId, el, kind, x0: px, y0: py, moved: false, t0: performance.now(), side: px < lamp.bottom.pos.x ? 1 : -1 };
+		touched();
 		el.classList.add('is-drag');
 	});
 	el.addEventListener('pointermove', (ev) => {
@@ -450,7 +451,17 @@ function bindHandle(el, kind) {
 
 /* ---------- start ---------- */
 
+// idle life: left alone, the lamp pulls its own cord now and then (first after 9 s, then every 20 s), so the other
+// theme shows without a visitor's tug; any grab or pull starts the 20 s again. Only counts while the loop runs.
+let idle = 0;
+let idleNext = 9;
+const touched = () => { idle = 0; idleNext = 20; };
+
 function frame(dt) {
+	if (!drag) {
+		idle += dt;
+		if (idle > idleNext) { touched(); lamp.tug(); }
+	}
 	lamp.step(dt);
 	glow += ((night ? 1 : 0) - glow) * (1 - Math.exp(-6 * dt));
 	if (Math.abs((night ? 1 : 0) - glow) < 0.004) glow = night ? 1 : 0;
@@ -497,7 +508,7 @@ function start() {
 	draw();
 	ctl = loop(canvas, frame, { name: 'lamp-cord-theme' });
 
-	pullBtn.addEventListener('click', () => { lamp.tug(); });
+	pullBtn.addEventListener('click', () => { touched(); lamp.tug(); });
 	blurBtn.addEventListener('click', () => {
 		blurOn = blurBtn.getAttribute('aria-pressed') !== 'true';
 		blurBtn.setAttribute('aria-pressed', String(blurOn));
