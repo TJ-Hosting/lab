@@ -133,6 +133,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "shape-shifter",
+			"title": "Service Shape-Shifter",
+			"kicker": "Particle morph",
+			"category": "WebGL",
+			"blurb": "Thousands of glowing points that morph between a server stack, a cloud, a shield and code brackets, with bloom and a colour-split flash.",
+			"href": "samples/shape-shifter/",
+			"image": { "base": "img/iso/shape-shifter", "widths": [400, 800], "ratio": 1.017 },
+			"tags": ["three.js", "GLSL", "Post-processing"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "gpu-fluid",
 			"title": "Ink Tide GPU Fluid",
 			"kicker": "Liquid light",

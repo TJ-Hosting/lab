@@ -123,6 +123,7 @@ CUTOUTS = [
 	('iso/transition-slider', 'lab05-transition-slider.png', [400, 800], None),
 	('iso/lantern-pond', 'lab05-lantern-pond.png', [400, 800], None),
 	('iso/focus-trail-form', 'lab05-focus-trail-form.png', [400, 800], None),
+	('iso/shape-shifter', 'lab05-shape-shifter.png', [400, 800], None),
 	# lab-05 end
 ]
 
