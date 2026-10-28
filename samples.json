@@ -131,6 +131,17 @@
 			"image": { "base": "img/iso/brand-colour-sphere", "widths": [400, 800], "ratio": 0.923 },
 			"tags": ["SVG", "OKLCH", "Quaternions"],
 			"added": "2026-10-28"
+		},
+		{
+			"slug": "integration-beams",
+			"title": "Integration beams",
+			"kicker": "Beam hub",
+			"category": "UI",
+			"blurb": "A site tile joined to six glass tiles by curved beams of cyan and royal light, each tile pulsing as a beam lands.",
+			"href": "samples/integration-beams/",
+			"image": { "base": "img/iso/integration-beams", "widths": [400, 800], "ratio": 0.888 },
+			"tags": ["Canvas 2D", "Web Animations"],
+			"added": "2026-10-28"
 		}
 	],
 	"exhibits": [
