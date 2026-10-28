@@ -670,6 +670,17 @@
 			"image": { "base": "img/iso/frosted-window", "widths": [400, 800], "ratio": 1.261 },
 			"tags": ["WebGL", "OGL", "GLSL"],
 			"added": "2026-10-28"
+		},
+		{
+			"slug": "page-turn-lookbook",
+			"title": "Page-turn lookbook",
+			"kicker": "Page turn",
+			"category": "Image",
+			"blurb": "A glass-bordered sample lookbook whose pages curl and cast shadows as you drag a corner, with a demo that turns them for you.",
+			"href": "samples/page-turn-lookbook/",
+			"image": { "base": "img/iso/page-turn-lookbook", "widths": [400, 800], "ratio": 0.638 },
+			"tags": ["Canvas 2D", "page-flip", "Touch drag"],
+			"added": "2026-10-28"
 		}
 	],
 	"exhibits": [

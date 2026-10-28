@@ -154,6 +154,7 @@ CUTOUTS = [
 	('iso/lenticular-print', 'lab05-lenticular-print.png', [400, 800], None),
 	('iso/frosted-window', 'lab05-frosted-window.png', [400, 800], None),
 	('iso/ascii-sculpture', 'lab05-ascii-sculpture.png', [400, 800], None),
+	('iso/page-turn-lookbook', 'lab05-page-turn-lookbook.png', [400, 800], None),
 	# lab-05 end
 ]
 

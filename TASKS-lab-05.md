@@ -128,7 +128,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S57 | 60 | relief-light-board | Image | adapt-code (idea only, Unlicense, b9e653c) | ogl@1.0.11 | 3 (A57) | committed (see git) | night screen; normals from luminance, self-shadow, 3 materials; 16.7 ms; card C57 |
 | S58 | 61 | lenticular-print | Image | adapt-code (library use, MIT) | vanilla-tilt@1.8.1 | 2 (A58a-b) | committed (see git) | open sky; canvas redrawn only when the stripe value changes; library updates driven inside loop(), no instance under reduced motion; 16.7 ms; card C58 |
 | S59 | 62 | frosted-window | Image | adapt-code (Unlicense, b9e653c) | ogl@1.0.11 (modules by path) | 1 (A59) | committed (see git) | night screen window; flowmap as wipe mask, fog returns in about 4 s; frost and drops in the shader; ghost wipe via loop(); 16.7 ms; card C59 |
-| S60 | 63 | page-turn-lookbook | Image | adapt-code | page-flip@2.0.7 | 3 | todo | wordless layout art |
+| S60 | 63 | page-turn-lookbook | Image | adapt-code (library use, MIT) | page-flip@2.0.7 | 3 (A60a-c) | committed (see git) | open sky; "Sample lookbook · illustrative pictures"; the library's endless rAF replaced by a clock run from loop() only while a page moves (0 at rest); portrait mode on phones; 16.7 ms; card C60 |
 
 ## Swaps
 

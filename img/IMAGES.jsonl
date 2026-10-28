@@ -285,6 +285,10 @@
 {"file":"img/iso/orbs-320.webp","source":"assets/pack/lab-orbs.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/orbs-640.avif","source":"assets/pack/lab-orbs.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/orbs-640.webp","source":"assets/pack/lab-orbs.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/page-turn-lookbook-400.avif","source":"assets/pack/lab05-page-turn-lookbook.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/page-turn-lookbook-400.webp","source":"assets/pack/lab05-page-turn-lookbook.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/page-turn-lookbook-800.avif","source":"assets/pack/lab05-page-turn-lookbook.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/page-turn-lookbook-800.webp","source":"assets/pack/lab05-page-turn-lookbook.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/particles-400.avif","source":"assets/pack/lab-particles.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/particles-400.webp","source":"assets/pack/lab-particles.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/particles-800.avif","source":"assets/pack/lab-particles.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
@@ -454,6 +458,7 @@
 {"file":"img/og/logo.jpg","source":"tools/render-og.mjs","op":"tools/render-og.mjs (lab-04): 1200x630 share card, the CSS day sky + the mark's own SVG, code-set type in Nunito Sans"}
 {"file":"img/og/marble-harp.jpg","source":"assets/pack/lab05-marble-harp.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/mega-menu.jpg","source":"assets/pack/lab05-mega-menu.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
+{"file":"img/og/page-turn-lookbook.jpg","source":"assets/pack/lab05-page-turn-lookbook.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/particle-field.jpg","source":"assets/pack/lab-particles.png","op":"tools/render-og.mjs (lab-04): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/pendulum-wave.jpg","source":"assets/pack/lab05-pendulum-wave.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/planet-maker.jpg","source":"assets/pack/lab05-planet-maker.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
