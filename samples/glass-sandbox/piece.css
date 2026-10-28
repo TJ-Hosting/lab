@@ -1,0 +1,163 @@
+/* Sample 52 — Glass Sandbox. The shell (sky, top bar, panel, the night screen) comes from css/; only the piece is styled here.
+   The elements' colours are the ones piece.js paints: pale gold sand, azure water, a warm dark oil, hot light for fire and lava,
+   cyan-white glass and ice. The dock is light glass (DS v9), standing on the screen's frame. */
+
+.piece {
+	display: block;
+	width: 100%;
+	height: 100%;
+	touch-action: none; /* the canvas takes drags: they pour */
+	cursor: crosshair;
+	image-rendering: pixelated;
+}
+.piece:focus-visible { outline: 2px solid var(--focus); outline-offset: -4px; }
+
+/* a faint frosted reflection across the pane, and a blue edge glow */
+.sample--glass-sandbox .sheen {
+	position: absolute;
+	z-index: 2;
+	inset: 34px 0 0;
+	pointer-events: none;
+	background:
+		linear-gradient(122deg, rgba(190, 225, 255, 0.075) 0%, rgba(190, 225, 255, 0.02) 30%, rgba(190, 225, 255, 0) 46%),
+		radial-gradient(120% 90% at 50% 40%, rgba(10, 100, 214, 0) 62%, rgba(10, 100, 214, 0.16) 100%);
+}
+
+/* what the piece is doing, in the window bar (night tokens: light text) */
+.sample--glass-sandbox .readout {
+	position: absolute;
+	z-index: 5;
+	top: 0;
+	right: 16px;
+	height: 34px;
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	margin: 0;
+	font: 600 12px/1 var(--font-mono);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+	color: var(--muted);
+	pointer-events: none;
+}
+.sample--glass-sandbox .readout::before {
+	content: "";
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--glow-cyan);
+	box-shadow: 0 0 0 3px rgba(70, 208, 251, 0.22);
+}
+
+/* on a desktop, the readout also says how to take over from the auto-pour */
+.readout__more { display: none; }
+@media (min-width: 721px) {
+	.sample--glass-sandbox .readout[data-mode="auto"] .readout__more { display: inline; white-space: pre; }
+}
+
+/* ---------- the dock: light glass, round swatches with their names ---------- */
+
+.sample--glass-sandbox .dock {
+	position: fixed;
+	z-index: 35;
+	top: 116px; /* under the window bar */
+	left: 0;
+	right: 0;
+	width: fit-content;
+	margin: 0 auto;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: center;
+	gap: 2px 10px;
+	max-width: calc(100vw - 2 * var(--gutter) - 16px);
+	padding: 6px 10px;
+}
+.dock__group { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 2px; }
+.dock__sep { width: 1px; height: 22px; margin: 0 6px; background: var(--line); }
+
+.el {
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	min-height: 38px;
+	padding: 5px 13px 5px 7px;
+	border: 1px solid transparent;
+	border-radius: 999px;
+	background: transparent;
+	color: var(--ink);
+	font: 700 13px/1 var(--font-sans);
+	letter-spacing: 0.005em;
+	cursor: pointer;
+}
+.el:hover { background: var(--raised); }
+.el[aria-pressed="true"] {
+	border-color: var(--action);
+	background: var(--raised);
+	color: var(--accent-text);
+	box-shadow: inset 0 0 0 1px var(--action);
+}
+.el__dot {
+	display: block;
+	width: 24px;
+	height: 24px;
+	flex: none;
+	border-radius: 50%;
+	background: var(--c, #fff);
+	box-shadow: inset 0 0 0 1px rgba(7, 16, 34, 0.28), inset 0 2px 3px rgba(255, 255, 255, 0.5);
+	transition: transform 0.35s var(--ease-spring);
+}
+.el:hover .el__dot { transform: scale(1.08); }
+.el[aria-pressed="true"] .el__dot { transform: scale(1.12); }
+
+.el[data-el="sand"] { --c: linear-gradient(160deg, #f7f0d4, #e5cd8c); }
+.el[data-el="water"] { --c: linear-gradient(160deg, #7fc4ff, #2e8aec); }
+.el[data-el="oil"] { --c: linear-gradient(160deg, #a8743a, #62401a); }
+.el[data-el="fire"] { --c: radial-gradient(circle at 50% 70%, #fff1a6 0%, #ffb23e 38%, #ff6a25 75%, #d93a1c 100%); }
+.el[data-el="plant"] { --c: linear-gradient(160deg, #6ee2b2, #22a47a); }
+.el[data-el="ice"] { --c: linear-gradient(160deg, #f4fcff, #bfe4fa); }
+.el[data-el="lava"] { --c: linear-gradient(160deg, #ffc460, #d0361a); }
+.el[data-el="glass"] { --c: linear-gradient(135deg, #f5fdff 0%, #a8e2f8 48%, #e2f7ff 100%); }
+.el[data-el="erase"] { --c: repeating-linear-gradient(45deg, #ffffff 0 4px, #cddff1 4px 6px); }
+
+/* brush sizes: round buttons with a dot that grows */
+.size {
+	display: inline-grid;
+	place-items: center;
+	width: 36px;
+	height: 36px;
+	padding: 0;
+	border: 1px solid transparent;
+	border-radius: 50%;
+	background: transparent;
+	color: var(--ink);
+	cursor: pointer;
+}
+.size:hover { background: var(--raised); }
+.size[aria-pressed="true"] {
+	border-color: var(--action);
+	background: var(--raised);
+	box-shadow: inset 0 0 0 1px var(--action);
+}
+.size__dot { display: block; border-radius: 50%; background: currentColor; width: 6px; height: 6px; }
+.size[data-size="m"] .size__dot { width: 11px; height: 11px; }
+.size[data-size="l"] .size__dot { width: 18px; height: 18px; }
+.size[aria-pressed="true"] { color: var(--accent-text); }
+
+.el:focus-visible, .size:focus-visible { outline-offset: 1px; }
+
+@media (max-width: 720px) {
+	.sample--glass-sandbox .dock { top: 112px; padding: 5px 6px; gap: 0 4px; }
+	/* on a phone the swatches stand alone; the readout in the window bar says which one is chosen */
+	.el { min-width: 38px; min-height: 38px; padding: 5px; justify-content: center; }
+	.el__name { display: none; }
+	.el__dot { width: 26px; height: 26px; }
+	.dock__sep { margin: 0 3px; }
+	.size { width: 34px; height: 34px; }
+	.sample--glass-sandbox .readout { right: 12px; font-size: 11px; }
+}
+@media (max-width: 400px) {
+	.el { min-width: 36px; min-height: 36px; padding: 4px; }
+	.el__dot { width: 25px; height: 25px; }
+	.size { width: 32px; }
+}

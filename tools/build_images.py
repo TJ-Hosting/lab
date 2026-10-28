@@ -93,6 +93,7 @@ CUTOUTS = [
 	('iso/epicycle-machine', 'lab05-epicycle-machine.png', [400, 800], None),
 	('iso/wavy-lines-hero', 'lab05-wavy-lines-hero.png', [400, 800], None),
 	('iso/marble-harp', 'lab05-marble-harp.png', [400, 800], None),
+	('iso/glass-sandbox', 'lab05-glass-sandbox.png', [400, 800], None),
 	# lab-05 end
 ]
 
