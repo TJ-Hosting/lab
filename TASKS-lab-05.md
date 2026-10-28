@@ -106,7 +106,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S35 | 38 | glass-hero-kit | UI | adapt-code (MIT, efe76fc) | none | 0 | committed (see git) | open sky; palettes Cyan/Azure/Dusk (no violet or amber); placeholder figures labelled; rays CSS in [data-motion], beams WAAPI under govern(); 16.7 ms; card C35 |
 | S36 | 39 | integration-beams | UI | adapt-code (MIT, magicui efe76fc) | none | 0 | **committed 03:55Z** | open sky; "Sample content · no real connections"; 16.7 ms; card C36 |
 | S37 | 40 | bento-grid | UI | adapt-code (MIT, magicui efe76fc) | none | 0 | **committed 04:18Z** | open sky; CSS loops in [data-motion]; tile uses overflow: clip (focus scroll bug); 16.7 ms; card C37 |
-| S38 | 41 | mega-menu | UI | rebuild-from-idea | none | 0 | todo | |
+| S38 | 41 | mega-menu | UI | rebuild-from-idea (licence unknown, nothing read) | none | 0 | committed (see git) | open sky; "Sample navigation", made-up "Sample Host" brand, no prices; scaled glass layer, timers gated by govern(); idle tour has dwell gaps (one check run warned "nothing moves at rest"; suite hidden-tab test 3/3 ok); 16.7 ms; card C38 |
 | S39 | 42 | testimonial-wall | UI | adapt-code (MIT, efe76fc) | none | 0 | committed (see git) | open sky; every card "Sample", placeholder names, no stars, pill "Sample reviews · not real customers"; no backdrop-filter on moving cards; 16.7 ms; card C39 |
 | S40 | 43 | browser-frame-showcase | UI | rebuild-from-idea (MIT, no code read) | none | 3 (A40a-c) | committed (see git) | open sky; generic frame, fictional sites labelled; scroll by transform from loop(); 16.7 ms; card C40 |
 | S41 | 44 | focus-trail-form | UI | adapt-code (MIT, Debug view) | none | 0 | committed (see git) | demo form labelled "nothing is sent or stored"; 16.7 ms; card C41 |
@@ -162,10 +162,10 @@ None yet.
 - [P5] S57: the leather texture has a visible vertical seam at the centre; regenerate A57 leather (one Codex attempt). **Done 06:14Z**: A57d (prompt asks for one continuous piece with no seams or centre line); centre crop checked, no seam; built at 640 and 1254.
 - [P5] S56: at 375 the three cards are about 96 px wide with empty sky above; larger cards (a scroll-snap row or two plus one) would show the morph better on phones.
 - [P5] S42: the gated stills show the ready state only; consider a reduced-motion still that shows the Live tick, or a first autopilot run sooner, so the twist reads at a glance.
-- [P4] S37 bento-grid: the S39 builder says focusing a tile scrolls its overflow:hidden stage (they fixed the same thing in S39 with overflow: clip); check and fix.
+- [P4] S37 bento-grid: the S39 builder says focusing a tile scrolls its overflow:hidden stage (they fixed the same thing in S39 with overflow: clip); check and fix. **Checked 09:42Z, not reproduced**: a probe tabbing 30 stops at 1440 and 375 found no overflow:hidden ancestor scrolled in bento-grid, nor in pricing-rolling-digits (eyebrow 37), glass-card-flow, stacking-plan-cards or skill-chips.
 - [P4] js/lab.js `govern()` played every paused animation under its element when live, including CSS animations held by a stylesheet rule; play() overrides `animation-play-state` for good (Chromium 141 probe: such an animation kept running even after its animation-name was removed). Reported by the S42 builder. **Fixed 06:48Z**: govern() now plays again only the animations it paused itself (a WeakSet). The 10 pages using govern() re-tested: samples tests 7/7 passed, all 54 pages load clean.
 
-## Pause 07:23Z (usage limit)
+## Pause 07:23Z to 09:41Z (usage limit)
 
 51 of 60 samples committed and pushed (last: S40). Builders for S38 mega-menu, S45 wind-snapshot, S51 planet-maker and S52 glass-mandala were stopped mid-build: their partial files are in `samples/<slug>/` (uncommitted; S38 had passed its first --no-perf check). On resume: re-check each (or relaunch its builder), gate, integrate. S45 needs `vendor/natural-earth@ca96624/` (fetched, uncommitted) added with `-Extra`. Not started: S02, S53, S58, S59, S60. Then P4 (S37 focus-scroll check, S42 still), P5 blind Opus review, P7 (README, full npm test, RESULT-lab-05.md, CMHS Memory, RUNLOG end).
 

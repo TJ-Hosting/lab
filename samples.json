@@ -430,6 +430,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "mega-menu",
+			"title": "Morphing mega-menu",
+			"kicker": "Gliding panel",
+			"category": "UI",
+			"blurb": "A sample site menu where one frosted glass panel glides and resizes between Services, Pricing, About and Help, with a cyan notch under the item you point at.",
+			"href": "samples/mega-menu/",
+			"image": { "base": "img/iso/mega-menu", "widths": [400, 800], "ratio": 1.052 },
+			"tags": ["HTML", "CSS", "JavaScript"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "testimonial-wall",
 			"title": "Tilted testimonial wall",
 			"kicker": "Review wall",
