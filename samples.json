@@ -210,6 +210,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "stacking-plan-cards",
+			"title": "Sticky stacking plan cards",
+			"kicker": "Sticky stack",
+			"category": "Scroll",
+			"blurb": "Five frosted-glass sample plan cards stick to the top and shrink as the next slides over them, beside a progress rail whose ticks light up.",
+			"href": "samples/stacking-plan-cards/",
+			"image": { "base": "img/iso/stacking-plan-cards", "widths": [400, 800], "ratio": 1.001 },
+			"tags": ["CSS scroll-driven", "position: sticky", "view-timeline"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "tear-the-curtain",
 			"title": "Tear the glass curtain",
 			"kicker": "Cloth physics",

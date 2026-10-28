@@ -301,6 +301,10 @@
 {"file":"img/iso/split-flap-board-400.webp","source":"assets/pack/lab05-split-flap-board.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/split-flap-board-800.avif","source":"assets/pack/lab05-split-flap-board.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/split-flap-board-800.webp","source":"assets/pack/lab05-split-flap-board.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/stacking-plan-cards-400.avif","source":"assets/pack/lab05-stacking-plan-cards.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/stacking-plan-cards-400.webp","source":"assets/pack/lab05-stacking-plan-cards.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/stacking-plan-cards-800.avif","source":"assets/pack/lab05-stacking-plan-cards.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/stacking-plan-cards-800.webp","source":"assets/pack/lab05-stacking-plan-cards.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/star-trail-text-400.avif","source":"assets/pack/lab05-star-trail-text.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/star-trail-text-400.webp","source":"assets/pack/lab05-star-trail-text.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/star-trail-text-800.avif","source":"assets/pack/lab05-star-trail-text.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
@@ -362,6 +366,7 @@
 {"file":"img/og/shape-shifter.jpg","source":"assets/pack/lab05-shape-shifter.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/slime-network.jpg","source":"assets/pack/lab05-slime-network.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/split-flap-board.jpg","source":"assets/pack/lab05-split-flap-board.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
+{"file":"img/og/stacking-plan-cards.jpg","source":"assets/pack/lab05-stacking-plan-cards.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/star-trail-text.jpg","source":"assets/pack/lab05-star-trail-text.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/streamline-poster.jpg","source":"assets/pack/lab05-streamline-poster.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/tear-the-curtain.jpg","source":"assets/pack/lab05-tear-the-curtain.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}

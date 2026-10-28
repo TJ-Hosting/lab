@@ -1,0 +1,389 @@
+/* Sample 22 — Sticky Stacking Plan Cards. The shell (sky, top bar, panel) comes from css/; only the piece is styled here.
+ *
+ * New code, written from the idea of the "Stacking Cards" CSS scroll-driven animations demo on scroll-driven-animations.style
+ * (its stylesheet and script were not downloaded or read; its page credits an original by CodyHouse). Only the page's licence
+ * and credit lines were looked for; the few lines of sample code in its About box were glimpsed on screen and nothing from
+ * them was used. The layout, the timeline maths (an inset view timeline with plain length offsets), the plan cards, the hills
+ * art and the progress rail are all new.
+ *
+ * How it works:
+ * - every card is `position: sticky`, a little lower than the one before (--step), so the cards stack and the buried ones
+ *   leave a strip of their top edge showing;
+ * - one named view timeline (--stack) sits on the list, inset by the card's sticky top, so its 0 is "the first card has just
+ *   stuck". The pitch between one card sticking and the next (--pitch) is plain CSS length maths, so card i shrinks, and its
+ *   tick lights, in the stretch from i x pitch to (i + 1) x pitch. The card count (--n) and each card's number (--i) are
+ *   written by piece.js from the list itself;
+ * - two layouts share the page. The plain one (the default, and what reduced motion gets) keeps the sticky stack with no
+ *   shrinking; the scroll-driven one is switched on only where `animation-timeline` exists and motion is allowed.
+ * Every animation is tied to the scroll position (nothing runs at rest) and moves only transform and opacity.
+ */
+
+.scroll-page { overflow: visible; } /* sticky needs no clipping ancestor */
+
+.sprite { position: absolute; width: 0; height: 0; overflow: hidden; }
+
+.plans {
+	--T: 92px;                 /* where the first card sticks: under the top bar */
+	--step: 34px;              /* how much of each buried card still shows: its tab */
+	--gap: 24px;               /* space under a card in its slot, before the next one */
+	--vh: 100vh;
+	--card-h: clamp(380px, calc(var(--vh) - 220px), 490px);
+	--slot: calc(var(--card-h) + var(--gap));          /* one card's slot in the list */
+	--pitch: calc(var(--slot) - var(--step));          /* scrolling from one card sticking to the next one sticking */
+	--k: 0.035;                /* how much smaller each card ends up than the one in front of it */
+	--n: 5;                    /* the number of cards: piece.js reads it from the list */
+	--rp: 46px;                /* the rail's tick spacing */
+	/* extra length after the last card so it can rest in its stuck place at the end of the page, whatever the screen height */
+	--rest: max(200px, calc(100vh - var(--T) - (var(--n) - 1) * var(--step) - var(--slot) + 80px));
+
+	position: relative;
+	display: grid;
+	grid-template-columns: clamp(320px, 34vw, 440px) minmax(0, 1fr);
+	column-gap: clamp(24px, 4vw, 56px);
+	align-items: start;
+	max-width: calc(var(--page-max) + 2 * var(--gutter));
+	margin: 0 auto;
+	padding: calc(var(--T) - 72px) var(--gutter) 0; /* the page's own 72px top padding plus this puts the first card exactly at --T */
+}
+@supports (height: 100svh) { .plans { --vh: 100svh; } }
+
+/* ---------- the left column: label, heading and the progress rail ---------- */
+
+.plans__aside {
+	grid-column: 1;
+	position: sticky;
+	top: var(--T);
+	align-self: start;
+}
+.plans__tag { margin: 0 0 20px; }
+.plans__title {
+	margin: 0 0 12px;
+	font: 900 clamp(38px, 4.4vw, 58px) / 1 var(--font-display);
+	font-stretch: 88%;
+	letter-spacing: -0.03em;
+}
+.plans__title .script { font-size: 1.22em; color: var(--accent-text); }
+.plans__lede { margin: 0; max-width: 24ch; font: 500 16px / 24px var(--font-sans); color: var(--muted); }
+
+.rail { --lx: 11px; position: relative; margin-top: 26px; }
+.rail__line {
+	position: absolute;
+	left: calc(var(--lx) - 1.5px);
+	top: calc(var(--rp) / 2);
+	width: 3px;
+	height: calc((var(--n) - 1) * var(--rp));
+	border-radius: 3px;
+	background: rgba(94, 128, 174, 0.3);
+	overflow: hidden;
+}
+.rail__fill {
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	background: linear-gradient(180deg, var(--brand-royal), var(--glow-cyan));
+	transform-origin: 50% 0;
+	transform: scaleY(var(--fill, 0));
+	transition: transform 0.35s var(--ease-out);
+}
+.rail__list { position: relative; margin: 0; padding: 0; list-style: none; }
+.tick { height: var(--rp); }
+.tick__btn {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	width: 100%;
+	height: 100%;
+	padding: 0;
+	border: 0;
+	border-radius: 10px;
+	background: none;
+	text-align: left;
+	cursor: pointer;
+}
+.tick__dot { position: relative; flex: none; width: 22px; height: 22px; }
+.tick__ring, .tick__lit, .tick__halo { position: absolute; border-radius: 50%; }
+.tick__ring { inset: 4px; border: 2px solid var(--line-ui); background: #ffffff; }
+.tick__lit {
+	inset: 4px;
+	background: radial-gradient(circle at 35% 30%, #6db0f6, var(--brand-royal) 55%, #0a55bd);
+	box-shadow: 0 3px 7px -1px rgba(5, 95, 233, 0.5);
+	opacity: 0;
+	transform: scale(0.4);
+	transition: opacity 0.25s var(--ease-out), transform 0.4s var(--ease-spring);
+}
+.tick__halo {
+	inset: 0;
+	border: 2px solid rgba(70, 208, 251, 0.95);
+	box-shadow: 0 0 0 4px rgba(70, 208, 251, 0.22);
+	opacity: 0;
+	transform: scale(0.7);
+	transition: opacity 0.25s var(--ease-out), transform 0.4s var(--ease-spring);
+}
+.tick__label { display: flex; align-items: baseline; gap: 10px; min-width: 0; }
+.tick__num { font: 600 11.5px / 1 var(--font-mono); letter-spacing: 0.1em; color: var(--muted); }
+.tick__name { font: 800 16px / 1.2 var(--font-sans); color: var(--ink); }
+.tick__btn:hover .tick__name { color: var(--accent-text); }
+
+/* the plain layout lights the ticks from piece.js (classes) instead of the timeline */
+.plans[data-mode="plain"] .tick.is-lit .tick__lit { opacity: 1; transform: none; }
+.plans[data-mode="plain"] .tick__btn[aria-current="step"] .tick__halo { opacity: 1; transform: none; }
+
+/* ---------- the stack ---------- */
+
+.stack {
+	grid-column: 2;
+	grid-row: 1;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.stack::after { content: ""; display: block; height: var(--rest); }
+
+.plan {
+	--g1: #c6ecfd; --g2: #8fd2fb; --g3: #56aef7; --g4: #1f7cf0; --g5: #0b57c4; /* hills, back to front */
+	--hue: #4d9ff3; --sky-a: #dcf0ff; --sky-b: #6fc6fa;
+	--s-end: calc(1 - (var(--n) - 1 - var(--i, 0)) * var(--k));     /* the size this card ends at */
+	--v-end: calc(0.05 + (var(--n) - 1 - var(--i, 0)) * 0.025);      /* how dark its veil ends */
+	position: sticky;
+	top: calc(var(--T) + var(--i, 0) * var(--step));
+	height: var(--slot);
+	list-style: none;
+	container-type: inline-size;
+}
+/* each deeper plan: a deeper tint, a deeper sky and (up to the third) more hills */
+.plan:nth-child(1) { --hue: #46d0fb; --sky-a: #effcff; --sky-b: #a6e7fd; --l1: 0; --l2: 0; }
+.plan:nth-child(2) { --hue: #46bff9; --sky-a: #e3f7ff; --sky-b: #86dafc; --l1: 0; }
+.plan:nth-child(3) { --hue: #4d9ff3; --sky-a: #dcf0ff; --sky-b: #6fc6fa; }
+.plan:nth-child(4) { --hue: #2c86ee; --sky-a: #d0e6ff; --sky-b: #5ab1f7; }
+.plan:nth-child(5) { --hue: #0c6bed; --sky-a: #bcd8fb; --sky-b: #4d9ff3; }
+
+.plan__card.glass {
+	position: relative;
+	display: grid;
+	grid-template-columns: minmax(170px, 36%) minmax(0, 1fr);
+	grid-template-rows: var(--step) minmax(0, 1fr);
+	height: var(--card-h);
+	transform-origin: 50% 0;
+	background-color: rgba(244, 250, 255, 0.94);
+	/* frosted white with a little of its own blue in it: 2% for the first card, 18% for the fifth */
+	background-color: color-mix(in srgb, var(--hue) calc(var(--i, 0) * 4% + 2%), rgb(255 255 255 / 0.92));
+	box-shadow: var(--glass-inner), 0 -10px 22px -12px rgba(22, 66, 140, 0.34), 0 26px 46px -22px rgba(22, 66, 140, 0.42), 0 8px 18px -10px rgba(22, 66, 140, 0.2);
+}
+
+.plan__tab {
+	grid-column: 1 / -1;
+	grid-row: 1;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	margin: 0;
+	padding: 0 20px;
+	border-bottom: 1px solid rgba(94, 128, 174, 0.2);
+	font: 600 12px / 1 var(--font-mono);
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: var(--muted);
+	white-space: nowrap;
+}
+.plan__no { color: var(--accent-text); }
+.plan__kind { color: var(--ink); }
+.plan__sample { margin-left: auto; }
+
+.plan__art {
+	grid-column: 1;
+	grid-row: 2;
+	position: relative;
+	margin: 14px 0 16px 16px;
+	border-radius: 14px;
+	overflow: hidden;
+	background: linear-gradient(180deg, var(--sky-a), var(--sky-b));
+	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6), 0 12px 22px -14px rgba(22, 66, 140, 0.5);
+}
+.plan__art .art { position: absolute; inset: 0; width: 100%; height: 100%; max-width: none; }
+.plan__art .art--wide { display: none; }
+
+.plan__body {
+	grid-column: 2;
+	grid-row: 2;
+	display: flex;
+	flex-direction: column;
+	min-height: 0;
+	padding: 16px 28px 20px 26px;
+}
+.plan__name {
+	margin: 0 0 6px;
+	font: 900 clamp(28px, 3vw, 38px) / 1 var(--font-display);
+	font-stretch: 90%;
+	letter-spacing: -0.02em;
+}
+.plan__lead { margin: 0 0 14px; font: 800 18px / 24px var(--font-sans); color: var(--ink); }
+.plan__list { margin: 0; padding: 0; list-style: none; font: 500 16px / 22px var(--font-sans); color: var(--muted); }
+.plan__list li { position: relative; padding: 11px 0 11px 26px; border-top: 1px solid rgba(94, 128, 174, 0.2); }
+.plan__list li:last-child { border-bottom: 1px solid rgba(94, 128, 174, 0.2); }
+.plan__list li::before {
+	content: "";
+	position: absolute;
+	left: 3px;
+	top: 18px;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--glow-cyan);
+	box-shadow: 0 0 0 3px rgba(70, 208, 251, 0.25);
+}
+.plan__meters { display: grid; gap: 9px; margin-top: auto; padding-top: 16px; }
+.plan__note { margin: 0 0 2px; font: 600 11.5px / 1 var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.meter { display: grid; grid-template-columns: 64px auto; align-items: center; margin: 0; }
+.meter__k { font: 600 11.5px / 1 var(--font-mono); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.meter__dots { display: inline-flex; gap: 5px; }
+.meter__dots i { width: 11px; height: 11px; border: 1.5px solid var(--line-ui); border-radius: 50%; background: #ffffff; }
+.meter__dots i.on { border-color: var(--brand-royal); background: var(--brand-royal); }
+
+/* the veil: a thin blue wash that deepens a card as the others close over it (opacity only) */
+.plan__veil {
+	position: absolute;
+	inset: 0;
+	z-index: 3;
+	border-radius: inherit;
+	background: #1f7cf0;
+	opacity: 0;
+	pointer-events: none;
+}
+
+/* a narrow card (a phone, or a tablet column): the picture becomes a band above the words */
+@container (max-width: 559px) {
+	.plan__card.glass { grid-template-columns: minmax(0, 1fr); grid-template-rows: var(--step) 68px minmax(0, 1fr); }
+	.plan__art { grid-column: 1; grid-row: 2; margin: 10px 12px 0; }
+	.plan__art .art--tall { display: none; }
+	.plan__art .art--wide { display: block; }
+	.plan__body { grid-column: 1; grid-row: 3; padding: 12px 18px 12px; }
+	.plan__name { font-size: 26px; margin-bottom: 4px; }
+	.plan__lead { font-size: 15px; line-height: 20px; margin-bottom: 8px; }
+	.plan__list { font-size: 14px; line-height: 20px; }
+	.plan__list li { padding: 3px 0 3px 22px; border: 0; }
+	.plan__list li:nth-child(n+4) { display: none; }
+	.plan__meters { grid-template-columns: auto auto; justify-content: start; gap: 6px 22px; }
+	.plan__note { grid-column: 1 / -1; margin: 0; }
+	.meter { grid-template-columns: 40px auto; }
+	.meter__dots { gap: 4px; }
+	.plan__list li:last-child { border: 0; }
+	.plan__list li::before { left: 2px; top: 9px; }
+	.plan__meters { padding-top: 8px; }
+	.plan__tab { padding: 0 14px; gap: 10px; font-size: 11px; }
+}
+
+/* ---------- the scroll-driven layout: only where supported and only when motion is welcome ---------- */
+
+@media (prefers-reduced-motion: no-preference) {
+	@supports (animation-timeline: view()) and (timeline-scope: --stack) {
+		.plans { timeline-scope: --stack; }
+		.stack {
+			view-timeline: --stack block;
+			/* the timeline's zero is the moment the first card sticks, so the card, the tick and the fill share one count */
+			view-timeline-inset: var(--T) 0px;
+		}
+
+		.plan__card.glass, .plan__veil, .rail__fill, .tick__lit, .tick__halo {
+			animation-duration: auto;
+			animation-timing-function: linear;
+			animation-fill-mode: both;
+			animation-timeline: --stack;
+			transition: none;
+		}
+
+		/* card i shrinks while card i + 1 slides over it: from "i stuck" to "i + 1 stuck" */
+		.plan__card.glass {
+			will-change: transform;
+			animation-name: sink;
+			animation-range: exit-crossing calc(var(--i, 0) * var(--pitch)) exit-crossing calc((var(--i, 0) + 1) * var(--pitch));
+		}
+		.plan__veil {
+			animation-name: deepen;
+			animation-range: exit-crossing calc(var(--i, 0) * var(--pitch)) exit-crossing calc((var(--i, 0) + 1) * var(--pitch));
+		}
+		.plan:last-child .plan__card.glass, .plan:last-child .plan__veil { animation: none; } /* the front card stays full size */
+
+		/* the rail: the fill grows from tick 1 to the last tick, and each tick lights as its card sticks */
+		.rail__fill {
+			animation-name: fill-grow;
+			animation-range: exit-crossing 0px exit-crossing calc((var(--n) - 1) * var(--pitch));
+		}
+		.tick { --r: calc(var(--i, 0) * var(--pitch)); }
+		.tick__lit {
+			animation-name: tick-on;
+			animation-range: exit-crossing max(0px, calc(var(--r) - 28px)) exit-crossing var(--r);
+		}
+		.tick:first-child .tick__lit { animation: none; opacity: 1; transform: none; } /* card 1 is already in place at the top */
+		.tick__halo {
+			animation-name: tick-halo;
+			animation-range: exit-crossing max(0px, calc(var(--r) - 28px)) exit-crossing calc(var(--r) + var(--pitch));
+		}
+		.tick:first-child .tick__halo { animation-name: tick-halo-first; animation-range: exit-crossing 0px exit-crossing var(--pitch); }
+		.tick:last-child .tick__halo { animation-name: tick-halo-last; animation-range: exit-crossing max(0px, calc(var(--r) - 28px)) exit-crossing var(--r); }
+
+		@keyframes sink { to { transform: scale(var(--s-end)); } }
+		@keyframes deepen { to { opacity: var(--v-end); } }
+		@keyframes fill-grow { from { transform: scaleY(0); } to { transform: scaleY(1); } }
+		@keyframes tick-on { from { opacity: 0; transform: scale(0.4); } to { opacity: 1; transform: scale(1); } }
+		@keyframes tick-halo {
+			0% { opacity: 0; transform: scale(0.7); }
+			5%, 94% { opacity: 1; transform: scale(1); }
+			100% { opacity: 0; transform: scale(1.25); }
+		}
+		@keyframes tick-halo-first {
+			0%, 94% { opacity: 1; transform: scale(1); }
+			100% { opacity: 0; transform: scale(1.25); }
+		}
+		@keyframes tick-halo-last { from { opacity: 0; transform: scale(0.7); } to { opacity: 1; transform: scale(1); } }
+	}
+}
+
+/* ---------- smaller screens ---------- */
+
+/* a short laptop screen: the description panel rises under the rail, so the heading gives way */
+@media (min-width: 1181px) and (max-height: 820px) {
+	.plans { --rp: 40px; }
+	.plans__lede { display: none; }
+	.plans__title { font-size: 42px; margin-bottom: 0; }
+	.plans__tag { margin-bottom: 14px; }
+	.rail { margin-top: 18px; }
+}
+@media (min-width: 1181px) and (max-height: 700px) {
+	.plans__title { display: none; }
+	.rail { margin-top: 0; }
+}
+
+/* below 1180px there is one column: the label on top, then the rail down the left edge beside the stack
+   (the fixed description panel would cover the side column there). The cards are short enough to clear the panel. */
+@media (max-width: 1180px) {
+	.plans {
+		--T: 108px;
+		--step: 30px;
+		--gap: 20px;
+		--rp: 40px;
+		--card-h: clamp(320px, calc(var(--vh) - 400px), 440px);
+		grid-template-columns: 34px minmax(0, 640px);
+		grid-template-areas: "tag tag" "rail stack";
+		justify-content: center;
+		column-gap: 12px;
+		row-gap: 6px;
+		padding-top: 0;
+	}
+	.plans__aside { display: contents; }
+	.plans__tag { grid-area: tag; justify-self: start; margin: 0; padding: 4px 14px; font-size: 13px; line-height: 20px; }
+	.plans__title, .plans__lede, .tick__label { display: none; }
+	.rail { --lx: 17px; grid-area: rail; position: sticky; top: var(--T); align-self: start; width: 34px; margin: 0; }
+	.tick__btn { justify-content: center; }
+	.stack { grid-area: stack; }
+}
+/* a wide but short window: the cards are short, so each keeps three feature rows */
+@media (min-width: 641px) and (max-width: 1180px) and (max-height: 859px) {
+	.plan__list li:nth-child(n+4) { display: none; }
+}
+@media (max-width: 640px) {
+	.plans {
+		--step: 26px;
+		--gap: 14px;
+		--card-h: 306px;
+	}
+}
