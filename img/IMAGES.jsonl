@@ -281,6 +281,10 @@
 {"file":"img/iso/pendulum-wave-400.webp","source":"assets/pack/lab05-pendulum-wave.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/pendulum-wave-800.avif","source":"assets/pack/lab05-pendulum-wave.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/pendulum-wave-800.webp","source":"assets/pack/lab05-pendulum-wave.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/planet-maker-400.avif","source":"assets/pack/lab05-planet-maker.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/planet-maker-400.webp","source":"assets/pack/lab05-planet-maker.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/planet-maker-800.avif","source":"assets/pack/lab05-planet-maker.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/planet-maker-800.webp","source":"assets/pack/lab05-planet-maker.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/plinth-square-320.avif","source":"assets/pack/tj-hero-plinth-square.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/plinth-square-320.webp","source":"assets/pack/tj-hero-plinth-square.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/plinth-square-640.avif","source":"assets/pack/tj-hero-plinth-square.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
@@ -437,6 +441,7 @@
 {"file":"img/og/mega-menu.jpg","source":"assets/pack/lab05-mega-menu.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/particle-field.jpg","source":"assets/pack/lab-particles.png","op":"tools/render-og.mjs (lab-04): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/pendulum-wave.jpg","source":"assets/pack/lab05-pendulum-wave.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
+{"file":"img/og/planet-maker.jpg","source":"assets/pack/lab05-planet-maker.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/pricing-rolling-digits.jpg","source":"assets/pack/lab05-pricing-rolling-digits.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/publish-button.jpg","source":"assets/pack/lab05-publish-button.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/relief-light-board.jpg","source":"assets/pack/lab05-relief-light-board.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}

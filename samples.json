@@ -573,6 +573,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "planet-maker",
+			"title": "Pixel planet maker",
+			"kicker": "Pixel planets",
+			"category": "Toys",
+			"blurb": "A chunky dithered pixel planet lit by your pointer: roll a made-up world with a name and a seed, or download it as a poster.",
+			"href": "samples/planet-maker/",
+			"image": { "base": "img/iso/planet-maker", "widths": [400, 800], "ratio": 1.002 },
+			"tags": ["Canvas 2D", "Dithering", "Procedural"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "glass-mandala",
 			"title": "Glass mandala",
 			"kicker": "Draw in folds",
