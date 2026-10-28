@@ -102,7 +102,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S31 | 34 | icon-micro-set | SVG | adapt-code | gsap@3.13.0 | 0 | todo | |
 | S32 | 35 | weather-window | SVG | adapt-code | none (Meteocons SVGs as its one library, if licence confirmed) | 0 | todo | |
 | S33 | 36 | liquid-glass-lens | UI | adapt-code | liquid-glass-js@0.1.0 | 1 | todo | |
-| S34 | 37 | pricing-rolling-digits | UI | adapt-code | number-flow@0.6.2 | 0 | todo | |
+| S34 | 37 | pricing-rolling-digits | UI | adapt-code (MIT) | number-flow@0.6.2 | 0 | committed (see git) | open sky; sample prices in CAD labelled; NumberFlow's inline shadow style allowed by the base style-src; autopilot flip gated by govern(); hint reworded; 16.7 ms; card C34 |
 | S35 | 38 | glass-hero-kit | UI | adapt-code | none | 0 | todo | |
 | S36 | 39 | integration-beams | UI | adapt-code (MIT, magicui efe76fc) | none | 0 | **committed 03:55Z** | open sky; "Sample content · no real connections"; 16.7 ms; card C36 |
 | S37 | 40 | bento-grid | UI | adapt-code (MIT, magicui efe76fc) | none | 0 | **committed 04:18Z** | open sky; CSS loops in [data-motion]; tile uses overflow: clip (focus scroll bug); 16.7 ms; card C37 |

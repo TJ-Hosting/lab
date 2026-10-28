@@ -1,0 +1,417 @@
+/* Sample 37 — Glass pricing with rolling digits, on the open day sky.
+   Three frosted plan cards (DS v9 light glass, blue shadows), a Monthly / Yearly switch and a total bar. The numbers are
+   <number-flow> elements: piece.js sets them and the component draws and animates the digits inside its own shadow root.
+   The featured card's edge is a conic gradient that turns: a masked ring whose inner layer rotates (transform only).
+   Motion in this file: that rotation (CSS, paused by lab.css off-screen and in a hidden tab, and by Pause) and a few
+   transform / opacity transitions on the controls. Everything is static under reduced motion.
+   The base rules are the narrow layout (tablets, small windows); two desktop layouts and the phone layout follow at the end. */
+
+.pricing-stage {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	padding: 76px var(--gutter) 350px;
+}
+
+/* soft colour behind the glass, so the frost has something to blur (static) */
+.orbs { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.orb { position: absolute; border-radius: 50%; }
+.orb--a {
+	width: 560px; height: 560px; left: 38%; top: 6%;
+	background: radial-gradient(closest-side, rgba(70, 208, 251, 0.34), rgba(70, 208, 251, 0));
+}
+.orb--b {
+	width: 640px; height: 640px; right: -6%; top: 34%;
+	background: radial-gradient(closest-side, rgba(77, 159, 243, 0.3), rgba(77, 159, 243, 0));
+}
+
+.piece-open {
+	position: relative;
+	z-index: 1;
+	width: min(1200px, 100%);
+	display: flex;
+	flex-direction: column;
+	gap: 22px;
+}
+
+/* ---------- the top bar: the sample label and the billing switch ---------- */
+
+.bar { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 16px; }
+.bar__pill { white-space: normal; }
+
+.seg {
+	position: relative;
+	display: inline-flex;
+	margin: 0;
+	padding: 4px;
+	min-width: 0;
+	border: 1px solid var(--border-control);
+	border-radius: var(--radius-md);
+	background: var(--glass-sheen), linear-gradient(var(--glass-tint), var(--glass-tint));
+	box-shadow: var(--glass-inner), 0 8px 18px -12px rgba(var(--shade-rgb), 0.45);
+}
+.seg__thumb {
+	position: absolute;
+	left: 4px;
+	top: 4px;
+	bottom: 4px;
+	width: calc(50% - 4px);
+	border-radius: 8px;
+	background: var(--action);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), var(--shadow-glow);
+	transition: transform 0.45s var(--ease-spring);
+}
+.seg__opt {
+	position: relative;
+	z-index: 1;
+	display: grid;
+	place-items: center;
+	min-width: 108px;
+	min-height: 40px;
+	padding: 6px 18px;
+	border-radius: 8px;
+	font: 800 14px/20px var(--font-sans);
+	color: var(--ink);
+	cursor: pointer;
+	user-select: none;
+	-webkit-user-select: none;
+	transition: color var(--t-state) var(--ease-ui);
+}
+#bill-y:checked ~ .seg__thumb { transform: translateX(100%); }
+#bill-m:checked ~ label[for="bill-m"],
+#bill-y:checked ~ label[for="bill-y"] { color: var(--on-action); }
+.seg__in:focus-visible ~ .seg__thumb { outline: 2px solid var(--focus); outline-offset: 3px; }
+
+/* ---------- the numbers ---------- */
+
+number-flow {
+	--number-flow-mask-height: 0.16em;
+	font-family: var(--font-display);
+	font-weight: 900;
+	font-stretch: 92%;
+	font-variant-numeric: tabular-nums;
+	letter-spacing: -0.02em;
+	line-height: 0.9;
+	color: var(--ink);
+}
+/* a number is hidden until the script has set it (the starting text would flash, then roll) */
+.js .pricing-stage:not(.is-ready) number-flow { visibility: hidden; }
+/* the "/mo" and " each a month" parts: smaller, in the muted colour */
+number-flow::part(suffix) {
+	margin-left: 0.14em;
+	font-size: 0.34em;
+	font-weight: 700;
+	letter-spacing: 0;
+	color: var(--muted);
+}
+.num--each::part(suffix) { font-size: 1em; margin-left: 0; font-weight: 600; }
+
+/* ---------- the plan cards (base: the narrow sizes) ---------- */
+
+.plans {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 12px;
+	align-items: stretch;
+}
+
+.plan {
+	--pt: 16px;
+	--pb: 14px;
+	--px: 16px;
+	position: relative;
+	display: flex;
+	flex-direction: column;
+	padding: var(--pt) var(--px) var(--pb);
+	background-image:
+		radial-gradient(90% 46% at 50% 0%, rgba(70, 208, 251, 0.14), rgba(70, 208, 251, 0) 72%),
+		var(--glass-grain);
+	box-shadow:
+		var(--glass-inner),
+		0 38px 62px -32px rgba(22, 66, 140, 0.4),
+		0 12px 26px -16px rgba(5, 95, 233, 0.22);
+}
+.plan--featured {
+	/* taller than its neighbours by 10 px each way; the extra padding keeps the rows level across the three cards */
+	margin-block: -10px;
+	padding-top: calc(var(--pt) + 10px);
+	padding-bottom: calc(var(--pb) + 10px);
+	background-image:
+		radial-gradient(100% 56% at 50% 0%, rgba(70, 208, 251, 0.26), rgba(70, 208, 251, 0) 72%),
+		linear-gradient(170deg, rgba(77, 159, 243, 0.1), rgba(77, 159, 243, 0) 60%),
+		var(--glass-grain);
+	box-shadow:
+		var(--glass-inner),
+		0 46px 70px -30px rgba(22, 66, 140, 0.5),
+		0 16px 32px -14px rgba(5, 95, 233, 0.34);
+}
+
+/* the chosen plan: a solid ring that fades in */
+.plan__ring {
+	position: absolute !important;
+	inset: 0;
+	z-index: 2 !important;
+	border-radius: inherit;
+	box-shadow: inset 0 0 0 2px var(--action);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.3s var(--ease-ui);
+}
+.plan.is-chosen .plan__ring { opacity: 1; }
+/* the featured plan's edge light is its own ring: the chosen state shows on the button there */
+.plan--featured .plan__ring { display: none !important; }
+
+/* the featured edge: a 3 px ring cut out with a mask; the conic gradient inside it is the only thing that moves */
+.plan > .plan__edge {
+	position: absolute;
+	inset: 0;
+	z-index: 3;
+	padding: 3px;
+	border-radius: inherit;
+	overflow: hidden;
+	pointer-events: none;
+	-webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+	-webkit-mask-composite: xor;
+	mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+	mask-composite: exclude;
+}
+.plan__spin {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 220%;
+	aspect-ratio: 1;
+	transform: translate(-50%, -50%) rotate(28deg);
+	background:
+		conic-gradient(from 0deg,
+			rgba(70, 208, 251, 0) 0deg,
+			rgba(70, 208, 251, 0) 20deg,
+			rgba(70, 208, 251, 0.85) 60deg,
+			#46d0fb 84deg,
+			rgba(77, 159, 243, 0.9) 118deg,
+			rgba(77, 159, 243, 0) 150deg,
+			rgba(12, 107, 237, 0) 196deg,
+			rgba(12, 107, 237, 0.85) 240deg,
+			#0c6bed 262deg,
+			rgba(12, 107, 237, 0.85) 288deg,
+			rgba(12, 107, 237, 0) 330deg,
+			rgba(70, 208, 251, 0) 360deg),
+		linear-gradient(rgba(77, 159, 243, 0.34), rgba(77, 159, 243, 0.34));
+	animation: edge-spin 11s linear infinite;
+	will-change: transform;
+}
+@keyframes edge-spin {
+	to { transform: translate(-50%, -50%) rotate(388deg); }
+}
+.is-held .plan__spin { animation-play-state: paused; }
+
+.plan__head { display: flex; align-items: center; gap: 10px; min-height: 36px; }
+.plan__icon { flex: none; width: 28px; height: 28px; }
+.plan__icon .slab { fill: var(--brand-royal); }
+.plan__icon .face { fill: rgba(255, 255, 255, 0.34); }
+.plan__icon .led { fill: var(--glow-cyan); }
+.plan h2.plan__name { font: 900 20px/1.1 var(--font-display); font-stretch: 92%; letter-spacing: -0.015em; }
+/* "Featured": a small tab at the top edge, in the extra padding of the featured card */
+.plan__flag.pill {
+	position: absolute;
+	z-index: 4;
+	top: 7px;
+	left: 50%;
+	margin: 0;
+	transform: translateX(-50%);
+	padding: 1px 10px;
+	border-radius: 999px;
+	font-size: 11.5px;
+	line-height: 18px;
+	font-weight: 800;
+	letter-spacing: 0.04em;
+	text-transform: uppercase;
+	color: var(--accent-text);
+}
+.plan__blurb { margin: 4px 0 8px; font-size: 14px; line-height: 20px; color: var(--muted); }
+
+.plan__price { margin: 0 0 6px; }
+.num--price { font-size: clamp(36px, 6vw, 48px); }
+.plan__year, .total__year {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 10px;
+	margin: 0 0 14px;
+	padding-top: 10px;
+	border-top: 1px solid var(--line);
+	font: 700 12.5px/20px var(--font-sans);
+	color: var(--muted);
+}
+.num--year { font-size: 17px; color: var(--ink); }
+
+.plan__list { margin: 0 0 14px; padding: 0; list-style: none; display: grid; gap: 6px; flex: 1 1 auto; align-content: start; }
+.plan__list li { position: relative; padding-left: 24px; font: 600 13px/19px var(--font-sans); color: var(--ink); }
+.plan__list li::before {
+	content: "";
+	position: absolute;
+	left: 0;
+	top: 1.5px;
+	width: 15px;
+	height: 15px;
+	border-radius: 50%;
+	background: rgba(70, 208, 251, 0.2);
+	box-shadow: inset 0 0 0 1.5px var(--brand-royal);
+}
+.plan__list li::after {
+	content: "";
+	position: absolute;
+	left: 5px;
+	top: 5px;
+	width: 4px;
+	height: 7px;
+	border: solid var(--brand-royal);
+	border-width: 0 2px 2px 0;
+	transform: rotate(40deg);
+}
+
+/* Select: a native radio, drawn as a button */
+.choose { display: block; }
+.choose__face { width: 100%; cursor: pointer; }
+.choose__face svg { width: 0; height: 15px; margin-right: -8px; opacity: 0; transform: scale(0.4); transition: opacity 0.2s var(--ease-ui), transform 0.35s var(--ease-spring); }
+.choose__in:checked + .choose__face {
+	border-color: transparent;
+	background: var(--action);
+	color: var(--on-action);
+	box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.25), var(--shadow-glow);
+}
+.choose__in:checked + .choose__face svg { width: 15px; margin-right: 0; opacity: 1; transform: scale(1); }
+.choose__in:focus-visible + .choose__face { outline: 2px solid var(--focus); outline-offset: 3px; }
+
+/* ---------- the total bar ---------- */
+
+.total {
+	display: grid;
+	grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+	gap: 8px 16px;
+	padding: 16px 16px 12px;
+	background-image:
+		radial-gradient(70% 90% at 100% 0%, rgba(70, 208, 251, 0.16), rgba(70, 208, 251, 0) 72%),
+		var(--glass-grain);
+}
+.total__title { font: 800 14px/20px var(--font-sans); letter-spacing: 0; color: var(--ink); }
+.total__each { margin: 2px 0 12px; }
+.num--each { font-size: 14px; font-weight: 600; color: var(--muted); letter-spacing: 0; line-height: 1; }
+.stepper { display: inline-flex; align-items: center; gap: 8px; }
+.num--count { min-width: 2.2ch; font-size: 36px; text-align: center; }
+.step {
+	display: grid;
+	place-items: center;
+	width: 44px;
+	height: 44px;
+	padding: 0;
+	border: 1px solid var(--border-control);
+	border-radius: var(--radius-sm);
+	background: var(--glass-sheen), linear-gradient(var(--glass-tint), var(--glass-tint));
+	box-shadow: var(--glass-inner), 0 6px 16px -10px rgba(var(--shade-rgb), 0.35);
+	color: var(--ink);
+	cursor: pointer;
+	transition: transform 0.35s var(--ease-spring), background-color var(--t-state) var(--ease-ui), opacity var(--t-state) var(--ease-ui);
+}
+.step svg { width: 20px; height: 20px; }
+.step:hover { transform: translateY(-1px); background: var(--glass-sheen), linear-gradient(var(--raised), var(--raised)); }
+.step:active { transform: translateY(0) scale(0.96); }
+.step:focus-visible { outline: 2px solid var(--focus); outline-offset: 3px; }
+.step[aria-disabled="true"] { opacity: 0.4; cursor: default; transform: none; }
+
+.total__sum { display: flex; flex-direction: column; align-items: flex-end; text-align: right; }
+.total__label { margin: 0; font: 800 14px/20px var(--font-sans); color: var(--ink); }
+.total__month { margin: 4px 0 2px; }
+.num--sum { font-size: clamp(44px, 4vw, 56px); }
+.total__year { width: 100%; max-width: 270px; margin: 6px 0 0; }
+.total__says {
+	grid-column: 1 / -1;
+	margin: 6px 0 0;
+	padding-top: 10px;
+	border-top: 1px solid var(--line);
+	font: 600 13px/19px var(--font-sans);
+	color: var(--muted);
+	min-height: 38px;
+}
+.note { margin: 0; font: 600 13px/18px var(--font-sans); color: var(--muted); }
+
+/* a disabled control (reduced motion switches Pause off) reads as off */
+.sample-info .btn:disabled { opacity: 0.5; cursor: default; transform: none; box-shadow: none; }
+
+/* ---------- reduced motion: one still frame, instant changes ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+	.plan__spin { animation: none; will-change: auto; }
+	.seg__thumb, .choose__face svg, .plan__ring, .step { transition: none; }
+}
+
+/* ---------- widths ---------- */
+
+/* tall desktop windows: the cards use the whole page grid, at full size; the total bar sits to the right of the fixed panel (bottom left, 440 px) */
+@media (min-width: 1100px) and (min-height: 860px) {
+	.pricing-stage { padding: clamp(78px, 11vh, 110px) var(--gutter) 36px; }
+	.plans { gap: 20px; }
+	.plan { --pt: 24px; --pb: 22px; --px: 26px; }
+	.plan__icon { width: 36px; height: 36px; }
+	.plan__head { gap: 12px; min-height: 40px; }
+	.plan h2.plan__name { font-size: 24px; }
+	.plan__blurb { margin: 8px 0 12px; font-size: 15px; line-height: 22px; }
+	.num--price { font-size: clamp(46px, 4.3vw, 62px); }
+	.plan__year { margin-bottom: 16px; }
+	.plan__year, .total__year { font-size: 13.5px; }
+	.num--year { font-size: 19px; }
+	.plan__list { gap: 8px; margin-bottom: 20px; }
+	.plan__list li { padding-left: 28px; font-size: 14.5px; line-height: 22px; }
+	.plan__list li::before { top: 3px; width: 16px; height: 16px; }
+	.plan__list li::after { left: 5.5px; top: 6.5px; }
+	.total { width: calc(100% - 456px); align-self: flex-end; padding: 20px 26px 16px; gap: 8px 28px; }
+}
+
+/* shorter desktop windows: everything sits right of the panel, three narrower cards */
+@media (min-width: 1200px) and (max-height: 859px) {
+	.pricing-stage { padding: 80px var(--gutter) 36px calc(max(var(--gutter), (100vw - var(--page-max)) / 2) + 456px); }
+	.plans { gap: 14px; }
+	.plan { --pt: 18px; --pb: 16px; --px: 18px; }
+	.plan h2.plan__name { font-size: 21px; }
+	.num--price { font-size: clamp(40px, 4vw, 52px); }
+	.plan__list li { font-size: 13.5px; line-height: 20px; }
+	.total { padding: 16px 18px 12px; gap: 6px 18px; }
+}
+
+/* phones: the cards become compact rows, the panel below */
+@media (max-width: 640px) {
+	.pricing-stage { padding: 70px var(--gutter) 340px; }
+	.piece-open { gap: 14px; }
+	.bar { gap: 10px; }
+	.bar__pill { padding: 6px 12px; font-size: 13px; line-height: 18px; }
+	.seg { width: 100%; }
+	.seg__opt { flex: 1 1 0; min-width: 0; }
+	.plans { grid-template-columns: 1fr; gap: 10px; }
+	.plan {
+		--pt: 14px; --pb: 14px; --px: 16px;
+		display: grid;
+		grid-template-columns: minmax(0, 1fr) auto;
+		grid-template-areas: "head price" "year year" "pick pick";
+		align-items: center;
+		gap: 4px 12px;
+	}
+	.plan--featured { margin-block: 0; padding-top: var(--pt); padding-bottom: var(--pb); }
+	.plan__flag.pill { display: none; }
+	.plan__head { grid-area: head; min-height: 0; }
+	.plan__blurb, .plan__list { display: none; }
+	.plan__price { grid-area: price; margin: 0; }
+	.plan__year { grid-area: year; margin: 4px 0 6px; padding-top: 8px; }
+	.choose { grid-area: pick; }
+	.num--price { font-size: 38px; }
+	.total { grid-template-columns: 1fr; gap: 14px; }
+	.total__sum { align-items: stretch; text-align: left; }
+	.total__month { margin-top: 2px; }
+	.total__year { max-width: none; }
+	.total__says { min-height: 0; margin-top: 0; }
+}
+
+/* the hint would sit on the total bar unless the window is tall */
+@media (max-height: 899px) {
+	.hint { display: none; }
+}

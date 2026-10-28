@@ -309,6 +309,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "pricing-rolling-digits",
+			"title": "Glass pricing with rolling digits",
+			"kicker": "Rolling digits",
+			"category": "UI",
+			"blurb": "Three frosted glass sample plans whose prices and total roll digit by digit when you switch billing or add email boxes.",
+			"href": "samples/pricing-rolling-digits/",
+			"image": { "base": "img/iso/pricing-rolling-digits", "widths": [400, 800], "ratio": 0.565 },
+			"tags": ["NumberFlow", "Web component", "Intl.NumberFormat"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "integration-beams",
 			"title": "Integration beams",
 			"kicker": "Beam hub",

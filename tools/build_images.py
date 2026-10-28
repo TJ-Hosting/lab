@@ -44,7 +44,6 @@ PHOTOS = [
 	('art/liquid-hover-gallery-wave', 'lab05-liquid-hover-gallery-wave.png', [512, 1024], 'photo', None),
 	('art/liquid-hover-gallery-cornflowers', 'lab05-liquid-hover-gallery-cornflowers.png', [512, 1024], 'photo', None),
 	('art/relief-light-board-stone', 'lab05-relief-light-board-stone.png', [640, 1254], 'photo', None),
-	('art/relief-light-board-leather', 'lab05-relief-light-board-leather.png', [640, 1254], 'photo', None),
 	('art/relief-light-board-metal', 'lab05-relief-light-board-metal.png', [640, 1254], 'photo', None),
 	('art/lenticular-print-sunrise', 'lab05-lenticular-print-sunrise.png', [640, 1254], 'photo', None),
 	('art/lenticular-print-moonrise', 'lab05-lenticular-print-moonrise.png', [640, 1254], 'photo', None),
@@ -52,6 +51,7 @@ PHOTOS = [
 	('art/page-turn-lookbook-cover', 'lab05-page-turn-lookbook-cover.png', [512, 1024], 'photo', None),
 	('art/page-turn-lookbook-spread-1', 'lab05-page-turn-lookbook-spread-1.png', [768, 1536], 'photo', None),
 	('art/page-turn-lookbook-spread-2', 'lab05-page-turn-lookbook-spread-2.png', [768, 1536], 'photo', None),
+	('art/relief-light-board-leather', 'lab05-relief-light-board-leather.png', [640, 1254], 'photo', None),
 	# lab-05 end
 ]
 OBJECTS = []
@@ -97,7 +97,6 @@ CUTOUTS = [
 	('iso/split-flap-board', 'lab05-split-flap-board.png', [400, 800], None),
 	('iso/star-trail-text', 'lab05-star-trail-text.png', [400, 800], None),
 	('iso/scroll-zoom-tunnel', 'lab05-scroll-zoom-tunnel.png', [400, 800], None),
-	('iso/slime-network', 'lab05-slime-network.png', [400, 800], None),
 	('iso/tear-the-curtain', 'lab05-tear-the-curtain.png', [400, 800], None),
 	('iso/dot-mesh-hero', 'lab05-dot-mesh-hero.png', [400, 800], None),
 	('iso/gpu-fluid', 'lab05-gpu-fluid.png', [400, 800], None),
@@ -105,7 +104,6 @@ CUTOUTS = [
 	('iso/integration-beams', 'lab05-integration-beams.png', [400, 800], None),
 	('iso/glass-card-flow', 'lab05-glass-card-flow.png', [400, 800], None),
 	('iso/clock-wall', 'lab05-clock-wall.png', [400, 800], None),
-	('iso/glitch-headline', 'lab05-glitch-headline.png', [400, 800], None),
 	('iso/contour-map', 'lab05-contour-map.png', [400, 800], None),
 	('iso/bento-grid', 'lab05-bento-grid.png', [400, 800], None),
 	('iso/glass-jellyfish', 'lab05-glass-jellyfish.png', [400, 800], None),
@@ -134,6 +132,9 @@ CUTOUTS = [
 	('iso/glass-diorama-card', 'lab05-glass-diorama-card.png', [400, 800], None),
 	('iso/stacking-plan-cards', 'lab05-stacking-plan-cards.png', [400, 800], None),
 	('iso/liquid-metal-monogram', 'lab05-liquid-metal-monogram.png', [400, 800], None),
+	('iso/glitch-headline', 'lab05-glitch-headline.png', [400, 800], None),
+	('iso/slime-network', 'lab05-slime-network.png', [400, 800], None),
+	('iso/pricing-rolling-digits', 'lab05-pricing-rolling-digits.png', [400, 800], None),
 	# lab-05 end
 ]
 
