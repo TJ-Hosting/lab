@@ -492,6 +492,27 @@ function partedStill() {
 	draw();
 }
 
+/* a flap already torn, so the idea reads at a glance: a short ragged slit in from the right edge, below the
+   message; the cloth under it sags and curls away. Hang again mends it. */
+function tornFlap() {
+	const phone = W < 560; // on a phone the panel covers the lower half, so the flap sits higher
+	const x0 = W + 6;
+	const y0 = H * (phone ? 0.3 : 0.5);
+	const x1 = W * (phone ? 0.62 : 0.8);
+	const y1 = H * (phone ? 0.45 : 0.7);
+	const N = 9;
+	let px = x0;
+	let py = y0;
+	for (let q = 1; q <= N; q++) {
+		const u = q / N;
+		const nx = x0 + (x1 - x0) * u + Math.sin(q * 2.3) * 7;
+		const ny = y0 + (y1 - y0) * u + Math.cos(q * 1.7) * 7;
+		cloth.cut(px, py, nx, ny);
+		px = nx;
+		py = ny;
+	}
+}
+
 /* ---------- start ---------- */
 
 function frame(dt) {
@@ -532,6 +553,7 @@ function start() {
 		return;
 	}
 
+	tornFlap();
 	draw();
 	const ctl = loop(canvas, (dt) => frame(dt), { name: 'tear-the-curtain' });
 
@@ -561,6 +583,7 @@ function start() {
 			blade = null;
 			resize();
 			build();
+			tornFlap();
 			if (paused) draw();
 		}, 150);
 	});
