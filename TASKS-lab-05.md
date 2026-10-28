@@ -99,7 +99,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S28 | 31 | skill-chips | Pointer | rebuild-from-idea (article has no licence) | matter-js@0.20.0 | 0 | committed (see git) | glass tray on the open sky; DOM tags moved by transform, engine stepped from loop() and sleeping at rest; tilt after a tap; 16.7 ms; card C28b |
 | S29 | 32 | brand-colour-sphere | SVG | rebuild-from-idea (CodePen 403) | none | 0 | **committed 03:49Z** | open sky; SVG polygons redrawn per frame (D2); full hue wheel includes violet/pink as artwork; 16.7 ms; card C29 |
 | S30 | 33 | wavy-lines-hero | SVG | adapt-code (MIT, CodePen Debug view) | none | 0 | committed (see git) | night screen; two single-path SVG layers redrawn per frame (D2); 16.7 ms; card C30 |
-| S31 | 34 | icon-micro-set | SVG | adapt-code | gsap@3.13.0 | 0 | todo | |
+| S31 | 34 | icon-micro-set | SVG | adapt-code (MIT, Debug view) | gsap@3.13.0 + MorphSVG | 0 | committed (see git) | open sky toolbar, demo toggles labelled; 12 icons drawn for the Lab; GSAP ticker asleep at rest, paused off-screen/hidden/Pause (0 rAF); 16.7 ms; card C31 |
 | S32 | 35 | weather-window | SVG | adapt-code | none (Meteocons SVGs as its one library, if licence confirmed) | 0 | todo | |
 | S33 | 36 | liquid-glass-lens | UI | adapt-code | liquid-glass-js@0.1.0 | 1 | todo | |
 | S34 | 37 | pricing-rolling-digits | UI | adapt-code (MIT) | number-flow@0.6.2 | 0 | committed (see git) | open sky; sample prices in CAD labelled; NumberFlow's inline shadow style allowed by the base style-src; autopilot flip gated by govern(); hint reworded; 16.7 ms; card C34 |

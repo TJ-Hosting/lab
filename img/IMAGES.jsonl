@@ -217,6 +217,10 @@
 {"file":"img/iso/horizontal-journey-400.webp","source":"assets/pack/lab05-horizontal-journey.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/horizontal-journey-800.avif","source":"assets/pack/lab05-horizontal-journey.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/horizontal-journey-800.webp","source":"assets/pack/lab05-horizontal-journey.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/icon-micro-set-400.avif","source":"assets/pack/lab05-icon-micro-set.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/icon-micro-set-400.webp","source":"assets/pack/lab05-icon-micro-set.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/icon-micro-set-800.avif","source":"assets/pack/lab05-icon-micro-set.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/icon-micro-set-800.webp","source":"assets/pack/lab05-icon-micro-set.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/integration-beams-400.avif","source":"assets/pack/lab05-integration-beams.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/integration-beams-400.webp","source":"assets/pack/lab05-integration-beams.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/integration-beams-800.avif","source":"assets/pack/lab05-integration-beams.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
@@ -386,6 +390,7 @@
 {"file":"img/og/honeypot.jpg","source":"assets/pack/lab-og-honeypot.png","op":"tools/render-og.mjs (lab-04): 1200x630 share card, the share-card base, code-set type in Nunito Sans"}
 {"file":"img/og/horizontal-journey.jpg","source":"assets/pack/lab05-horizontal-journey.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/humanity-type.jpg","source":"assets/pack/lab-type-blocks.png","op":"tools/render-og.mjs (lab-04): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
+{"file":"img/og/icon-micro-set.jpg","source":"assets/pack/lab05-icon-micro-set.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/integration-beams.jpg","source":"assets/pack/lab05-integration-beams.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/lamp-cord-theme.jpg","source":"assets/pack/lab05-lamp-cord-theme.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/lantern-pond.jpg","source":"assets/pack/lab05-lantern-pond.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}

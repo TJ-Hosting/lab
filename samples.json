@@ -353,6 +353,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "icon-micro-set",
+			"title": "Icon micro-interaction set",
+			"kicker": "Morphing icons",
+			"category": "SVG",
+			"blurb": "Six large toggles on a glass toolbar whose outline icons morph between two states, each with its own easing, with a small burst of dots on every press and a slow idle wave.",
+			"href": "samples/icon-micro-set/",
+			"image": { "base": "img/iso/icon-micro-set", "widths": [400, 800], "ratio": 0.558 },
+			"tags": ["GSAP", "MorphSVG", "Web Animations"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "pricing-rolling-digits",
 			"title": "Glass pricing with rolling digits",
 			"kicker": "Rolling digits",
