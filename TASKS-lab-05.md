@@ -26,7 +26,7 @@ It replaces the brief's branch lines, Step 0.4, §7's PR line and §15. PR #2 wa
 | P4 Quality pass 1 | done | 05:40 | 10:44 | 1h00m | fixes logged below; Edge 10/10; home with 63 cards; no look-alikes |
 | P5 Quality pass 2 + review | done | 05:46 | 10:42 | 1h00m | improvements on about 30 samples; blind review 7.5/10, findings 1–12 fixed |
 | P6 Quality pass 3 | skipped | | | outside | not started: P5 ran into P3's tail, and P7 went ahead |
-| P7 Integrate and report | done | 10:44 | | 45m | full npm test 24/24 (10m43s); result, memory, RUNLOG |
+| P7 Integrate and report | done | 10:44 | 11:00 | 45m | full npm test 24/24 (10m43s); result, memory, RUNLOG |
 
 Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets only.
 
