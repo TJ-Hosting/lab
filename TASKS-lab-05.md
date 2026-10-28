@@ -7,6 +7,7 @@ It replaces the brief's branch lines, Step 0.4, §7's PR line and §15. PR #2 wa
 - After the first push, open ONE draft PR: `feat/lab-05-samples-2026-10-28` into `feat/lab-mvp-2026-10-15` (base `main` if PR #1 has merged by then). Never mark it ready, never merge it. Leave PRs #1, #2 and #3 untouched.
 - Logged as a `[scope]` note in the RUNLOG (02:41:07Z). RUNLOG estimates are time only: no `-EstTok`.
 - The branch has no upstream (unset on purpose), so a bare `git push` can't reach PR #1's branch: push with `git push -u origin feat/lab-05-samples-2026-10-28` the first time.
+- After the run, 28 Oct 12:27Z: Aco asked in chat to mark PR #4 ready for merging; it is marked ready for review (still not merged). This lifts the "never mark it ready" line above for PR #4 only.
 
 ## Brief and run
 
