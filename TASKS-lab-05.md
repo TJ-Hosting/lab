@@ -75,7 +75,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S04 | 07 | glitch-headline | Type | adapt-code | none | 0 | todo | |
 | S05 | 08 | scramble-titles | Type | adapt-code | animejs@4.4.0 | 0 | todo | |
 | S06 | 09 | coral-ink | Generative | rebuild-from-idea (CodePen 403) | none | 0 | **gated 03:15** | day screen; 16.7 ms GPU; card C06; Firefox not run (Q1) |
-| S07 | 10 | slime-network | Generative | rebuild-from-idea | none | 0 | todo | |
+| S07 | 10 | slime-network | Generative | rebuild-from-idea | none | 0 | **gated 03:40** | night screen; about 14,400 agents, sheds agents if over 12 ms; 16.7 ms; card C07 |
 | S08 | 11 | streamline-poster | Generative | adapt-code | none | 0 | todo | |
 | S09 | 12 | contour-map | Generative | adapt-code | none | 0 | todo | |
 | S10 | 13 | dither-flow-ink | WebGL | adapt-code | none | 0 | todo | |
@@ -90,8 +90,8 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S19 | 22 | stacking-plan-cards | Scroll | adapt-code | none | 0 | todo | |
 | S20 | 23 | request-in-ms | Scroll | adapt-code | none | 0 | todo | |
 | S21 | 24 | dawn-to-night | Scroll | adapt-code | none | 0 | todo | |
-| S22 | 25 | tear-the-curtain | Pointer | adapt-code | none | 0 | todo | |
-| S23 | 26 | dot-mesh-hero | Pointer | adapt-code | none | 0 | todo | |
+| S22 | 25 | tear-the-curtain | Pointer | rebuild-from-idea (CodePen 403) | none | 0 | **gated 03:30** | day screen; 16.7 ms; card C22; its builder tried a spoofed user agent on CodePen once and the harness blocked it (brief §8a now forbids it) |
+| S23 | 26 | dot-mesh-hero | Pointer | rebuild-from-idea (CodePen and its Debug view 403) | none | 0 | **gated 03:35** | day screen, glass card; 16.7 ms; card C23 |
 | S24 | 27 | glass-jellyfish | Pointer | adapt-code | none | 0 | todo | |
 | S25 | 28 | halftone-dissolve | Pointer | adapt-code | gsap@3.13.0 | 2 | todo | |
 | S26 | 29 | lamp-cord-theme | Pointer | adapt-code | none | 0 | todo | |
@@ -140,7 +140,9 @@ None yet.
 
 ## Defects (P4) and improvements (P5, P6)
 
-- [P4] "How it's made" notes too long (about seven lines at 375): S16, S06, S01. Trim to two sentences. The builder brief now says so (§8a).
+- [P4] "How it's made" notes too long (about seven lines at 375): S16, S06, S01, S03, S22, S07. Trim to two sentences. The builder brief now says so (§8a).
+- [P4] Titles: builders wrote Title Case ("Coral Ink Reactor"); the Lab uses sentence case ("Particle field"). Normalise every new sample's h1, `<title>`, og:title and samples.json title in one sweep.
+- [P5] S22: the curtain is subtle in a still; stronger folds or a corner already torn so the twist reads at a glance.
 - [P5] C04 (glitch card) reads as a stacked block; regenerate with clearer offset strips if the budget allows.
 - [P5] C07 (slime tray) and C06 (petri dish) have similar silhouettes on the home; regenerate C07 as a different object if the budget allows.
 

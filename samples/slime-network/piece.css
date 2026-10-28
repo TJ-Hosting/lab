@@ -1,0 +1,51 @@
+/* Sample 10 — Slime Network. The shell (sky, top bar, panel, the night screen) comes from css/; only the piece is styled here.
+   The network is drawn in piece.js from DS v9's blues at night: navy and royal at the edges, azure, then cyan light
+   (#46d0fb) and white at the core of a vein. The screen is a night screen because the veins are light on dark. */
+
+.piece {
+	display: block;
+	width: 100%;
+	height: 100%;
+	touch-action: none; /* the canvas takes drags: they drop food */
+	cursor: crosshair;
+}
+
+/* the live counts, a small night-glass pill in the screen's top right corner */
+.sample--slime-network .count {
+	position: absolute;
+	z-index: 5;
+	top: 46px;
+	right: 14px;
+	display: flex;
+	align-items: baseline;
+	gap: 8px;
+	margin: 0;
+	padding: 7px 16px 7px 14px;
+	white-space: nowrap;
+	color: var(--ink);
+}
+.count__label {
+	font: 700 11px/16px var(--font-mono);
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--muted);
+}
+.count__value {
+	min-width: 2ch;
+	margin-right: 8px;
+	font: 800 15px/20px var(--font-display);
+	letter-spacing: -0.005em;
+	font-variant-numeric: tabular-nums;
+	color: var(--ink);
+}
+.count__value:last-child { margin-right: 0; }
+
+@media (max-width: 560px) {
+	.sample--slime-network .count { top: 42px; right: 10px; padding: 6px 13px 6px 12px; gap: 6px; }
+	.count__value { margin-right: 6px; }
+}
+
+/* the hint would run under the info panel on a narrow window, so it goes before that */
+@media (max-width: 940px) {
+	.sample--slime-network .hint { display: none; }
+}
