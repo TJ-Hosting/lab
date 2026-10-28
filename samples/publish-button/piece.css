@@ -1,0 +1,311 @@
+/* Sample 45 — Publish button with confetti, on the open day sky.
+   One light glass card (DS v9: white glass, blue shadows): a small site preview drawn in SVG, a big Publish button,
+   a three-part progress rail and a status line. A transparent canvas over the stage carries the confetti.
+   Motion in this file: a few transform / opacity transitions (the preview blocks, the rail ticks, the flags, the ring).
+   The squeeze, the spring fill, the idle sheen, the tick and the ghost pointer are driven by piece.js (Web Animations,
+   governed by the lab). Under reduced motion nothing here moves. */
+
+.stage {
+	/* the info panel sits bottom left: keep the card clear of it */
+	padding: 84px var(--gutter) 296px;
+}
+
+/* soft colour behind the glass, so the frost has something to blur (static) */
+.glow { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.glow span { position: absolute; border-radius: 50%; }
+.glow__a {
+	width: 620px; height: 620px; left: calc(50% - 440px); top: 2%;
+	background: radial-gradient(closest-side, rgba(70, 208, 251, 0.3), rgba(70, 208, 251, 0));
+}
+.glow__b {
+	width: 700px; height: 700px; left: calc(50% - 60px); top: 8%;
+	background: radial-gradient(closest-side, rgba(77, 159, 243, 0.26), rgba(77, 159, 243, 0));
+}
+
+.piece-open {
+	position: relative;
+	z-index: 1;
+	width: min(500px, 100%);
+}
+
+/* the confetti: a canvas over the stage, never over the page (the stage clips it) */
+.confetti {
+	position: absolute;
+	inset: 0;
+	z-index: 4;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+}
+/* the white pieces need an edge on the pale sky; the filter is on only while pieces are in the air */
+.confetti.is-firing { filter: drop-shadow(0 1px 1.2px rgba(22, 66, 140, 0.55)); }
+
+.note { position: absolute; top: 90px; left: 50%; margin: 0; padding: 10px 16px; transform: translateX(-50%); font-size: 14px; }
+
+/* ---------- the card ---------- */
+
+.deploy {
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+	padding: 20px;
+	text-align: left;
+}
+.deploy__sim {
+	align-self: flex-start;
+	max-width: 100%;
+	padding: 6px 14px;
+	font-size: 13.5px;
+	line-height: 20px;
+	white-space: normal;
+}
+
+/* ---------- the site preview ---------- */
+
+.site {
+	position: relative;
+	width: min(100%, 420px);
+	margin-inline: auto;
+	border-radius: var(--radius-md);
+	background: #ffffff;
+	box-shadow: 0 0 0 1px rgba(94, 128, 174, 0.34), 0 16px 30px -18px rgba(var(--shade-rgb), 0.5);
+}
+.site__bar {
+	display: flex;
+	align-items: center;
+	gap: 6px;
+	height: 30px;
+	padding: 0 8px 0 11px;
+	border-radius: var(--radius-md) var(--radius-md) 0 0;
+	background: var(--glass-sheen), linear-gradient(#f4faff, #e6f3fc);
+	border-bottom: 1px solid var(--line);
+}
+.site__bar i { width: 8px; height: 8px; border-radius: 50%; background: var(--glow-cyan); }
+.site__bar i:nth-child(2) { background: var(--brand-azure); }
+.site__bar i:nth-child(3) { background: #8fa8cb; }
+.site__addr {
+	flex: 1;
+	min-width: 0;
+	margin-left: 6px;
+	padding: 1px 9px;
+	border-radius: 99px;
+	background: #ffffff;
+	box-shadow: inset 0 0 0 1px var(--line);
+	color: var(--muted);
+	font: 500 11.5px/18px var(--font-mono);
+	overflow: hidden;
+	text-overflow: ellipsis;
+	white-space: nowrap;
+}
+.site__flags { position: relative; flex: none; width: 56px; height: 20px; }
+.flag {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 5px;
+	border-radius: 6px;
+	font: 700 10.5px/1 var(--font-mono);
+	letter-spacing: 0.08em;
+	text-transform: uppercase;
+}
+.flag--draft { background: #ffffff; box-shadow: inset 0 0 0 1px var(--border-control); color: var(--muted); }
+.flag--live { background: var(--action); color: var(--on-action); opacity: 0; }
+.flag__dot { width: 6px; height: 6px; border-radius: 50%; background: var(--glow-cyan); box-shadow: 0 0 0 2px rgba(70, 208, 251, 0.3); }
+
+.site__frame { position: relative; overflow: hidden; border-radius: 0 0 var(--radius-md) var(--radius-md); }
+.site__page { display: block; width: 100%; height: auto; }
+
+/* the blocks of the page start faint and arrive one stage at a time (opacity + transform only) */
+.pv {
+	opacity: 0.4;
+	transform: translate3d(0, 6px, 0);
+	transform-box: fill-box;
+	transform-origin: 50% 50%;
+	transition: opacity 0.6s var(--ease-out), transform 0.8s var(--ease-spring);
+}
+.pv-c { transform: scale(0.8); }
+.is-1 .pv-a, .is-2 .pv-a, .is-3 .pv-a,
+.is-2 .pv-b, .is-3 .pv-b,
+.is-3 .pv-c { opacity: 1; transform: none; }
+/* a frosted veil over the draft, lifted when it goes live */
+.site__veil { position: absolute; inset: 0; background: rgba(255, 255, 255, 0.22); transition: opacity 0.6s var(--ease-out); pointer-events: none; }
+.is-3 .site__veil { opacity: 0.45; }
+.deploy[data-state="done"] .site__veil { opacity: 0; }
+
+/* the live ring: a cyan edge around the window, faded in */
+.site__ring {
+	position: absolute;
+	inset: -3px;
+	border-radius: calc(var(--radius-md) + 3px);
+	box-shadow: 0 0 0 2px rgba(70, 208, 251, 0.85), 0 0 26px 2px rgba(70, 208, 251, 0.5);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.5s var(--ease-out);
+}
+.deploy[data-state="done"] .site__ring { opacity: 1; }
+.deploy[data-state="done"] .flag--live { opacity: 1; }
+.deploy[data-state="done"] .flag--draft { opacity: 0; }
+.flag { transition: opacity 0.3s var(--ease-ui); }
+
+/* ---------- the big button ---------- */
+
+.publish {
+	position: relative;
+	display: block;
+	width: 100%;
+	height: 64px;
+	padding: 0;
+	border: 0;
+	border-radius: var(--radius-lg);
+	background: transparent;
+	color: var(--ink);
+	font: 800 18px/1 var(--font-sans);
+	letter-spacing: 0.005em;
+	cursor: pointer;
+	isolation: isolate;
+	transform-origin: 50% 62%;
+	box-shadow: var(--shadow-glow);
+	transition: transform 0.35s var(--ease-spring);
+	-webkit-tap-highlight-color: transparent;
+}
+.publish:focus-visible { border-radius: var(--radius-lg); outline-offset: 4px; }
+.publish__track {
+	position: absolute;
+	inset: 0;
+	overflow: hidden;
+	border-radius: inherit;
+	background: linear-gradient(#ffffff, #e9f4fd);
+}
+.publish__layer {
+	position: absolute;
+	inset: 0;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	white-space: nowrap;
+}
+.publish__layer--ink { color: var(--ink); }
+.publish__layer--white { color: var(--on-action); will-change: transform; }
+/* the fill is the spring bar: piece.js moves it with translateX, and its white label back the other way */
+.publish__fill {
+	position: absolute;
+	inset: 0;
+	overflow: hidden;
+	background: var(--action);
+	will-change: transform;
+}
+.publish__icon { display: none; width: 24px; height: 24px; place-items: center; }
+.publish__icon svg { width: 100%; height: 100%; }
+.deploy[data-state="ready"] .publish__icon--go,
+.deploy[data-state="done"] .publish__icon--tick { display: inline-grid; }
+.deploy[data-state="done"] .publish__icon--tick { width: 28px; height: 28px; }
+
+/* a light streak across the blue while it waits: a Web Animation from piece.js (governed: it stops off-screen,
+   in a hidden tab and under Pause), so it is not a CSS animation here */
+.publish__sheen {
+	position: absolute;
+	top: -12%;
+	bottom: -12%;
+	left: 0;
+	width: 38%;
+	background: linear-gradient(100deg, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.2), rgba(255, 255, 255, 0));
+	transform: translate3d(-150%, 0, 0) skewX(-18deg);
+	opacity: 0;
+}
+
+/* hover and press, while it waits (transform only; piece.js plays the bigger squeeze on release) */
+.deploy[data-state="ready"] .publish:hover { transform: translate3d(0, -2px, 0); }
+.deploy[data-state="ready"] .publish:active { transform: scale(0.965, 0.92); transition-duration: 0.12s; }
+.publish[aria-disabled="true"] { cursor: progress; box-shadow: 0 0 0 1px var(--border-control), 0 10px 24px -14px rgba(var(--shade-rgb), 0.5); }
+
+/* ---------- the progress rail: three parts, one per stage ---------- */
+
+.rail { display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; }
+.rail__seg { min-width: 0; }
+.rail__bar {
+	display: block;
+	height: 8px;
+	overflow: hidden;
+	border-radius: 99px;
+	background: #e6f3fc;
+	box-shadow: inset 0 0 0 1px rgba(94, 128, 174, 0.5);
+}
+.rail__fill {
+	display: block;
+	height: 100%;
+	border-radius: inherit;
+	background: var(--action);
+	transform: scaleX(0);
+	transform-origin: 0 50%;
+}
+.rail__label {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+	margin-top: 7px;
+	color: var(--muted);
+	font: 700 13px/18px var(--font-sans);
+	white-space: nowrap;
+}
+.rail__tick {
+	flex: none;
+	width: 14px;
+	height: 14px;
+	color: var(--accent-text);
+	opacity: 0;
+	transform: scale(0.3);
+	transition: transform 0.45s var(--ease-spring), opacity 0.2s var(--ease-ui);
+}
+.rail__seg.is-current .rail__label { color: var(--ink); }
+.rail__seg.is-done .rail__label { color: var(--accent-text); }
+.rail__seg.is-done .rail__tick { opacity: 1; transform: none; }
+
+/* ---------- status and Publish again ---------- */
+
+.deploy__foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; min-height: 40px; }
+.status { flex: 1 1 140px; min-width: 0; margin: 0; color: var(--ink); font: 600 14px/20px var(--font-sans); }
+.again { flex: none; transition: transform 0.35s var(--ease-spring), opacity 0.25s var(--ease-ui); }
+.again[inert] { opacity: 0; transform: translate3d(0, 6px, 0); pointer-events: none; }
+
+/* the ghost pointer of the idle autopilot (piece.js moves and fades it) */
+.deploy .ghost {
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index: 6;
+	width: 34px;
+	height: 34px;
+	margin: 0;
+	border-radius: 50%;
+	background: radial-gradient(circle at 36% 30%, #ffffff, rgba(255, 255, 255, 0.7) 42%, rgba(70, 208, 251, 0.4) 72%);
+	box-shadow: 0 0 0 1.5px rgba(5, 95, 233, 0.6), 0 10px 18px -6px rgba(var(--shade-rgb), 0.55);
+	opacity: 0;
+	pointer-events: none;
+}
+
+/* ---------- phones ---------- */
+
+@media (max-width: 720px) {
+	.stage { padding: 80px var(--gutter) 292px; }
+	.deploy { gap: 12px; padding: 16px; }
+	.deploy__sim { padding: 5px 12px; font-size: 13px; line-height: 19px; }
+	.publish { height: 56px; font-size: 17px; }
+	.rail { gap: 8px; }
+	.rail__label { font-size: 12.5px; }
+}
+@media (max-height: 640px) {
+	.stage { padding-bottom: 40px; }
+}
+
+/* ---------- reduced motion: a still, then instant steps ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+	.deploy[data-state="ready"] .publish:hover,
+	.deploy[data-state="ready"] .publish:active { transform: none; }
+	.pv, .pv-c { transform: none; }
+	.rail__tick, .again[inert] { transform: none; }
+	.confetti { display: none; }
+}

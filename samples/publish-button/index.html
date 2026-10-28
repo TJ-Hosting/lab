@@ -1,0 +1,185 @@
+<!doctype html>
+<!--
+  TJ-Hosting Lab — Sample 45, "Publish button with confetti" (lab-05), DS v9 "Day sky".
+  Stage C: open sky. One light glass card, a CSS/SVG site preview, a big Publish button that squeezes and fills,
+  a three-part progress rail and a confetti canvas. Everything here is a simulation: nothing is sent anywhere.
+-->
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<!-- the base policy, unchanged: canvas-confetti runs on this page's own canvas, with no Web Worker -->
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<title>Publish button with confetti — confetti · TJ-Hosting Lab</title>
+	<meta name="description" content="A big Publish button that squeezes when pressed, fills like a springy progress bar through Uploading, Optimising and Live, then turns into a tick and bursts into glass-drop confetti. A simulation: nothing is uploaded. Web Animations and canvas-confetti.">
+	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/publish-button/">
+	<meta name="theme-color" content="#eef7fc">
+	<link rel="icon" href="../../img/brand/tj-mark.svg" type="image/svg+xml">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="TJ-Hosting Lab">
+	<meta property="og:title" content="Publish button with confetti — TJ-Hosting Lab">
+	<meta property="og:description" content="A simulated publish: the button squeezes, fills in stages, snaps into a tick and fires glass-drop confetti.">
+	<meta property="og:url" content="https://lab.tj-hosting.ca/samples/publish-button/">
+	<meta property="og:image" content="https://lab.tj-hosting.ca/img/og/publish-button.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="A light glass card with a small site preview and a wide blue Publish button, blue and white confetti drops bursting above it">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="preload" href="../../fonts/nunito-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="../../fonts/jetbrains-mono-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="../../css/glass.css">
+	<link rel="stylesheet" href="../../css/lab.css">
+	<link rel="stylesheet" href="../../css/sample.css">
+	<link rel="stylesheet" href="piece.css">
+	<script src="../../js/early.js"></script>
+	<script type="module" src="piece.js"></script>
+</head>
+<body class="sample sample--publish-button">
+	<a class="skip" href="#about-piece">Skip to the description</a>
+
+	<div class="sky" aria-hidden="true"></div>
+
+	<header class="topbar">
+		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
+			<img src="../../img/brand/tj-mark.svg" alt="" width="34" height="34">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Lab">
+			<a href="../../#samples">All samples</a>
+		</nav>
+	</header>
+
+	<!-- stage C: open sky. The card is the piece; the canvas on top of it is only for the confetti. -->
+	<main id="main" class="stage" data-motion>
+		<div class="glow" aria-hidden="true"><span class="glow__a"></span><span class="glow__b"></span></div>
+
+		<div class="piece-open">
+			<section class="deploy glass glass--xl glass--strong" id="deploy" aria-label="Publish a site (simulation)" data-state="ready">
+				<p class="pill deploy__sim"><span class="pill__dot" aria-hidden="true"></span>Simulated publish · nothing is uploaded</p>
+
+				<!-- the site preview: drawn here in SVG, it fills in as the stages pass -->
+				<div class="site" aria-hidden="true">
+					<div class="site__bar">
+						<i></i><i></i><i></i>
+						<span class="site__addr">yoursite.example</span>
+						<span class="site__flags"><b class="flag flag--draft">Draft</b><b class="flag flag--live"><span class="flag__dot"></span>Live</b></span>
+					</div>
+					<div class="site__frame">
+						<svg class="site__page" viewBox="0 0 400 168" focusable="false">
+							<defs>
+								<linearGradient id="pv-sky" x1="0" y1="0" x2="0" y2="1">
+									<stop offset="0" stop-color="#4d9ff3"/>
+									<stop offset="1" stop-color="#d6ecfd"/>
+								</linearGradient>
+								<clipPath id="pv-hero"><rect x="16" y="36" width="368" height="80" rx="10"/></clipPath>
+							</defs>
+							<rect width="400" height="168" fill="#ffffff"/>
+
+							<g class="pv pv-a">
+								<circle cx="30" cy="20" r="8" fill="#0c6bed"/>
+								<rect x="46" y="16" width="46" height="8" rx="4" fill="#0b2a63"/>
+								<rect x="252" y="17" width="30" height="6" rx="3" fill="#9db8d8"/>
+								<rect x="294" y="17" width="34" height="6" rx="3" fill="#9db8d8"/>
+								<rect x="340" y="17" width="44" height="6" rx="3" fill="#0c6bed"/>
+								<g clip-path="url(#pv-hero)">
+									<rect x="16" y="36" width="368" height="80" fill="url(#pv-sky)"/>
+									<circle cx="338" cy="62" r="15" fill="#46d0fb" opacity=".92"/>
+									<path d="M236 60c0-7 6-12 13-11 3-6 13-6 16 1 7-1 12 4 11 10z" fill="#ffffff" opacity=".95"/>
+									<path d="M16 118V98C70 74 128 112 200 94s118-18 184 4v20z" fill="#0c6bed"/>
+									<path d="M16 118v-8c58-18 112 6 176-6s122-8 192 0v14z" fill="#0b2a63" opacity=".88"/>
+								</g>
+								<rect x="32" y="52" width="136" height="11" rx="5.5" fill="#ffffff"/>
+								<rect x="32" y="70" width="98" height="8" rx="4" fill="#ffffff" opacity=".85"/>
+								<rect x="32" y="87" width="58" height="16" rx="8" fill="#0b2a63"/>
+							</g>
+
+							<g class="pv pv-b">
+								<rect x="16" y="126" width="112" height="34" rx="8" fill="#e6f3fc" stroke="#cddff1"/>
+								<circle cx="35" cy="143" r="7" fill="#0c6bed"/>
+								<rect x="49" y="136" width="60" height="6" rx="3" fill="#0b2a63"/>
+								<rect x="49" y="147" width="42" height="5" rx="2.5" fill="#9db8d8"/>
+								<rect x="144" y="126" width="112" height="34" rx="8" fill="#e6f3fc" stroke="#cddff1"/>
+								<path d="M163 137l8 13h-16z" fill="#4d9ff3"/>
+								<rect x="177" y="136" width="60" height="6" rx="3" fill="#0b2a63"/>
+								<rect x="177" y="147" width="42" height="5" rx="2.5" fill="#9db8d8"/>
+								<rect x="272" y="126" width="112" height="34" rx="8" fill="#e6f3fc" stroke="#cddff1"/>
+								<path d="M291 136l2 4.2 4.6.6-3.4 3.2.9 4.6-4.1-2.3-4.1 2.3.9-4.6-3.4-3.2 4.6-.6z" fill="#46d0fb"/>
+								<rect x="305" y="136" width="60" height="6" rx="3" fill="#0b2a63"/>
+								<rect x="305" y="147" width="42" height="5" rx="2.5" fill="#9db8d8"/>
+							</g>
+
+							<g class="pv pv-c">
+								<path d="M300 40l2.2 6.3 6.3 2.2-6.3 2.2-2.2 6.3-2.2-6.3-6.3-2.2 6.3-2.2z" fill="#ffffff"/>
+								<path d="M356 84l1.6 4.4 4.4 1.6-4.4 1.6-1.6 4.4-1.6-4.4-4.4-1.6 4.4-1.6z" fill="#ffffff"/>
+								<path d="M210 48l1.4 3.8 3.8 1.4-3.8 1.4-1.4 3.8-1.4-3.8-3.8-1.4 3.8-1.4z" fill="#ffffff"/>
+							</g>
+						</svg>
+						<span class="site__veil"></span>
+					</div>
+					<span class="site__ring"></span>
+				</div>
+
+				<!-- the big button: two copies of its label (ink on the pale track, white on the blue fill) so the text stays readable as the fill passes it -->
+				<button class="publish" type="button" data-action="publish" aria-label="Publish site, simulated" aria-describedby="deploy-status">
+					<span class="publish__track" aria-hidden="true">
+						<span class="publish__layer publish__layer--ink">
+							<span class="publish__icon publish__icon--go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5.5 11.5L12 5l6.5 6.5"/></svg></span>
+							<span class="publish__icon publish__icon--tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.8l4.6 4.6L19 7.2"/></svg></span>
+							<span class="publish__text">Publish site</span>
+						</span>
+						<span class="publish__fill">
+							<span class="publish__sheen"></span>
+							<span class="publish__layer publish__layer--white">
+								<span class="publish__icon publish__icon--go"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5.5 11.5L12 5l6.5 6.5"/></svg></span>
+								<span class="publish__icon publish__icon--tick"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.2" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.8l4.6 4.6L19 7.2"/></svg></span>
+								<span class="publish__text">Publish site</span>
+							</span>
+						</span>
+					</span>
+				</button>
+
+				<!-- the progress: three parts, one per stage. This is the progressbar the button cannot be. -->
+				<div class="rail" role="progressbar" aria-label="Publish progress, simulated" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0" aria-valuetext="Not started">
+					<div class="rail__seg">
+						<span class="rail__bar"><span class="rail__fill"></span></span>
+						<span class="rail__label">Uploading<svg class="rail__tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.8l4.6 4.6L19 7.2"/></svg></span>
+					</div>
+					<div class="rail__seg">
+						<span class="rail__bar"><span class="rail__fill"></span></span>
+						<span class="rail__label">Optimising<svg class="rail__tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.8l4.6 4.6L19 7.2"/></svg></span>
+					</div>
+					<div class="rail__seg">
+						<span class="rail__bar"><span class="rail__fill"></span></span>
+						<span class="rail__label">Live<svg class="rail__tick" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round" stroke-linejoin="round"><path d="M5 12.8l4.6 4.6L19 7.2"/></svg></span>
+					</div>
+				</div>
+
+				<div class="deploy__foot">
+					<p class="status" id="deploy-status" role="status" aria-live="polite">Ready. Simulation only.</p>
+					<button class="btn btn--sm btn--ghost again" type="button" data-action="again" inert>Publish again</button>
+				</div>
+
+				<span class="ghost" aria-hidden="true"></span>
+			</section>
+		</div>
+
+		<canvas class="confetti" aria-hidden="true"></canvas>
+		<noscript><p class="note glass glass--soft">The button needs JavaScript. This is a simulation: nothing is uploaded either way.</p></noscript>
+	</main>
+
+	<p class="hint glass glass--pill" aria-hidden="true">Press Publish · or wait</p>
+
+	<aside class="sample-info glass glass--strong" id="about-piece" aria-labelledby="piece-title">
+		<p class="eyebrow">Sample 45 · Confetti</p>
+		<h1 id="piece-title">Publish button with confetti</h1>
+		<p class="how"><b>How it's made:</b> The button's squeeze and spring fill are Web Animations; canvas-confetti fires glass drops, rings and stars drawn from SVG paths.
+		It runs itself when idle, and pauses off-screen or in a hidden tab.</p>
+		<div class="controls">
+			<button class="btn btn--sm btn--primary" type="button" data-action="replay">Replay</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="pause" aria-pressed="false">Pause</button>
+			<a class="back" href="../../#samples">← Back to the lab</a>
+		</div>
+	</aside>
+</body>
+</html>

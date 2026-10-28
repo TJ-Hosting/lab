@@ -110,7 +110,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S39 | 42 | testimonial-wall | UI | adapt-code | none | 0 | todo | |
 | S40 | 43 | browser-frame-showcase | UI | adapt-code | none | 4 | todo | wordless layout art |
 | S41 | 44 | focus-trail-form | UI | adapt-code (MIT, Debug view) | none | 0 | committed (see git) | demo form labelled "nothing is sent or stored"; 16.7 ms; card C41 |
-| S42 | 45 | publish-button | UI | adapt-code | canvas-confetti@1.9.4 | 0 | todo | |
+| S42 | 45 | publish-button | UI | adapt-code (library use, ISC) | canvas-confetti@1.9.4 | 0 | committed (see git) | open sky card; "Simulated publish · nothing is uploaded"; confetti on its own canvas, no worker, cleared on hide/pause; 16.7 ms; card C42 |
 | S43 | 46 | edge-network-globe | Data | adapt-code (MIT, cobe 2.0.1 vendored) | cobe@2.0.1 | 0 | committed (see git) | night screen; cobe's update() painted from loop() (2.0.1 has no own loop); "Illustrative · not a real network"; 16.7 ms; card C43 |
 | S44 | 47 | clock-wall | Data | rebuild-from-idea | none | 0 | **committed 04:04Z** | open sky; 102 WAAPI clock faces, local 24 h time; 16.7 ms; card C44 |
 | S45 | 48 | wind-snapshot | Data | adapt-code | wind-gl (repo dist at a commit SHA) | 0 | todo | data frames only if licence confirmed |
@@ -161,6 +161,7 @@ None yet.
 - [P4] S57: the phone chips read lowercase "stone / leather / metal"; use sentence case. **Done 05:42Z.**
 - [P5] S57: the leather texture has a visible vertical seam at the centre; regenerate A57 leather (one Codex attempt). **Done 06:14Z**: A57d (prompt asks for one continuous piece with no seams or centre line); centre crop checked, no seam; built at 640 and 1254.
 - [P5] S56: at 375 the three cards are about 96 px wide with empty sky above; larger cards (a scroll-snap row or two plus one) would show the morph better on phones.
+- [P5] S42: the gated stills show the ready state only; consider a reduced-motion still that shows the Live tick, or a first autopilot run sooner, so the twist reads at a glance.
 
 ## Incidents
 

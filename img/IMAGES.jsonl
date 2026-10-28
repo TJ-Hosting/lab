@@ -253,6 +253,10 @@
 {"file":"img/iso/pricing-rolling-digits-400.webp","source":"assets/pack/lab05-pricing-rolling-digits.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/pricing-rolling-digits-800.avif","source":"assets/pack/lab05-pricing-rolling-digits.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/pricing-rolling-digits-800.webp","source":"assets/pack/lab05-pricing-rolling-digits.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/publish-button-400.avif","source":"assets/pack/lab05-publish-button.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/publish-button-400.webp","source":"assets/pack/lab05-publish-button.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/publish-button-800.avif","source":"assets/pack/lab05-publish-button.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/publish-button-800.webp","source":"assets/pack/lab05-publish-button.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/relay-480.avif","source":"assets/pack/lab-relay.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/relay-480.webp","source":"assets/pack/lab-relay.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/relay-960.avif","source":"assets/pack/lab-relay.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
@@ -377,6 +381,7 @@
 {"file":"img/og/particle-field.jpg","source":"assets/pack/lab-particles.png","op":"tools/render-og.mjs (lab-04): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/pendulum-wave.jpg","source":"assets/pack/lab05-pendulum-wave.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/pricing-rolling-digits.jpg","source":"assets/pack/lab05-pricing-rolling-digits.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
+{"file":"img/og/publish-button.jpg","source":"assets/pack/lab05-publish-button.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/relief-light-board.jpg","source":"assets/pack/lab05-relief-light-board.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/request-in-ms.jpg","source":"assets/pack/lab05-request-in-ms.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/scramble-titles.jpg","source":"assets/pack/lab05-scramble-titles.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}

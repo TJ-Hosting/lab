@@ -375,6 +375,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "publish-button",
+			"title": "Publish button with confetti",
+			"kicker": "Confetti",
+			"category": "UI",
+			"blurb": "A big Publish button squeezes when pressed, fills like a springy progress bar through Uploading, Optimising and Going live, snaps into a tick and bursts into glass-drop confetti (a simulation: nothing is uploaded).",
+			"href": "samples/publish-button/",
+			"image": { "base": "img/iso/publish-button", "widths": [400, 800], "ratio": 1.18 },
+			"tags": ["canvas-confetti", "Web Animations", "SVG"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "edge-network-globe",
 			"title": "Edge network globe",
 			"kicker": "Dotted globe",
