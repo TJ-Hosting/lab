@@ -595,6 +595,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "ascii-sculpture",
+			"title": "ASCII sculpture",
+			"kicker": "Glyph render",
+			"category": "Toys",
+			"blurb": "A torus knot made of text characters that you can turn by hand, in four character sets and an amber terminal look.",
+			"href": "samples/ascii-sculpture/",
+			"image": { "base": "img/iso/ascii-sculpture", "widths": [400, 800], "ratio": 1.116 },
+			"tags": ["three.js", "WebGL", "Canvas 2D"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "lantern-pond",
 			"title": "Lantern pond ripples",
 			"kicker": "Dusk water",

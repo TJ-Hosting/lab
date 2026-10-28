@@ -97,6 +97,10 @@
 {"file":"img/art/transition-slider-dawn-768.avif","source":"assets/pack/lab05-transition-slider-dawn.png","op":"resize"}
 {"file":"img/art/transition-slider-dawn-768.webp","source":"assets/pack/lab05-transition-slider-dawn.png","op":"resize"}
 {"file":"img/brand/tj-mark.svg","source":"https://tj-hosting.ca/img/favicon.svg (TJ-Hosting's own mark)","op":"redrawn by hand: same TJ path and scanline pattern, lab gradient and rounded tile"}
+{"file":"img/iso/ascii-sculpture-400.avif","source":"assets/pack/lab05-ascii-sculpture.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/ascii-sculpture-400.webp","source":"assets/pack/lab05-ascii-sculpture.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/ascii-sculpture-800.avif","source":"assets/pack/lab05-ascii-sculpture.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/ascii-sculpture-800.webp","source":"assets/pack/lab05-ascii-sculpture.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/bee-320.avif","source":"assets/pack/lab-bee.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/bee-320.webp","source":"assets/pack/lab-bee.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/bee-640.avif","source":"assets/pack/lab-bee.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
@@ -409,6 +413,7 @@
 {"file":"img/iso/wind-snapshot-400.webp","source":"assets/pack/lab05-wind-snapshot.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/wind-snapshot-800.avif","source":"assets/pack/lab05-wind-snapshot.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/wind-snapshot-800.webp","source":"assets/pack/lab05-wind-snapshot.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/og/ascii-sculpture.jpg","source":"assets/pack/lab05-ascii-sculpture.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/bento-grid.jpg","source":"assets/pack/lab05-bento-grid.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/brand-colour-sphere.jpg","source":"assets/pack/lab05-brand-colour-sphere.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/browser-frame-showcase.jpg","source":"assets/pack/lab05-browser-frame-showcase.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}

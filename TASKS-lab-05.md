@@ -121,7 +121,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S50 | 53 | marble-harp | Toys | rebuild-from-idea | none | 0 | committed (see git) | night screen; sound off until pressed, 8-voice cap; Save PNG; 16.7 ms; card C50 |
 | S51 | 54 | planet-maker | Toys | rebuild-from-idea (source proprietary, nothing read) | none | 0 | committed (see git) | night screen; seeded worlds with own names; PNG poster download proven under the CSP; idle roll every 12 s via loop(); 16.7 ms; card C51 |
 | S52 | 55 | glass-mandala | Toys | adapt-code (MIT, bbc8f44) | none | 0 | committed (see git) | open sky plate; no storage (source's saving dropped); PNG download proven under the CSP (object URL); demo strokes via loop(); 16.7 ms; card C52 |
-| S53 | 56 | ascii-sculpture | Toys | adapt-code | three@0.186.1 | 0 | todo | |
+| S53 | 56 | ascii-sculpture | Toys | adapt-code (MIT) | three@0.186.1 (core only) | 0 | committed (see git) | night screen terminal; small WebGL target read back, glyphs drawn on Canvas 2D (no DOM text per frame); 16.7 ms (own bench about 4 ms a frame); card C53 |
 | S54 | 57 | lantern-pond | Image | adapt-code (MIT, e90bd54) | none | 1 (A54) | committed (see git) | night screen framing the pond photo; photo shown plain without WebGL/float targets; 16.7 ms; card C54 |
 | S55 | 58 | transition-slider | Image | adapt-code (MIT, gl-transitions 0efa165; 8 files each MIT) | ogl@1.0.11 | 3 (A55a-c) | committed (see git) | day screen; first photo as <img> without WebGL2; 16.7 ms; card C55 |
 | S56 | 59 | liquid-hover-gallery | Image | adapt-code (MIT, 1938cbf) | three@0.186.1 | 2 (A56) | committed (see git) | three glass cards on the open sky, one renderer, maps drawn in code; plain-picture fallback; 16.7 ms; card C56 |
