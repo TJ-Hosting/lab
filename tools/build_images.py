@@ -125,6 +125,9 @@ CUTOUTS = [
 	('iso/focus-trail-form', 'lab05-focus-trail-form.png', [400, 800], None),
 	('iso/shape-shifter', 'lab05-shape-shifter.png', [400, 800], None),
 	('iso/relief-light-board', 'lab05-relief-light-board.png', [400, 800], None),
+	('art/glass-diorama-card-islands', 'lab05-glass-diorama-card-islands.png', [480, 960], None),
+	('art/glass-diorama-card-tower', 'lab05-glass-diorama-card-tower.png', [480, 960], None),
+	('art/glass-diorama-card-clouds', 'lab05-glass-diorama-card-clouds.png', [480, 960], None),
 	# lab-05 end
 ]
 
