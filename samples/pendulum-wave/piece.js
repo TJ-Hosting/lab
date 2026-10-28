@@ -6,9 +6,9 @@
  * bobs swing slower. Every pose is a pure function of one cycle clock (elapsed seconds, never a frame count), so the
  * cycle stays exact however the frame rate varies; the clock stops with the loop (Pause, off-screen, hidden tab).
  * Faint azure trails are the bob's own past positions, recomputed from the clock. Drawing is Canvas 2D with a small
- * perspective camera. Sound is off by default; the Sound button starts Web Audio and plays a soft pitched tick as each
- * bob crosses the centre (low for long bobs, high for short ones). Reduced motion: one still frame of the snake, no
- * loop, no sound.
+ * perspective camera. Sound is off by default; the Sound button starts Web Audio and plays a soft pitched tick as the
+ * bobs cross the centre (low for long bobs, high for short ones), thinned to one voice at a time and at most about
+ * eight a second. Reduced motion: one still frame of the snake, no loop, no sound.
  *
  * Adapted from pendulum: pendulum wave visualisation (p5.js) by Gregory Kogan
  * (https://github.com/GregoryKogan/pendulum, commit a0ea04091a997b14f81956ba018531381c00a556), MIT.
@@ -527,6 +527,8 @@ let soundOn = false;
 let voices = 0;
 const crossed = new Int32Array(NB);
 let crossReady = false;
+const TICK_GAP = 0.12; // seconds: at most about eight ticks a second, however many bobs cross
+let lastTick = -1;
 
 function ensureAudio() {
 	if (audio) return true;
@@ -548,7 +550,7 @@ function blip(i, loud) {
 	if (!audio || audio.state !== 'running' || voices > 30) return;
 	const now = audio.currentTime;
 	const out = audio.createGain();
-	const peak = loud ? 0.09 : 0.045;
+	const peak = loud ? 0.07 : 0.032;
 	out.gain.setValueAtTime(0.0001, now);
 	out.gain.exponentialRampToValueAtTime(peak, now + 0.004);
 	out.gain.exponentialRampToValueAtTime(0.0001, now + 0.2);
@@ -581,14 +583,21 @@ function blip(i, loud) {
 }
 
 /* a bob crosses the centre when 2 x swings x t / cycle passes a half-integer; counted from the clock, so a
-   jump (Next pattern) or a pause makes no burst of ticks */
+   jump (Next pattern) or a pause makes no burst of ticks. Thinned: one voice per frame (the middle of the bobs that
+   crossed), at most one every TICK_GAP; when a third of the row crosses at once (it is lining up), it rings louder */
 function crossings() {
+	let count = 0;
+	let sum = 0;
 	for (let i = 0; i < NB; i++) {
 		const k = Math.floor((2 * SWINGS[i] * clock) / CYCLE - 0.5);
-		if (crossReady && soundOn && k === crossed[i] + 1) blip(i, false);
+		if (crossReady && soundOn && k === crossed[i] + 1) { count++; sum += i; }
 		crossed[i] = k;
 	}
 	crossReady = true;
+	if (count && audio && audio.currentTime - lastTick >= TICK_GAP) {
+		blip(Math.round(sum / count), count >= NB / 3);
+		lastTick = audio.currentTime;
+	}
 }
 
 function setSound(on) {
@@ -601,7 +610,7 @@ function setSound(on) {
 	soundBtn.setAttribute('aria-pressed', String(on));
 	if (!audio) return;
 	if (on) audio.resume();
-	master.gain.setTargetAtTime(on ? 0.7 : 0, audio.currentTime, 0.01);
+	master.gain.setTargetAtTime(on ? 0.55 : 0, audio.currentTime, 0.01);
 	if (on) setTimeout(() => blip(Math.floor(NB / 2), true), 30); // one soft note, so the click confirms it is on
 }
 
