@@ -65,6 +65,17 @@
 			"image": { "base": "img/iso/coral-ink", "widths": [400, 800], "ratio": 0.763 },
 			"tags": ["Canvas 2D", "Reaction-diffusion", "Touch"],
 			"added": "2026-10-28"
+		},
+		{
+			"slug": "scroll-zoom-tunnel",
+			"title": "The scroll tunnel",
+			"kicker": "Scroll zoom",
+			"category": "Scroll",
+			"blurb": "Glass tiles of hosting words fly past as you scroll, until a glowing tile marked Your site settles in the middle.",
+			"href": "samples/scroll-zoom-tunnel/",
+			"image": { "base": "img/iso/scroll-zoom-tunnel", "widths": [400, 800], "ratio": 1.271 },
+			"tags": ["CSS 3D", "Scroll-driven animation"],
+			"added": "2026-10-28"
 		}
 	],
 	"exhibits": [

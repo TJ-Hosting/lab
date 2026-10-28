@@ -75,6 +75,7 @@ CUTOUTS = [
 	('iso/coral-ink', 'lab05-coral-ink.png', [400, 800], None),
 	('iso/split-flap-board', 'lab05-split-flap-board.png', [400, 800], None),
 	('iso/star-trail-text', 'lab05-star-trail-text.png', [400, 800], None),
+	('iso/scroll-zoom-tunnel', 'lab05-scroll-zoom-tunnel.png', [400, 800], None),
 	# lab-05 end
 ]
 
