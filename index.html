@@ -3,8 +3,9 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://*.google.com; object-src 'none'; base-uri 'self'; form-action 'none'">
 	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<script src="js/ga4.js"></script>
 	<title>TJ-Hosting Lab — motion experiments in glass</title>
 	<meta name="description" content="TJ-Hosting Lab: hand-built motion-graphics experiments in glass. Kinetic type, a generative particle field, the animated TJ-Hosting mark, and an exhibit about AI agents and hidden instructions.">
 	<link rel="canonical" href="https://lab.tj-hosting.ca/">
@@ -64,7 +65,7 @@
 				<ul class="hero__facts pills rise" style="--delay:.6s" aria-label="Lab facts">
 					<li class="pill"><span class="pill__dot" aria-hidden="true"></span><b data-count="samples">3</b> samples</li>
 					<li class="pill"><b data-count="exhibits">1</b> exhibit</li>
-					<li class="pill"><b>0</b> cookies or trackers</li>
+					<li class="pill"><b>0</b> ads</li>
 				</ul>
 			</div>
 
@@ -119,7 +120,7 @@
 				<div class="about__text">
 					<p class="eyebrow">About the lab</p>
 					<h2 id="about-title" class="display">Where TJ-Hosting <span class="grad-ink">tries ideas first.</span></h2>
-					<p>The lab is a static site with no back end, no cookies and no analytics. Every piece is hand-coded and open source, and new samples land here every few weeks.</p>
+					<p>The lab is a static site with no back end; Google Analytics 4 is used for anonymous visit statistics. Every piece is hand-coded and open source, and new samples land here every few weeks.</p>
 				</div>
 			</div>
 		</section>

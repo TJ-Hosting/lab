@@ -9,8 +9,9 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 	<!-- the base policy, unchanged -->
-	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://*.google.com; object-src 'none'; base-uri 'self'; form-action 'none'">
 	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<script src="../../js/ga4.js"></script>
 	<title>Throwable skill chips — throwable tags · TJ-Hosting Lab</title>
 	<meta name="description" content="Glass service tags drop into a tray, pile up and fly when you throw them with a pointer or a finger. Made with Matter.js physics and plain CSS transforms.">
 	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/skill-chips/">

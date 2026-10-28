@@ -3,8 +3,9 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://*.google.com; object-src 'none'; base-uri 'self'; form-action 'none'">
 	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<script src="../../js/ga4.js"></script>
 	<title>Dawn to night parallax — scroll sky · TJ-Hosting Lab</title>
 	<meta name="description" content="A landscape of mountains, hills and clouds drawn in five SVG layers that slide at different speeds as you scroll, while the sky turns from day to dusk to night and the sun becomes the moon. CSS scroll-driven animations.">
 	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/dawn-to-night/">
