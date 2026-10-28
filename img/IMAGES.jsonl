@@ -113,6 +113,10 @@
 {"file":"img/iso/browser-320.webp","source":"assets/pack/tj-hero-browser.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/browser-640.avif","source":"assets/pack/tj-hero-browser.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/browser-640.webp","source":"assets/pack/tj-hero-browser.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/chart-story-400.avif","source":"assets/pack/lab05-chart-story.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/chart-story-400.webp","source":"assets/pack/lab05-chart-story.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/chart-story-800.avif","source":"assets/pack/lab05-chart-story.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
+{"file":"img/iso/chart-story-800.webp","source":"assets/pack/lab05-chart-story.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/checker-320.avif","source":"assets/pack/lab-checker.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/checker-320.webp","source":"assets/pack/lab-checker.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/iso/checker-640.avif","source":"assets/pack/lab-checker.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
@@ -359,6 +363,7 @@
 {"file":"img/iso/wavy-lines-hero-800.webp","source":"assets/pack/lab05-wavy-lines-hero.png","op":"alpha kept, 250-254 snapped to 255, trim, premultiplied resize"}
 {"file":"img/og/bento-grid.jpg","source":"assets/pack/lab05-bento-grid.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/brand-colour-sphere.jpg","source":"assets/pack/lab05-brand-colour-sphere.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
+{"file":"img/og/chart-story.jpg","source":"assets/pack/lab05-chart-story.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/clock-wall.jpg","source":"assets/pack/lab05-clock-wall.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/contour-map.jpg","source":"assets/pack/lab05-contour-map.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}
 {"file":"img/og/coral-ink.jpg","source":"assets/pack/lab05-coral-ink.png","op":"tools/render-og.mjs (lab-05): 1200x630 share card, the CSS day sky + the sample's cut-out, code-set type in Nunito Sans"}

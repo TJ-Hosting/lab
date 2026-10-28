@@ -242,6 +242,7 @@ await test('sitemap.xml: home, samples and honeypot tools; not the exhibit; ever
 const BASE_CSP = "default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'";
 const CSP_EXTRA = {
 	// slug: { directive: [tokens] }
+	'chart-story': { 'script-src': ["'wasm-unsafe-eval'"] }, // Vizzu compiles its WebAssembly engine
 };
 const CSP_ALLOWED = { 'script-src': ["'wasm-unsafe-eval'"], 'img-src': ['blob:'], 'worker-src': ["'self'", 'blob:'] };
 const parseCsp = (s) => Object.fromEntries(s.split(';').map((d) => d.trim()).filter(Boolean).map((d) => { const [k, ...v] = d.split(/\s+/); return [k, v]; }));

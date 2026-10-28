@@ -452,6 +452,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "chart-story",
+			"title": "Shape-shifting chart story",
+			"kicker": "Data story",
+			"category": "Data",
+			"blurb": "One made-up dataset morphs from bars to stacked bars, a radial chart, a scatter and bubbles in five steps.",
+			"href": "samples/chart-story/",
+			"image": { "base": "img/iso/chart-story", "widths": [400, 800], "ratio": 0.958 },
+			"tags": ["Vizzu", "WebAssembly", "Canvas 2D"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "glass-sandbox",
 			"title": "Glass sandbox",
 			"kicker": "Falling sand",

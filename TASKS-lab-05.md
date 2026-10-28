@@ -116,7 +116,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S45 | 48 | wind-snapshot | Data | adapt-code | wind-gl (repo dist at a commit SHA) | 0 | todo | data frames only if licence confirmed |
 | S46 | 49 | epicycle-machine | Data | adapt-code (MIT, 7bb6c56; maths only) | none | 0 | committed (see git) | open sky; TJ letterform from tj-hosting.ca's favicon path; 16.7 ms; card C46 |
 | S47 | 50 | pendulum-wave | Data | adapt-code (MIT, a0ea040; maths only) | none | 0 | **committed 04:22Z** | open sky, 3D frame; sound off until pressed; 16.7 ms; card C47 |
-| S48 | 51 | chart-story | Data | adapt-code | vizzu@0.18.0 | 0 | todo | CSP 'wasm-unsafe-eval' |
+| S48 | 51 | chart-story | Data | adapt-code (library use, Apache-2.0) | vizzu@0.18.0 | 0 | committed (see git) | open sky; sample data labelled; Vizzu's 25 ms scheduler turned off, engine stepped from loop() only during a morph; CSP_EXTRA 'wasm-unsafe-eval'; NOTICE added from tag v0.18.0; 16.7 ms; card C48 |
 | S49 | 52 | glass-sandbox | Toys | rebuild-from-idea | none | 0 | committed (see git) | night screen, light-glass dock; auto-pour; Download PNG; 16.7 ms; card C49 |
 | S50 | 53 | marble-harp | Toys | rebuild-from-idea | none | 0 | committed (see git) | night screen; sound off until pressed, 8-voice cap; Save PNG; 16.7 ms; card C50 |
 | S51 | 54 | planet-maker | Toys | rebuild-from-idea | none | 0 | todo | |

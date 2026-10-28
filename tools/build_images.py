@@ -140,6 +140,7 @@ CUTOUTS = [
 	('iso/publish-button', 'lab05-publish-button.png', [400, 800], None),
 	('iso/dawn-to-night', 'lab05-dawn-to-night.png', [400, 800], None),
 	('iso/halftone-dissolve', 'lab05-halftone-dissolve.png', [400, 800], None),
+	('iso/chart-story', 'lab05-chart-story.png', [400, 800], None),
 	# lab-05 end
 ]
 
