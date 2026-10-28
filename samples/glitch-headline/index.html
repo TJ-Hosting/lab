@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<title>Glitch headline — glitch type · TJ-Hosting Lab</title>
+	<meta name="description" content="Type a word and watch it glitch: stacked, sliced copies of the word jitter in a cyan and royal RGB split, then settle. Plain CSS keyframes you can copy, made with transform and opacity only.">
+	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/glitch-headline/">
+	<meta name="theme-color" content="#eef7fc">
+	<link rel="icon" href="../../img/brand/tj-mark.svg" type="image/svg+xml">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="TJ-Hosting Lab">
+	<meta property="og:title" content="Glitch headline — TJ-Hosting Lab">
+	<meta property="og:description" content="Type a word, press Generate and watch it glitch in a cyan and royal split, then copy the CSS.">
+	<meta property="og:url" content="https://lab.tj-hosting.ca/samples/glitch-headline/">
+	<meta property="og:image" content="https://lab.tj-hosting.ca/img/og/glitch-headline.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="A huge navy headline on a pale blue sky, torn into slices with cyan and royal blue copies split to either side">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="preload" href="../../fonts/nunito-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="../../fonts/jetbrains-mono-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="../../css/glass.css">
+	<link rel="stylesheet" href="../../css/lab.css">
+	<link rel="stylesheet" href="../../css/sample.css">
+	<link rel="stylesheet" href="piece.css">
+	<script src="../../js/early.js"></script>
+	<script type="module" src="piece.js"></script>
+</head>
+<body class="sample sample--glitch-headline">
+	<a class="skip" href="#about-piece">Skip to the description</a>
+
+	<div class="sky" aria-hidden="true"></div>
+
+	<header class="topbar">
+		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
+			<img src="../../img/brand/tj-mark.svg" alt="" width="34" height="34">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Lab">
+			<a href="../../#samples">All samples</a>
+		</nav>
+	</header>
+
+	<!-- stage C: open sky. One big headline on the sky; piece.js builds its sliced and split copies, and writes the CSS it is running. -->
+	<main id="main" class="stage glitch-stage" data-motion>
+		<div class="piece-open">
+			<p class="g-word" id="g-word"><span class="g-base" id="g-base">Launch day</span></p>
+
+			<form class="g-form glass glass--soft" id="g-form" novalidate autocomplete="off">
+				<label class="g-label" for="g-input">Your own word <span>(2 to 18 characters)</span></label>
+				<div class="g-row">
+					<input class="g-input" id="g-input" name="word" type="text" maxlength="18" minlength="2" size="18" inputmode="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="Launch day" aria-describedby="g-note">
+					<button class="btn btn--sm btn--primary" type="submit">Generate</button>
+				</div>
+				<div class="g-codebar">
+					<span class="g-codelabel">The CSS it is running</span>
+					<button class="btn btn--sm btn--ghost g-copy" type="button" id="g-copy">Copy CSS</button>
+				</div>
+				<pre class="g-code" id="g-code" role="region" tabindex="0" aria-label="The generated CSS keyframes, scrollable"></pre>
+				<p class="g-note" id="g-note" role="status">Nothing is sent. The word stays on this page.</p>
+			</form>
+			<noscript><p class="g-note">The glitch needs JavaScript to run.</p></noscript>
+		</div>
+	</main>
+
+	<p class="hint glass glass--pill" aria-hidden="true">Type a word · press Enter</p>
+
+	<aside class="sample-info glass glass--strong" id="about-piece" aria-labelledby="piece-title">
+		<p class="eyebrow">Sample 07 · Glitch type</p>
+		<h1 id="piece-title">Glitch headline</h1>
+		<p class="how"><b>How it's made:</b> stacked copies of your word, each clipped to a still band, jitter sideways in cyan and royal; only transform and opacity move.
+		Generated keyframes play a burst every few seconds and settle; it pauses off-screen or in a hidden tab.</p>
+		<div class="controls">
+			<button class="btn btn--sm btn--primary" type="button" data-action="glitch">Glitch now</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="pause" aria-pressed="false">Pause</button>
+			<a class="back" href="../../#samples">← Back to the lab</a>
+		</div>
+	</aside>
+</body>
+</html>

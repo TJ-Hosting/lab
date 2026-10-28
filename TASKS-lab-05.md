@@ -72,12 +72,12 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S01 | 04 | split-flap-board | Type | adapt-code (MIT, CodePen Debug view) | none | 0 | **gated 03:22** | open sky, navy board object; 16.7 ms; card C01 |
 | S02 | 05 | liquid-distort-headline | Type | adapt-code | blotter@0.1.0 | 0 | todo | |
 | S03 | 06 | star-trail-text | Type | adapt-code (MIT, gist .block) | none | 0 | **gated 03:28** | night screen; stars.js (third-party pen) not used; 16.7 ms; card C03 |
-| S04 | 07 | glitch-headline | Type | adapt-code | none | 0 | todo | |
+| S04 | 07 | glitch-headline | Type | adapt-code (Apache-2.0, gui-challenges 82317d0) | none | 0 | **gated 04:20** | open sky; animated clip-path replaced by still band clips + transform; 16.7 ms; card C04 |
 | S05 | 08 | scramble-titles | Type | adapt-code | animejs@4.4.0 | 0 | todo | |
 | S06 | 09 | coral-ink | Generative | rebuild-from-idea (CodePen 403) | none | 0 | **gated 03:15** | day screen; 16.7 ms GPU; card C06; Firefox not run (Q1) |
 | S07 | 10 | slime-network | Generative | rebuild-from-idea | none | 0 | **gated 03:40** | night screen; about 14,400 agents, sheds agents if over 12 ms; 16.7 ms; card C07 |
 | S08 | 11 | streamline-poster | Generative | adapt-code | none | 0 | todo | |
-| S09 | 12 | contour-map | Generative | adapt-code | none | 0 | todo | |
+| S09 | 12 | contour-map | Generative | rebuild-from-idea (CodePen blocked) | none | 0 | **gated 04:22** | day screen, map key labelled illustrative; 16.7 ms; card C09 |
 | S10 | 13 | dither-flow-ink | WebGL | adapt-code | none | 0 | todo | |
 | S11 | 14 | glass-orbs | WebGL | adapt-code | three@0.186.1 | 0 | todo | |
 | S12 | 15 | shader-swatchbook | WebGL | adapt-code | @paper-design/shaders@0.0.82 | 0 | todo | |

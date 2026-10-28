@@ -56,6 +56,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "glitch-headline",
+			"title": "Glitch headline",
+			"kicker": "Glitch type",
+			"category": "Type",
+			"blurb": "Type your own word and watch it tear into sliced cyan and royal copies for a moment, then copy the CSS that did it.",
+			"href": "samples/glitch-headline/",
+			"image": { "base": "img/iso/glitch-headline", "widths": [400, 800], "ratio": 1.095 },
+			"tags": ["CSS keyframes", "Transforms"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "coral-ink",
 			"title": "Coral Ink Reactor",
 			"kicker": "Living ink",
