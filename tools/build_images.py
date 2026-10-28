@@ -118,6 +118,7 @@ CUTOUTS = [
 	('iso/edge-network-globe', 'lab05-edge-network-globe.png', [400, 800], None),
 	('iso/horizontal-journey', 'lab05-horizontal-journey.png', [400, 800], None),
 	('iso/shader-swatchbook', 'lab05-shader-swatchbook.png', [400, 800], None),
+	('iso/glass-orbs', 'lab05-glass-orbs.png', [400, 800], None),
 	# lab-05 end
 ]
 

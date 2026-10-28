@@ -79,7 +79,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S08 | 11 | streamline-poster | Generative | adapt-code | none | 0 | todo | |
 | S09 | 12 | contour-map | Generative | rebuild-from-idea (CodePen blocked) | none | 0 | **committed 04:07Z** | day screen, map key labelled illustrative; 16.7 ms; card C09 |
 | S10 | 13 | dither-flow-ink | WebGL | adapt-code (MIT, b154ad8) | none | 0 | committed (see git) | day screen, navy/royal dots; Canvas 2D still without WebGL2; 16.7 ms; card C10 |
-| S11 | 14 | glass-orbs | WebGL | adapt-code | three@0.186.1 | 0 | todo | |
+| S11 | 14 | glass-orbs | WebGL | adapt-code (MIT, three r186) | three@0.186.1 | 0 | committed (see git) | day screen; transmission + dispersion; CSS still without WebGL2; 16.7 ms; card C11 |
 | S12 | 15 | shader-swatchbook | WebGL | built on the library (Apache-2.0) | @paper-design/shaders@0.0.82 | 0 | committed (see git) | open sky; all mounts at speed 0, the live one stepped by setFrame() from loop(); CSS swatches without WebGL; 16.7 ms; card C12 |
 | S13 | 16 | liquid-metal-monogram | WebGL | adapt-code | @paper-design/shaders@0.0.82 | 1 | todo | uses img/brand/tj-mark.svg, no monogram image |
 | S14 | 17 | shape-shifter | WebGL | adapt-code | three@0.186.1 (not 0.162.0: brief §2) | 0 | todo | |

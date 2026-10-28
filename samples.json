@@ -111,6 +111,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "glass-orbs",
+			"title": "Glass Orbs",
+			"kicker": "Refracted light",
+			"category": "WebGL",
+			"blurb": "Clear glass spheres and capsules you can drag over a blue wordmark, bending and splitting its letters as real glass would.",
+			"href": "samples/glass-orbs/",
+			"image": { "base": "img/iso/glass-orbs", "widths": [400, 800], "ratio": 0.718 },
+			"tags": ["three.js", "Transmission", "WebGL"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "shader-swatchbook",
 			"title": "Shader Swatchbook",
 			"kicker": "Pick a background",
