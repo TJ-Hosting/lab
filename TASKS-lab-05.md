@@ -21,12 +21,12 @@ It replaces the brief's branch lines, Step 0.4, §7's PR line and §15. PR #2 wa
 |---|---|---|---|---|---|
 | P0 Setup | done | 02:28 | 02:50 | 30m | see below |
 | P1 Shared infrastructure | done | 02:50 | 03:12 | 1h15m | see below |
-| P2 Images and assets | in progress | 03:04 | | 1h15m | card queue running in the background |
-| P3 Build the 60 | in progress | 02:58 | | 5h00m | wave 1 building (S01, S06, S16, S22); 0/60 gated |
-| P4 Quality pass 1 | todo | | | 1h00m | |
-| P5 Quality pass 2 + review | todo | | | 1h00m | |
-| P6 Quality pass 3 | todo | | | outside | starts no later than 24 h − (0.75 h + 2 × suite) |
-| P7 Integrate and report | todo | | | 45m | |
+| P2 Images and assets | done | 03:04 | 06:14 | 1h15m | 88/200 Codex attempts, 0 failed: 60 card objects, 24 in-piece images (3 of them transparent layers), 4 regenerations |
+| P3 Build the 60 | done | 02:58 | 10:41 | 5h00m | 60/60 gated and committed (last: S02 10:41Z); paused 07:23–09:41Z (usage limit) |
+| P4 Quality pass 1 | done | 05:40 | 10:44 | 1h00m | fixes logged below; Edge 10/10; home with 63 cards; no look-alikes |
+| P5 Quality pass 2 + review | done | 05:46 | 10:42 | 1h00m | improvements on about 30 samples; blind review 7.5/10, findings 1–12 fixed |
+| P6 Quality pass 3 | skipped | | | outside | not started: P5 ran into P3's tail, and P7 went ahead |
+| P7 Integrate and report | done | 10:44 | | 45m | full npm test 24/24 (10m43s); result, memory, RUNLOG |
 
 Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets only.
 
@@ -206,4 +206,4 @@ Firefox (QUESTION 1), Safari and iOS, real phones, other GPUs.
 
 ## Time log (UTC)
 
-- Times are UTC, from the RUNLOG and from git commit times (EDT + 4 h). 02:28 session start (P0). 02:41 RUNLOG start. 02:50 P0 end, P1 start. 02:58 wave 1 builders launched. 03:04 P2 pilot (C01, C24: both kept). 03:09 card queue (58) started. 03:12 P1 committed (`b643e63`); PR #4 opened (draft, base feat/lab-mvp-2026-10-15). Samples committed: S06 03:17, S01 03:23, S03 03:30, S16 03:31 (pushed), S07 03:36, S22 and S23 03:38 (pushed), wave check 03:39-03:41 (`npm test -- --only` the 7 new samples: 20 passed, 0 failed, 4 skipped in 115 s, `evidence/lab-05/wave-1-2.txt`; about 11 s per sample in parallel, so the full suite at 63 projects to about 14 min), S15 03:43, S29 03:49, S36 03:55 (pushed), S17 and S44 04:04 (pushed), S04 and S09 04:07 (pushed), S37 04:18, S24 04:20 (pushed), S47 04:22. Card queue: 58 of 58 attempts done by 04:22. Wave check 06:23-06:30: `node tests/run.mjs --only` the 41 committed lab-05 samples, 20 passed, 0 failed, 4 skipped in 7 min 11 s; 41 moving at rest and pausing when hidden; contrast 670 measurements on 42 pages, lowest 4.99:1 (`evidence/lab-05/wave-3.txt`). Projection for the full suite at 63 samples: about 11 min.
+- Times are UTC, from the RUNLOG and from git commit times (EDT + 4 h). 02:28 session start (P0). 02:41 RUNLOG start. 02:50 P0 end, P1 start. 02:58 wave 1 builders launched. 03:04 P2 pilot (C01, C24: both kept). 03:09 card queue (58) started. 03:12 P1 committed (`b643e63`); PR #4 opened (draft, base feat/lab-mvp-2026-10-15). Samples committed: S06 03:17, S01 03:23, S03 03:30, S16 03:31 (pushed), S07 03:36, S22 and S23 03:38 (pushed), wave check 03:39-03:41 (`npm test -- --only` the 7 new samples: 20 passed, 0 failed, 4 skipped in 115 s, `evidence/lab-05/wave-1-2.txt`; about 11 s per sample in parallel, so the full suite at 63 projects to about 14 min), S15 03:43, S29 03:49, S36 03:55 (pushed), S17 and S44 04:04 (pushed), S04 and S09 04:07 (pushed), S37 04:18, S24 04:20 (pushed), S47 04:22. Card queue: 58 of 58 attempts done by 04:22. Wave check 06:23-06:30: `node tests/run.mjs --only` the 41 committed lab-05 samples, 20 passed, 0 failed, 4 skipped in 7 min 11 s; 41 moving at rest and pausing when hidden; contrast 670 measurements on 42 pages, lowest 4.99:1 (`evidence/lab-05/wave-3.txt`). Projection for the full suite at 63 samples: about 11 min. Full suite 10:44:49–10:55:32Z (`npm test`, `evidence/lab-05/full-suite.txt`): 24 passed, 0 failed; 70 pages × 2 widths clean; 63 samples still under reduced motion and pausing when hidden; contrast 1212 measurements on 70 pages, lowest 5.04:1.
