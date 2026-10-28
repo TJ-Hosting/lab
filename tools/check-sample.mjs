@@ -25,6 +25,7 @@ import { dirname, join, normalize } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { serve } from '../tests/serve.mjs';
 import { targets, measure, SHELL_REQUIRED, SHELL_OPTIONAL } from '../tests/contrast.mjs';
+import { GA4_FILE, GA4_CSP, GA4_HOST, stubGa4 } from '../tests/ga4.mjs';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
 const args = process.argv.slice(2);
@@ -59,6 +60,7 @@ const cspExtra = {};
 if (!cspMeta) fail('CSP: no Content-Security-Policy meta');
 else {
 	const base = parseCsp(BASE_CSP);
+	for (const [d, toks] of Object.entries(GA4_CSP)) base[d] = [...(base[d] || []), ...toks];
 	const got = parseCsp(cspMeta);
 	for (const k of Object.keys(base)) if (!got[k]) fail(`CSP: ${k} missing`);
 	for (const [k, v] of Object.entries(got)) {
@@ -105,7 +107,7 @@ for (const f of files) {
 	const text = decodeTags(raw);
 	CODES.forEach((c) => { if (text.includes(c)) fail(`trap code ${c} in ${f}`); });
 	if (/[\u{E0020}-\u{E007E}]/u.test(raw)) fail(`tag characters in ${f}`);
-	if (/google-analytics|googletagmanager|plausible|document\.cookie|localStorage|sessionStorage|indexedDB/i.test(raw) && !f.startsWith('vendor')) fail(`tracking or storage in ${f}`);
+	if (/google-analytics|googletagmanager|plausible|document\.cookie|localStorage|sessionStorage|indexedDB/i.test(raw.replace(/<meta http-equiv="Content-Security-Policy"[^>]*>/, '')) && !f.startsWith('vendor') && f.replace(/\\/g, '/') !== GA4_FILE) fail(`tracking or storage in ${f}`);
 }
 note(`loads ${files.length} local files: ${files.map((f) => f.replace(/\\/g, '/')).join(', ')}`);
 const walk = (d) => readdirSync(join(ROOT, d)).flatMap((f) => (statSync(join(ROOT, d, f)).isDirectory() ? [`${d}/${f}/`, ...walk(`${d}/${f}`)] : [`${d}/${f}`]));
@@ -141,6 +143,7 @@ async function shotJpeg(page, name) {
 
 async function open(browser, { width = 1440, height = 900, reduced = false } = {}) {
 	const ctx = await browser.newContext({ viewport: { width, height }, deviceScaleFactor: 1, reducedMotion: reduced ? 'reduce' : 'no-preference' });
+	await stubGa4(ctx);
 	await ctx.addInitScript(COUNTER);
 	const page = await ctx.newPage();
 	const problems = [];
@@ -148,7 +151,7 @@ async function open(browser, { width = 1440, height = 900, reduced = false } = {
 	page.on('console', (m) => { if (m.type() === 'error') problems.push(`console: ${m.text().slice(0, 200)}`); });
 	page.on('requestfailed', (r) => problems.push(`requestfailed: ${r.url()} ${r.failure()?.errorText || ''}`));
 	page.on('response', (r) => { if (r.status() >= 400) problems.push(`HTTP ${r.status()}: ${r.url()}`); });
-	page.on('request', (r) => { const u = new URL(r.url()); if (/^https?:$/.test(u.protocol) && u.host !== baseHost) problems.push(`third-party request: ${r.url()}`); });
+	page.on('request', (r) => { const u = new URL(r.url()); if (/^https?:$/.test(u.protocol) && u.host !== baseHost && !GA4_HOST.test(u.hostname)) problems.push(`third-party request: ${r.url()}`); });
 	await page.goto(URL_, { waitUntil: 'load' });
 	await page.waitForLoadState('networkidle', { timeout: 8000 }).catch(() => {});
 	return { page, ctx, problems };
@@ -166,6 +169,7 @@ const hide = (page, hidden) => page.evaluate((h) => {
 
 async function rendererOf(browser) {
 	const ctx = await browser.newContext();
+	await stubGa4(ctx);
 	const page = await ctx.newPage();
 	await page.goto(`${base}404.html`);
 	const r = await page.evaluate(() => {

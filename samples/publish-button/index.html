@@ -9,8 +9,9 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 	<!-- the base policy, unchanged: canvas-confetti runs on this page's own canvas, with no Web Worker -->
-	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://*.google.com; object-src 'none'; base-uri 'self'; form-action 'none'">
 	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<script src="../../js/ga4.js"></script>
 	<title>Publish button with confetti — confetti · TJ-Hosting Lab</title>
 	<meta name="description" content="A big Publish button that squeezes when pressed, fills like a springy progress bar through Uploading, Optimising and Live, then turns into a tick and bursts into glass-drop confetti. A simulation: nothing is uploaded. Web Animations and canvas-confetti.">
 	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/publish-button/">

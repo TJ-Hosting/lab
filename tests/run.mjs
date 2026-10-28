@@ -19,6 +19,7 @@ import { spawnSync } from 'node:child_process';
 import { chromium } from 'playwright';
 import { serve } from './serve.mjs';
 import { targets, measure, SHELL_REQUIRED, SHELL_OPTIONAL } from './contrast.mjs';
+import { GA4_FILE, GA4_CSP, GA4_HOST, stubGa4 } from './ga4.mjs';
 import { analyse, encodeShare, decodeShare } from '../honeypot/check/checker.js';
 
 const ROOT = join(dirname(fileURLToPath(import.meta.url)), '..');
@@ -246,7 +247,7 @@ const CSP_EXTRA = {
 };
 const CSP_ALLOWED = { 'script-src': ["'wasm-unsafe-eval'"], 'img-src': ['blob:'], 'worker-src': ["'self'", 'blob:'] };
 const parseCsp = (s) => Object.fromEntries(s.split(';').map((d) => d.trim()).filter(Boolean).map((d) => { const [k, ...v] = d.split(/\s+/); return [k, v]; }));
-await test('no tracking, no third-party requests: every page has a self-only CSP (plus only its CSP_EXTRA entry) and loads nothing from other hosts', () => {
+await test('no third party but GA4: every page has a self-only CSP plus the GA4 hosts (plus only its CSP_EXTRA entry), loads js/ga4.js and nothing else from other hosts', () => {
 	for (const [slug, extra] of Object.entries(CSP_EXTRA)) {
 		for (const [d, toks] of Object.entries(extra)) toks.forEach((t) => assert((CSP_ALLOWED[d] || []).includes(t), `CSP_EXTRA ${slug}: ${d} ${t} is not an allowed addition`));
 	}
@@ -255,6 +256,7 @@ await test('no tracking, no third-party requests: every page has a self-only CSP
 		const meta = (html.match(/<meta http-equiv="Content-Security-Policy" content="([^"]+)"/) || [])[1];
 		assert(meta, `${k}: CSP missing`);
 		const want = parseCsp(BASE_CSP);
+		for (const [d, toks] of Object.entries(GA4_CSP)) want[d] = [...(want[d] || []), ...toks];
 		for (const [d, toks] of Object.entries(CSP_EXTRA[k] || {})) want[d] = [...(want[d] || []), ...toks];
 		const got = parseCsp(meta);
 		const norm = (o) => Object.fromEntries(Object.entries(o).sort(([a], [b]) => a.localeCompare(b)).map(([d, v]) => [d, [...v].sort()]));
@@ -264,7 +266,10 @@ await test('no tracking, no third-party requests: every page has a self-only CSP
 			if (/rel="canonical"|og:|href="https:\/\/(?:github\.com|tj-hosting\.ca)/.test(m[0])) continue;
 			throw new Error(`${k}: external resource ${m[0].slice(0, 120)}`);
 		}
-		assert(!/google-analytics|googletagmanager|plausible|document\.cookie/i.test(pageFiles(p).map(read).join('')), `${k}: tracking code`);
+		const files = pageFiles(p).map((f) => f.replace(/\\/g, '/'));
+		assert(files.includes(GA4_FILE), `${k}: does not load ${GA4_FILE}`);
+		const code = files.filter((f) => f !== GA4_FILE).map((f) => read(f).replace(/<meta http-equiv="Content-Security-Policy"[^>]*>/, '')).join('');
+		assert(!/google-analytics|googletagmanager|plausible|document\.cookie/i.test(code), `${k}: tracking code`);
 	}
 });
 
@@ -410,6 +415,7 @@ const RAF_COUNTER = () => {
 };
 async function open(path, { width = 1440, height = 900, reduced = false } = {}) {
 	const ctx = await browser.newContext({ viewport: { width, height }, deviceScaleFactor: 1, reducedMotion: reduced ? 'reduce' : 'no-preference' });
+	await stubGa4(ctx);
 	await ctx.addInitScript(RAF_COUNTER);
 	const page = await ctx.newPage();
 	const problems = [];
@@ -417,7 +423,7 @@ async function open(path, { width = 1440, height = 900, reduced = false } = {}) 
 	page.on('console', (m) => { if (m.type() === 'error') problems.push(`console: ${m.text()}`); });
 	page.on('requestfailed', (r) => problems.push(`requestfailed: ${r.url()}`));
 	page.on('response', (r) => { if (r.status() >= 400) problems.push(`HTTP ${r.status()}: ${r.url()}`); });
-	page.on('request', (r) => { const u = new URL(r.url()); if (/^https?:$/.test(u.protocol) && u.host !== BASE_HOST) problems.push(`third-party request: ${r.url()}`); });
+	page.on('request', (r) => { const u = new URL(r.url()); if (/^https?:$/.test(u.protocol) && u.host !== BASE_HOST && !GA4_HOST.test(u.hostname)) problems.push(`third-party request: ${r.url()}`); });
 	await page.goto(BASE + path, { waitUntil: 'load' });
 	// a WebGL piece that streams frames may never go network-idle; give it a bounded wait
 	await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});

@@ -1,6 +1,6 @@
 # TJ-Hosting Lab
 
-`lab.tj-hosting.ca` — a motion-graphics showcase by TJ-Hosting, built in glassmorphism on tj-hosting.ca's Design System v9 "Day sky": a light sky, glossy isometric art, Nunito Sans with one Great Vibes line, light frosted glass with blue shadows, and a dark night band for the footers and the framed screens where a piece only reads on dark. Static site, no build step, no back end, no cookies or analytics.
+`lab.tj-hosting.ca` — a motion-graphics showcase by TJ-Hosting, built in glassmorphism on tj-hosting.ca's Design System v9 "Day sky": a light sky, glossy isometric art, Nunito Sans with one Great Vibes line, light frosted glass with blue shadows, and a dark night band for the footers and the framed screens where a piece only reads on dark. Static site, no build step, no back end; Google Analytics 4 (`js/ga4.js`, ga4-tags-01) is the one third party.
 
 - **Lab home** `/`: hero with an isometric cluster on the day sky, cards drawn from `samples.json`, with category chips (`?kind=`) and a "New" badge on the newest batch.
 - **Samples** (trap-free, indexable), each at `/samples/<slug>/`: the three of 16 Oct (`humanity-type` kinetic type, `particle-field` generative particles, `logo` the TJ-Hosting mark assembling) and the 60 added in lab-05 (28 Oct), in ten categories (Type, Generative, WebGL, Scroll, Pointer, SVG, UI, Data, Toys, Image). Every sample names its source and licence in `CREDITS.md`; libraries are vendored, pinned and licensed under `vendor/`.
@@ -20,7 +20,7 @@ Pages fetch JSON, so opening the files straight from disk (`file://`) won't work
 ## Add a sample
 
 1. Copy `tools/sample-template/` to `samples/<slug>/` (its README explains the four stages: a night screen, a day screen, the open sky and a scroll page). It carries the shell: the shared CSS (`css/glass.css`, `css/lab.css`, `css/sample.css`), the top bar, and the `.sample-info` panel with the eyebrow `Sample NN · Kicker`, a sentence-case title, a two-sentence "How it's made" note, the controls and a back link.
-2. Keep to the motion rules: animate only `transform` and `opacity` (an inline SVG or canvas redrawn per frame counts as a drawing surface); use `loop()` or `govern()` from `js/lab.js` so the piece pauses off-screen, in hidden tabs and on its Pause button (`govern()` resumes only what it paused); give it a `prefers-reduced-motion` still frame; no autoplay audio. At most one small free library, pinned to an exact version and vendored under `vendor/<name>@<version>/` with its licence. The page's Content-Security-Policy is self-only; the only additions the tests accept are `'wasm-unsafe-eval'` and `blob:` where a library needs them, listed per sample in `CSP_EXTRA` in `tests/run.mjs`.
+2. Keep to the motion rules: animate only `transform` and `opacity` (an inline SVG or canvas redrawn per frame counts as a drawing surface); use `loop()` or `govern()` from `js/lab.js` so the piece pauses off-screen, in hidden tabs and on its Pause button (`govern()` resumes only what it paused); give it a `prefers-reduced-motion` still frame; no autoplay audio. At most one small free library, pinned to an exact version and vendored under `vendor/<name>@<version>/` with its licence. The page's Content-Security-Policy is self-only plus the GA4 hosts in `tests/ga4.mjs`, and the page loads `js/ga4.js` (copy both from `tools/sample-template/`); the only other additions the tests accept are `'wasm-unsafe-eval'` and `blob:` where a library needs them, listed per sample in `CSP_EXTRA` in `tests/run.mjs`.
 3. Gate it: `node tools/check-sample.mjs <slug>` checks the CSP and licences, loads it in Chromium (and Firefox where it runs) at 1440 and 375, checks the reduced-motion still, the hidden-tab pause and the shell's contrast, measures the median frame time (at most 20 ms), and writes `evidence/lab-05/samples/<slug>/`.
 4. Add one entry to `samples.json`:
 
@@ -52,7 +52,7 @@ Results come only from real tests, never invented. A tester follows `TESTING.md`
 - **Harmless payload only.** Every hidden instruction asks for a short poem (4–8 lines) about humanity, titled `Humanity · CODE`. None asks an agent to fetch URLs, reveal its system prompt, share data, act on accounts, buy, post or submit anything.
 - **Honest to people.** The exhibit opens with a visible banner, first in reading order; "Show me the traps" reveals each trap and what it says.
 - **Out of search, open to the agents under test.** `noindex,nofollow` on the exhibit, left out of the sitemap; `robots.txt` never blocks user-triggered fetchers or search crawlers, and asks only AI-training crawlers to skip the exhibit. Sources in `docs/ROBOTS.md`.
-- **No tracking.** The checker runs in the browser; share links carry outcomes, never the answer text.
+- **No back end.** The checker runs in the browser; share links carry outcomes, never the answer text.
 - **Each code appears exactly once** in the exhibit (the two vision codes only inside their PNGs). `honeypot/techniques.json` is the single list; `tests/run.mjs` enforces it.
 - The home and the samples stay trap-free (the tests check that no code appears there).
 

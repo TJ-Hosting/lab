@@ -3,8 +3,9 @@
 <head>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self'; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://*.google.com; object-src 'none'; base-uri 'self'; form-action 'none'">
 	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<script src="../../js/ga4.js"></script>
 	<title>Method and safety — the agent honeypot · TJ-Hosting Lab</title>
 	<meta name="description" content="How the TJ-Hosting Lab agent honeypot works: harmless hidden instructions, three fixed prompts, curated results, and the safety rules behind them.">
 	<link rel="canonical" href="https://lab.tj-hosting.ca/honeypot/about/">
@@ -92,7 +93,7 @@
 				<li><strong>Honest to people.</strong> The exhibit opens with a visible banner, first in the reading order, saying it contains hidden instructions aimed at AI agents. Screen readers will read some of them aloud, and the banner says so.</li>
 				<li><strong>Out of search results.</strong> The exhibit is marked <code>noindex, nofollow</code> and left out of the sitemap. Search crawlers can still fetch it, so they see that tag, and the assistants being tested are never blocked.</li>
 				<li><strong>Out of training data, where we can ask.</strong> <code>robots.txt</code> asks AI training crawlers (GPTBot, ClaudeBot, CCBot) to skip the exhibit.</li>
-				<li><strong>No tracking.</strong> No cookies, no analytics, no back end. The checker runs in your browser; share links carry outcomes, never the answer text.</li>
+				<li><strong>No back end.</strong> Google Analytics 4 is used for anonymous visit statistics. The checker runs in your browser; share links carry outcomes, never the answer text.</li>
 				<li><strong>Curated, never invented.</strong> The scoreboard holds only real tests, reviewed from GitHub issues. The one example row is labelled as an example.</li>
 			</ul>
 		</section>
