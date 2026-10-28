@@ -329,6 +329,17 @@
 			"image": { "base": "img/iso/marble-harp", "widths": [400, 800], "ratio": 1.199 },
 			"tags": ["Canvas 2D", "Web Audio", "Physics"],
 			"added": "2026-10-28"
+		},
+		{
+			"slug": "transition-slider",
+			"title": "Transition Lab Hero Slider",
+			"kicker": "Shader transitions",
+			"category": "Image",
+			"blurb": "Three pictures blend through eight shader transitions; let it play, or switch to Scrub and drag the blend by hand.",
+			"href": "samples/transition-slider/",
+			"image": { "base": "img/iso/transition-slider", "widths": [400, 800], "ratio": 0.969 },
+			"tags": ["WebGL", "GLSL", "OGL"],
+			"added": "2026-10-28"
 		}
 	],
 	"exhibits": [

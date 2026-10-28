@@ -56,6 +56,7 @@ Each line: the sample, the project it comes from, and its licence. "Written from
 - **Pendulum Wave** (`samples/pendulum-wave/`): adapted from [pendulum](https://github.com/GregoryKogan/pendulum) by Gregory Kogan, MIT (commit a0ea040). Only the maths is taken (whole-count swings per cycle, all starting together); the Canvas 2D drawing, 3D swing, glass bobs, trails and synthesised sound are new, with no p5, mp3 or font.
 - **Glass Sandbox** (`samples/glass-sandbox/`): a falling-sand toy written from the idea behind [Sandboxels](https://github.com/R74nCom/sandboxels) by R74nCom (licence unclear, so no code, names or art were used); new rules for eight elements, drawn with Canvas 2D.
 - **Marble Harp** (`samples/marble-harp/`): written from the idea of [Plinkfall](https://github.com/xkudcobi/plinkfall) by xkudcobi (no licence stated), a toy where marbles fall onto drawn lines and each bounce plays a note; no source code was read or copied.
+- **Transition Lab Hero Slider** (`samples/transition-slider/`): adapted from [gl-transitions](https://github.com/gl-transitions/gl-transitions), MIT (commit 0efa165): Swirl by Sergey Kosarevsky; Pixelize, Ripple, Directional wipe and Wind by gre; Glitch displace by Matt DesLauriers; Cross zoom by rectalogic; Polka dots curtain by bobylito. New WebGL 2 slider with a progress ring and Scrub mode, drawn with [OGL](https://github.com/oframe/ogl) 1.0.11 (Unlicense, `vendor/ogl@1.0.11/`). Photos: Codex, lab-05.
 
 ## Code and libraries
 
