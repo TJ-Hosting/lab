@@ -573,6 +573,17 @@
 			"added": "2026-10-28"
 		},
 		{
+			"slug": "glass-mandala",
+			"title": "Glass mandala",
+			"kicker": "Draw in folds",
+			"category": "Toys",
+			"blurb": "Draw on a round glass plate and every stroke repeats around the centre in 2 to 24 folds, in three blue colour modes, then save it as a transparent PNG sticker.",
+			"href": "samples/glass-mandala/",
+			"image": { "base": "img/iso/glass-mandala", "widths": [400, 800], "ratio": 1.302 },
+			"tags": ["Canvas 2D", "Symmetry", "PNG export"],
+			"added": "2026-10-28"
+		},
+		{
 			"slug": "lantern-pond",
 			"title": "Lantern pond ripples",
 			"kicker": "Dusk water",

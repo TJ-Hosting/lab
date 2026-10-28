@@ -120,7 +120,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S49 | 52 | glass-sandbox | Toys | rebuild-from-idea | none | 0 | committed (see git) | night screen, light-glass dock; auto-pour; Download PNG; 16.7 ms; card C49 |
 | S50 | 53 | marble-harp | Toys | rebuild-from-idea | none | 0 | committed (see git) | night screen; sound off until pressed, 8-voice cap; Save PNG; 16.7 ms; card C50 |
 | S51 | 54 | planet-maker | Toys | rebuild-from-idea | none | 0 | todo | |
-| S52 | 55 | glass-mandala | Toys | adapt-code | none | 0 | todo | |
+| S52 | 55 | glass-mandala | Toys | adapt-code (MIT, bbc8f44) | none | 0 | committed (see git) | open sky plate; no storage (source's saving dropped); PNG download proven under the CSP (object URL); demo strokes via loop(); 16.7 ms; card C52 |
 | S53 | 56 | ascii-sculpture | Toys | adapt-code | three@0.186.1 | 0 | todo | |
 | S54 | 57 | lantern-pond | Image | adapt-code (MIT, e90bd54) | none | 1 (A54) | committed (see git) | night screen framing the pond photo; photo shown plain without WebGL/float targets; 16.7 ms; card C54 |
 | S55 | 58 | transition-slider | Image | adapt-code (MIT, gl-transitions 0efa165; 8 files each MIT) | ogl@1.0.11 | 3 (A55a-c) | committed (see git) | day screen; first photo as <img> without WebGL2; 16.7 ms; card C55 |
