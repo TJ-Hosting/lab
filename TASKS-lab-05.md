@@ -118,7 +118,7 @@ Re-plan check at 9 h active: fewer than 40 gated → drop P6, cut P5 to assets o
 | S47 | 50 | pendulum-wave | Data | adapt-code (MIT, a0ea040; maths only) | none | 0 | **committed 04:22Z** | open sky, 3D frame; sound off until pressed; 16.7 ms; card C47 |
 | S48 | 51 | chart-story | Data | adapt-code | vizzu@0.18.0 | 0 | todo | CSP 'wasm-unsafe-eval' |
 | S49 | 52 | glass-sandbox | Toys | rebuild-from-idea | none | 0 | todo | |
-| S50 | 53 | marble-harp | Toys | rebuild-from-idea | none | 0 | todo | |
+| S50 | 53 | marble-harp | Toys | rebuild-from-idea | none | 0 | committed (see git) | night screen; sound off until pressed, 8-voice cap; Save PNG; 16.7 ms; card C50 |
 | S51 | 54 | planet-maker | Toys | rebuild-from-idea | none | 0 | todo | |
 | S52 | 55 | glass-mandala | Toys | adapt-code | none | 0 | todo | |
 | S53 | 56 | ascii-sculpture | Toys | adapt-code | three@0.186.1 | 0 | todo | |

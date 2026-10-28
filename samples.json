@@ -252,6 +252,17 @@
 			"image": { "base": "img/iso/pendulum-wave", "widths": [400, 800], "ratio": 0.742 },
 			"tags": ["Canvas 2D", "Web Audio"],
 			"added": "2026-10-28"
+		},
+		{
+			"slug": "marble-harp",
+			"title": "Marble Harp",
+			"kicker": "Glass strings",
+			"category": "Toys",
+			"blurb": "Cyan drops of light fall from clouds and bounce down glowing glass strings, and every bounce plays a note.",
+			"href": "samples/marble-harp/",
+			"image": { "base": "img/iso/marble-harp", "widths": [400, 800], "ratio": 1.199 },
+			"tags": ["Canvas 2D", "Web Audio", "Physics"],
+			"added": "2026-10-28"
 		}
 	],
 	"exhibits": [
