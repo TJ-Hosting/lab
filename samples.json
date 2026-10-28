@@ -153,6 +153,17 @@
 			"image": { "base": "img/iso/integration-beams", "widths": [400, 800], "ratio": 0.888 },
 			"tags": ["Canvas 2D", "Web Animations"],
 			"added": "2026-10-28"
+		},
+		{
+			"slug": "clock-wall",
+			"title": "Clock Wall",
+			"kicker": "Clocks as pixels",
+			"category": "Data",
+			"blurb": "Your local time drawn by about a hundred small glass clocks whose hands turn into the digits, with a wave every minute.",
+			"href": "samples/clock-wall/",
+			"image": { "base": "img/iso/clock-wall", "widths": [400, 800], "ratio": 1.186 },
+			"tags": ["Web Animations", "CSS transforms"],
+			"added": "2026-10-28"
 		}
 	],
 	"exhibits": [
