@@ -1,16 +1,17 @@
 # check-sample: liquid-glass-lens — PASS
 
-2026-10-28T10:32:13.165Z · Chromium WebGL: ANGLE (AMD, AMD Radeon (TM) Graphics (0x000015E7) Direct3D11 vs_5_0 ps_5_0, D3D11) · Firefox: not run (browserType.launch: spawn UNKNOWN)
+2026-10-28T10:35:02.737Z · Chromium WebGL: ANGLE (AMD, AMD Radeon (TM) Graphics (0x000015E7) Direct3D11 vs_5_0 ps_5_0, D3D11) · Firefox: not run (browserType.launch: spawn UNKNOWN)
 
 ## Notes
 - loads 9 local files: samples/liquid-glass-lens/index.html, css/glass.css, css/lab.css, css/sample.css, samples/liquid-glass-lens/piece.css, js/early.js, samples/liquid-glass-lens/piece.js, js/lab.js, vendor/liquid-glass-js@0.1.0/liquid-glass.esm.js
 - Chromium 141.0.7390.37, WebGL renderer: ANGLE (AMD, AMD Radeon (TM) Graphics (0x000015E7) Direct3D11 vs_5_0 ps_5_0, D3D11)
+- frame time: median 16.7 ms, p95 16.7 ms at 1440
 - Firefox: not run (browserType.launch: spawn UNKNOWN)
 
 ## Motion
 - reduced motion: {"anims":[],"loops":[],"rafPerSecond":0}
 - hidden tab: {"movingBefore":true,"hiddenRafIn1500ms":0,"hiddenAnims":[],"hiddenLoops":[],"resumed":true}
-- frame time: not measured (--no-perf)
+- frame time: {"median":16.7,"p95":16.7,"frames":301} (gpu GL)
 
 ## Shell contrast (Chromium)
 width | selector | # | polarity | text | worst behind | ratio | need

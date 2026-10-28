@@ -41,6 +41,7 @@ const backdrop = document.querySelector('.backdrop');
 const backdropImg = backdrop.querySelector('img');
 const navEl = document.getElementById('lens-nav');
 const roundEl = document.getElementById('lens-round');
+const NAV_RADIUS = 14; // the menu's lens matches its rounded rectangle (DS v9's nav shape)
 const stateEl = document.getElementById('lens-state');
 const stateText = document.getElementById('lens-state-text'); // the chip's words (its cyan dot stays)
 const cardEl = document.getElementById('lens-card'); // the plain frosted stand-in, shown only without the lenses
@@ -177,7 +178,7 @@ function layout(force = false) {
 	layoutKey = key;
 	if (mode === 'on' && changed) {
 		const { pill, round, card } = lenses;
-		Object.assign(pill.params, { width: nav.width, height: nav.height, radius: nav.height / 2 });
+		Object.assign(pill.params, { width: nav.width, height: nav.height, radius: NAV_RADIUS });
 		Object.assign(round.params, { width: rnd.width, height: rnd.height, radius: rnd.width / 2 });
 		Object.assign(card.params, { width: size.w, height: size.h, radius: size.r });
 		pill.lensX = nav.left;
@@ -277,7 +278,7 @@ function makeLenses() {
 		built.push(g);
 		return g;
 	};
-	const pill = make({ draggable: false, zIndex: 6, x: nav.left, y: nav.top, width: nav.width, height: nav.height, radius: nav.height / 2, scale: 26, depth: 24, curvature: 2.2, chroma: 0.09, edge: 0.55, tint: 0.58 });
+	const pill = make({ draggable: false, zIndex: 6, x: nav.left, y: nav.top, width: nav.width, height: nav.height, radius: NAV_RADIUS, scale: 26, depth: 24, curvature: 2.2, chroma: 0.09, edge: 0.55, tint: 0.58 });
 	const round = make({ draggable: false, zIndex: 6, x: rnd.left, y: rnd.top, width: rnd.width, height: rnd.height, radius: rnd.width / 2, scale: 24, depth: 26, curvature: 2.2, chroma: 0.09, edge: 0.55, tint: 0.58 });
 	const card = make({ draggable: true, zIndex: 4, x, y, width: size.w, height: size.h, radius: size.r, ...PRESETS[presetIndex] });
 	adopt(pill);
