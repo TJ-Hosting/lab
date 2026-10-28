@@ -3,7 +3,10 @@
    inline SVG whose loop moves by transform and opacity only. A tile lifts on hover or focus, its words rise and a "Learn more"
    bar slides up; on touch a tap does the same. The shell (sky, top bar, panel) comes from css/.
    Loops are CSS animations, declared only under prefers-reduced-motion: no-preference, so reduced motion shows each drawing at
-   its resting pose (the base styles below). lab.css pauses them in a hidden tab and, per [data-motion] tile, off-screen. */
+   its resting pose (the base styles below). lab.css pauses them in a hidden tab and, per [data-motion] tile, off-screen.
+   The drawings are small "renders" like the feature cards on tj-hosting.ca: royal-to-azure gradient fills, a white highlight at
+   the top left of each solid, a soft cyan glow under the part that moves, and a low blue plinth with a soft shadow under each
+   one. All of it is static paint (gradients, no filters); only the groups' transform and opacity are animated. */
 
 .bento-stage {
 	place-items: start center;
@@ -22,11 +25,12 @@
 .note {
 	margin: 0;
 	padding: 5px 14px;
-	font: 600 12px/18px var(--font-mono);
-	letter-spacing: 0.08em;
-	text-transform: uppercase;
+	/* the Lab's one chip (lab-05 P5 review): sans, ink, a cyan dot */
+	font: 600 13.5px/20px var(--font-sans);
+	letter-spacing: 0;
+	text-transform: none;
 	text-align: center;
-	color: var(--muted);
+	color: var(--ink);
 	white-space: normal;
 }
 noscript .note { text-transform: none; letter-spacing: 0; }
@@ -109,6 +113,14 @@ noscript .note { text-transform: none; letter-spacing: 0; }
 	width: 100%;
 	height: 100%;
 	overflow: visible;
+}
+/* the shared gradients, glow and plinth every drawing draws from (a zero-size SVG: nothing to see, nothing to move) */
+.bx-defs {
+	position: absolute;
+	width: 0;
+	height: 0;
+	overflow: hidden;
+	pointer-events: none;
 }
 
 /* the words rise to make room for the bar */
@@ -433,7 +445,7 @@ noscript .note { text-transform: none; letter-spacing: 0; }
 @media (max-width: 639px) {
 	.bento-stage { padding-top: 76px; }
 	.piece-open { gap: 10px; }
-	.note { font-size: 11px; padding: 4px 12px; letter-spacing: 0.06em; }
+	.note { font-size: 12.5px; padding: 4px 12px; }
 	.bento { grid-template-columns: minmax(0, 1fr); --row: 258px; }
 	.tile--wide { grid-column: auto; }
 	.art--bars { display: none; }
