@@ -1,0 +1,129 @@
+/* Sample 11 — Streamline Ink Poster. The shell (sky, top bar, panel) comes from css/; only the piece is styled here.
+   The poster is a light glass card on the open sky (stage C): a title line, the artwork canvas, a palette row.
+   The ribbons' own colours are drawn in piece.js from DS v9's blues (navy, royal, azure, cyan light) and, in one
+   palette, a warm peach. Everything on the card's paper takes the day tokens. */
+
+/* the stage is a size container, so the poster can be sized from the room the stage leaves it (cqw, cqh) */
+.sample--streamline-poster .stage {
+	container-type: size; /* a size container needs a definite height, not just a min-height */
+	height: 100vh;
+	height: 100dvh;
+	--room-left: calc(max(var(--gutter), (100vw - var(--page-max)) / 2) + 440px + 28px); /* past the fixed info panel */
+	padding: 72px max(var(--gutter), calc((100vw - var(--page-max)) / 2)) 22px var(--room-left);
+}
+
+.print {
+	--pad: 12px;
+	--ratio: 0.8; /* the artwork's width over its height: a 4:5 poster (a phone gets a square) */
+	--chrome: 98px; /* head + foot + gaps + padding, in px: what the artwork's height does not get */
+	display: flex;
+	flex-direction: column;
+	gap: 8px;
+	margin: 0;
+	padding: var(--pad) var(--pad) 10px;
+	width: min(100%, 560px);
+	width: min(100cqw, max(220px, calc((100cqh - var(--chrome)) * var(--ratio) + 2 * var(--pad))));
+	color: var(--ink);
+	box-shadow: var(--glass-shadow-lift);
+	/* the card is light glass without the blur: a canvas redrawn inside a backdrop-filtered box makes the browser blur
+	   the sky behind it again every frame (about 16 ms here), and the sky is smooth, so the blur would not show */
+	-webkit-backdrop-filter: none;
+	backdrop-filter: none;
+	background-color: var(--glass-fallback-strong);
+}
+
+.print__head {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 12px;
+	min-height: 20px;
+	padding: 0 2px;
+}
+.print__title {
+	font: 800 13px/20px var(--font-display);
+	letter-spacing: 0.16em;
+	text-transform: uppercase;
+	color: var(--ink);
+}
+.print__meta {
+	display: flex;
+	align-items: baseline;
+	gap: 14px;
+	font: 500 12px/20px var(--font-mono);
+	letter-spacing: 0.02em;
+	color: var(--muted);
+	white-space: nowrap;
+}
+.print__meta b { color: var(--ink); font-weight: 700; font-variant-numeric: tabular-nums; }
+.print__meta [data-count] { display: inline-block; min-width: 5ch; text-align: right; }
+
+.piece {
+	display: block;
+	width: 100%;
+	height: auto;
+	aspect-ratio: var(--ratio);
+	border-radius: 6px;
+	box-shadow: 0 0 0 1px rgba(94, 128, 174, 0.3);
+}
+
+.print__foot {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 12px;
+	min-height: 40px;
+}
+.print__palette {
+	font: 800 15px/20px var(--font-display);
+	letter-spacing: -0.005em;
+	color: var(--ink);
+}
+.chips { display: flex; gap: 6px; }
+.chip {
+	display: grid;
+	place-items: center;
+	width: 40px;
+	height: 40px;
+	padding: 0;
+	border: 1px solid var(--border-control);
+	border-radius: var(--radius-sm);
+	background: var(--surface);
+	cursor: pointer;
+	transition: transform 0.35s var(--ease-spring);
+}
+.chip:hover { transform: translateY(-1px); }
+.chip:active { transform: scale(0.96); }
+.chip[aria-pressed="true"] {
+	border-color: var(--action);
+	background: var(--raised);
+	box-shadow: inset 0 0 0 1px var(--action);
+}
+.chip i {
+	display: block;
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+	box-shadow: 0 0 0 1px rgba(22, 66, 140, 0.35);
+}
+.chip[data-palette="navy"] i { background: linear-gradient(135deg, #061a52 0%, #0c6bed 62%, #4d9ff3 100%); }
+.chip[data-palette="tide"] i { background: linear-gradient(135deg, #ffffff 0%, #8fc4f7 50%, #0c6bed 100%); }
+.chip[data-palette="glass"] i { background: linear-gradient(135deg, #ffffff 0%, #46d0fb 58%, #4d9ff3 100%); }
+.chip[data-palette="dusk"] i { background: linear-gradient(135deg, #0b1f55 0%, #0b1f55 46%, #ff9f7a 47%, #ffd9c2 100%); }
+
+/* the panel is fixed bottom left, so on a narrower screen the poster takes the room above it */
+@media (max-width: 960px) {
+	.sample--streamline-poster .stage {
+		/* --panel-h is set from the panel's real height by piece.js */
+		padding: 68px var(--gutter) calc(var(--panel-h, 270px) + 28px);
+	}
+}
+/* a phone: the poster is square, so it can be as wide as the screen leaves room for */
+@media (max-width: 720px) {
+	.print { --ratio: 1; }
+}
+@media (max-width: 420px) {
+	.print__meta { gap: 10px; font-size: 11.5px; }
+	.print__title { font-size: 12px; letter-spacing: 0.12em; }
+	.print__palette { font-size: 14px; }
+}

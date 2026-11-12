@@ -1,0 +1,11 @@
+{
+	"place": "Sample town",
+	"note": "Sample forecast · not real weather",
+	"days": [
+		{ "day": "Mon", "name": "Monday", "cond": "clear", "hi": 21, "lo": 11, "moon": "waxing-crescent", "moonLabel": "Waxing crescent" },
+		{ "day": "Tue", "name": "Tuesday", "cond": "cloudy", "hi": 17, "lo": 10, "moon": "first-quarter", "moonLabel": "First quarter" },
+		{ "day": "Wed", "name": "Wednesday", "cond": "rain", "hi": 13, "lo": 8, "moon": "waxing-gibbous", "moonLabel": "Waxing gibbous" },
+		{ "day": "Thu", "name": "Thursday", "cond": "storm", "hi": 15, "lo": 9, "moon": "full", "moonLabel": "Full moon" },
+		{ "day": "Fri", "name": "Friday", "cond": "snow", "hi": 1, "lo": -4, "moon": "waning-gibbous", "moonLabel": "Waning gibbous" }
+	]
+}

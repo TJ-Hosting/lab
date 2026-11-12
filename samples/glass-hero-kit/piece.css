@@ -1,0 +1,329 @@
+/* Sample 38 — Aurora hero with beam cards, on the open day sky.
+   Behind the glass: soft light rays and two slow blobs, one set per palette (Cyan, Azure, Dusk), crossfaded by opacity.
+   Rays and blobs are pre-softened gradients (no blur filter) moved by CSS animations on transform and opacity, inside the
+   [data-motion] stage, which lab.css pauses off-screen and in a hidden tab. A frosted hero card with three sample chips
+   sits over them; below it, three service cards each carry a beam of light on the border (four thin strips, moved by
+   piece.js with the Web Animations API: transform and opacity only).
+   The shell (sky, top bar, panel) comes from css/.
+
+   Ported from the ideas of Magic UI's Light Rays and Border Beam (MIT, Copyright (c) Magic UI; the notice is in piece.js). */
+
+/* ---------- the stage ---------- */
+
+.kit-stage {
+	place-items: start center;
+	padding: 84px var(--gutter) 28px;
+}
+
+.piece-open {
+	position: relative;
+	z-index: 1;
+	width: min(100%, 1040px);
+	display: flex;
+	flex-direction: column;
+	gap: 14px;
+}
+
+/* the "Sample content" label: a small pill above the hero */
+.note {
+	align-self: center;
+	margin: 0;
+	padding: 5px 14px;
+	/* the Lab's one chip (lab-05 P5 review): sans, ink, a cyan dot */
+	font: 600 13.5px/20px var(--font-sans);
+	letter-spacing: 0;
+	text-transform: none;
+	text-align: center;
+	color: var(--ink);
+	white-space: normal;
+}
+noscript .note { text-transform: none; letter-spacing: 0; }
+
+/* ---------- the aurora: three sets, one shown at a time ---------- */
+
+.aurora {
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	overflow: hidden;
+	pointer-events: none;
+}
+/* an inactive set is invisible and not painted once its fade is over; the new one fades in at once */
+.aurora__set {
+	position: absolute;
+	inset: 0;
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 1.3s var(--ease-out), visibility 0s linear 1.3s;
+}
+.kit-stage[data-palette="cyan"] .aurora__set[data-set="cyan"],
+.kit-stage[data-palette="azure"] .aurora__set[data-set="azure"],
+.kit-stage[data-palette="dusk"] .aurora__set[data-set="dusk"] {
+	opacity: 1;
+	visibility: visible;
+	transition: opacity 1.3s var(--ease-out), visibility 0s;
+}
+
+.rays { display: contents; }
+
+/* a ray: a tall half-ellipse of colour, brightest at the top edge and fading in every direction, so no blur is needed;
+   it swings a little about its top and fades in and out (the source's 0 > intensity > 0 and the swing of a couple of degrees) */
+.ray {
+	position: absolute;
+	top: -12%;
+	left: calc(var(--left) * 1%);
+	width: calc(var(--w) * 1px);
+	height: 78vh;
+	transform-origin: 50% 0;
+	transform: translateX(-50%) rotate(calc(var(--rot) * 1deg));
+	background:
+		radial-gradient(ellipse 16% 100% at 50% 0%, rgba(255, 255, 255, 0.55) 0%, rgba(255, 255, 255, 0.2) 40%, rgba(255, 255, 255, 0) 100%),
+		radial-gradient(ellipse 50% 100% at 50% 0%,
+			rgba(var(--rc), 0.9) 0%,
+			rgba(var(--rc), 0.66) 12%,
+			rgba(var(--rc), 0.4) 30%,
+			rgba(var(--rc), 0.19) 52%,
+			rgba(var(--rc), 0.06) 76%,
+			rgba(var(--rc), 0) 100%);
+	opacity: 0;
+	animation: ray-sway var(--dur) ease-in-out calc(var(--shift) * -1s) infinite;
+}
+@keyframes ray-sway {
+	0% { opacity: 0; transform: translateX(-50%) rotate(calc((var(--rot) - var(--swing)) * 1deg)); }
+	45% { opacity: var(--peak); transform: translateX(-50%) rotate(calc((var(--rot) + var(--swing)) * 1deg)); }
+	90%, 100% { opacity: 0; transform: translateX(-50%) rotate(calc((var(--rot) - var(--swing)) * 1deg)); }
+}
+
+/* a blob: a big soft disc of colour that drifts and swells very slowly */
+.blob {
+	position: absolute;
+	width: max(54vmax, 520px);
+	aspect-ratio: 1;
+	border-radius: 50%;
+	background: radial-gradient(closest-side,
+		rgba(var(--bc), var(--ba)) 0%,
+		rgba(var(--bc), calc(var(--ba) * 0.5)) 45%,
+		rgba(var(--bc), calc(var(--ba) * 0.16)) 72%,
+		rgba(var(--bc), 0) 100%);
+}
+.blob--1 { left: -16%; top: -26%; animation: blob-one 38s ease-in-out infinite alternate; }
+.blob--2 { right: -18%; top: 4%; animation: blob-two 52s ease-in-out -14s infinite alternate; }
+@keyframes blob-one {
+	from { transform: translate3d(0, 0, 0) scale(1); }
+	to { transform: translate3d(9vw, 8vh, 0) scale(1.14); }
+}
+@keyframes blob-two {
+	from { transform: translate3d(0, 0, 0) scale(1.06); }
+	to { transform: translate3d(-8vw, 10vh, 0) scale(0.92); }
+}
+
+/* the user's Pause (the button also holds the beams through govern()) */
+.kit-stage.is-user-paused .ray,
+.kit-stage.is-user-paused .blob { animation-play-state: paused; }
+
+/* ---------- the hero: frosted light glass ---------- */
+
+.kit-hero {
+	padding: 22px clamp(20px, 3.4vw, 40px) 28px;
+	text-align: center;
+}
+
+.kit-hero__top {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px 16px;
+	margin-bottom: 18px;
+	text-align: left;
+}
+.kit-hero__tag {
+	padding: 6px 14px;
+	font: 600 12px/18px var(--font-mono);
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--muted);
+}
+
+/* the palette switcher: three toggles, each with a swatch */
+.swatches { display: flex; flex-wrap: wrap; gap: 6px; }
+.swatch { gap: 8px; }
+.swatch__dot {
+	display: block;
+	width: 11px;
+	height: 11px;
+	flex: none;
+	border-radius: 50%;
+	background: var(--sw);
+	box-shadow: 0 0 0 2px #fff, 0 0 0 3px rgba(94, 128, 174, 0.4);
+}
+.swatch[data-palette="cyan"] { --sw: #46d0fb; }
+.swatch[data-palette="azure"] { --sw: #0c6bed; }
+.swatch[data-palette="dusk"] { --sw: linear-gradient(135deg, #1a3a85 56%, #ffb58a 56%); }
+
+.kit-hero__title {
+	margin: 0 auto;
+	max-width: 15em;
+	font-size: clamp(34px, 5.2vw, 60px);
+	line-height: 1.04;
+	text-wrap: balance;
+}
+.kit-hero__title .script { font-size: 1.22em; line-height: 0.9; color: var(--ink-black); white-space: nowrap; }
+
+.kit-hero__lede {
+	margin: 14px auto 0;
+	max-width: 46ch;
+	font: 450 17px/26px var(--font-sans);
+	color: var(--muted);
+	text-wrap: balance;
+}
+
+/* three sample chips: a mono label and a placeholder value */
+.chips {
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: center;
+	gap: 10px;
+	margin: 20px 0 0;
+	padding: 0;
+	list-style: none;
+}
+.chip {
+	display: inline-flex;
+	align-items: baseline;
+	gap: 10px;
+	padding: 8px 16px;
+	border: 1px solid var(--glass-border);
+	border-radius: var(--radius-md);
+	background: var(--glass-sheen), linear-gradient(rgba(255, 255, 255, 0.82), rgba(255, 255, 255, 0.82));
+	box-shadow: var(--glass-inner), 0 10px 18px -14px rgba(var(--shade-rgb), 0.4);
+}
+.chip__k {
+	font: 600 12px/18px var(--font-mono);
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--muted);
+}
+.chip__v {
+	font: 800 22px/24px var(--font-display);
+	font-stretch: 92%;
+	letter-spacing: -0.01em;
+	color: var(--accent-text);
+}
+
+/* ---------- the service cards, each with a beam on its border ---------- */
+
+.services {
+	display: grid;
+	grid-template-columns: repeat(3, minmax(0, 1fr));
+	gap: 16px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+
+.service {
+	display: grid;
+	grid-template-columns: 46px minmax(0, 1fr);
+	grid-template-areas: "icon title" "icon text";
+	column-gap: 14px;
+	row-gap: 2px;
+	align-items: start;
+	padding: 18px 20px 20px;
+}
+.service__icon {
+	grid-area: icon;
+	display: grid;
+	place-items: center;
+	width: 46px;
+	height: 46px;
+	border-radius: var(--radius-md);
+	border: 1px solid var(--glass-border);
+	background: linear-gradient(170deg, #fff, var(--raised));
+	color: var(--accent-text);
+	box-shadow: var(--glass-inner);
+}
+.service__icon svg { width: 24px; height: 24px; }
+.service h3 { grid-area: title; font: 800 20px/26px var(--font-display); font-stretch: 94%; letter-spacing: -0.01em; }
+.service p { grid-area: text; margin: 0; font: 450 14.5px/22px var(--font-sans); color: var(--muted); }
+
+/* the beam: a ring along the card's border (a mask keeps only the outer 2.5px), with four strips inside it, one per edge.
+   piece.js slides them (transform) and fades them (opacity) so one comet of light runs clockwise round the border,
+   turning each corner without a break. A second, wider ring under it (.beam--glow) holds the same four strips, each
+   faded across its thickness, for a soft halo on the inside of the border. */
+.service .beam {
+	position: absolute;
+	inset: 0;
+	z-index: 3;
+	padding: 2.5px;
+	border-radius: inherit;
+	pointer-events: none;
+	--L: 110px;
+	--c0: rgba(70, 208, 251, 0);
+	--c1: rgba(70, 208, 251, 0.8);
+	--c2: #1578f1;
+	--c3: #0558dc;
+	--c4: rgba(5, 88, 220, 0);
+	-webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+	-webkit-mask-composite: xor;
+	mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+	mask-composite: exclude;
+}
+.beam__s {
+	position: absolute;
+	display: block;
+	opacity: 0;
+	pointer-events: none;
+	background: linear-gradient(var(--to), var(--c0) 0%, var(--c1) 34%, var(--c2) 70%, var(--c3) 93%, var(--c4) 100%);
+}
+.beam__s--t { --to: to right; left: 0; top: 0; width: var(--L); height: 6px; }
+.beam__s--r { --to: to bottom; right: 0; top: 0; width: 6px; height: var(--L); }
+.beam__s--b { --to: to left; left: 0; bottom: 0; width: var(--L); height: 6px; }
+.beam__s--l { --to: to top; left: 0; top: 0; width: 6px; height: var(--L); }
+
+.service .beam--glow {
+	z-index: 2;
+	padding: 12px;
+	--c1: rgba(70, 208, 251, 0.5);
+	--c2: rgba(21, 120, 241, 0.5);
+	--c3: rgba(21, 120, 241, 0.55);
+	--c4: rgba(21, 120, 241, 0);
+}
+.beam--glow .beam__s--t { height: 12px; -webkit-mask-image: linear-gradient(to bottom, #000, transparent); mask-image: linear-gradient(to bottom, #000, transparent); }
+.beam--glow .beam__s--r { width: 12px; -webkit-mask-image: linear-gradient(to left, #000, transparent); mask-image: linear-gradient(to left, #000, transparent); }
+.beam--glow .beam__s--b { height: 12px; -webkit-mask-image: linear-gradient(to top, #000, transparent); mask-image: linear-gradient(to top, #000, transparent); }
+.beam--glow .beam__s--l { width: 12px; -webkit-mask-image: linear-gradient(to right, #000, transparent); mask-image: linear-gradient(to right, #000, transparent); }
+
+/* a disabled control (reduced motion switches Pause off) reads as off */
+.sample-info .btn:disabled { opacity: 0.5; cursor: default; transform: none; box-shadow: none; }
+
+/* ---------- phones: one column, fewer rays ---------- */
+
+@media (max-width: 760px) {
+	/* room under the last card so it can scroll clear of the fixed panel */
+	.kit-stage { padding-top: 76px; padding-bottom: 340px; }
+	.piece-open { gap: 12px; }
+	.note { font-size: 12.5px; padding: 4px 12px; }
+	.kit-hero { padding: 16px 16px 20px; }
+	.kit-hero__top { margin-bottom: 14px; }
+	.kit-hero__lede { font-size: 15.5px; line-height: 24px; }
+	.chips { gap: 8px; margin-top: 16px; }
+	.chip { flex: 1 1 0; flex-direction: column; align-items: center; gap: 2px; padding: 8px 6px; min-width: 0; }
+	.chip__k { font-size: 11px; letter-spacing: 0.06em; }
+	.services { grid-template-columns: 1fr; gap: 12px; }
+	.ray:nth-child(n+5) { display: none; }
+	.blob { width: max(80vmax, 420px); }
+}
+
+/* ---------- reduced motion: rays and blobs held still, the palette still switches, the beams are set by piece.js ---------- */
+
+@media (prefers-reduced-motion: reduce) {
+	.ray,
+	.blob { animation: none; }
+	.ray {
+		opacity: calc(var(--peak) * 0.8);
+		transform: translateX(-50%) rotate(calc(var(--rot) * 1deg));
+	}
+	.blob--1 { transform: translate3d(3vw, 2vh, 0) scale(1.05); }
+	.blob--2 { transform: translate3d(-3vw, 4vh, 0) scale(1); }
+}

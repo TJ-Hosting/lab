@@ -1,0 +1,80 @@
+Contrast of text, WCAG 2.x, measured in headless Chromium at 1440×900 and 375×812.
+Method: record each element's text colour, hide all text, take 3 screenshots 1.5 s apart (anything that drifts is caught at its worst), and compare with the worst pixel inside the element's content box (where the glyphs sit) across the 3 frames: the darkest pixel behind dark text, the brightest behind light text (dark = text luminance under 0.179). Only elements fully on screen, below the sticky top bar and not covered by a fixed panel are measured; several scroll positions per page; every selector must be measured at least once on its page. AA: 4.5:1, or 3:1 for large text (≥24 px, or ≥18.66 px bold).
+
+page | width | scrolled to | selector | # | px | polarity | text colour | worst behind | ratio | need | result
+---|---|---|---|---|---|---|---|---|---|---|---
+404 | 1440 | top | .topnav a | 0 | 14 | light | rgb(232, 227, 250) | rgb(38, 27, 68) | 12.70 | 4.5 | pass
+404 | 1440 | top | .topnav a | 1 | 14 | light | rgb(232, 227, 250) | rgb(51, 40, 82) | 10.73 | 4.5 | pass
+404 | 1440 | top | .lost__panel h1 | 0 | 30 | light | rgb(246, 243, 255) | rgb(41, 39, 70) | 13.02 | 3 | pass
+404 | 1440 | top | .lost__panel p | 0 | 160 | light | rgb(232, 227, 250) | rgb(51, 50, 80) | 9.81 | 3 | pass
+404 | 1440 | top | .lost__panel p | 1 | 17 | light | rgb(232, 227, 250) | rgb(38, 42, 74) | 11.11 | 4.5 | pass
+404 | 1440 | top | .lost .btn | 0 | 15 | light | rgb(255, 255, 255) | rgb(26, 89, 197) | 6.40 | 4.5 | pass
+404 | 1440 | top | .lost .btn | 1 | 15 | light | rgb(255, 255, 255) | rgb(24, 21, 50) | 17.62 | 4.5 | pass
+hub | 1440 | top | .topnav a | 0 | 14 | light | rgb(255, 255, 255) | rgb(54, 69, 102) | 9.55 | 4.5 | pass
+hub | 1440 | top | .topnav a | 1 | 14 | light | rgb(232, 227, 250) | rgb(42, 53, 91) | 9.55 | 4.5 | pass
+hub | 1440 | top | .topnav a | 2 | 14 | light | rgb(232, 227, 250) | rgb(46, 53, 96) | 9.36 | 4.5 | pass
+hub | 1440 | top | .topnav a | 3 | 14 | light | rgb(232, 227, 250) | rgb(64, 40, 98) | 9.89 | 4.5 | pass
+hub | 1440 | top | .page-head .eyebrow | 0 | 12 | light | rgb(211, 203, 238) | rgb(118, 109, 139) | 3.13 | 4.5 | FAIL
+hub | 1440 | top | .page-head .lede | 0 | 19.44 | light | rgb(232, 227, 250) | rgb(84, 81, 102) | 6.12 | 4.5 | pass
+hub | 1440 | top | .tile .eyebrow | 0 | 15.5 | light | rgb(232, 227, 250) | rgb(40, 33, 70) | 12.03 | 4.5 | pass
+hub | 1440 | top | .tile .eyebrow | 1 | 15.5 | light | rgb(232, 227, 250) | rgb(37, 29, 58) | 12.77 | 4.5 | pass
+hub | 1440 | top | .tile .eyebrow | 2 | 15.5 | light | rgb(232, 227, 250) | rgb(39, 30, 57) | 12.62 | 4.5 | pass
+hub | 1440 | top | .tile h2 | 0 | 22 | light | rgb(246, 243, 255) | rgb(45, 25, 46) | 14.87 | 4.5 | pass
+hub | 1440 | top | .tile h2 | 1 | 22 | light | rgb(246, 243, 255) | rgb(36, 29, 67) | 14.40 | 4.5 | pass
+hub | 1440 | top | .tile h2 | 2 | 22 | light | rgb(246, 243, 255) | rgb(28, 27, 59) | 15.11 | 4.5 | pass
+hub | 1440 | top | .tile h2 | 3 | 22 | light | rgb(246, 243, 255) | rgb(33, 26, 54) | 15.16 | 4.5 | pass
+hub | 1440 | top | .tile p | 0 | 15.5 | light | rgb(232, 227, 250) | rgb(43, 23, 45) | 13.30 | 4.5 | pass
+hub | 1440 | top | .tile p | 1 | 15.5 | light | rgb(232, 227, 250) | rgb(40, 33, 70) | 12.03 | 4.5 | pass
+hub | 1440 | top | .tile p | 2 | 15.5 | light | rgb(232, 227, 250) | rgb(37, 29, 58) | 12.77 | 4.5 | pass
+hub | 1440 | top | .tile p | 3 | 15.5 | light | rgb(232, 227, 250) | rgb(39, 30, 57) | 12.62 | 4.5 | pass
+hub | 1440 | top | .tile .btn | 0 | 15 | light | rgb(255, 255, 255) | rgb(24, 90, 197) | 6.35 | 4.5 | pass
+hub | 1440 | bottom | .topnav a | 0 | 14 | light | rgb(255, 255, 255) | rgb(54, 69, 101) | 9.56 | 4.5 | pass
+hub | 1440 | bottom | .topnav a | 1 | 14 | light | rgb(232, 227, 250) | rgb(43, 53, 92) | 9.51 | 4.5 | pass
+hub | 1440 | bottom | .topnav a | 2 | 14 | light | rgb(232, 227, 250) | rgb(47, 53, 96) | 9.34 | 4.5 | pass
+hub | 1440 | bottom | .topnav a | 3 | 14 | light | rgb(232, 227, 250) | rgb(64, 40, 98) | 9.89 | 4.5 | pass
+hub | 1440 | bottom | .tile .eyebrow | 0 | 15.5 | light | rgb(232, 227, 250) | rgb(39, 34, 64) | 12.09 | 4.5 | pass
+hub | 1440 | bottom | .tile .eyebrow | 1 | 15.5 | light | rgb(232, 227, 250) | rgb(42, 31, 59) | 12.37 | 4.5 | pass
+hub | 1440 | bottom | .tile .eyebrow | 2 | 15.5 | light | rgb(232, 227, 250) | rgb(68, 41, 61) | 10.30 | 4.5 | pass
+hub | 1440 | bottom | .tile h2 | 0 | 22 | light | rgb(246, 243, 255) | rgb(49, 29, 47) | 14.24 | 4.5 | pass
+hub | 1440 | bottom | .tile h2 | 1 | 22 | light | rgb(246, 243, 255) | rgb(31, 26, 59) | 15.11 | 4.5 | pass
+hub | 1440 | bottom | .tile h2 | 2 | 22 | light | rgb(246, 243, 255) | rgb(41, 28, 57) | 14.54 | 4.5 | pass
+hub | 1440 | bottom | .tile h2 | 3 | 22 | light | rgb(246, 243, 255) | rgb(68, 38, 58) | 12.11 | 4.5 | pass
+hub | 1440 | bottom | .tile p | 0 | 15.5 | light | rgb(232, 227, 250) | rgb(47, 27, 45) | 12.77 | 4.5 | pass
+hub | 1440 | bottom | .tile p | 1 | 15.5 | light | rgb(232, 227, 250) | rgb(39, 34, 64) | 12.09 | 4.5 | pass
+hub | 1440 | bottom | .tile p | 2 | 15.5 | light | rgb(232, 227, 250) | rgb(31, 22, 64) | 13.47 | 4.5 | pass
+hub | 1440 | bottom | .tile p | 3 | 15.5 | light | rgb(232, 227, 250) | rgb(42, 31, 59) | 12.37 | 4.5 | pass
+hub | 1440 | bottom | .tile .btn | 0 | 15 | light | rgb(255, 255, 255) | rgb(24, 90, 197) | 6.35 | 4.5 | pass
+hub | 1440 | bottom | .foot span | 0 | 14 | light | rgb(211, 203, 238) | rgb(32, 26, 63) | 10.58 | 4.5 | pass
+hub | 1440 | bottom | .foot a | 0 | 14 | light | rgb(232, 227, 250) | rgb(34, 23, 55) | 13.49 | 4.5 | pass
+hub | 1440 | bottom | .foot a | 1 | 14 | light | rgb(232, 227, 250) | rgb(30, 20, 53) | 13.92 | 4.5 | pass
+hub | 1440 | bottom | .foot a | 2 | 14 | light | rgb(232, 227, 250) | rgb(28, 20, 53) | 13.99 | 4.5 | pass
+404 | 375 | top | .topnav a | 0 | 13 | light | rgb(232, 227, 250) | rgb(79, 62, 90) | 7.74 | 4.5 | pass
+404 | 375 | top | .topnav a | 1 | 13 | light | rgb(232, 227, 250) | rgb(57, 47, 78) | 9.94 | 4.5 | pass
+404 | 375 | top | .lost__panel h1 | 0 | 22 | light | rgb(246, 243, 255) | rgb(41, 41, 72) | 12.75 | 4.5 | pass
+404 | 375 | top | .lost__panel p | 0 | 80 | light | rgb(232, 227, 250) | rgb(55, 52, 81) | 9.48 | 3 | pass
+404 | 375 | top | .lost__panel p | 1 | 17 | light | rgb(232, 227, 250) | rgb(40, 39, 70) | 11.44 | 4.5 | pass
+404 | 375 | top | .lost .btn | 0 | 15 | light | rgb(255, 255, 255) | rgb(26, 89, 197) | 6.40 | 4.5 | pass
+404 | 375 | top | .lost .btn | 1 | 15 | light | rgb(255, 255, 255) | rgb(20, 16, 49) | 18.29 | 4.5 | pass
+hub | 375 | top | .topnav a | 0 | 13 | light | rgb(232, 227, 250) | rgb(55, 34, 81) | 11.12 | 4.5 | pass
+hub | 375 | top | .topnav a | 1 | 13 | light | rgb(232, 227, 250) | rgb(41, 34, 71) | 11.88 | 4.5 | pass
+hub | 375 | top | .page-head .eyebrow | 0 | 12 | light | rgb(211, 203, 238) | rgb(85, 54, 84) | 6.63 | 4.5 | pass
+hub | 375 | top | .page-head .lede | 0 | 17 | light | rgb(232, 227, 250) | rgb(99, 65, 61) | 7.14 | 4.5 | pass
+hub | 375 | top | .tile h2 | 0 | 22 | light | rgb(246, 243, 255) | rgb(45, 29, 53) | 14.33 | 4.5 | pass
+hub | 375 | top | .tile p | 0 | 15.5 | light | rgb(232, 227, 250) | rgb(45, 28, 52) | 12.66 | 4.5 | pass
+hub | 375 | top | .tile .btn | 0 | 15 | light | rgb(255, 255, 255) | rgb(24, 90, 197) | 6.35 | 4.5 | pass
+hub | 375 | bottom | .topnav a | 0 | 13 | light | rgb(232, 227, 250) | rgb(43, 24, 76) | 12.56 | 4.5 | pass
+hub | 375 | bottom | .topnav a | 1 | 13 | light | rgb(232, 227, 250) | rgb(34, 25, 69) | 12.99 | 4.5 | pass
+hub | 375 | bottom | .tile .eyebrow | 0 | 15.5 | light | rgb(232, 227, 250) | rgb(68, 39, 69) | 10.36 | 4.5 | pass
+hub | 375 | bottom | .tile .eyebrow | 1 | 15.5 | light | rgb(232, 227, 250) | rgb(60, 34, 60) | 11.30 | 4.5 | pass
+hub | 375 | bottom | .tile h2 | 0 | 22 | light | rgb(246, 243, 255) | rgb(68, 36, 63) | 12.22 | 4.5 | pass
+hub | 375 | bottom | .tile h2 | 1 | 22 | light | rgb(246, 243, 255) | rgb(61, 31, 58) | 13.18 | 4.5 | pass
+hub | 375 | bottom | .tile p | 0 | 15.5 | light | rgb(232, 227, 250) | rgb(68, 39, 69) | 10.36 | 4.5 | pass
+hub | 375 | bottom | .tile p | 1 | 15.5 | light | rgb(232, 227, 250) | rgb(67, 33, 56) | 11.10 | 4.5 | pass
+hub | 375 | bottom | .tile p | 2 | 15.5 | light | rgb(232, 227, 250) | rgb(60, 34, 60) | 11.30 | 4.5 | pass
+hub | 375 | bottom | .tile p | 3 | 15.5 | light | rgb(232, 227, 250) | rgb(56, 27, 57) | 12.14 | 4.5 | pass
+hub | 375 | bottom | .foot span | 0 | 14 | light | rgb(211, 203, 238) | rgb(37, 29, 58) | 10.30 | 4.5 | pass
+hub | 375 | bottom | .foot a | 0 | 14 | light | rgb(232, 227, 250) | rgb(21, 21, 52) | 14.13 | 4.5 | pass
+hub | 375 | bottom | .foot a | 1 | 14 | light | rgb(232, 227, 250) | rgb(22, 17, 50) | 14.48 | 4.5 | pass
+hub | 375 | bottom | .foot a | 2 | 14 | light | rgb(232, 227, 250) | rgb(21, 14, 49) | 14.75 | 4.5 | pass
+
+73 measurements, 72 pass, 1 fail. Lowest ratio: 3.13. Selectors never measured: none.

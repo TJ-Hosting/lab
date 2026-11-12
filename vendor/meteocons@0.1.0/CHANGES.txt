@@ -1,0 +1,9 @@
+Meteocons by Bas Milius, MIT (LICENSE, from github.com/basmilius/meteocons at commit 70dfb1d).
+
+Source: the npm packages @meteocons/svg@0.1.0 (animated SVG) and @meteocons/svg-static@0.1.0 (still SVG),
+tarballs checked against the registry's integrity hashes on 28 Oct 2026. The svg-static package's own LICENSE
+is identical to the repo's; the svg package ships none and declares "license": "MIT", author Bas Milius.
+
+Vendored for the lab-05 sample weather-window: only the 25 "fill" icons it uses, each copied unchanged.
+  fill/         animated (SMIL animateTransform and friends)
+  fill-static/  the same icons without animation, for reduced motion

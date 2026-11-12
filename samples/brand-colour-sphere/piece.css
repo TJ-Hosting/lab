@@ -1,0 +1,231 @@
+/* Sample 32 — The brand colour sphere, on the open day sky.
+   The sphere is the art: its patches take their colours from the base you pick (DS v9's royal, azure and cyan first),
+   resting on a pale glass disc with a soft blue contact shadow. The tools are one white glass panel (css/glass.css).
+   The SVG's geometry is redrawn by script each frame (a drawing surface); the HTML around it only changes transform and opacity. */
+
+/* ---------- layout: the sphere with its tools beside it, or under it on narrower screens ---------- */
+
+.orb-stage {
+	/* the fixed panel (bottom left, about 270 px tall) stays clear: the composition sits in the sky above it */
+	padding: 84px var(--gutter) 290px;
+}
+
+.orb {
+	--s: clamp(260px, calc(100vh - 410px), 500px);
+	--s: clamp(260px, calc(100dvh - 410px), 500px);
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	gap: clamp(28px, 5vw, 64px);
+}
+
+.orb__sphere {
+	position: relative;
+	flex: none;
+	width: var(--s);
+	aspect-ratio: 1;
+}
+
+/* the sphere's radius is 250 of the SVG's 520 units, so the glass disc and the gloss are inset by 10 / 520 */
+.orb__disc,
+.orb__gloss {
+	position: absolute;
+	inset: 1.92%;
+	border-radius: 50%;
+	pointer-events: none;
+}
+.orb__disc {
+	background: radial-gradient(circle at 34% 28%, #ffffff 0%, #e6f3fc 52%, #c9e7fc 100%);
+	box-shadow: 0 30px 50px -26px rgba(22, 66, 140, 0.4), 0 10px 24px -12px rgba(5, 95, 233, 0.22);
+}
+.orb__shadow {
+	position: absolute;
+	left: 8%;
+	right: 8%;
+	bottom: -9%;
+	height: 15%;
+	background: radial-gradient(closest-side, rgba(22, 66, 140, 0.3), rgba(22, 66, 140, 0));
+	pointer-events: none;
+}
+/* light caught on the glass: a soft highlight top left and a blue-tinted edge, over the patches */
+.orb__gloss {
+	background:
+		radial-gradient(circle at 30% 22%, rgba(255, 255, 255, 0.5) 0, rgba(255, 255, 255, 0.14) 17%, rgba(255, 255, 255, 0) 34%),
+		radial-gradient(circle at 50% 50%, rgba(22, 66, 140, 0) 66%, rgba(22, 66, 140, 0.2) 100%);
+	box-shadow: inset 0 0 0 1px rgba(94, 128, 174, 0.28);
+}
+
+.sphere {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	cursor: grab;
+	touch-action: none; /* the sphere takes the drags */
+	-webkit-tap-highlight-color: transparent;
+}
+.sphere.is-dragging,
+.sphere.is-dragging .patches polygon { cursor: grabbing; }
+.sphere:focus-visible {
+	outline: 3px solid var(--focus);
+	outline-offset: -3px;
+	border-radius: 50%;
+}
+
+.patches polygon {
+	stroke: rgba(255, 255, 255, 0.62);
+	stroke-width: 1.2;
+	stroke-linejoin: round;
+	cursor: pointer;
+}
+.pick,
+.halo {
+	fill: none;
+	stroke-linejoin: round;
+	pointer-events: none;
+}
+.pick--out { stroke: var(--ink); stroke-width: 6; }
+.pick--in { stroke: #ffffff; stroke-width: 2.6; }
+.halo { stroke: #ffffff; stroke-width: 3; }
+
+/* a small sight at the centre, only while the sphere has keyboard focus (Enter copies the patch there) */
+.reticle { display: none; fill: none; pointer-events: none; }
+.reticle circle { stroke: #ffffff; stroke-width: 2.5; paint-order: stroke; }
+.reticle circle:first-child { stroke: var(--ink); stroke-width: 2.5; }
+.sphere:focus-visible .reticle { display: block; }
+
+/* ---------- the tools: one white glass panel ---------- */
+
+.tools {
+	width: 300px;
+	padding: 18px 20px 16px;
+	display: grid;
+	grid-template-columns: 1fr auto;
+	grid-template-areas:
+		"label label"
+		"swatches swatches"
+		"near up"
+		"readout readout"
+		"note note";
+	gap: 12px 10px;
+	align-items: center;
+}
+.tools__label { grid-area: label; margin: 0; }
+.swatches { grid-area: swatches; display: flex; gap: 8px; padding: 3px; }
+.tools__near { grid-area: near; justify-self: start; }
+.tools__up { grid-area: up; justify-self: end; }
+.readout { grid-area: readout; }
+.tools__note {
+	grid-area: note;
+	margin: 0;
+	min-height: 18px;
+	font: 600 13px/18px var(--font-sans);
+	color: var(--muted);
+}
+.tools__note.is-ok { color: var(--success); font-weight: 800; }
+
+.swatch {
+	flex: none;
+	width: 34px;
+	height: 34px;
+	padding: 0;
+	border: 2px solid #ffffff;
+	border-radius: 50%;
+	background: var(--c);
+	box-shadow: 0 0 0 1px rgba(22, 66, 140, 0.4), 0 6px 12px -6px rgba(22, 66, 140, 0.5);
+	cursor: pointer;
+	transition: transform 0.35s var(--ease-spring);
+}
+.swatch:hover { transform: scale(1.1); }
+.swatch[aria-pressed="true"] { box-shadow: 0 0 0 2px #ffffff, 0 0 0 4.5px var(--action), 0 6px 12px -6px rgba(22, 66, 140, 0.5); }
+
+.readout {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	width: 100%;
+	padding: 8px 12px 8px 8px;
+	border: 1px solid var(--border-control);
+	border-radius: var(--radius-md);
+	background: var(--surface);
+	box-shadow: var(--glass-inner), 0 6px 16px -10px rgba(var(--shade-rgb), 0.35);
+	text-align: left;
+	cursor: pointer;
+	transition: background-color var(--t-state) var(--ease-ui);
+}
+.readout:hover { background: var(--raised); }
+.readout__chip {
+	flex: none;
+	width: 42px;
+	height: 42px;
+	border-radius: 9px;
+	background: var(--c, #46d0fb);
+	box-shadow: inset 0 0 0 1px rgba(7, 16, 34, 0.3);
+}
+.readout__text { min-width: 0; }
+.readout__hex {
+	display: block;
+	font: 800 19px/24px var(--font-mono);
+	letter-spacing: 0.02em;
+	color: var(--ink);
+}
+.readout__detail {
+	display: block;
+	font: 600 12px/16px var(--font-mono);
+	color: var(--muted);
+	white-space: nowrap;
+}
+
+/* ---------- narrower screens: the tools go under the sphere ---------- */
+
+@media (max-width: 960px) {
+	.orb {
+		--s: clamp(220px, min(calc(100vw - 2 * var(--gutter)), calc(100vh - 670px)), 500px);
+		--s: clamp(220px, min(calc(100vw - 2 * var(--gutter)), calc(100dvh - 670px)), 500px);
+		flex-direction: column;
+		gap: clamp(20px, 3vh, 34px);
+	}
+	/* packed at the top, above the fixed panel */
+	.orb-stage { align-content: start; padding: 84px var(--gutter) 20px; }
+	.tools { width: min(100%, 420px); }
+}
+
+@media (max-width: 720px) {
+	.orb-stage {
+		align-content: start;
+		padding: 80px var(--gutter) 20px;
+	}
+	.orb {
+		--s: clamp(210px, min(calc(100vw - 2 * var(--gutter)), calc(100vh - 545px)), 330px);
+		--s: clamp(210px, min(calc(100vw - 2 * var(--gutter)), calc(100dvh - 545px)), 330px);
+		gap: 18px;
+	}
+	/* with the panel folded away the sphere gets the room */
+	body:has(.sample-info[data-collapsed="true"]) .orb {
+		--s: clamp(210px, min(calc(100vw - 2 * var(--gutter)), calc(100vh - 370px)), 360px);
+		--s: clamp(210px, min(calc(100vw - 2 * var(--gutter)), calc(100dvh - 370px)), 360px);
+	}
+	.tools {
+		width: 100%;
+		padding: 10px 12px 9px;
+		gap: 8px 8px;
+		grid-template-columns: minmax(0, 1fr) 100px;
+		grid-template-areas:
+			"label note"
+			"swatches up"
+			"readout near";
+	}
+	.tools__label { font-size: 11px; line-height: 14px; }
+	.swatches { gap: 6px; padding: 3px; }
+	.swatch { width: 28px; height: 28px; }
+	.readout { padding: 5px 8px 5px 5px; gap: 8px; }
+	.readout__chip { width: 32px; height: 32px; border-radius: 7px; }
+	.readout__hex { font-size: 16px; line-height: 20px; }
+	.readout__detail { font-size: 11px; line-height: 14px; }
+	.tools__note { font-size: 12.5px; line-height: 16px; min-height: 16px; text-align: right; white-space: nowrap; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.swatch, .readout { transition: none; }
+	.swatch:hover { transform: none; }
+}

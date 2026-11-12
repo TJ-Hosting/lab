@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<!-- the base policy, unchanged: the PNG download is an <a download> to an object URL, which no fetch directive governs -->
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://*.google.com; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<script src="../../js/ga4.js"></script>
+	<title>Glass mandala — draw in folds · TJ-Hosting Lab</title>
+	<meta name="description" content="Draw on a round glass plate and every stroke repeats around the centre, in 2 to 24 folds, mirrored or not, in three blue colour modes. Plain Canvas 2D, with a transparent PNG download.">
+	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/glass-mandala/">
+	<meta name="theme-color" content="#eef7fc">
+	<link rel="icon" href="../../img/brand/tj-mark.svg" type="image/svg+xml">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="TJ-Hosting Lab">
+	<meta property="og:title" content="Glass mandala — TJ-Hosting Lab">
+	<meta property="og:description" content="Draw one stroke and watch it repeat around the centre of a glass plate. Save the result as a PNG sticker.">
+	<meta property="og:url" content="https://lab.tj-hosting.ca/samples/glass-mandala/">
+	<meta property="og:image" content="https://lab.tj-hosting.ca/img/og/glass-mandala.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="A round glass plate with a blue mandala of mirrored petals drawn in navy, azure and cyan">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="preload" href="../../fonts/nunito-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="../../css/glass.css">
+	<link rel="stylesheet" href="../../css/lab.css">
+	<link rel="stylesheet" href="../../css/sample.css">
+	<link rel="stylesheet" href="piece.css">
+	<script src="../../js/early.js"></script>
+	<script type="module" src="piece.js"></script>
+</head>
+<body class="sample sample--glass-mandala">
+	<a class="skip" href="#about-piece">Skip to the description</a>
+
+	<div class="sky" aria-hidden="true"></div>
+
+	<header class="topbar">
+		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
+			<img src="../../img/brand/tj-mark.svg" alt="" width="34" height="34">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Lab">
+			<a href="../../#samples">All samples</a>
+		</nav>
+	</header>
+
+	<!-- stage C: open sky. A round light-glass plate holds one canvas; a frosted toolbar sits under it
+	     (beside the info panel on a wide screen, above it on a phone). -->
+	<main id="main" class="stage" data-motion>
+		<div class="piece-open mandala">
+			<div class="plate glass">
+				<span class="plate__rings" aria-hidden="true"></span>
+				<canvas class="piece" role="img" aria-label="A round glass plate with a mandala on it. Draw on it with a mouse, a finger or a pen and each stroke repeats around the centre, in as many folds as the Folds slider says. Without a pointer, press Surprise me to add a few strokes."></canvas>
+			</div>
+			<p class="status" id="status" role="status" aria-live="polite">Draw on the plate, or press Surprise me.</p>
+			<div class="bar glass glass--strong" role="group" aria-label="Mandala tools">
+				<div class="bar__row">
+					<label class="bar__slider" for="folds">
+						<span class="bar__label">Folds</span>
+						<input id="folds" type="range" min="2" max="24" step="1" value="12" aria-valuetext="12 folds">
+						<output class="bar__val" for="folds">12</output>
+					</label>
+					<label class="bar__slider" for="brush">
+						<span class="bar__label">Brush</span>
+						<input id="brush" type="range" min="2" max="20" step="1" value="6" aria-valuetext="6">
+						<output class="bar__val" for="brush">6</output>
+					</label>
+				</div>
+				<div class="bar__row bar__row--between">
+					<div class="bar__group" role="group" aria-label="Colour">
+						<button class="btn btn--sm btn--ghost" type="button" data-mode="ink" aria-pressed="false"><i class="sw sw--ink" aria-hidden="true"></i>Ink</button>
+						<button class="btn btn--sm btn--ghost" type="button" data-mode="glass" aria-pressed="true"><i class="sw sw--glass" aria-hidden="true"></i>Glass</button>
+						<button class="btn btn--sm btn--ghost" type="button" data-mode="sky" aria-pressed="false"><i class="sw sw--sky" aria-hidden="true"></i>Sky</button>
+					</div>
+					<button class="btn btn--sm btn--ghost" type="button" data-action="mirror" aria-pressed="true">Mirror</button>
+				</div>
+				<div class="bar__row bar__row--between">
+					<div class="bar__group">
+						<button class="btn btn--sm btn--ghost" type="button" data-action="undo">Undo</button>
+						<button class="btn btn--sm btn--ghost" type="button" data-action="redo">Redo</button>
+						<button class="btn btn--sm btn--ghost" type="button" data-action="clear">Clear</button>
+					</div>
+					<div class="bar__group">
+						<button class="btn btn--sm btn--primary" type="button" data-action="surprise">Surprise me</button>
+						<button class="btn btn--sm btn--ghost" type="button" data-action="save">
+							<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11"/><path d="M7 11l5 5 5-5"/><path d="M5 20h14"/></svg>
+							Download PNG
+						</button>
+					</div>
+				</div>
+			</div>
+			<noscript><p class="status">The mandala needs JavaScript to draw.</p></noscript>
+		</div>
+	</main>
+
+	<aside class="sample-info glass glass--strong" id="about-piece" aria-labelledby="piece-title">
+		<p class="eyebrow">Sample 55 · Draw in folds</p>
+		<h1 id="piece-title">Glass mandala</h1>
+		<p class="how"><b>How it's made:</b> Canvas 2D repeats each stroke around the centre in 2 to 24 folds and redraws from the stored points.
+		A demo stroke draws on load and after a quiet moment; it stops off-screen, in a hidden tab or on Pause.</p>
+		<div class="controls">
+			<button class="btn btn--sm btn--ghost" type="button" data-action="pause" aria-pressed="false">Pause</button>
+			<a class="back" href="../../#samples">← Back to the lab</a>
+		</div>
+	</aside>
+</body>
+</html>

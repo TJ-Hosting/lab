@@ -1,0 +1,602 @@
+/* Sample 23 — A Web Request in Milliseconds. The shell (sky, top bar, panel) comes from css/; only the piece is styled here.
+ *
+ * Written from the idea only (a vertical scroll-driven timeline whose gaps are proportional to elapsed time, after Bramus's
+ * "The Road to Baseline Newly Available" demo on scroll-driven-animations.style, Apache License 2.0); no source code of that
+ * demo was read or copied. The layout, the six steps, the glyphs, the lanes and all the maths here are new.
+ *
+ * How it works:
+ * - the trip is one tall box: --total milliseconds x --px pixels. Each step (.leg) is placed at its own start (--at) and is as
+ *   long as its own duration (--ms), so a gap on the page is a gap in time. Change --px and the whole page re-scales;
+ * - the cards, the server's three jobs, the painted page and the two lanes reveal on CSS scroll timelines (an anonymous
+ *   view() for each card, a named one for the lanes and one for the page), only where `animation-timeline` exists and
+ *   motion is allowed. Everything else (the counter chip, the filled line, the lit nodes) is piece.js reading the scroll;
+ * - without scroll timelines, or with reduced motion, nothing below is animated: every card, lane and the page are already
+ *   in their end state, top to bottom.
+ * Every animation moves only transform and opacity, and is tied to the scroll position (nothing runs at rest).
+ */
+
+.req {
+	--px: 5px;                 /* pixels of page for each millisecond: everything below follows from it */
+	--total: 480;              /* the whole request, in milliseconds (also data-total on #trip) */
+	--play: clamp(150px, 34vh, 300px); /* where the counter chip rides on the screen */
+	--left: 0px;               /* the column for the big numbers (wide screens only) */
+	--spine: 72px;             /* the column the line runs in */
+	--hc: 34px;                /* from the top of a card to the middle of its title row: where its node sits */
+	--cols: var(--left) var(--spine) minmax(0, 1fr);
+
+	/* the six steps' colours: sky, azure, cyan light, royal, one warm spark for the first byte, deep blue */
+	--c-dns: #8cc8fb;
+	--c-tls: #4d9ff3;
+	--c-req: #46d0fb;
+	--c-srv: #0c6bed;
+	--c-byte: #ffb547;
+	--c-paint: #1d4fa8;
+
+	max-width: calc(var(--page-max) + 2 * var(--gutter));
+	margin: 0 auto;
+	padding: 26px var(--gutter) 0;
+}
+@media (min-width: 1100px) {
+	.req { --left: 424px; --spine: 112px; --hc: 40px; }
+}
+
+.k-dns { --c: var(--c-dns); }
+.k-tls { --c: var(--c-tls); }
+.k-req { --c: var(--c-req); }
+.k-srv { --c: var(--c-srv); }
+.k-byte { --c: var(--c-byte); }
+.k-paint { --c: var(--c-paint); }
+/* the server's share is the one that can be long: it carries stripes, so it reads as "busy" in black and white too */
+.band.k-srv, .seg.k-srv, .key .k-srv::before {
+	background: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.34) 0 5px, rgba(255, 255, 255, 0) 5px 10px), var(--c);
+}
+
+/* ---------- the hero ---------- */
+
+.hero { max-width: 760px; }
+.hero__tag { margin: 0 0 14px; }
+.hero__title {
+	margin: 0 0 10px;
+	font: 900 clamp(32px, 4vw, 52px) / 1.02 var(--font-display);
+	font-stretch: 88%;
+	letter-spacing: -0.03em;
+	text-wrap: balance;
+}
+.hero__title .script { font-size: 1.2em; color: var(--ink-black); }
+.hero__lede { margin: 0; max-width: 92ch; font: 500 16px / 24px var(--font-sans); color: var(--muted); }
+
+/* ---------- the trip: a tall box, 5 px for each millisecond ---------- */
+
+.trip {
+	position: relative;
+	height: calc(var(--total) * var(--px));
+	margin: 60px 0 0;
+}
+
+/* the rail: ruler, bands, line, nodes, and the chip. Same three columns as the steps. */
+.rail {
+	position: absolute;
+	inset: 0;
+	z-index: 2;
+	display: grid;
+	grid-template-columns: var(--cols);
+	grid-template-rows: 100%;
+	pointer-events: none;
+}
+.rail__col { position: relative; grid-column: 2; }
+
+/* ticks every 10 ms, longer ones every 40 ms, hanging off the left of the line */
+.ruler {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	right: calc(50% + 9px);
+	width: 22px;
+	background:
+		repeating-linear-gradient(180deg, rgba(59, 74, 102, 0.62) 0 2px, rgba(59, 74, 102, 0) 2px calc(var(--px) * 40)) right / 22px 100% no-repeat,
+		repeating-linear-gradient(180deg, rgba(59, 74, 102, 0.34) 0 1px, rgba(59, 74, 102, 0) 1px calc(var(--px) * 10)) right / 11px 100% no-repeat;
+}
+/* the numbers: big where a step starts, small in between (wide screens only) */
+.ruler__labels { display: none; margin: 0; padding: 0; list-style: none; }
+.ruler__labels li {
+	position: absolute;
+	right: calc(50% + 60px);
+	top: calc(var(--t) * var(--px));
+	display: flex;
+	align-items: baseline;
+	gap: 6px;
+	transform: translate3d(0, -50%, 0);
+	white-space: nowrap;
+}
+.ruler__labels b { font: 600 13px / 1 var(--font-mono); letter-spacing: 0.04em; color: var(--muted); }
+.ruler__labels small { font: 600 12px / 1 var(--font-mono); letter-spacing: 0.08em; text-transform: uppercase; color: var(--muted); }
+.ruler__labels .is-start b {
+	font: 900 44px / 1 var(--font-display);
+	font-stretch: 88%;
+	letter-spacing: -0.04em;
+	color: #082b5f;
+	color: color-mix(in srgb, var(--ink) 70%, var(--brand-royal));
+}
+.ruler__labels .is-end b { color: var(--accent-text); }
+@media (min-width: 1100px) {
+	.ruler__labels { display: block; }
+}
+
+/* a band for each step along the line, as long as the step is */
+.band {
+	position: absolute;
+	left: calc(50% - 6px);
+	top: calc(var(--at) * var(--px) + 2px);
+	width: 12px;
+	height: calc(var(--ms) * var(--px) - 4px);
+	border-radius: 6px;
+	background: var(--c);
+	opacity: 0.45;
+	transition: opacity 0.3s var(--ease-out);
+}
+.band.is-now { opacity: 1; }
+
+/* the line, and the part of it that time has covered (piece.js scales it from the scroll) */
+.line {
+	position: absolute;
+	left: calc(50% - 2px);
+	top: 0;
+	bottom: 0;
+	width: 4px;
+	border-radius: 2px;
+	background: rgba(59, 74, 102, 0.26);
+	overflow: hidden;
+}
+.line__fill {
+	position: absolute;
+	inset: 0;
+	background: linear-gradient(180deg, var(--brand-royal), var(--glow-cyan));
+	transform-origin: 50% 0;
+	transform: scaleY(0);
+}
+
+.node {
+	position: absolute;
+	left: calc(50% - 11px);
+	top: calc(var(--at) * var(--px) - 11px);
+	width: 22px;
+	height: 22px;
+	border-radius: 50%;
+	border: 3px solid var(--c);
+	background: #ffffff;
+	box-shadow: 0 0 0 1px rgba(22, 66, 140, 0.22), 0 4px 10px -3px rgba(22, 66, 140, 0.4);
+}
+.node i {
+	position: absolute;
+	inset: 2px;
+	border-radius: 50%;
+	background: var(--c);
+	opacity: 0;
+	transform: scale(0.4);
+	transition: opacity 0.25s var(--ease-out), transform 0.4s var(--ease-spring);
+}
+.node.is-passed i { opacity: 1; transform: none; }
+.node--end {
+	left: calc(50% - 18px);
+	top: calc(var(--at) * var(--px) - 18px);
+	width: 36px;
+	height: 36px;
+	display: grid;
+	place-items: center;
+	border: 3px solid #ffffff;
+	background: var(--action);
+	color: #ffffff;
+	box-shadow: 0 0 0 4px rgba(70, 208, 251, 0.5), 0 8px 16px -4px rgba(5, 95, 233, 0.55);
+}
+.node--end svg { width: 18px; height: 18px; }
+
+/* the counter chip: zero height, stuck at --play from the top of the screen while the trip passes; piece.js reads its
+   position to get the milliseconds */
+.now { position: sticky; top: var(--play); height: 0; }
+.now__chip.glass {
+	position: absolute;
+	left: 50%;
+	top: 0;
+	display: flex;
+	align-items: baseline;
+	justify-content: center;
+	gap: 5px;
+	min-width: 68px;
+	padding: 8px 9px 9px;
+	border-radius: 14px;
+	transform: translate3d(-50%, -50%, 0);
+	box-shadow: var(--glass-inner), 0 14px 26px -12px rgba(22, 66, 140, 0.5), 0 0 0 3px rgba(70, 208, 251, 0.45);
+}
+.now__chip b { font: 700 21px / 1 var(--font-mono); font-variant-numeric: tabular-nums; color: var(--ink); letter-spacing: -0.02em; }
+.now__chip i { font: 600 11px / 1 var(--font-mono); font-style: normal; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+@media (min-width: 1100px) {
+	.now__chip.glass { min-width: 96px; padding: 10px 14px 11px; }
+	.now__chip b { font-size: 28px; }
+	.now__chip i { font-size: 12px; }
+}
+
+/* ---------- the steps ---------- */
+
+.legs { position: absolute; inset: 0; z-index: 1; margin: 0; padding: 0; list-style: none; pointer-events: none; }
+.leg {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: calc(var(--at) * var(--px));
+	height: calc(var(--ms) * var(--px));
+	display: grid;
+	grid-template-columns: var(--cols);
+	grid-template-rows: 100%;
+}
+.leg > * { grid-column: 3; grid-row: 1; pointer-events: auto; }
+
+.step {
+	position: relative;
+	align-self: start;
+	max-width: 600px;
+	margin: calc(var(--hc) * -1) 0 0 8px;
+}
+/* the little arm from the line to the card */
+.step::before {
+	content: "";
+	position: absolute;
+	right: 100%;
+	top: calc(var(--hc) - 1px);
+	width: calc(var(--spine) / 2 + 8px);
+	height: 2px;
+	background: linear-gradient(90deg, var(--c), rgba(77, 159, 243, 0.55));
+	opacity: 0.85;
+}
+/* the step that time is in right now gets a ring of cyan light */
+.step__ring {
+	position: absolute;
+	inset: -3px;
+	border-radius: 25px;
+	border: 2px solid rgba(70, 208, 251, 0.95);
+	box-shadow: 0 0 0 5px rgba(70, 208, 251, 0.2), 0 0 30px 4px rgba(70, 208, 251, 0.4);
+	opacity: 0;
+	transition: opacity 0.3s var(--ease-out);
+	pointer-events: none;
+}
+.leg.is-now .step__ring { opacity: 1; }
+
+.card.glass {
+	padding: 12px 14px 14px;
+	box-shadow: var(--glass-inner), 0 26px 46px -22px rgba(22, 66, 140, 0.42), 0 8px 18px -10px rgba(22, 66, 140, 0.2);
+}
+.card__head { display: flex; align-items: center; gap: 12px; margin-bottom: 6px; }
+.glyph {
+	flex: none;
+	display: grid;
+	place-items: center;
+	width: 44px;
+	height: 44px;
+	border-radius: 13px;
+	background: linear-gradient(160deg, #ffffff, #d4e8fb);
+	box-shadow: inset 0 0 0 1px rgba(94, 128, 174, 0.24), 0 8px 14px -8px rgba(22, 66, 140, 0.5);
+}
+.glyph svg { width: 34px; height: 34px; overflow: visible; }
+.card__id { min-width: 0; }
+.card__meta {
+	position: relative;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 0 10px;
+	margin: 0 0 3px;
+	font: 600 11.5px / 16px var(--font-mono);
+	letter-spacing: 0.1em;
+	text-transform: uppercase;
+	color: var(--muted);
+}
+.card__no { display: inline-flex; align-items: center; gap: 7px; color: var(--accent-text); }
+.card__no::before {
+	content: "";
+	width: 9px;
+	height: 9px;
+	border-radius: 50%;
+	background: var(--c);
+	box-shadow: 0 0 0 1px rgba(22, 66, 140, 0.3);
+}
+.card h3 { font: 900 clamp(21px, 2vw, 25px) / 1.05 var(--font-display); font-stretch: 92%; letter-spacing: -0.015em; }
+.card__text { margin: 0 0 10px; font: 500 15px / 21px var(--font-sans); color: var(--muted); }
+
+/* a mini timeline: where this step sits in the whole request */
+.wf { display: block; position: relative; height: 8px; border-radius: 4px; background: rgba(94, 128, 174, 0.22); overflow: hidden; }
+.wf i {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: calc(var(--at) / var(--total) * 100%);
+	width: calc(var(--ms) / var(--total) * 100%);
+	min-width: 6px;
+	border-radius: 4px;
+	background: var(--c);
+}
+.leg.k-srv .wf i { background: repeating-linear-gradient(135deg, rgba(255, 255, 255, 0.34) 0 4px, rgba(255, 255, 255, 0) 4px 8px), var(--c); }
+
+/* the meta line: a range on narrow screens (where the big numbers are not there to say it), "Lasts" on wide ones */
+.when-wide { display: none; }
+@media (min-width: 1100px) {
+	.when-wide { display: inline; }
+	.when-narrow { display: none; }
+	.step { margin-left: 8px; }
+	.card.glass { padding: 14px 18px 16px; }
+	.card__head { gap: 14px; margin-bottom: 8px; }
+	.glyph { width: 52px; height: 52px; border-radius: 15px; }
+	.glyph svg { width: 40px; height: 40px; }
+	.card__text { font-size: 15.5px; line-height: 22px; margin-bottom: 12px; }
+}
+
+/* the glyphs: navy lines, a few fills, one warm spark */
+.glyph svg path, .glyph svg rect, .glyph svg circle, .glyph svg ellipse { vector-effect: none; }
+.g-line { fill: none; stroke: #0a2f6e; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.g-cyan-line { fill: none; stroke: #27a9e2; stroke-width: 3; stroke-linecap: round; }
+.g-white-line { fill: none; stroke: #ffffff; stroke-width: 3; stroke-linecap: round; }
+.g-sky-line { fill: none; stroke: #b6d8fa; stroke-width: 3; stroke-linecap: round; }
+.g-fill { fill: #ffffff; stroke: #0a2f6e; stroke-width: 3; stroke-linejoin: round; }
+.g-royal { fill: #0c6bed; stroke: #0a2f6e; stroke-width: 3; stroke-linejoin: round; }
+.g-white { fill: #ffffff; }
+.g-azure { fill: #4d9ff3; }
+.g-sky { fill: #b6d8fa; }
+.g-cyan { fill: #46d0fb; }
+.g-glass { fill: rgba(70, 208, 251, 0.28); stroke: #0c6bed; stroke-width: 3; }
+.g-honey-top { fill: #ffe0a8; }
+.g-honey { fill: #ffb547; }
+.g-honey-deep { fill: #ff8a3d; }
+
+/* ---------- the server's three jobs, drawn to the same scale as the line ---------- */
+
+.work { position: relative; align-self: stretch; margin: 0 0 0 40px; padding: 0; list-style: none; max-width: 420px; }
+.work__item.glass {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: calc(var(--w0) * var(--px) + 4px);
+	height: calc(var(--wd) * var(--px) - 8px);
+	display: flex;
+	align-items: flex-start;
+	gap: 10px;
+	padding: 14px 16px;
+	background-image: repeating-linear-gradient(135deg, rgba(12, 107, 237, 0.07) 0 8px, rgba(12, 107, 237, 0) 8px 16px);
+	box-shadow: var(--glass-inner), 0 14px 26px -16px rgba(22, 66, 140, 0.4);
+}
+.work__item svg { flex: none; width: 24px; height: 24px; }
+.work__item .g-line { stroke-width: 1.8; }
+.work__text { display: grid; gap: 2px; min-width: 0; }
+.work__name { font: 800 17px / 24px var(--font-sans); color: var(--ink); }
+.work__note { font: 500 14px / 20px var(--font-sans); color: var(--muted); }
+.work__ms { margin-left: auto; font: 600 13px / 24px var(--font-mono); letter-spacing: 0.04em; color: var(--muted); white-space: nowrap; }
+
+/* ---------- the page being painted, in the long last stretch ---------- */
+
+.paint.glass {
+	position: relative;
+	align-self: start;
+	width: min(100%, 440px);
+	height: calc(68 * var(--px));
+	margin: calc(40 * var(--px)) 0 0 40px;
+	display: flex;
+	flex-direction: column;
+	box-shadow: var(--glass-inner), 0 18px 34px -18px rgba(22, 66, 140, 0.42);
+}
+.paint__bar { flex: none; display: flex; align-items: center; gap: 6px; height: 28px; padding: 0 12px; border-bottom: 1px solid rgba(94, 128, 174, 0.22); }
+.paint__bar i { width: 8px; height: 8px; border-radius: 50%; background: var(--brand-azure); }
+.paint__bar i:first-child { background: var(--glow-cyan); }
+.paint__bar i:nth-child(3) { background: #9fbbe0; }
+.paint__bar span { flex: 1; height: 12px; margin-left: 8px; border-radius: 6px; background: rgba(94, 128, 174, 0.2); }
+.paint__page { flex: 1; display: grid; grid-template-rows: auto 1fr auto; gap: 12px; min-height: 0; padding: 14px; }
+.paint__nav { display: flex; gap: 8px; }
+.paint__nav i { width: 54px; height: 14px; border-radius: 7px; background: rgba(12, 107, 237, 0.28); }
+.paint__nav i:first-child { width: 70px; background: var(--brand-royal); }
+.paint__hero {
+	display: flex;
+	flex-direction: column;
+	justify-content: flex-end;
+	gap: 8px;
+	min-height: 0;
+	padding: 14px;
+	border-radius: 12px;
+	background: linear-gradient(150deg, #cfe6fd, #4d9ff3 70%, #46d0fb);
+}
+.paint__hero b { width: 62%; height: 16px; border-radius: 8px; background: #ffffff; }
+.paint__hero u { display: block; width: 78%; height: 8px; border-radius: 4px; background: rgba(255, 255, 255, 0.75); text-decoration: none; }
+.paint__hero u + u { width: 54%; }
+.paint__row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+.paint__tile { display: grid; gap: 7px; padding: 8px; border-radius: 10px; background: rgba(255, 255, 255, 0.7); box-shadow: inset 0 0 0 1px rgba(94, 128, 174, 0.2); }
+.paint__tile s { display: block; height: 34px; border-radius: 6px; background: linear-gradient(150deg, #e3f1ff, #7fbcf5); text-decoration: none; }
+.paint__tile u { display: block; width: 86%; height: 7px; border-radius: 4px; background: rgba(59, 74, 102, 0.26); text-decoration: none; }
+.paint__tile u + u { width: 58%; }
+
+/* ---------- the end of the trip ---------- */
+
+.trip__end {
+	position: absolute;
+	z-index: 1;
+	left: calc(var(--left) + var(--spine) + 8px);
+	top: calc(var(--total) * var(--px));
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	margin: 0;
+	padding: 8px 18px 8px 14px;
+	font: 800 15px / 20px var(--font-sans);
+	color: var(--ink);
+	transform: translate3d(0, -50%, 0);
+}
+
+/* ---------- the finale: two lanes on one time axis ---------- */
+
+.finale { margin-top: clamp(70px, 9vw, 110px); padding-bottom: 140px; }
+.finale__pin { position: relative; }
+.finale__card.glass { padding: clamp(20px, 3vw, 34px); }
+.finale__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 24px; }
+.finale__tag { margin: 0 0 14px; }
+.finale__title { margin: 0 0 8px; font: 900 clamp(28px, 3.4vw, 42px) / 1.05 var(--font-display); font-stretch: 90%; letter-spacing: -0.02em; }
+.finale__lede { margin: 0; max-width: 80ch; font: 500 16px / 24px var(--font-sans); color: var(--muted); }
+.finale__side { flex: none; display: flex; flex-direction: column; align-items: flex-end; gap: 14px; max-width: 400px; }
+.ready {
+	flex: none;
+	display: inline-flex;
+	align-items: center;
+	gap: 10px;
+	margin: 0;
+	padding: 13px 24px 13px 16px;
+	border-radius: 999px;
+	background: var(--action);
+	color: var(--on-action);
+	font: 900 22px / 1 var(--font-display);
+	letter-spacing: -0.01em;
+	box-shadow: var(--shadow-glow), 0 0 0 5px rgba(70, 208, 251, 0.4);
+}
+.ready svg { width: 22px; height: 22px; }
+
+.lanes { margin-top: 22px; }
+.lanes__plot {
+	position: relative;
+	padding: 2px 0 28px;
+	background: linear-gradient(90deg, rgba(94, 128, 174, 0.28) 1px, rgba(94, 128, 174, 0) 1px) 0 0 / 25% 100% repeat-x;
+	border-right: 1px solid rgba(94, 128, 174, 0.28);
+}
+.lane { position: relative; padding-bottom: 6px; }
+.lane + .lane { margin-top: 6px; }
+.lane__name { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 12px; margin: 0 0 8px 8px; font: 800 19px / 24px var(--font-display); color: var(--ink); }
+.lane__sum { font: 500 12.5px / 18px var(--font-mono); letter-spacing: 0.04em; color: var(--muted); }
+.lane__bar { position: relative; height: 34px; border-radius: 10px; background: rgba(94, 128, 174, 0.2); overflow: hidden; }
+.seg {
+	position: absolute;
+	top: 0;
+	bottom: 0;
+	left: calc(var(--s) / 800 * 100%);
+	width: calc(var(--d) / 800 * 100%);
+	background: var(--c);
+	transform-origin: 0 50%;
+	box-shadow: inset -1.5px 0 0 rgba(255, 255, 255, 0.85);
+}
+.lane__end { display: flex; justify-content: flex-end; margin-top: 6px; padding-right: calc((1 - var(--e) / 800) * 100%); }
+.lane__flag.glass { flex: none; display: inline-flex; align-items: center; gap: 8px; margin: 0; padding: 5px 14px 5px 12px; font: 800 14px / 20px var(--font-sans); color: var(--ink); white-space: nowrap; }
+.axis { position: absolute; left: 0; right: 0; bottom: 4px; height: 18px; margin: 0; padding: 0; list-style: none; }
+.axis li { position: absolute; left: calc(var(--x) / 800 * 100%); transform: translate3d(-50%, 0, 0); font: 500 12px / 16px var(--font-mono); letter-spacing: 0.04em; color: var(--muted); white-space: nowrap; }
+.axis li:first-child { transform: translate3d(4px, 0, 0); }
+.axis li:last-child { transform: translate3d(-100%, 0, 0); padding-right: 6px; }
+
+.key { display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 8px 18px; margin: 0; padding: 0; list-style: none; }
+.key li { display: inline-flex; align-items: center; gap: 8px; font: 700 13.5px / 18px var(--font-sans); color: var(--ink-2); }
+.key li::before { content: ""; width: 14px; height: 14px; border-radius: 5px; background: var(--c); box-shadow: 0 0 0 1px rgba(22, 66, 140, 0.25); }
+.finale__fine { margin: 6px 0 0; font: 500 13.5px / 20px var(--font-sans); color: var(--muted); }
+
+/* ---------- the scroll-driven reveals: only where supported and only when motion is welcome ---------- */
+
+@media (prefers-reduced-motion: no-preference) {
+	@supports (animation-timeline: view()) {
+		.step,
+		.work__item,
+		.trip__end {
+			animation: rise-in linear both;
+			animation-timeline: view();
+			animation-range: entry 0% entry 85%;
+		}
+		.work__item { animation-name: rise-in-left; }
+
+		/* the page paints itself in as its box passes through the screen: a named timeline on the box, each part
+		   a little later than the one before (--i) */
+		.paint { view-timeline: --paint block; }
+		.paint__nav,
+		.paint__hero,
+		.paint__tile {
+			animation: paint-in linear both;
+			animation-timeline: --paint;
+			animation-range: cover calc(14% + var(--i) * 7%) cover calc(28% + var(--i) * 7%);
+		}
+
+		/* the finale: a tall box with a card pinned inside it for the length of the scroll (--D). One named timeline on the box
+		   (contain 0% = the box's top at the top of the screen, contain 100% = its bottom at the bottom). The lanes lay a time
+		   axis, 0 to 800 ms, along the first 66% of it: a segment fills during its own milliseconds, so the fast lane is ready
+		   first and the slow lane keeps going; the last stretch rests with everything in place. */
+		.finale { --D: max(760px, 80vh); padding-bottom: 0; view-timeline: --lanes block; }
+		/* the pin can only stick inside its parent's content box, so the scroll length is a spacer, not padding */
+		.finale::after { content: ""; display: block; height: var(--D); }
+		.finale__pin { position: sticky; top: 0; min-height: 100vh; min-height: 100dvh; padding-top: 84px; }
+		.seg {
+			animation: seg-fill linear both;
+			animation-timeline: --lanes;
+			animation-range: contain calc(var(--s) / 800 * 66%) contain calc((var(--s) + var(--d)) / 800 * 66%);
+		}
+		.lane__flag {
+			animation: flag-in linear both;
+			animation-timeline: --lanes;
+			animation-range: contain calc(var(--e) / 800 * 66%) contain calc(4% + var(--e) / 800 * 66%);
+		}
+		.ready {
+			animation: ready-in linear both;
+			animation-timeline: --lanes;
+			animation-range: contain 62% contain 70%;
+		}
+
+		@keyframes rise-in {
+			from { opacity: 0; transform: translate3d(26px, 0, 0) scale(0.96); }
+			to { opacity: 1; transform: none; }
+		}
+		@keyframes rise-in-left {
+			from { opacity: 0; transform: translate3d(-20px, 0, 0) scale(0.97); }
+			to { opacity: 1; transform: none; }
+		}
+		@keyframes paint-in {
+			from { opacity: 0; transform: translate3d(0, 10px, 0); }
+			to { opacity: 1; transform: none; }
+		}
+		@keyframes seg-fill {
+			from { transform: scaleX(0); }
+			to { transform: scaleX(1); }
+		}
+		@keyframes flag-in {
+			from { opacity: 0; transform: translate3d(0, -8px, 0); }
+			to { opacity: 1; transform: none; }
+		}
+		@keyframes ready-in {
+			from { opacity: 0; transform: scale(0.6); }
+			to { opacity: 1; transform: none; }
+		}
+	}
+}
+
+/* ---------- smaller screens ---------- */
+
+@media (max-width: 720px) {
+	.req { padding-top: 18px; }
+	.hero__tag { margin-bottom: 12px; }
+	.hero__lede { font-size: 15px; line-height: 22px; }
+	.hero__unit { display: none; }
+	.trip { margin-top: 52px; }
+	/* the lanes come first, the ready badge and the colour key after them: the description panel covers the lower part */
+	.finale__card.glass { display: flex; flex-direction: column; }
+	.finale__head { display: contents; }
+	.finale__intro { order: 0; }
+	.lanes { order: 1; }
+	.finale__side { order: 2; align-items: flex-start; max-width: none; gap: 10px; margin-top: 10px; }
+	.key { justify-content: flex-start; }
+	.lane__long, .lane__t { display: none; }
+	.finale__tag { margin-bottom: 10px; }
+	.finale__title { font-size: 26px; margin-bottom: 0; }
+	.finale__lede { display: none; }
+	.ready { padding: 8px 18px 8px 12px; font-size: 17px; }
+	.ready svg { width: 18px; height: 18px; }
+	.lanes { margin-top: 14px; }
+	.lane + .lane { margin-top: 4px; }
+	.finale__fine { font-size: 12.5px; line-height: 18px; margin-top: 8px; }
+	.lane__name { font-size: 17px; margin-left: 2px; }
+	.work { margin-left: 18px; }
+	.paint.glass { margin-left: 18px; }
+	.trip__end { padding: 7px 14px 7px 12px; font-size: 14px; }
+}
+@media (max-width: 400px) {
+	.card__text { font-size: 14.5px; line-height: 20px; }
+	.card h3 { font-size: 20px; }
+	.work__name { font-size: 15.5px; }
+	.key { gap: 6px 14px; }
+	.key li { font-size: 12.5px; }
+}
+/* a short screen (a phone on its side): the counter rides higher, clear of the description panel */
+@media (max-height: 560px) {
+	.req { --play: 120px; }
+}

@@ -41,3 +41,26 @@ Made by agent=claude (Cowork, cloud session linked to BANE-VICTUS-TOP) for TJ, b
 | `lab-og-honeypot.jpg` | share background, honeypot | the left side is not dark; add a gradient scrim under the title |
 
 The build may generate up to 40 more images (TJ, 15 Oct), within brief v2 §2; redos of the flaws above count toward that. Vision-trap images are rendered by script, not by a model (brief v2 §2).
+
+## Laptop additions (lab-02, 18 Oct 2026)
+
+Cowork made these 15 on 17 Oct for Aco through the laptop image-gen skill: Codex 14, Grok 1. They answer `assets/REQUESTS.md`. They are kept at native size; the PNG originals became JPEG q90 4:4:4 with no resize. The raw originals, their job logs and Cowork's per-image notes stay outside git in `C:\localhost\image-inbox\lab\laptop-2026-10-17\`. Each one has a ledger line here with its request, the raw file's SHA-256 and the conversion. `tools/build_images.py` now builds from them in place of the files they replace.
+
+| File | Size | Replaces in the build | Notes |
+|---|---|---|---|
+| `lab-bg-aurora-hd.jpg` | 1600×900 | `lab-bg-aurora.jpg` | no glass-panel shapes; brighter, so the contrast was re-measured |
+| `lab-bg-aurora-portrait-hd.jpg` | 1080×1920 | `lab-bg-aurora-portrait.jpg` | |
+| `lab-bg-honeycomb-hd.jpg` | 1920×1080 | `lab-hp-honeycomb.jpg` | dark left side for text |
+| `lab-hp-hex-portrait-hd.jpg` | 941×1672 | `lab-hp-hex-portrait.jpg` | |
+| `lab-bg-prism-hd.jpg` | 1600×900 | `lab-bg-prism.jpg` | calm centre behind the logo |
+| `lab-hum-constellation-v2.jpg` | 1280×720 | `lab-hum-constellation.jpg` | fixes "reads as points, not a crowd": small glass figures holding hands under the constellation |
+| `lab-obj-*-black.jpg` (cube, torus, spheres, hex-prism, flask), `lab-hp-glass-bee-black.jpg` | 1254×1254 | the dark-background objects | pure black, so the luma key leaves no box; the cube keeps its caustic pool as light under it; the bee gets a wider edge fade, because its wings reach the corners |
+| `lab-tex-holo-foil-tile-v2.jpg` | 1254×1254 | `lab-tex-holo-foil.jpg` | seamless (2×2 checked); built with a wrap-safe resize |
+| `lab-spr-orbs-black.jpg`, `lab-spr-sparkles-black.jpg` | 1254×1254 | the 4×4 sheets | pure black, strict grid, no cell edges |
+
+Not taken from the 17 Oct set, so the pack file stays in the build:
+
+- **hands:** the new Grok image is the same 1280 px and less clean than `lab-hum-hands.jpg`.
+- **glass city:** the new Grok image has glyph-like engravings on two towers, which read as signage.
+- **bokeh:** the new Codex image adds sharp glass bubbles that read as extra particles in the particle field; `lab-bg-bokeh.jpg` is calmer.
+- **holo-foil (Grok, first try):** rejected by Cowork; not seamless.

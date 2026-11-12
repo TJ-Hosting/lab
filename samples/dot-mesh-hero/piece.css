@@ -1,0 +1,52 @@
+/* Sample 26 — Magnetic Dot Mesh Hero. The shell (sky, top bar, panel, the day screen) comes from css/; only the piece is styled here.
+   The mesh's own palette (royal and azure dots, pale-blue lines, cyan light where a dot is pushed) is drawn in piece.js. */
+
+/* the screen takes the pointer: a drag over it pushes the dots, so touch must not scroll or zoom */
+.sample--dot-mesh-hero .piece-screen { touch-action: none; }
+
+.piece {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+/* the hero: a frosted glass card, centred in the window below its bar; the canvas parts the dots around its box */
+.hero {
+	position: absolute;
+	z-index: 5;
+	inset: 34px 0 0;
+	display: grid;
+	place-items: center;
+	padding: 24px;
+	pointer-events: none;
+}
+.hero__card {
+	width: min(100%, 540px);
+	padding: 30px 36px 32px;
+	text-align: left;
+	pointer-events: auto;
+	color: var(--ink);
+}
+.hero__tag { margin: 0 0 12px; } /* holds the Lab's one chip (lab-05 P5 review) */
+.hero__title {
+	margin: 0 0 12px;
+	font: 900 clamp(32px, 4.4vw, 52px) / 1.04 var(--font-display);
+	font-stretch: 90%;
+	letter-spacing: -0.02em;
+	color: var(--ink);
+}
+.hero__lede {
+	margin: 0;
+	max-width: 30em;
+	font: 450 17px/26px var(--font-sans);
+	color: var(--muted);
+}
+
+/* a phone: the info panel covers the lower half, so the card sits in the upper part of the window */
+@media (max-width: 720px) {
+	.hero { bottom: 47%; padding: 14px 24px; }
+	.hero__card { width: min(100%, 360px); padding: 20px 22px 22px; }
+	.hero__tag { margin-bottom: 8px; }
+	.hero__title { font-size: 30px; margin-bottom: 8px; }
+	.hero__lede { font-size: 15px; line-height: 22px; }
+}

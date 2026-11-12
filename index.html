@@ -1,0 +1,139 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://*.google.com; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<script src="js/ga4.js"></script>
+	<title>TJ-Hosting Lab — motion experiments in glass</title>
+	<meta name="description" content="TJ-Hosting Lab: hand-built motion-graphics experiments in glass. Kinetic type, a generative particle field, the animated TJ-Hosting mark, and an exhibit about AI agents and hidden instructions.">
+	<link rel="canonical" href="https://lab.tj-hosting.ca/">
+	<meta name="theme-color" content="#eef7fc">
+	<link rel="icon" href="img/brand/tj-mark.svg" type="image/svg+xml">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="TJ-Hosting Lab">
+	<meta property="og:title" content="TJ-Hosting Lab — motion experiments in glass">
+	<meta property="og:description" content="Hand-built motion-graphics experiments by TJ-Hosting: kinetic type, a particle field, the animated mark, and an AI-agent honeypot exhibit.">
+	<meta property="og:url" content="https://lab.tj-hosting.ca/">
+	<meta property="og:image" content="https://lab.tj-hosting.ca/img/og/home.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="TJ-Hosting Lab, motion experiments in glass">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="preload" href="fonts/nunito-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="fonts/great-vibes-latin.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="css/glass.css">
+	<link rel="stylesheet" href="css/lab.css">
+	<link rel="stylesheet" href="css/home.css">
+	<script src="js/early.js"></script>
+	<script type="module" src="js/home.js"></script>
+</head>
+<body class="home">
+	<a class="skip" href="#main">Skip to content</a>
+
+	<div class="sky" aria-hidden="true"></div>
+
+	<header class="topbar">
+		<a class="brand" href="./" aria-label="TJ-Hosting Lab, home">
+			<img src="img/brand/tj-mark.svg" alt="" width="34" height="34">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Lab">
+			<a class="hide-xs" href="#samples">Samples</a>
+			<a href="honeypot/">Honeypot</a>
+			<a class="hide-sm" href="#about">About</a>
+		</nav>
+	</header>
+
+	<main id="main">
+		<section class="hero wrap" data-parallax data-motion aria-labelledby="hero-title">
+			<div class="hero__copy">
+				<p class="eyebrow rise">TJ-Hosting · <b>Lab</b> · Vol. 01</p>
+				<h1 class="hero__title display" id="hero-title">
+					<span class="line rise" style="--delay:.08s">Motion,</span>
+					<span class="line rise" style="--delay:.18s">made of <span class="grad-ink">light</span></span>
+					<span class="line rise" style="--delay:.28s"><span class="script">&amp; glass.</span></span>
+				</h1>
+				<p class="lede rise" style="--delay:.4s">An open lab where TJ-Hosting builds motion-graphics experiments in plain HTML, CSS and JavaScript. Three studies to start, one exhibit about AI agents, and more to come.</p>
+				<div class="hero__cta rise" style="--delay:.5s">
+					<a class="btn btn--primary" href="#samples">Explore the samples
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>
+					</a>
+					<a class="btn btn--ghost" href="honeypot/">Visit the honeypot</a>
+				</div>
+				<ul class="hero__facts pills rise" style="--delay:.6s" aria-label="Lab facts">
+					<li class="pill"><span class="pill__dot" aria-hidden="true"></span><b data-count="samples">3</b> samples</li>
+					<li class="pill"><b data-count="exhibits">1</b> exhibit</li>
+					<li class="pill"><b>0</b> ads</li>
+				</ul>
+			</div>
+
+			<div class="hero__scene" aria-hidden="true">
+				<svg class="hero__traces" viewBox="0 0 600 540">
+					<path class="trace" d="M300 300 L100 184.5 M300 300 L500 184.5 M300 300 L100 415.5 M300 300 L500 415.5"/>
+					<path class="trace-core" d="M300 300 L100 184.5 M300 300 L500 184.5 M300 300 L100 415.5 M300 300 L500 415.5"/>
+					<circle class="node node--glow" cx="100" cy="184.5" r="7"/>
+					<circle class="node node--glow" cx="500" cy="184.5" r="7"/>
+					<circle class="node" cx="300" cy="300" r="7"/>
+					<circle class="node node--glow" cx="100" cy="415.5" r="7"/>
+					<circle class="node node--glow" cx="500" cy="415.5" r="7"/>
+				</svg>
+				<div class="iso iso--flask" data-depth="-12"><img data-bob src="img/iso/flask-320.webp" srcset="img/iso/flask-320.webp 320w, img/iso/flask-640.webp 640w" sizes="(min-width: 900px) 14vw, 26vw" alt="" width="640" height="975" decoding="async"></div>
+				<div class="iso iso--plinth" data-depth="16"><img src="img/iso/plinth-square-320.webp" srcset="img/iso/plinth-square-320.webp 320w, img/iso/plinth-square-640.webp 640w" sizes="(min-width: 900px) 15vw, 26vw" alt="" width="640" height="460" decoding="async"></div>
+				<div class="iso iso--browser" data-depth="16"><img data-bob src="img/iso/browser-320.webp" srcset="img/iso/browser-320.webp 320w, img/iso/browser-640.webp 640w" sizes="(min-width: 900px) 16vw, 30vw" alt="" width="640" height="761" decoding="async"></div>
+				<div class="iso iso--cube" data-depth="8"><img data-bob src="img/iso/cube-320.webp" srcset="img/iso/cube-320.webp 320w, img/iso/cube-640.webp 640w" sizes="(min-width: 900px) 19vw, 36vw" alt="" width="640" height="700" fetchpriority="high" decoding="async"></div>
+				<div class="iso iso--orbs" data-depth="-18"><img data-bob src="img/iso/orbs-320.webp" srcset="img/iso/orbs-320.webp 320w, img/iso/orbs-640.webp 640w" sizes="(min-width: 900px) 16vw, 30vw" alt="" width="640" height="753" decoding="async"></div>
+				<div class="iso iso--honeypot" data-depth="22"><img data-bob src="img/iso/honeypot-320.webp" srcset="img/iso/honeypot-320.webp 320w, img/iso/honeypot-640.webp 640w" sizes="(min-width: 900px) 14vw, 26vw" alt="" width="640" height="897" decoding="async"></div>
+				<img class="hero__cloud" src="img/sky/cloud-5-220.webp" srcset="img/sky/cloud-5-220.webp 220w, img/sky/cloud-5-420.webp 420w" sizes="160px" alt="" width="420" height="309" decoding="async">
+				<img class="hero__cloud hero__cloud--b" src="img/sky/cloud-2-220.webp" srcset="img/sky/cloud-2-220.webp 220w, img/sky/cloud-2-420.webp 420w" sizes="120px" alt="" width="420" height="306" decoding="async">
+			</div>
+		</section>
+
+		<section class="section wrap" id="samples" aria-labelledby="samples-title">
+			<header class="section__head">
+				<p class="eyebrow rise">Samples</p>
+				<h2 class="rise" id="samples-title">Studies in <span class="grad-ink">motion</span></h2>
+				<p class="rise">Small, self-contained pieces. Each one runs on phones and wide screens, pauses when you look away, and holds still if your device asks for reduced motion.</p>
+			</header>
+			<div class="filters" role="group" aria-label="Show samples by kind" data-filters hidden></div>
+			<p class="filters__count" aria-live="polite" data-filter-count></p>
+			<ul class="cards" data-cards="samples" aria-busy="true"></ul>
+			<noscript><p class="noscript-note">The sample cards are drawn with JavaScript. Without it you can still open them: <a href="samples/humanity-type/">Humanity, in motion</a>, <a href="samples/particle-field/">Particle field</a>, <a href="samples/logo/">The mark, assembling</a>.</p></noscript>
+		</section>
+
+		<section class="section wrap" id="exhibits" aria-labelledby="exhibits-title">
+			<header class="section__head">
+				<p class="eyebrow rise">Exhibit</p>
+				<h2 class="rise" id="exhibits-title">Do AI agents follow <span class="grad-ink">hidden instructions?</span></h2>
+				<p class="rise">Web pages can hide text that people never see but AI assistants read. Our first exhibit tests that, openly and harmlessly.</p>
+			</header>
+			<ul class="cards cards--feature" data-cards="exhibits" aria-busy="true"></ul>
+			<noscript><p class="noscript-note">Read about the exhibit at <a href="honeypot/">the agent honeypot</a>.</p></noscript>
+		</section>
+
+		<section class="section wrap" id="about" aria-labelledby="about-title">
+			<div class="about glass glass--xl rise" data-shine data-motion>
+				<div class="about__emblem" aria-hidden="true">
+					<img src="img/iso/ring-320.webp" srcset="img/iso/ring-320.webp 320w, img/iso/ring-640.webp 640w" sizes="260px" alt="" width="640" height="476" loading="lazy" decoding="async">
+				</div>
+				<div class="about__text">
+					<p class="eyebrow">About the lab</p>
+					<h2 id="about-title" class="display">Where TJ-Hosting <span class="grad-ink">tries ideas first.</span></h2>
+					<p>The lab is a static site with no back end; Google Analytics 4 is used for anonymous visit statistics. Every piece is hand-coded and open source, and new samples land here every few weeks.</p>
+				</div>
+			</div>
+		</section>
+	</main>
+
+	<footer class="foot" data-night>
+		<img class="foot__mark" src="img/brand/tj-mark.svg" alt="" width="40" height="40">
+		<span>TJ-Hosting Lab · <a href="https://tj-hosting.ca/">tj-hosting.ca</a></span>
+		<ul class="foot__links">
+			<li><a href="honeypot/about/">Honeypot method</a></li>
+			<li><a href="https://github.com/TJ-Hosting/lab">Source</a></li>
+			<li><a href="https://github.com/TJ-Hosting/lab/blob/main/CREDITS.md">Credits</a></li>
+		</ul>
+	</footer>
+</body>
+</html>

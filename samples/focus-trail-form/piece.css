@@ -1,0 +1,242 @@
+/* Sample 44 — Focus-trail contact form, on the open day sky.
+   A frosted contact card in cyan and blue light glass (DS v9). The left margin of the card is a gutter: the canvas laid over
+   the card draws the glow head, its tail and the ticks there, so they never sit on the words. Native focus rings stay on.
+   Motion in this file: the shake (transform), the fade of the "sent" plate (opacity) and the tick's pop (transform and opacity).
+   The paper plane's flight is animated by piece.js through the Web Animations API, also with transform and opacity only.
+   The shell (sky, top bar, panel) comes from css/. */
+
+.focus-stage {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	padding: clamp(84px, 12vh, 140px) var(--gutter) 360px;
+}
+
+.piece-open {
+	width: min(520px, 100%);
+}
+
+/* ---------- the card ---------- */
+
+.card {
+	position: relative;
+	padding: 26px 26px 24px 52px; /* the left padding is the gutter the glow lives in */
+	background-image:
+		radial-gradient(90% 60% at 0% 0%, rgba(70, 208, 251, 0.2), rgba(70, 208, 251, 0) 70%),
+		linear-gradient(158deg, rgba(77, 159, 243, 0.12) 0%, rgba(77, 159, 243, 0) 55%),
+		var(--glass-grain);
+	box-shadow:
+		var(--glass-inner),
+		0 40px 70px -30px rgba(22, 66, 140, 0.4),
+		0 14px 30px -16px rgba(5, 95, 233, 0.26);
+}
+
+/* the drawing surface: over the whole card, never in the way of a click */
+.card .trail {
+	position: absolute;
+	inset: 0;
+	z-index: 2;
+	width: 100%;
+	height: 100%;
+	max-width: none;
+	pointer-events: none;
+}
+
+.card__head { margin-bottom: 20px; }
+.card__demo.pill {
+	padding: 6px 12px;
+	font-size: 13px;
+	line-height: 18px;
+	white-space: normal;
+}
+.card h2 {
+	margin: 14px 0 4px;
+	font: 900 32px/1.05 var(--font-display);
+	font-stretch: 90%;
+	letter-spacing: -0.02em;
+}
+.card__lede { margin: 0; font-size: 15px; line-height: 22px; color: var(--muted); }
+
+/* ---------- the fields ---------- */
+
+.field, .card__foot { position: relative; }
+.field { margin-bottom: 14px; }
+.field__top {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 10px;
+	min-height: 20px;
+	margin-bottom: 6px;
+}
+.field label { font: 800 14px/20px var(--font-sans); color: var(--ink); }
+.field__msg { font: 700 12.5px/18px var(--font-sans); color: var(--muted); text-align: right; }
+.field.is-valid .field__msg { color: var(--accent-text); }
+.field.is-invalid .field__msg { color: var(--danger); }
+
+.field__control {
+	display: block;
+	width: 100%;
+	min-height: 44px;
+	padding: 9px 14px;
+	border: 1px solid var(--border-control);
+	border-radius: var(--radius-sm);
+	background: linear-gradient(rgba(255, 255, 255, 0.86), rgba(255, 255, 255, 0.86));
+	box-shadow: inset 0 1px 2px rgba(var(--shade-rgb), 0.12);
+	color: var(--ink);
+	font: 700 16px/24px var(--font-sans);
+	transition: border-color var(--t-state) var(--ease-ui);
+}
+textarea.field__control { min-height: 104px; resize: none; }
+.field__control::placeholder { color: var(--dim); opacity: 1; font-weight: 600; }
+/* the native outline stays, in addition to the glow */
+.field__control:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-color: var(--action); }
+.field.is-invalid .field__control { border-color: var(--danger); }
+
+/* an invalid field shakes: transform only */
+.field__control.is-shaking { animation: field-shake 0.44s var(--ease-out) both; }
+@keyframes field-shake {
+	0%, 100% { transform: translateX(0); }
+	16% { transform: translateX(-7px); }
+	34% { transform: translateX(6px); }
+	52% { transform: translateX(-4px); }
+	70% { transform: translateX(3px); }
+	88% { transform: translateX(-1px); }
+}
+
+/* ---------- Send ---------- */
+
+.card__foot {
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	gap: 8px 16px;
+	margin-top: 4px;
+}
+.send { padding-inline: 22px; }
+/* while the plane takes off the real button melts away (opacity and transform) */
+.btn.send.is-launched {
+	opacity: 0;
+	transform: scale(0.55);
+	pointer-events: none;
+	transition: opacity 0.22s var(--ease-ui), transform 0.32s var(--ease-out);
+}
+.card__note {
+	flex: 1 1 160px;
+	min-width: 0;
+	margin: 0;
+	font: 600 13px/18px var(--font-sans);
+	color: var(--muted);
+}
+.card__note.is-error { color: var(--danger); font-weight: 700; }
+
+/* the paper plane: a layer over the page (fixed), so the flight is not clipped by the card */
+.flight {
+	position: fixed;
+	inset: 0;
+	z-index: 60;
+	overflow: hidden;
+	pointer-events: none;
+}
+.plane {
+	position: absolute;
+	display: grid;
+	place-items: center;
+	width: 46px;
+	height: 46px;
+	margin: -23px 0 0 -23px;
+	opacity: 0;
+	will-change: transform, opacity;
+}
+.plane__disc {
+	position: absolute;
+	inset: 0;
+	border-radius: 50%;
+	background: var(--action);
+	box-shadow: var(--shadow-glow);
+}
+.plane svg {
+	position: relative;
+	width: 28px;
+	height: 28px;
+	filter: drop-shadow(0 5px 5px rgba(var(--shade-rgb), 0.3));
+}
+
+/* ---------- "Sent (not really)": a plate over the card ---------- */
+
+.sent {
+	position: absolute;
+	inset: 0;
+	z-index: 3;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+	gap: 10px;
+	padding: 24px 28px;
+	text-align: center;
+	border-radius: inherit;
+	background: linear-gradient(160deg, #f8fcff 0%, #eaf6fe 100%);
+	opacity: 0;
+	visibility: hidden;
+	transition: opacity 0.3s var(--ease-ui), visibility 0s linear 0.3s;
+}
+.sent.is-on { opacity: 1; visibility: visible; transition: opacity 0.3s var(--ease-ui), visibility 0s; }
+.sent__tick {
+	display: grid;
+	place-items: center;
+	width: 64px;
+	height: 64px;
+	margin-bottom: 4px;
+	border-radius: 50%;
+	background: var(--action);
+	color: #fff;
+	box-shadow: var(--shadow-glow), 0 0 0 8px rgba(70, 208, 251, 0.22);
+	transform: scale(0.5);
+	opacity: 0;
+	transition: transform 0.5s var(--ease-spring) 0.05s, opacity 0.25s var(--ease-ui) 0.05s;
+}
+.sent.is-on .sent__tick { transform: scale(1); opacity: 1; }
+.sent__tick svg { width: 32px; height: 32px; }
+.sent h3 { font: 900 26px/1.1 var(--font-display); font-stretch: 92%; letter-spacing: -0.015em; }
+.sent p { margin: 0 0 6px; max-width: 26em; font-size: 15px; line-height: 22px; color: var(--muted); }
+
+noscript .card__note { margin-top: 12px; }
+
+/* a disabled control (reduced motion switches Pause off) reads as off */
+.sample-info .btn:disabled { opacity: 0.5; cursor: default; transform: none; box-shadow: none; }
+
+@media (prefers-reduced-motion: reduce) {
+	.field__control.is-shaking { animation: none; }
+	.sent__tick { transform: none; transition: none; }
+	.flight { display: none; }
+}
+
+/* ---------- widths ---------- */
+
+/* wide windows: the card sits right of the fixed panel (bottom left, 440 px wide), centred in the free sky */
+@media (min-width: 1000px) {
+	.focus-stage {
+		padding-left: calc(max(var(--gutter), (100vw - var(--page-max)) / 2) + 456px);
+		padding-bottom: 56px;
+	}
+}
+
+/* phones: the card at the top, room below for the panel */
+@media (max-width: 600px) {
+	.focus-stage { padding-top: 70px; }
+	.card { padding: 18px 14px 16px 38px; }
+	.card__head { margin-bottom: 14px; }
+	.card__demo.pill { padding: 5px 10px; font-size: 12.5px; }
+	.card h2 { margin-top: 10px; font-size: 28px; }
+	.card__lede { font-size: 14px; line-height: 20px; }
+	.field { margin-bottom: 10px; }
+	textarea.field__control { min-height: 84px; }
+	.sent { padding: 18px; }
+}
+
+/* too short for the hint: it would sit on the card */
+@media (max-height: 760px) {
+	.hint { display: none; }
+}

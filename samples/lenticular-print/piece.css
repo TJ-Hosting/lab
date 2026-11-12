@@ -1,0 +1,254 @@
+/* Sample 61 — Lenticular tilt print, on the open day sky. The shell (sky, top bar, panel) comes from css/; only the piece is styled here.
+   One square print stands on the sky. #print-box never moves and takes the pointer; #print inside it is the thing vanilla-tilt turns
+   (inline transform only), with five thin edge layers behind a glass face so it reads as a slab of plastic. In the face, a canvas
+   (drawn by script) holds the two pictures woven in stripes; a ribbed overlay, a faint cool sheen band and the library's glare lie over it.
+   Nothing here animates by itself: script writes transform and opacity inline, and only when the tilt changes. */
+
+.stage--print {
+	/* stacked: the print stands above the fixed panel. --dock is the room the panel takes; piece.js measures it (this is the fallback) */
+	--dock: 292px;
+	--top: 76px;
+	--bottom: var(--dock);
+	/* --w: the print's side. The pill below it and the tilt's overshoot take about 84 px of the height */
+	--w: clamp(150px, calc(100dvh - var(--top) - var(--bottom) - 84px), 600px);
+	padding: var(--top) var(--gutter) var(--bottom);
+	place-items: center;
+}
+
+/* wide or short-and-wide screens: the print is centred in the room to the right of the panel */
+@media (min-width: 1100px), (min-width: 700px) and (max-height: 560px) {
+	.stage--print {
+		--top: 84px;
+		--bottom: 56px;
+		--panel-right: calc(max(var(--gutter), (100vw - var(--page-max)) / 2) + 440px);
+		padding: var(--top) var(--gutter) var(--bottom) calc(var(--panel-right) + 28px);
+	}
+}
+
+.piece-open.print-wrap {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 34px; /* the print's lower edge swings down towards the pill when it tilts, so the pill keeps well clear */
+	width: 100%;
+	min-width: 0;
+}
+
+/* ---------- the box: still, square, takes the pointer ---------- */
+
+.print-box {
+	position: relative;
+	flex: none;
+	width: min(var(--w), calc(100% - 28px)); /* 28 px of room for the near edge, which grows a little in perspective */
+	aspect-ratio: 1;
+	touch-action: none; /* the one element that takes drags (a finger tilts the print) */
+	-webkit-tap-highlight-color: transparent;
+	border-radius: 16px;
+}
+.print-box:focus-visible {
+	outline: 3px solid var(--focus);
+	outline-offset: 12px;
+	border-radius: 18px;
+}
+
+/* the contact shadow: the sky's own blue, never grey; script slides it a little against the tilt (transform only) */
+.print-shadow {
+	position: absolute;
+	left: 4%;
+	right: 4%;
+	top: 86%;
+	height: 24%;
+	background: radial-gradient(ellipse at 50% 38%, rgba(22, 66, 140, 0.42), rgba(22, 66, 140, 0) 68%);
+	pointer-events: none;
+}
+
+/* ---------- the slab ---------- */
+
+.print {
+	position: absolute;
+	inset: 0;
+	transform-style: preserve-3d; /* the edge layers sit behind the face in depth; vanilla-tilt writes the transform and its own perspective() */
+}
+
+/* the thickness: five layers stepping back, the nearest the palest (they show as a bevel on the side that turns away) */
+.edge {
+	position: absolute;
+	inset: 0;
+	border-radius: 15px;
+	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6);
+	pointer-events: none;
+}
+.edge:nth-child(1) { transform: translateZ(-4px); background: #dcedfc; }
+.edge:nth-child(2) { transform: translateZ(-8px); background: #c8e1f9; }
+.edge:nth-child(3) { transform: translateZ(-12px); background: #b3d5f6; }
+.edge:nth-child(4) { transform: translateZ(-16px); background: #9dc8f2; }
+.edge:nth-child(5) { transform: translateZ(-20px); background: #86b9ee; }
+
+/* the face: white glass with a rim and a thin border round the picture, like the margin of a print */
+.print__face {
+	position: absolute;
+	inset: 0;
+	padding: clamp(6px, 1.8%, 11px);
+	border-radius: 15px;
+	background:
+		linear-gradient(180deg, rgba(255, 255, 255, 0.75) 0%, rgba(255, 255, 255, 0) 38%),
+		linear-gradient(155deg, #ffffff 0%, #ebf6fe 52%, #d3e8fb 100%);
+	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.95), 0 0 0 1px rgba(94, 128, 174, 0.3);
+}
+
+.print__window {
+	position: relative;
+	width: 100%;
+	height: 100%;
+	border-radius: 8px;
+	overflow: hidden;
+	isolation: isolate;
+	background: #7fb3ee;
+	/* --pitch: the width of one lens, set by piece.js so the ribs and the stripes agree to the pixel */
+	--pitch: 6px;
+}
+/* the glass over the picture: a recessed edge and a thin still highlight along the top */
+.print__window::after {
+	content: "";
+	position: absolute;
+	inset: 0;
+	z-index: 6;
+	border-radius: inherit;
+	background: linear-gradient(180deg, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0) 14%);
+	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.5), inset 0 2px 10px rgba(22, 66, 140, 0.3);
+	pointer-events: none;
+}
+
+/* the two source pictures: A shows under the canvas until it is drawn; B stays out of the way (it is only a source for the canvas) */
+.art {
+	position: absolute;
+	inset: 0;
+	margin: 0;
+	display: block;
+}
+.art[hidden] { display: none; }
+.art img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+	-webkit-user-drag: none;
+	user-select: none;
+}
+
+.piece {
+	position: absolute;
+	inset: 0;
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+/* the ribs: each lens catches a thin bright edge and drops into a soft shade, one per stripe pair */
+.ribs {
+	position: absolute;
+	inset: 0;
+	z-index: 2;
+	pointer-events: none;
+	background: repeating-linear-gradient(90deg,
+		rgba(255, 255, 255, 0.26) 0,
+		rgba(255, 255, 255, 0.05) calc(var(--pitch) * 0.38),
+		rgba(22, 66, 140, 0) calc(var(--pitch) * 0.62),
+		rgba(22, 66, 140, 0.14) var(--pitch));
+}
+
+/* the sheen: a faint band, cyan and azure with a hint of lilac and peach, that slides across as the print tilts (transform only) */
+.sheen {
+	position: absolute;
+	inset: 0;
+	z-index: 3;
+	overflow: hidden;
+	pointer-events: none;
+}
+.sheen__band {
+	position: absolute;
+	left: 33%;
+	top: -30%;
+	width: 34%;
+	height: 160%;
+	transform: translate3d(0, 0, 0) rotate(16deg);
+	background: linear-gradient(90deg,
+		rgba(70, 208, 251, 0) 0%,
+		rgba(70, 208, 251, 0.3) 22%,
+		rgba(77, 159, 243, 0.3) 40%,
+		rgba(176, 160, 250, 0.17) 57%,
+		rgba(255, 196, 170, 0.16) 72%,
+		rgba(255, 255, 255, 0) 100%);
+}
+
+/* the library's glare, drawn into our own markup (glare-prerender): a cool white wash from the side the pointer is on */
+.js-tilt-glare {
+	position: absolute;
+	inset: 0;
+	z-index: 4;
+	overflow: hidden;
+	pointer-events: none;
+	border-radius: inherit;
+}
+.js-tilt-glare-inner {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 200%;
+	height: 200%;
+	transform-origin: 0 0;
+	transform: rotate(180deg) translate(-50%, -50%);
+	opacity: 0;
+	pointer-events: none;
+	background-image: linear-gradient(0deg, rgba(232, 247, 255, 0) 0%, rgba(232, 247, 255, 0.95) 100%);
+}
+
+/* ---------- the pill: which picture is showing ---------- */
+
+.meter {
+	flex: none;
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	padding: 9px 18px;
+	font: 700 11.5px/1 var(--font-mono);
+	letter-spacing: 0.09em;
+	text-transform: uppercase;
+	color: var(--muted);
+}
+.meter__end.is-on { color: var(--ink); font-weight: 800; }
+.meter__track {
+	position: relative;
+	display: block;
+	width: 112px;
+	height: 4px;
+	border-radius: 2px;
+	background: linear-gradient(90deg, #8fd6fd 0%, #4d9ff3 38%, #0c6bed 70%, #16327a 100%);
+}
+.meter__dot {
+	position: absolute;
+	left: 50%;
+	top: 50%;
+	width: 14px;
+	height: 14px;
+	margin: -7px 0 0 -7px;
+	border-radius: 50%;
+	background: #ffffff;
+	box-shadow: 0 0 0 2px var(--action), 0 3px 8px rgba(22, 66, 140, 0.35);
+}
+
+.btn[hidden] { display: none; }
+
+/* lab.css gives everything a 0.2 s transition under reduced motion; the stripes, the sheen and the pill should simply step.
+   (.print and the glare are left alone: vanilla-tilt writes their transitions inline, and it is not running then.) */
+.print-box, .print-shadow, .sheen__band, .meter__end, .meter__dot { transition-property: none !important; }
+
+@media (max-width: 720px) {
+	.meter { gap: 10px; padding: 8px 14px; font-size: 11px; }
+	.meter__track { width: 84px; }
+}
+
+/* reduced motion: the print is a still (script places it at a slight angle once); no transitions from this sheet either way */
+@media (forced-colors: active) {
+	.print__face { border: 1px solid CanvasText; }
+}

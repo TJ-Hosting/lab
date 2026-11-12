@@ -1,0 +1,187 @@
+/* Sample 60 — Relief Light Texture Board. The shell (sky, top bar, panel, the night screen) comes from css/; only the piece is styled here.
+   The board is a rounded picture inside the night window: a WebGL canvas, with a smoked-glass rail (material chips and the Relief
+   slider) over its top left. The textures carry their own colour; everything else uses DS v9's night tokens, which [data-night] sets.
+   Nothing here animates: the canvas is redrawn by script, and the chips and the slider only change state. */
+
+/* the picture area: inset from the window's edges on all sides. On a phone its bottom edge stops above the info panel
+   (piece.js sets --dock from the panel's height), so the panel never covers the board. */
+.board {
+	position: absolute;
+	left: 12px;
+	right: 12px;
+	top: 46px; /* the 34 px window bar and 12 px */
+	bottom: calc(12px + var(--dock, 0px));
+	overflow: hidden;
+	border-radius: var(--radius-md);
+	background: #070b16;
+	box-shadow: 0 0 0 1px rgba(94, 128, 174, 0.3), 0 18px 36px -20px rgba(2, 5, 12, 0.7);
+	isolation: isolate;
+}
+
+.piece {
+	position: absolute;
+	inset: 0;
+	display: block;
+	width: 100%;
+	height: 100%;
+	touch-action: none; /* the board takes drags: they carry the lamp */
+	cursor: crosshair;
+}
+.piece[hidden] { display: none; }
+.piece:focus-visible {
+	outline: 3px solid var(--focus);
+	outline-offset: -3px;
+}
+
+/* ---------- the rail: material chips and the Relief slider ---------- */
+
+.rail {
+	position: absolute;
+	z-index: 2;
+	left: 14px;
+	top: 14px;
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 8px 22px;
+	padding: 10px 16px 10px 10px;
+	max-width: calc(100% - 28px);
+}
+.chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.chip { min-height: 34px; padding: 6px 13px; }
+
+.relief {
+	display: flex;
+	align-items: center;
+	gap: 12px;
+	flex: 1 1 210px;
+	min-width: 200px;
+	margin: 0;
+}
+.relief__label { flex: none; font: 800 14px/20px var(--font-display); color: var(--ink); }
+.relief__val {
+	flex: none;
+	min-width: 3ch;
+	text-align: right;
+	font: 700 13px/20px var(--font-mono);
+	font-variant-numeric: tabular-nums;
+	color: var(--ink);
+}
+
+/* the slider: a thin track filled royal to cyan up to the thumb (--p is set by piece.js), and a white glass thumb */
+.relief input[type="range"] {
+	--p: 60%;
+	flex: 1 1 auto;
+	min-width: 90px;
+	height: 28px;
+	margin: 0;
+	padding: 0;
+	background: transparent;
+	cursor: pointer;
+	-webkit-appearance: none;
+	appearance: none;
+}
+.relief input[type="range"]::-webkit-slider-runnable-track {
+	height: 6px;
+	border-radius: 999px;
+	background: linear-gradient(90deg, var(--brand-royal), var(--glow-cyan)) left center / var(--p) 100% no-repeat, var(--line);
+	box-shadow: inset 0 0 0 1px rgba(94, 128, 174, 0.28);
+}
+.relief input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 22px;
+	height: 22px;
+	margin-top: -8px;
+	border: 2px solid var(--glow-cyan);
+	border-radius: 50%;
+	background: radial-gradient(circle at 35% 30%, #ffffff, #cfe6fb);
+	box-shadow: 0 3px 8px -2px rgba(2, 5, 12, 0.7);
+}
+.relief input[type="range"]::-moz-range-track {
+	height: 6px;
+	border-radius: 999px;
+	background: var(--line);
+	box-shadow: inset 0 0 0 1px rgba(94, 128, 174, 0.28);
+}
+.relief input[type="range"]::-moz-range-progress {
+	height: 6px;
+	border-radius: 999px;
+	background: linear-gradient(90deg, var(--brand-royal), var(--glow-cyan));
+}
+.relief input[type="range"]::-moz-range-thumb {
+	box-sizing: border-box;
+	width: 22px;
+	height: 22px;
+	border: 2px solid var(--glow-cyan);
+	border-radius: 50%;
+	background: radial-gradient(circle at 35% 30%, #ffffff, #cfe6fb);
+	box-shadow: 0 3px 8px -2px rgba(2, 5, 12, 0.7);
+}
+.relief input[type="range"]:focus-visible {
+	outline: 2px solid var(--focus);
+	outline-offset: 4px;
+	border-radius: 999px;
+}
+
+/* ---------- no WebGL: the stone as a plain image ---------- */
+
+.poster { position: absolute; inset: 0; }
+.poster[hidden] { display: none; }
+.poster img { display: block; width: 100%; height: 100%; object-fit: cover; object-position: 50% 40%; }
+.poster__note {
+	position: absolute;
+	right: 14px;
+	bottom: 14px;
+	margin: 0;
+	padding: 10px 16px;
+	max-width: min(380px, calc(100% - 28px));
+	font: 600 13px/20px var(--font-sans);
+	color: var(--ink);
+}
+.is-fallback .rail, .is-fallback .hint { display: none; }
+
+/* on a wide screen the info panel covers the window's bottom left; the poster note keeps to the right of it */
+@media (min-width: 721px) {
+	.poster__note { right: 14px; }
+}
+
+/* a narrow phone: the chips drop the first word of their name, so the three fit in one row (their accessible names stay whole) */
+@media (max-width: 440px) {
+	.chip__pre { display: none; }
+	.chip__noun { display: inline-block; }
+	.chip__noun::first-letter { text-transform: uppercase; }
+}
+
+/* ---------- phones: the board stops above the panel, and the rail becomes a strip over the canvas rather than a plate on it ---------- */
+
+@media (max-width: 720px) {
+	.board {
+		left: 10px;
+		right: 10px;
+		top: 44px;
+		bottom: calc(10px + var(--dock, 0px));
+		display: grid;
+		grid-template-rows: auto minmax(0, 1fr);
+	}
+	.rail {
+		position: relative;
+		left: auto;
+		top: auto;
+		grid-row: 1;
+		margin: 8px 8px 8px;
+		max-width: none;
+		padding: 8px;
+		gap: 6px 14px;
+	}
+	.piece { position: relative; inset: auto; grid-row: 2; }
+	.chips { gap: 5px; flex: 1 1 100%; }
+	.chip { min-height: 32px; padding: 5px 8px; font-size: 12px; flex: 1 1 auto; }
+	.relief { flex: 1 1 100%; min-width: 0; gap: 10px; padding: 0 4px; }
+	.poster__note { left: 10px; right: 10px; bottom: 10px; max-width: none; }
+}
+
+/* a short landscape window: no room for the hint beside the folded panel */
+@media (max-height: 520px) {
+	.hint { display: none; }
+}

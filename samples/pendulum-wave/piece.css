@@ -1,0 +1,84 @@
+/* Sample 50 — Pendulum Wave, on the open day sky.
+   The rig is drawn on a canvas straight over the sky; the shell (sky, top bar, panel) comes from css/.
+   Colours in piece.js are DS v9's blues: navy frame, royal-to-cyan glass bobs, azure trails, blue shadows.
+   Nothing here animates: the canvas is redrawn by script and the readout's bar is moved with transform only. */
+
+.pend-stage .piece-open {
+	position: absolute;
+	inset: 0;
+}
+.piece {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+/* ---------- the readout: a small glass plate with the cycle time, the pattern's name and a bar ---------- */
+
+.readout {
+	position: absolute;
+	z-index: 5;
+	left: 50%;
+	bottom: 24px; /* piece.js moves it beside or above the info panel */
+	width: min(272px, calc(100% - 2 * var(--gutter)));
+	margin: 0;
+	padding: 10px 16px 12px;
+	transform: translateX(-50%);
+	border-radius: var(--radius-lg);
+	color: var(--ink);
+}
+.readout__row {
+	display: flex;
+	align-items: baseline;
+	justify-content: space-between;
+	gap: 12px;
+	margin: 0 0 9px;
+	white-space: nowrap;
+}
+.readout__time {
+	font: 500 13px/18px var(--font-mono);
+	letter-spacing: 0.02em;
+	color: var(--muted);
+	font-variant-numeric: tabular-nums;
+}
+.readout__time b {
+	display: inline-block;
+	min-width: 3.4ch;
+	text-align: right;
+	font-weight: 700;
+	color: var(--ink);
+}
+.readout__name {
+	font: 800 14px/18px var(--font-display);
+	letter-spacing: -0.005em;
+	color: var(--ink);
+}
+/* the bar: a track with ticks at the named patterns and a fill that grows with transform: scaleX() */
+.readout__track {
+	position: relative;
+	display: block;
+	height: 4px;
+	border-radius: 999px;
+	background: var(--line);
+	overflow: hidden;
+}
+.readout__track i {
+	position: absolute;
+	inset: 0;
+	border-radius: inherit;
+	background: linear-gradient(90deg, var(--brand-royal), var(--glow-cyan));
+	transform: scaleX(0);
+	transform-origin: 0 50%;
+}
+
+.readout--note { left: 50%; bottom: 140px; padding: 10px 16px; font: 600 14px/20px var(--font-sans); }
+
+/* a short landscape screen: the readout takes the hint's place */
+@media (max-height: 560px) and (orientation: landscape) {
+	.hint { display: none; }
+}
+
+@media (max-width: 560px) {
+	.readout { width: min(256px, calc(100% - 2 * var(--gutter))); padding: 8px 14px 10px; }
+	.readout__row { margin-bottom: 7px; }
+}

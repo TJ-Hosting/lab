@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<!-- the base policy; additions only as the brief allows ('wasm-unsafe-eval', blob:), and only with the lead -->
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://*.google.com; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<script src="../../js/ga4.js"></script>
+	<title>Glass sandbox — falling sand · TJ-Hosting Lab</title>
+	<meta name="description" content="A tiny falling-sand toy with eight elements in blues and light: sand, water, ink, spark, coral, ice, plasma and glass. Where plasma meets sand, glass forms. Made with a typed-array grid on Canvas 2D; draw to pour, or watch it pour itself.">
+	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/glass-sandbox/">
+	<meta name="theme-color" content="#eef7fc">
+	<link rel="icon" href="../../img/brand/tj-mark.svg" type="image/svg+xml">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="TJ-Hosting Lab">
+	<meta property="og:title" content="Glass sandbox — TJ-Hosting Lab">
+	<meta property="og:description" content="Pour sand, water, plasma and sparks in a small night-blue box. Plasma turns sand to glass.">
+	<meta property="og:url" content="https://lab.tj-hosting.ca/samples/glass-sandbox/">
+	<meta property="og:image" content="https://lab.tj-hosting.ca/img/og/glass-sandbox.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="A dune of pale ice-blue sand with a glowing cyan plasma pool, a layer of glass, azure water and royal-blue coral in a dark glass box">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="preload" href="../../fonts/nunito-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="../../css/glass.css">
+	<link rel="stylesheet" href="../../css/lab.css">
+	<link rel="stylesheet" href="../../css/sample.css">
+	<link rel="stylesheet" href="piece.css">
+	<script src="../../js/early.js"></script>
+	<script type="module" src="piece.js"></script>
+</head>
+<body class="sample sample--glass-sandbox">
+	<a class="skip" href="#about-piece">Skip to the description</a>
+
+	<div class="sky" aria-hidden="true"></div>
+
+	<header class="topbar">
+		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
+			<img src="../../img/brand/tj-mark.svg" alt="" width="34" height="34">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Lab">
+			<a href="../../#samples">All samples</a>
+		</nav>
+	</header>
+
+	<!-- STAGE A: a framed night screen: glowing plasma and sparks only read on dark. The dock is white-blue glass on the day sky's side of the frame. -->
+	<main id="main" class="stage stage--screen">
+		<div class="dock glass glass--strong" role="group" aria-label="Elements and brush" data-dock>
+			<div class="dock__group" role="group" aria-label="Element">
+				<button class="el" type="button" data-el="sand" aria-pressed="true" aria-label="Sand"><i class="el__dot" aria-hidden="true"></i><span class="el__name">Sand</span></button>
+				<button class="el" type="button" data-el="water" aria-pressed="false" aria-label="Water"><i class="el__dot" aria-hidden="true"></i><span class="el__name">Water</span></button>
+				<button class="el" type="button" data-el="ink" aria-pressed="false" aria-label="Ink"><i class="el__dot" aria-hidden="true"></i><span class="el__name">Ink</span></button>
+				<button class="el" type="button" data-el="spark" aria-pressed="false" aria-label="Spark"><i class="el__dot" aria-hidden="true"></i><span class="el__name">Spark</span></button>
+				<button class="el" type="button" data-el="coral" aria-pressed="false" aria-label="Coral"><i class="el__dot" aria-hidden="true"></i><span class="el__name">Coral</span></button>
+				<button class="el" type="button" data-el="ice" aria-pressed="false" aria-label="Ice"><i class="el__dot" aria-hidden="true"></i><span class="el__name">Ice</span></button>
+				<button class="el" type="button" data-el="plasma" aria-pressed="false" aria-label="Plasma"><i class="el__dot" aria-hidden="true"></i><span class="el__name">Plasma</span></button>
+				<button class="el" type="button" data-el="glass" aria-pressed="false" aria-label="Glass"><i class="el__dot" aria-hidden="true"></i><span class="el__name">Glass</span></button>
+			</div>
+			<div class="dock__group dock__group--tools" role="group" aria-label="Eraser and brush size">
+				<button class="el" type="button" data-el="erase" aria-pressed="false" aria-label="Eraser"><i class="el__dot" aria-hidden="true"></i><span class="el__name">Erase</span></button>
+				<span class="dock__sep" aria-hidden="true"></span>
+				<button class="size" type="button" data-size="s" aria-pressed="false" aria-label="Small brush"><i class="size__dot" aria-hidden="true"></i></button>
+				<button class="size" type="button" data-size="m" aria-pressed="true" aria-label="Medium brush"><i class="size__dot" aria-hidden="true"></i></button>
+				<button class="size" type="button" data-size="l" aria-pressed="false" aria-label="Large brush"><i class="size__dot" aria-hidden="true"></i></button>
+			</div>
+		</div>
+
+		<div class="piece-screen screen" data-night>
+			<canvas class="piece" tabindex="0" role="img" aria-label="A small night-blue sandbox where sand, water, ink, spark, coral, ice, plasma and glass fall, flow and react. It pours by itself until you draw on it: pick an element in the dock, then drag a pointer or finger over the box. With a keyboard, use the arrow keys to move the brush, space to pour, and the number keys 1 to 9 to pick an element."></canvas>
+			<span class="sheen" aria-hidden="true"></span>
+			<p class="readout" data-readout data-mode="auto"><span data-readout-text>Auto-pour</span><span class="readout__more"> · draw to take over</span></p>
+		</div>
+	</main>
+
+	<aside class="sample-info glass glass--strong" id="about-piece" aria-labelledby="piece-title">
+		<p class="eyebrow">Sample 52 · Falling sand</p>
+		<h1 id="piece-title">Glass sandbox</h1>
+		<p class="how"><b>How it's made:</b> a Canvas 2D grid of about 50,000 cells, each following a few small rules (sand falls, sparks climb, plasma turns sand to glass).
+		An auto-pour plays until you draw; it stops off-screen or in a hidden tab.</p>
+		<div class="controls">
+			<button class="btn btn--sm btn--primary" type="button" data-action="save">Download PNG</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="clear">Clear</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="pause" aria-pressed="false">Pause</button>
+			<a class="back" href="../../#samples">← Back to the lab</a>
+		</div>
+	</aside>
+</body>
+</html>

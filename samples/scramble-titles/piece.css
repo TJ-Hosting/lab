@@ -1,0 +1,197 @@
+/* Sample 08 — Scramble title cards, on the open day sky.
+   One frosted light-glass card. Its lines (a big word, a short line, six labels) are the only monospace on the page:
+   each sits in a slot with a fixed width and a fixed line box, clipped, so the random characters never move anything.
+   Colours are DS v9's: navy ink, azure while a line is scrambling, a cyan to azure to royal bar and block cursor.
+   Nothing here transitions or animates but transform (the hover lift, the bar, the cursor); the colour flip when a line
+   settles is a class swap, not an animation. The shell (sky, top bar, panel) comes from css/. */
+
+.scramble-stage {
+	align-items: start;
+	justify-items: center;
+	padding: clamp(84px, 14vh, 150px) var(--gutter) 48px;
+}
+
+.piece-open {
+	width: min(780px, 100%);
+}
+
+/* ---------- the card ---------- */
+
+.card {
+	--word-fs: clamp(46px, 9.4vw, 96px);
+	--tag-fs: clamp(15px, 2.3vw, 22px);
+	--chip-fs: 13px;
+	padding: 20px clamp(18px, 4vw, 32px) clamp(18px, 3vw, 26px);
+}
+
+/* the progress bar along the top edge: cyan to azure to royal, scaled from the left (transform only) */
+.card .rail {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 0;
+	z-index: 3;
+	height: 4px;
+	background: rgba(var(--glow-rgb), 0.1);
+	pointer-events: none;
+}
+.rail__fill {
+	display: block;
+	width: 100%;
+	height: 100%;
+	background: linear-gradient(90deg, var(--glow-cyan) 0%, var(--brand-azure) 55%, var(--brand-royal) 100%);
+	transform-origin: 0 50%;
+	transform: scaleX(0);
+}
+.card[data-still] .rail__fill { transform: none; }
+
+/* a soft cyan and azure wash behind the big word (static) */
+.card .card__wash {
+	position: absolute;
+	inset: 0;
+	z-index: 0;
+	pointer-events: none;
+	background:
+		radial-gradient(48% 62% at 88% 6%, rgba(70, 208, 251, 0.2), rgba(70, 208, 251, 0) 72%),
+		radial-gradient(40% 50% at 6% 40%, rgba(77, 159, 243, 0.1), rgba(77, 159, 243, 0) 72%);
+}
+
+.tabs {
+	display: flex;
+	flex-wrap: wrap;
+	gap: 8px;
+	margin: 8px 0 clamp(20px, 3.4vh, 32px);
+}
+
+/* ---------- the scrambling lines ---------- */
+
+/* the slot is the fixed box; .scr is the text inside, clipped to it */
+.slot {
+	position: relative;
+	display: block;
+	min-width: 0;
+	font-family: var(--font-mono);
+	letter-spacing: 0;
+	font-stretch: normal;
+}
+.scr {
+	display: block;
+	width: 100%;
+	overflow: hidden;
+	white-space: pre;
+	color: var(--ink);
+	contain: layout paint;
+}
+.slot.is-live .scr { color: var(--accent-text); }
+
+/* the block cursor: one cell wide, moved along the line with transform only (piece.js sets --f, the cell it sits on) */
+.blk {
+	position: absolute;
+	left: 0;
+	top: 0.12em;
+	width: 1ch;
+	height: 0.92em;
+	border-radius: 2px;
+	background: linear-gradient(180deg, var(--glow-cyan), var(--brand-azure));
+	box-shadow: 0 0 0.5em rgba(70, 208, 251, 0.55);
+	opacity: 0;
+	transform: translateX(calc(var(--f, 0) * 1ch));
+	pointer-events: none;
+}
+.slot.is-typing .blk { opacity: 0.92; }
+
+.card__title {
+	margin: 0;
+	font-weight: 400;
+	letter-spacing: 0;
+	text-wrap: nowrap;
+}
+.slot--word { font-size: var(--word-fs); line-height: 1.12; font-weight: 800; }
+.slot--word .scr { height: 1.12em; }
+.slot--tag { margin-top: 6px; font-size: var(--tag-fs); line-height: 1.5; font-weight: 500; }
+.slot--tag .scr { height: 1.5em; color: var(--ink-2); }
+.slot--tag.is-live .scr { color: var(--accent-text); }
+
+/* ---------- the labels: six buttons you can scramble again ---------- */
+
+.labels {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	gap: 10px;
+	margin: clamp(20px, 3.4vh, 30px) 0 0;
+	padding: 0;
+	list-style: none;
+}
+.chip {
+	display: flex;
+	align-items: center;
+	gap: 10px;
+	width: 100%;
+	min-height: 46px;
+	padding: 8px 12px;
+	border: 1px solid var(--glass-border);
+	border-radius: var(--radius-sm);
+	background: var(--glass-sheen), linear-gradient(var(--glass-tint), var(--glass-tint));
+	box-shadow: var(--glass-inner), 0 8px 18px -12px rgba(var(--shade-rgb), 0.4);
+	color: var(--ink);
+	text-align: left;
+	cursor: pointer;
+	transition: transform 0.35s var(--ease-spring);
+}
+.chip:hover { transform: translateY(-2px); border-color: var(--border-control); }
+.chip:active { transform: translateY(0) scale(0.98); }
+.chip__dot {
+	flex: none;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--glow-cyan);
+	box-shadow: 0 0 0 3px rgba(70, 208, 251, 0.22);
+}
+.chip .slot { flex: 1 1 auto; font-size: var(--chip-fs); line-height: 20px; font-weight: 600; }
+.chip .scr { height: 20px; }
+
+.card__note {
+	margin: 16px 0 0;
+	font-size: 13.5px;
+	line-height: 20px;
+	color: var(--muted);
+}
+
+/* phones: a tighter card, so it clears the panel at the bottom of a 375 x 812 screen */
+@media (max-width: 559px) {
+	.scramble-stage { padding-top: 78px; }
+	.card { --chip-fs: 12.5px; padding-top: 14px; }
+	.tabs { margin-bottom: 16px; }
+	.slot--word { line-height: 1.1; }
+	.slot--word .scr { height: 1.1em; }
+	.slot--tag { margin-top: 4px; }
+	.labels { gap: 8px; margin-top: 18px; }
+	.chip { gap: 8px; min-height: 42px; padding: 7px 9px; }
+	.card__note { margin-top: 12px; font-size: 13px; }
+}
+@media (max-width: 359px) {
+	.labels { grid-template-columns: minmax(0, 1fr); }
+}
+
+@media (min-width: 560px) {
+	.card { --chip-fs: 14px; }
+	.labels { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+}
+@media (min-width: 900px) {
+	.card { --chip-fs: 15px; }
+	.chip { padding: 8px 14px; }
+}
+
+/* a short phone in landscape: the card sits tighter under the bar */
+@media (max-height: 520px) {
+	.scramble-stage { padding-top: 70px; }
+	.tabs { margin-bottom: 14px; }
+}
+
+.controls .btn:disabled { opacity: 0.5; cursor: default; transform: none; }
+
+@media (forced-colors: active) {
+	.blk { background: Highlight; box-shadow: none; }
+	.chip { border-color: CanvasText; }
+}

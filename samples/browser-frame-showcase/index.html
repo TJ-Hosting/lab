@@ -1,0 +1,160 @@
+<!doctype html>
+<!--
+  TJ-Hosting Lab — Sample 43, "Browser-frame project showcase" (lab-05), DS v9 "Day sky".
+  Stage C: open sky. A generic light-glass browser window and a matching phone show one of three FICTIONAL sample sites
+  (mock-ups made for the lab). The tall picture scrolls inside both by transform; a frosted sheen sweeps across the glass.
+-->
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<!-- the base policy, unchanged -->
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://*.google.com; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<script src="../../js/ga4.js"></script>
+	<title>Browser-frame project showcase — browser frame · TJ-Hosting Lab</title>
+	<meta name="description" content="A glass browser window and a matching phone show one of three fictional client sites. The tall page scrolls inside on hover, a frosted sheen sweeps across the glass, and a click swaps the site. HTML, CSS and a little JavaScript.">
+	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/browser-frame-showcase/">
+	<meta name="theme-color" content="#eef7fc">
+	<link rel="icon" href="../../img/brand/tj-mark.svg" type="image/svg+xml">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="TJ-Hosting Lab">
+	<meta property="og:title" content="Browser-frame project showcase — TJ-Hosting Lab">
+	<meta property="og:description" content="A glass browser window and a phone show fictional client sites that scroll on hover, under a sweeping frosted sheen.">
+	<meta property="og:url" content="https://lab.tj-hosting.ca/samples/browser-frame-showcase/">
+	<meta property="og:image" content="https://lab.tj-hosting.ca/img/og/browser-frame-showcase.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="A light glass browser window and a phone in front of it, both showing a fictional bakery website with blue and white styling">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="preload" href="../../fonts/nunito-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="preload" href="../../fonts/jetbrains-mono-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="../../css/glass.css">
+	<link rel="stylesheet" href="../../css/lab.css">
+	<link rel="stylesheet" href="../../css/sample.css">
+	<link rel="stylesheet" href="piece.css">
+	<script src="../../js/early.js"></script>
+	<script type="module" src="piece.js"></script>
+</head>
+<body class="sample sample--browser-frame-showcase">
+	<a class="skip" href="#about-piece">Skip to the description</a>
+
+	<div class="sky" aria-hidden="true"></div>
+
+	<header class="topbar">
+		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
+			<img src="../../img/brand/tj-mark.svg" alt="" width="34" height="34">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Lab">
+			<a href="../../#samples">All samples</a>
+		</nav>
+	</header>
+
+	<!-- stage C: open sky. The window and the phone are glass; the picture inside each is one tall image per site,
+	     stacked and cross-faded, and slid up and down by piece.js. -->
+	<main id="main" class="stage" data-motion>
+		<div class="piece-open">
+			<div class="showcase" id="showcase">
+				<div class="showcase__top">
+					<p class="pill"><span class="pill__dot" aria-hidden="true"></span>Fictional sample sites</p>
+					<div class="chips" role="group" aria-label="Choose a sample site">
+						<button class="btn btn--sm btn--ghost chip" type="button" data-site="bakery" aria-pressed="true">Bakery</button>
+						<button class="btn btn--sm btn--ghost chip" type="button" data-site="studio" aria-pressed="false">Studio</button>
+						<button class="btn btn--sm btn--ghost chip" type="button" data-site="garden" aria-pressed="false">Garden</button>
+					</div>
+				</div>
+
+				<div class="devices">
+					<div class="halo" aria-hidden="true"></div>
+
+					<!-- the browser window: generic chrome (three dots, arrows, an address pill), not any real browser's -->
+					<div class="window glass glass--strong glass--xl" role="group" aria-label="Browser window showing a fictional sample site">
+						<div class="window__bar" aria-hidden="true">
+							<span class="dots"><i></i><i></i><i></i></span>
+							<svg class="window__nav" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M15 6l-6 6 6 6"/></svg>
+							<svg class="window__nav" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" focusable="false"><path d="M9 6l6 6-6 6"/></svg>
+							<span class="addr"><span class="addr__dot"></span><span class="addr__stack"><span class="addr__text is-on" data-layer="bakery">sample-bakery.example</span><span class="addr__text" data-layer="studio">sample-studio.example</span><span class="addr__text" data-layer="garden">sample-garden.example</span></span></span>
+							<span class="window__tabs"><i></i></span>
+							<span class="progress"></span>
+						</div>
+						<div class="window__screen">
+							<div class="scroller">
+								<div class="layer is-on" data-layer="bakery">
+									<picture>
+										<source type="image/avif" srcset="../../img/art/browser-frame-showcase-bakery-512.avif 512w, ../../img/art/browser-frame-showcase-bakery-1024.avif 1024w" sizes="(max-width: 720px) 80vw, 660px">
+										<source type="image/webp" srcset="../../img/art/browser-frame-showcase-bakery-512.webp 512w, ../../img/art/browser-frame-showcase-bakery-1024.webp 1024w" sizes="(max-width: 720px) 80vw, 660px">
+										<img src="../../img/art/browser-frame-showcase-bakery-1024.webp" width="1024" height="1536" alt="A fictional bakery website: a hero with crusty loaves, a grid of eight breads and pastries, and a footer." decoding="async" draggable="false">
+									</picture>
+								</div>
+								<div class="layer" data-layer="studio" aria-hidden="true">
+									<picture>
+										<source type="image/avif" srcset="../../img/art/browser-frame-showcase-studio-512.avif 512w, ../../img/art/browser-frame-showcase-studio-1024.avif 1024w" sizes="(max-width: 720px) 80vw, 660px">
+										<source type="image/webp" srcset="../../img/art/browser-frame-showcase-studio-512.webp 512w, ../../img/art/browser-frame-showcase-studio-1024.webp 1024w" sizes="(max-width: 720px) 80vw, 660px">
+										<img src="../../img/art/browser-frame-showcase-studio-1024.webp" width="1024" height="1536" alt="A fictional design studio website: a white house by the sea with a pool, a gallery of six views, and a footer." decoding="async" draggable="false" fetchpriority="low">
+									</picture>
+								</div>
+								<div class="layer" data-layer="garden" aria-hidden="true">
+									<picture>
+										<source type="image/avif" srcset="../../img/art/browser-frame-showcase-garden-512.avif 512w, ../../img/art/browser-frame-showcase-garden-1024.avif 1024w" sizes="(max-width: 720px) 80vw, 660px">
+										<source type="image/webp" srcset="../../img/art/browser-frame-showcase-garden-512.webp 512w, ../../img/art/browser-frame-showcase-garden-1024.webp 1024w" sizes="(max-width: 720px) 80vw, 660px">
+										<img src="../../img/art/browser-frame-showcase-garden-1024.webp" width="1024" height="1536" alt="A fictional garden centre website: a greenhouse hero, a grid of eight potted plants, a map, and a footer." decoding="async" draggable="false" fetchpriority="low">
+									</picture>
+								</div>
+							</div>
+						</div>
+						<span class="sheen sheen--window" aria-hidden="true"></span>
+					</div>
+
+					<!-- the phone: the same sites, a crop of the same pictures (decorative: the window above carries the description) -->
+					<div class="phone glass glass--strong" aria-hidden="true">
+						<div class="phone__screen">
+							<div class="scroller">
+								<div class="layer is-on" data-layer="bakery" style="--c: 0.6">
+									<picture>
+										<source type="image/avif" srcset="../../img/art/browser-frame-showcase-bakery-512.avif 512w, ../../img/art/browser-frame-showcase-bakery-1024.avif 1024w" sizes="(max-width: 720px) 220px, 410px">
+										<source type="image/webp" srcset="../../img/art/browser-frame-showcase-bakery-512.webp 512w, ../../img/art/browser-frame-showcase-bakery-1024.webp 1024w" sizes="(max-width: 720px) 220px, 410px">
+										<img src="../../img/art/browser-frame-showcase-bakery-1024.webp" width="1024" height="1536" alt="" decoding="async" draggable="false">
+									</picture>
+								</div>
+								<div class="layer" data-layer="studio" style="--c: 0.28">
+									<picture>
+										<source type="image/avif" srcset="../../img/art/browser-frame-showcase-studio-512.avif 512w, ../../img/art/browser-frame-showcase-studio-1024.avif 1024w" sizes="(max-width: 720px) 220px, 410px">
+										<source type="image/webp" srcset="../../img/art/browser-frame-showcase-studio-512.webp 512w, ../../img/art/browser-frame-showcase-studio-1024.webp 1024w" sizes="(max-width: 720px) 220px, 410px">
+										<img src="../../img/art/browser-frame-showcase-studio-1024.webp" width="1024" height="1536" alt="" decoding="async" draggable="false" fetchpriority="low">
+									</picture>
+								</div>
+								<div class="layer" data-layer="garden" style="--c: 0.12">
+									<picture>
+										<source type="image/avif" srcset="../../img/art/browser-frame-showcase-garden-512.avif 512w, ../../img/art/browser-frame-showcase-garden-1024.avif 1024w" sizes="(max-width: 720px) 220px, 410px">
+										<source type="image/webp" srcset="../../img/art/browser-frame-showcase-garden-512.webp 512w, ../../img/art/browser-frame-showcase-garden-1024.webp 1024w" sizes="(max-width: 720px) 220px, 410px">
+										<img src="../../img/art/browser-frame-showcase-garden-1024.webp" width="1024" height="1536" alt="" decoding="async" draggable="false" fetchpriority="low">
+									</picture>
+								</div>
+							</div>
+							<span class="phone__cam"></span>
+						</div>
+						<span class="sheen sheen--phone"></span>
+					</div>
+				</div>
+
+			</div>
+			<noscript><p class="note glass glass--soft">The pictures show without scripts, but scrolling and swapping the site need JavaScript.</p></noscript>
+		</div>
+	</main>
+
+	<p class="hint glass glass--pill" aria-hidden="true">Hover to scroll</p>
+
+	<aside class="sample-info glass glass--strong" id="about-piece" aria-labelledby="piece-title">
+		<p class="eyebrow">Sample 43 · Browser frame</p>
+		<h1 id="piece-title">Browser-frame project showcase</h1>
+		<p class="how"><b>How it's made:</b> each site is one tall picture slid inside a glass window and a phone by transform, with a frosted sheen sweeping across.
+		It scrolls on hover, focus or tap, drifts when idle, and pauses off-screen or in a hidden tab.</p>
+		<div class="controls">
+			<button class="btn btn--sm btn--primary" type="button" data-action="next">Next site</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="pause" aria-pressed="false">Pause</button>
+			<a class="back" href="../../#samples">← Back to the lab</a>
+		</div>
+	</aside>
+</body>
+</html>

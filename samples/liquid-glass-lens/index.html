@@ -1,0 +1,97 @@
+<!doctype html>
+<!--
+  TJ-Hosting Lab — Sample 36, "Liquid-glass lens panels" (lab-05), DS v9 "Day sky", stage B (a framed day screen).
+  The shell (sky, top bar, panel) is the template's. The ribbons picture and a fine grid are the backdrop that liquid-glass-js
+  copies and bends under each glass panel; the labels sit in a layer above the lenses; piece.js builds the lenses.
+-->
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<!-- the base policy, unchanged: the library's maps are data: URLs (img-src data:) and its <style> is allowed by style-src -->
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://*.google.com; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<script src="../../js/ga4.js"></script>
+	<title>Liquid-glass lens panels — bent backdrop · TJ-Hosting Lab</title>
+	<meta name="description" content="A glass pill, a round button and a drifting lens card bend a blue ribbons picture behind them, with coloured edges. Made with liquid-glass-js, an SVG displacement map drawn on a canvas.">
+	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/liquid-glass-lens/">
+	<meta name="theme-color" content="#eef7fc">
+	<link rel="icon" href="../../img/brand/tj-mark.svg" type="image/svg+xml">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="TJ-Hosting Lab">
+	<meta property="og:title" content="Liquid-glass lens panels — TJ-Hosting Lab">
+	<meta property="og:description" content="Glass panels that really bend the blue ribbons behind them.">
+	<meta property="og:url" content="https://lab.tj-hosting.ca/samples/liquid-glass-lens/">
+	<meta property="og:image" content="https://lab.tj-hosting.ca/img/og/liquid-glass-lens.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="Blue and white silk ribbons seen through a round glass lens that bends them, with a glass pill above">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="preload" href="../../fonts/nunito-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="../../css/glass.css">
+	<link rel="stylesheet" href="../../css/lab.css">
+	<link rel="stylesheet" href="../../css/sample.css">
+	<link rel="stylesheet" href="piece.css">
+	<script src="../../js/early.js"></script>
+	<script type="module" src="piece.js"></script>
+</head>
+<body class="sample sample--liquid-glass-lens">
+	<a class="skip" href="#about-piece">Skip to the description</a>
+
+	<div class="sky" aria-hidden="true"></div>
+
+	<header class="topbar">
+		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
+			<img src="../../img/brand/tj-mark.svg" alt="" width="34" height="34">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Lab">
+			<a href="../../#samples">All samples</a>
+		</nav>
+	</header>
+
+	<!-- stage B: a framed day screen. Its picture is the backdrop the lenses copy; it is also all anyone sees if the lenses cannot start. -->
+	<main id="main" class="stage stage--screen">
+		<div class="piece-screen screen screen--day">
+			<div class="backdrop" aria-hidden="true">
+				<picture>
+					<source type="image/avif" srcset="../../img/art/liquid-glass-lens-ribbons-768.avif 768w, ../../img/art/liquid-glass-lens-ribbons-1536.avif 1536w" sizes="(max-width: 720px) 100vw, 1200px">
+					<source type="image/webp" srcset="../../img/art/liquid-glass-lens-ribbons-768.webp 768w, ../../img/art/liquid-glass-lens-ribbons-1536.webp 1536w" sizes="(max-width: 720px) 100vw, 1200px">
+					<img src="../../img/art/liquid-glass-lens-ribbons-768.webp" width="1536" height="1024" alt="">
+				</picture>
+				<span class="backdrop__grid"></span>
+			</div>
+		</div>
+	</main>
+
+	<!-- the labels: a fixed layer over the window and over the lenses (the library puts its lenses on the body, under this layer).
+	     Everything here is sample UI and goes nowhere. Before the lenses start, or if they cannot, the .glass classes give plain frosted glass. -->
+	<div class="lens-layer" role="group" aria-label="Sample glass interface: a pill menu, a round button and a glass lens card">
+		<nav class="lens-ui lens-pill glass glass--pill" id="lens-nav" aria-label="Sample menu (goes nowhere)">
+			<a href="#" aria-current="true">Studio</a>
+			<a href="#">Gallery</a>
+			<a href="#">Notes</a>
+			<a href="#" class="hide-sm">About</a>
+		</nav>
+		<button class="lens-ui lens-round glass" id="lens-round" type="button" aria-label="Change the lens: gentle, strong or inverted">
+			<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9.2" cy="12" r="5.6"/><circle cx="14.8" cy="12" r="5.6"/></svg>
+		</button>
+		<p class="pill lens-state" id="lens-state" role="status"><span class="pill__dot" aria-hidden="true"></span><span id="lens-state-text">Sample UI · Lens: strong</span></p>
+		<div class="lens-card glass glass--xl" id="lens-card" role="group" aria-label="Frosted card (the glass lens is not available here)" hidden></div>
+	</div>
+
+	<p class="hint glass glass--pill" aria-hidden="true">Drag the lens</p>
+
+	<aside class="sample-info glass glass--strong" id="about-piece" aria-labelledby="piece-title">
+		<p class="eyebrow">Sample 36 · Bent backdrop</p>
+		<h1 id="piece-title">Liquid-glass lens panels</h1>
+		<p class="how"><b>How it's made:</b> liquid-glass-js bends a copy of the picture under each panel with an SVG displacement map drawn on a canvas.
+		The lens card drifts by transform only, and rests off-screen or in a hidden tab.</p>
+		<div class="controls">
+			<button class="btn btn--sm btn--primary" type="button" data-action="move">Move the lens</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="pause" aria-pressed="false">Pause</button>
+			<a class="back" href="../../#samples">← Back to the lab</a>
+		</div>
+	</aside>
+</body>
+</html>

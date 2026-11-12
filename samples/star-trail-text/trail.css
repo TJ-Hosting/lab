@@ -1,0 +1,71 @@
+/* Sample 06 — Star-trail text. The shell (sky, top bar, panel, the screen window) comes from css/; only the piece is styled here.
+   The stars are additive light, so the piece runs in a framed night screen on the day sky (stage A).
+   Its ground is a made-up night sky in DS v9's navy, royal and azure; the type is pale on it (above 10:1 everywhere). */
+
+.sample--star-trail .screen {
+	background:
+		radial-gradient(46% 34% at 74% 104%, rgba(28, 128, 242, 0.34), rgba(28, 128, 242, 0) 72%),
+		radial-gradient(52% 30% at 18% 100%, rgba(10, 100, 214, 0.3), rgba(10, 100, 214, 0) 74%),
+		radial-gradient(34% 26% at 62% 14%, rgba(76, 195, 255, 0.1), rgba(76, 195, 255, 0) 70%),
+		linear-gradient(180deg, #040918 0%, #07112d 48%, #0a1d4a 100%);
+	touch-action: none; /* the screen takes drags (a sprinkle of stars); the page itself never scrolls */
+	cursor: crosshair;
+}
+
+.piece {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+/* the type sits over the stars and lets pointers through to the screen */
+.trail-type {
+	pointer-events: none;
+	overflow: hidden;
+}
+
+/* the guide: the curve each line is set on, drawn as a faint trail of dots the stars will follow */
+.trail-type .guide {
+	fill: none;
+	stroke: rgba(150, 215, 255, 0.34);
+	stroke-width: 1.6px;
+	stroke-dasharray: 0.1 7;
+	stroke-linecap: round;
+}
+
+/* the type: pale fills with a navy outline painted underneath, so a passing star never swallows a letter */
+.trail-type .line {
+	font-family: var(--font-sans);
+	fill: #f2f8ff;
+	paint-order: stroke fill;
+	stroke: #050b1e;
+	stroke-width: 3px;
+	stroke-linejoin: round;
+}
+.trail-type .line--small {
+	font-weight: 800;
+	letter-spacing: 0.07em;
+	fill: #d3e8ff;
+}
+.trail-type .line--big {
+	font-weight: 900;
+	font-stretch: 88%;
+	letter-spacing: -0.012em;
+	fill: #ffffff;
+	stroke-width: 4px;
+}
+/* the one script line (Great Vibes), thickened a hair with a stroke of its own gradient */
+.trail-type .line--script {
+	font-family: var(--font-script);
+	font-weight: 400;
+	letter-spacing: 0;
+	fill: url(#tg-friendly);
+	stroke: url(#tg-friendly);
+	paint-order: normal;
+	stroke-width: 0.03em;
+}
+
+/* the hint sits under the description panel on a mid-width window, so it only shows where there is room */
+@media (max-width: 900px) {
+	.sample--star-trail .hint { display: none; }
+}

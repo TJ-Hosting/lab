@@ -1,0 +1,7 @@
+wind-gl from https://github.com/mapbox/webgl-wind at commit b1f6468d90d2f39763a8795a5042f316a32ff3c8 (no release
+tag exists), ISC, Copyright (c) 2016 Mapbox. Fetched from raw.githubusercontent.com at that commit on 2026-10-28 (lab-05).
+- wind-gl.js: the repo's dist/wind-gl.js, unchanged (a UMD build: load it with a classic <script>, it sets window.WindGL).
+- wind/*.png, wind/*.json: the repo's demo/wind/ frames, unchanged: nine 6-hourly snapshots of GFS 10 m wind,
+  2016-11-20 00Z to 2016-11-22 00Z, encoded as 360x180 PNG textures by the repo's data/prepare.js; their JSON says
+  "source": "http://nomads.ncep.noaa.gov". They ship under the repo's ISC licence. The underlying NOAA GFS data is
+  US federal government data, treated as public domain [unverified against NOAA's own policy page].

@@ -1,0 +1,76 @@
+/* Sample 62 — Frosted window wipe. The shell (sky, top bar, panel, the night screen) comes from css/; only the piece is styled here.
+   The glass is one WebGL canvas that fills the window below its bar (css/sample.css places it). Nothing here animates except the
+   canvas fading in once, by opacity; the fog, the wiping and the drops are drawn by script. The picture and the frost carry their
+   own colour; the poster's note uses the night glass tokens that [data-night] sets. */
+
+.piece {
+	display: block;
+	touch-action: none; /* the glass takes drags: they wipe it */
+	cursor: crosshair;
+	opacity: 0;
+	transition: opacity 0.6s var(--ease-out);
+}
+.piece.is-ready { opacity: 1; }
+.piece[hidden] { display: none; }
+.piece:focus-visible {
+	outline: 3px solid var(--focus);
+	outline-offset: -3px;
+}
+
+/* what a browser without WebGL sees: the picture under a frosted overlay with one clear patch, and a short glass note.
+   The picture is added by script only then, so nobody downloads it twice. */
+.poster {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 34px;
+	z-index: 1;
+	overflow: hidden;
+	background: #07112d;
+}
+.poster[hidden] { display: none; }
+.poster picture, .poster img {
+	position: absolute;
+	inset: 0;
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.poster img { object-fit: cover; object-position: 62% 50%; }
+
+/* the fog: a pale blue-white wash over a blur of what is behind it, with a clear oval cut out of it (the wiped patch) */
+.poster__frost {
+	position: absolute;
+	inset: 0;
+	background:
+		radial-gradient(120% 90% at 50% 50%, rgba(196, 220, 248, 0.24), rgba(214, 232, 252, 0.46) 100%),
+		linear-gradient(180deg, rgba(230, 242, 253, 0.2), rgba(190, 214, 245, 0.28));
+	-webkit-backdrop-filter: blur(9px) brightness(1.22) saturate(0.85);
+	backdrop-filter: blur(9px) brightness(1.22) saturate(0.85);
+	-webkit-mask-image: radial-gradient(ellipse 30% 26% at 62% 44%, transparent 0 58%, #000 100%);
+	mask-image: radial-gradient(ellipse 30% 26% at 62% 44%, transparent 0 58%, #000 100%);
+}
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+	.poster__frost {
+		background:
+			radial-gradient(120% 90% at 50% 50%, rgba(176, 204, 240, 0.7), rgba(206, 226, 250, 0.84) 100%),
+			linear-gradient(180deg, rgba(230, 242, 253, 0.2), rgba(190, 214, 245, 0.28));
+	}
+}
+.poster__note {
+	position: absolute;
+	right: 16px;
+	bottom: 16px;
+	margin: 0;
+	padding: 9px 18px;
+	max-width: min(420px, calc(100% - 32px));
+	font: 600 13px/20px var(--font-sans);
+	color: var(--ink);
+}
+.is-fallback .hint { display: none; }
+
+@media (max-width: 720px) {
+	.poster img { object-position: 64% 50%; }
+	.poster__note { left: 12px; right: 12px; bottom: auto; top: 12px; max-width: none; text-align: center; }
+}

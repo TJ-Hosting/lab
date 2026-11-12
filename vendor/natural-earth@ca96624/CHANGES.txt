@@ -1,0 +1,4 @@
+Natural Earth 1:110m coastlines (ne_110m_coastline.geojson), from https://github.com/nvkelso/natural-earth-vector
+at commit ca96624a56bd078437bca8184e78163e5039ad19, fetched from raw.githubusercontent.com on 2026-10-28 (lab-05).
+Unchanged. Public domain (LICENSE.md, from the same commit: "Everything here is public domain"); credit Natural Earth.
+Vendored for the lab-05 sample wind-snapshot (coastlines under the wind particles, instead of the demo's remote file).

@@ -1,0 +1,22 @@
+lab-05 P4: Edge (headed) on 10 random lab-05 samples, 2026-10-28T10:43Z, seed 4242, each at 1440x900 and 375x812, 2 s after load.
+Edge 156.0.4314.42 samples: glass-sandbox, page-turn-lookbook, scroll-zoom-tunnel, clock-wall, edge-network-globe, split-flap-board, horizontal-journey, liquid-metal-monogram, integration-beams, planet-maker
+glass-sandbox 1440: errors 0, failed 0, overflow 0
+glass-sandbox 375: errors 0, failed 0, overflow 0
+page-turn-lookbook 1440: errors 0, failed 0, overflow 0
+page-turn-lookbook 375: errors 0, failed 0, overflow 0
+scroll-zoom-tunnel 1440: errors 0, failed 0, overflow 0
+scroll-zoom-tunnel 375: errors 0, failed 0, overflow 0
+clock-wall 1440: errors 0, failed 0, overflow 0
+clock-wall 375: errors 0, failed 0, overflow 0
+edge-network-globe 1440: errors 0, failed 0, overflow 0
+edge-network-globe 375: errors 0, failed 0, overflow 0
+split-flap-board 1440: errors 0, failed 0, overflow 0
+split-flap-board 375: errors 0, failed 0, overflow 0
+horizontal-journey 1440: errors 0, failed 0, overflow 0
+horizontal-journey 375: errors 0, failed 0, overflow 0
+liquid-metal-monogram 1440: errors 0, failed 0, overflow 0
+liquid-metal-monogram 375: errors 0, failed 0, overflow 0
+integration-beams 1440: errors 0, failed 0, overflow 0
+integration-beams 375: errors 0, failed 0, overflow 0
+planet-maker 1440: errors 0, failed 0, overflow 0
+planet-maker 375: errors 0, failed 0, overflow 0

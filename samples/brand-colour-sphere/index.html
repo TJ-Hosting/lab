@@ -1,0 +1,95 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://*.google.com; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<script src="../../js/ga4.js"></script>
+	<title>The brand colour sphere — colour maths · TJ-Hosting Lab</title>
+	<meta name="description" content="A colour sphere drawn as an inline SVG: hue runs around it and lightness from white to black. Pick a base colour, drag to turn it, click a patch to copy its hex. Plain JavaScript with OKLCH maths.">
+	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/brand-colour-sphere/">
+	<meta name="theme-color" content="#eef7fc">
+	<link rel="icon" href="../../img/brand/tj-mark.svg" type="image/svg+xml">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="TJ-Hosting Lab">
+	<meta property="og:title" content="The brand colour sphere — TJ-Hosting Lab">
+	<meta property="og:description" content="A turning sphere of colour patches built around your base colour. Click a patch to copy its hex.">
+	<meta property="og:url" content="https://lab.tj-hosting.ca/samples/brand-colour-sphere/">
+	<meta property="og:image" content="https://lab.tj-hosting.ca/img/og/brand-colour-sphere.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="A sphere of blue and cyan colour patches, white at the top and dark at the bottom, on a pale sky">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="preload" href="../../fonts/nunito-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="../../css/glass.css">
+	<link rel="stylesheet" href="../../css/lab.css">
+	<link rel="stylesheet" href="../../css/sample.css">
+	<link rel="stylesheet" href="piece.css">
+	<script src="../../js/early.js"></script>
+	<script type="module" src="piece.js"></script>
+</head>
+<body class="sample sample--brand-colour-sphere">
+	<a class="skip" href="#about-piece">Skip to the description</a>
+
+	<div class="sky" aria-hidden="true"></div>
+
+	<header class="topbar">
+		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
+			<img src="../../img/brand/tj-mark.svg" alt="" width="34" height="34">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Lab">
+			<a href="../../#samples">All samples</a>
+		</nav>
+	</header>
+
+	<!-- stage C: open sky. The sphere is an inline SVG whose patches are redrawn each frame; the tools are one glass panel -->
+	<main id="main" class="stage orb-stage" data-motion>
+		<div class="piece-open orb">
+			<div class="orb__sphere" id="orb">
+				<div class="orb__shadow" aria-hidden="true"></div>
+				<div class="orb__disc" aria-hidden="true"></div>
+				<svg class="sphere" id="sphere" viewBox="0 0 520 520" tabindex="0" role="group" aria-label="Colour sphere. Drag or use the arrow keys to turn it. Press Enter to copy the colour at its centre.">
+					<g class="patches" id="patches"></g>
+					<polygon class="pick pick--out" id="pick-out" points=""/>
+					<polygon class="pick pick--in" id="pick-in" points=""/>
+					<polygon class="halo" id="halo" points=""/>
+					<g class="reticle" aria-hidden="true"><circle cx="260" cy="260" r="9"/><circle cx="260" cy="260" r="2"/></g>
+				</svg>
+				<div class="orb__gloss" aria-hidden="true"></div>
+			</div>
+
+			<section class="tools glass" aria-label="Colour tools">
+				<p class="tools__label eyebrow" id="base-label">Base colour · <b id="base-name">Cyan</b></p>
+				<div class="swatches" role="group" aria-labelledby="base-label" id="swatches"></div>
+				<button class="btn btn--sm btn--ghost tools__up" type="button" data-action="upright">Upright</button>
+				<button class="readout" id="readout" type="button" aria-describedby="copy-note">
+					<span class="readout__chip" id="readout-chip" aria-hidden="true"></span>
+					<span class="readout__text">
+						<span class="readout__hex" id="readout-hex">#46D0FB</span>
+						<span class="readout__detail" id="readout-detail">L 80% · C 0.13 · H 225°</span>
+					</span>
+				</button>
+				<button class="btn btn--sm btn--ghost tools__near" type="button" data-action="near" aria-pressed="false">Near hues</button>
+				<p class="tools__note" id="copy-note" role="status">Click a patch, or this button, to copy its hex.</p>
+			</section>
+		</div>
+		<noscript><p class="tools__note">The sphere needs JavaScript to run.</p></noscript>
+	</main>
+
+	<p class="hint glass glass--pill" aria-hidden="true">Drag to turn · click a patch</p>
+
+	<aside class="sample-info glass glass--strong" id="about-piece" aria-labelledby="piece-title">
+		<p class="eyebrow">Sample 32 · Colour maths</p>
+		<h1 id="piece-title">The brand colour sphere</h1>
+		<p class="how"><b>How it's made:</b> an inline SVG of colour patches on a sphere, with hue running around it and lightness from white to black, worked out in OKLCH; each frame a quaternion turns every patch and its outline is redrawn.
+		Drag to spin it with some inertia, or leave it to drift; it pauses off-screen or in a hidden tab.</p>
+		<div class="controls">
+			<button class="btn btn--sm btn--primary" type="button" data-action="roll">Roll</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="pause" aria-pressed="false">Pause</button>
+			<a class="back" href="../../#samples">← Back to the lab</a>
+		</div>
+	</aside>
+</body>
+</html>

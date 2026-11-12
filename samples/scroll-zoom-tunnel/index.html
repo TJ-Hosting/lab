@@ -1,0 +1,133 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://*.google.com; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<script src="../../js/ga4.js"></script>
+	<title>The scroll tunnel — scroll zoom · TJ-Hosting Lab</title>
+	<meta name="description" content="Glass tiles of hosting words fly toward you as you scroll, and a tile marked Your site settles in the middle. CSS 3D and scroll-driven animations, with a still grid where they aren't supported.">
+	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/scroll-zoom-tunnel/">
+	<meta name="theme-color" content="#eef7fc">
+	<link rel="icon" href="../../img/brand/tj-mark.svg" type="image/svg+xml">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="TJ-Hosting Lab">
+	<meta property="og:title" content="The scroll tunnel — TJ-Hosting Lab">
+	<meta property="og:description" content="Scroll to fly through the parts of a hosted site until yours lands in the middle.">
+	<meta property="og:url" content="https://lab.tj-hosting.ca/samples/scroll-zoom-tunnel/">
+	<meta property="og:image" content="https://lab.tj-hosting.ca/img/og/scroll-zoom-tunnel.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="A tunnel of white glass tiles with hosting words on them, flying toward a glowing tile marked Your site">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="preload" href="../../fonts/nunito-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="../../css/glass.css">
+	<link rel="stylesheet" href="../../css/lab.css">
+	<link rel="stylesheet" href="../../css/sample.css">
+	<link rel="stylesheet" href="tunnel.css">
+	<script src="../../js/early.js"></script>
+	<script type="module" src="tunnel.js"></script>
+</head>
+<body class="sample sample--scroll-zoom-tunnel">
+	<a class="skip" href="#about-piece">Skip to the description</a>
+
+	<div class="sky" aria-hidden="true"></div>
+
+	<header class="topbar">
+		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
+			<img src="../../img/brand/tj-mark.svg" alt="" width="34" height="34">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Lab">
+			<a href="../../#samples">All samples</a>
+		</nav>
+	</header>
+
+	<!-- STAGE D: a scrolling page. The tall .tunnel gives the scroll its length; .tunnel__stick stays pinned while the tiles fly. -->
+	<main id="main" class="scroll-page" data-motion>
+		<div class="tunnel">
+			<div class="tunnel__stick">
+				<div class="tunnel__intro glass glass--xl">
+					<p class="tunnel__label mono">Sample content</p>
+					<p class="tunnel__title">The parts of a hosted site, with yours at the centre.</p>
+					<p class="tunnel__scroll mono" aria-hidden="true">Scroll to fly through ↓</p>
+				</div>
+				<ul class="tunnel__world" aria-label="Parts of a hosted site">
+				<li class="tile t-s" data-tint="royal" style="--x:0.49;--y:0.52;--a:12%;--b:46%"><div class="glass tile__card"><span class="tile__word">Domains</span><span class="tile__note">Your address</span></div></li>
+				<li class="tile t-s" data-tint="azure" style="--x:0.8;--y:-0.7;--a:-17.03%;--b:16.97%"><div class="glass tile__card"><span class="tile__word">SSL</span><span class="tile__note">The padlock</span></div></li>
+				<li class="tile t-l" data-tint="cyan" style="--x:-0.52;--y:-0.63;--a:29.94%;--b:63.94%"><div class="glass tile__card"><span class="tile__word">Email</span><span class="tile__note">Your own inbox</span></div></li>
+				<li class="tile t-s" data-tint="royal" style="--x:-0.35;--y:0.27;--a:0.91%;--b:34.91%"><div class="glass tile__card"><span class="tile__word">Backups</span><span class="tile__note">Copies, just in case</span></div></li>
+				<li class="tile t-m" data-tint="azure" style="--x:0.53;--y:0.73;--a:47.88%;--b:81.88%"><div class="glass tile__card"><span class="tile__word">CDN</span><span class="tile__note">Closer to visitors</span></div></li>
+				<li class="tile t-l" data-tint="cyan" style="--x:0.49;--y:-0.33;--a:18.85%;--b:52.85%"><div class="glass tile__card"><span class="tile__word">Uptime</span><span class="tile__note">Staying online</span></div></li>
+				<li class="tile t-s" data-tint="royal" style="--x:-0.53;--y:-0.83;--a:-10.18%;--b:23.82%"><div class="glass tile__card"><span class="tile__word">DNS</span><span class="tile__note">Names to numbers</span></div></li>
+				<li class="tile t-m" data-tint="azure" style="--x:-0.61;--y:0.36;--a:36.79%;--b:70.79%"><div class="glass tile__card"><span class="tile__word">Firewall</span><span class="tile__note">A guarded door</span></div></li>
+				<li class="tile t-l" data-tint="cyan" style="--x:0.51;--y:0.92;--a:7.76%;--b:41.76%"><div class="glass tile__card"><span class="tile__word">Staging</span><span class="tile__note">Try it first</span></div></li>
+				<li class="tile t-m" data-tint="royal" style="--x:0.72;--y:-0.37;--a:-21.26%;--b:12.74%"><div class="glass tile__card"><span class="tile__word">Databases</span><span class="tile__note">Where data lives</span></div></li>
+				<li class="tile t-m" data-tint="azure" style="--x:-0.19;--y:-0.39;--a:25.71%;--b:59.71%"><div class="glass tile__card"><span class="tile__word">Caching</span><span class="tile__note">Faster repeat visits</span></div></li>
+				<li class="tile t-l" data-tint="cyan" style="--x:-0.82;--y:0.36;--a:-3.32%;--b:30.68%"><div class="glass tile__card"><span class="tile__word">Monitoring</span><span class="tile__note">Eyes on the site</span></div></li>
+				<li class="tile t-m" data-tint="royal" style="--x:0.22;--y:0.54;--a:43.65%;--b:77.65%"><div class="glass tile__card"><span class="tile__word">Support</span><span class="tile__note">A person to ask</span></div></li>
+				<li class="tile t-m" data-tint="azure" style="--x:0.91;--y:-0.34;--a:14.62%;--b:48.62%"><div class="glass tile__card"><span class="tile__word">Migration</span><span class="tile__note">Moving in</span></div></li>
+				<li class="tile t-m" data-tint="cyan" style="--x:-0.22;--y:-0.66;--a:-14.41%;--b:19.59%"><div class="glass tile__card"><span class="tile__word">Malware scan</span><span class="tile__note">Looks for bad files</span></div></li>
+				<li class="tile t-m" data-tint="royal" style="--x:-1;--y:0.3;--a:32.56%;--b:66.56%"><div class="glass tile__card"><span class="tile__word">Git deploy</span><span class="tile__note">Push to publish</span></div></li>
+				<li class="tile t-m" data-tint="azure" style="--x:0.21;--y:0.77;--a:3.53%;--b:37.53%"><div class="glass tile__card"><span class="tile__word">Bandwidth</span><span class="tile__note">Room for visitors</span></div></li>
+				<li class="tile t-m" data-tint="cyan" style="--x:1.09;--y:-0.26;--a:-25.5%;--b:8.5%"><div class="glass tile__card"><span class="tile__word">Storage</span><span class="tile__note">Space for files</span></div></li>
+				<li class="tile t-m" data-tint="royal" style="--x:-0.18;--y:-0.87;--a:21.47%;--b:55.47%"><div class="glass tile__card"><span class="tile__word">Subdomains</span><span class="tile__note">A site within a site</span></div></li>
+				<li class="tile t-l" data-tint="azure" style="--x:-0.56;--y:0.1;--a:-7.56%;--b:26.44%"><div class="glass tile__card"><span class="tile__word">Redirects</span><span class="tile__note">Old links still work</span></div></li>
+				<li class="tile t-m" data-tint="cyan" style="--x:0.14;--y:0.96;--a:39.41%;--b:73.41%"><div class="glass tile__card"><span class="tile__word">Logs</span><span class="tile__note">What happened, when</span></div></li>
+				<li class="tile t-m" data-tint="royal" style="--x:0.68;--y:-0.08;--a:10.38%;--b:44.38%"><div class="glass tile__card"><span class="tile__word">Cron jobs</span><span class="tile__note">Tasks on a timer</span></div></li>
+				<li class="tile t-l" data-tint="azure" style="--x:-0.08;--y:-1.04;--a:-18.65%;--b:15.35%"><div class="glass tile__card"><span class="tile__word">Image tuning</span><span class="tile__note">Lighter pictures</span></div></li>
+				<li class="tile t-m" data-tint="cyan" style="--x:-0.79;--y:0.04;--a:28.32%;--b:62.32%"><div class="glass tile__card"><span class="tile__word">Contact forms</span><span class="tile__note">Messages arrive</span></div></li>
+				<li class="tile t-s" data-tint="royal" style="--x:0.02;--y:1.11;--a:-0.71%;--b:33.29%"><div class="glass tile__card"><span class="tile__word">Spam filter</span><span class="tile__note">Junk stays out</span></div></li>
+				<li class="tile t-l" data-tint="azure" style="--x:0.88;--y:0.01;--a:46.26%;--b:80.26%"><div class="glass tile__card"><span class="tile__word">Two-step login</span><span class="tile__note">A second lock</span></div></li>
+				<li class="tile t-m" data-tint="cyan" style="--x:0.02;--y:-0.56;--a:17.24%;--b:51.24%"><div class="glass tile__card"><span class="tile__word">Access</span><span class="tile__note">Who can edit</span></div></li>
+				<li class="tile t-s" data-tint="royal" style="--x:-0.96;--y:-0.07;--a:-11.79%;--b:22.21%"><div class="glass tile__card"><span class="tile__word">Versions</span><span class="tile__note">Roll back</span></div></li>
+				<li class="tile t-l" data-tint="azure" style="--x:-0.07;--y:0.68;--a:35.18%;--b:69.18%"><div class="glass tile__card"><span class="tile__word">Reports</span><span class="tile__note">How it went</span></div></li>
+				<li class="tile t-s" data-tint="cyan" style="--x:1.03;--y:0.14;--a:6.15%;--b:40.15%"><div class="glass tile__card"><span class="tile__word">Page speed</span><span class="tile__note">Measured, not guessed</span></div></li>
+				<li class="tile t-s" data-tint="royal" style="--x:0.13;--y:-0.77;--a:-22.88%;--b:11.12%"><div class="glass tile__card"><span class="tile__word">HTTP/3</span><span class="tile__note">A newer road</span></div></li>
+				<li class="tile t-l" data-tint="azure" style="--x:-1.09;--y:-0.22;--a:24.09%;--b:58.09%"><div class="glass tile__card"><span class="tile__word">IPv6</span><span class="tile__note">Room for every device</span></div></li>
+				<li class="tile t-s" data-tint="cyan" style="--x:-0.2;--y:0.85;--a:-4.94%;--b:29.06%"><div class="glass tile__card"><span class="tile__word">Load sharing</span><span class="tile__note">Many hands</span></div></li>
+				<li class="tile t-s" data-tint="royal" style="--x:0.53;--y:0.14;--a:42.03%;--b:76.03%"><div class="glass tile__card"><span class="tile__word">Containers</span><span class="tile__note">Tidy boxes</span></div></li>
+				<li class="tile t-s" data-tint="azure" style="--x:0.27;--y:-0.92;--a:13%;--b:47%"><div class="glass tile__card"><span class="tile__word">Static sites</span><span class="tile__note">Simple and quick</span></div></li>
+				<li class="tile t-s" data-tint="cyan" style="--x:-0.64;--y:-0.21;--a:-16.03%;--b:17.97%"><div class="glass tile__card"><span class="tile__word">Wildcard SSL</span><span class="tile__note">One lock, many names</span></div></li>
+				<li class="tile t-s" data-tint="royal" style="--x:-0.35;--y:0.97;--a:30.94%;--b:64.94%"><div class="glass tile__card"><span class="tile__word">Mailing lists</span><span class="tile__note">Write once, reach many</span></div></li>
+				<li class="tile t-s" data-tint="azure" style="--x:0.72;--y:0.29;--a:1.91%;--b:35.91%"><div class="glass tile__card"><span class="tile__word">Status page</span><span class="tile__note">Honest updates</span></div></li>
+				<li class="tile t-s" data-tint="cyan" style="--x:0.44;--y:-1.01;--a:48.88%;--b:82.88%"><div class="glass tile__card"><span class="tile__word">Alerts</span><span class="tile__note">Know first</span></div></li>
+				<li class="tile t-l" data-tint="royal" style="--x:-0.78;--y:-0.37;--a:19.85%;--b:53.85%"><div class="glass tile__card"><span class="tile__word">Snapshots</span><span class="tile__note">A moment, saved</span></div></li>
+				<li class="tile t-s" data-tint="azure" style="--x:-0.24;--y:0.48;--a:-9.18%;--b:24.82%"><div class="glass tile__card"><span class="tile__word">Sitemaps</span><span class="tile__note">A map for search</span></div></li>
+				<li class="tile t-s" data-tint="cyan" style="--x:0.83;--y:0.46;--a:37.79%;--b:71.79%"><div class="glass tile__card"><span class="tile__word">Compression</span><span class="tile__note">Smaller files</span></div></li>
+				<li class="tile t-l" data-tint="royal" style="--x:0.34;--y:-0.57;--a:8.76%;--b:42.76%"><div class="glass tile__card"><span class="tile__word">Rate limits</span><span class="tile__note">Fair for everyone</span></div></li>
+				<li class="tile t-s" data-tint="azure" style="--x:-0.87;--y:-0.55;--a:-20.26%;--b:13.74%"><div class="glass tile__card"><span class="tile__word">Error pages</span><span class="tile__note">A kinder 404</span></div></li>
+				<li class="tile t-m" data-tint="cyan" style="--x:-0.43;--y:0.64;--a:26.71%;--b:60.71%"><div class="glass tile__card"><span class="tile__word">WHOIS privacy</span><span class="tile__note">Keep details private</span></div></li>
+				<li class="tile t-l" data-tint="royal" style="--x:0.89;--y:0.64;--a:-2.32%;--b:31.68%"><div class="glass tile__card"><span class="tile__word">Email forwarding</span><span class="tile__note">One inbox, many names</span></div></li>
+				<li class="tile t-s" data-tint="azure" style="--x:0.52;--y:-0.68;--a:44.65%;--b:78.65%"><div class="glass tile__card"><span class="tile__word">DDoS shield</span><span class="tile__note">Soaks up floods</span></div></li>
+				<li class="tile t-m" data-tint="cyan" style="--x:-0.41;--y:-0.33;--a:15.62%;--b:49.62%"><div class="glass tile__card"><span class="tile__word">Auto-renew</span><span class="tile__note">Names that stay yours</span></div></li>
+				<li class="tile t-l" data-tint="royal" style="--x:-0.62;--y:0.71;--a:-13.41%;--b:20.59%"><div class="glass tile__card"><span class="tile__word">PHP and Node</span><span class="tile__note">Pick your runtime</span></div></li>
+				<li class="tile t-m" data-tint="azure" style="--x:0.48;--y:0.44;--a:33.56%;--b:67.56%"><div class="glass tile__card"><span class="tile__word">SFTP</span><span class="tile__note">Safe file transfer</span></div></li>
+				<li class="tile t-m" data-tint="cyan" style="--x:0.72;--y:-0.73;--a:4.53%;--b:38.53%"><div class="glass tile__card"><span class="tile__word">Web stats</span><span class="tile__note">Counted, not tracked</span></div></li>
+				<li class="tile t-l" data-tint="royal" style="--x:-0.52;--y:-0.55;--a:-24.5%;--b:9.5%"><div class="glass tile__card"><span class="tile__word">Dedicated IP</span><span class="tile__note">Your own number</span></div></li>
+					<li class="tile tile--site"><span class="tile__glow" aria-hidden="true"></span><div class="glass tile__card"><span class="tile__word">Your site</span><span class="tile__note mono">yoursite.example</span></div></li>
+				</ul>
+				<div class="tunnel__cta">
+					<button class="btn btn--ghost" type="button" data-action="start">Fly through again <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 19V5M5 12l7-7 7 7"/></svg></button>
+					<p class="tunnel__fine mono">Demo only · it scrolls back to the top</p>
+				</div>
+			</div>
+		</div>
+	</main>
+
+	<p class="hint glass glass--pill" aria-hidden="true">Scroll · or press Space</p>
+
+	<aside class="sample-info glass glass--strong" id="about-piece" aria-labelledby="piece-title">
+		<p class="eyebrow">Sample 19 · Scroll zoom</p>
+		<h1 id="piece-title">The scroll tunnel</h1>
+		<p class="how"><b>How it's made:</b> about forty glass tiles sit in one CSS 3D scene, each with an animation tied to the scroll bar that flies it past the camera.
+		Nothing moves unless you scroll; with reduced motion, or without scroll-driven animations, you get a still grid.</p>
+		<div class="controls">
+			<button class="btn btn--sm btn--primary" type="button" data-action="end">Skip to the end</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="start">Restart</button>
+			<a class="back" href="../../#samples">← Back to the lab</a>
+		</div>
+	</aside>
+</body>
+</html>

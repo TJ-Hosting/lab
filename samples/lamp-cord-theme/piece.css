@@ -1,0 +1,188 @@
+/* Sample 29 — Pull-Cord Theme Lamp. The shell (sky, top bar, panel, the day window) comes from css/; only the piece is styled here.
+   The mock page inside the window is HTML in DS v9 type. It carries no colours of its own: it reads the tokens, and the
+   [data-night] attribute (css/lab.css) swaps them for the night values. The lamp is a canvas drawn over it. */
+
+/* ---------- the mock page ---------- */
+
+.site {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 34px;
+	padding: 18px clamp(18px, 3.6vw, 44px) 20px;
+	border-radius: 0 0 var(--glass-radius) var(--glass-radius);
+	color: var(--ink);
+	overflow: hidden;
+	/* the View Transition takes this page as one picture, so the new theme can spread over the old one */
+	view-transition-name: site;
+	/* day: the same patch of sky as the window */
+	background:
+		radial-gradient(60% 55% at 50% 62%, rgba(77, 159, 243, 0.18), rgba(77, 159, 243, 0) 72%),
+		linear-gradient(170deg, var(--sky-top) 0%, var(--sky-mid) 45%, var(--sky-low) 100%);
+}
+/* night: the framed night screen's own ground */
+.site[data-night] {
+	background:
+		radial-gradient(60% 45% at 62% 20%, rgba(76, 195, 255, 0.14), rgba(7, 11, 22, 0) 70%),
+		radial-gradient(50% 40% at 24% 90%, rgba(10, 100, 214, 0.18), rgba(7, 11, 22, 0) 72%),
+		#070b16;
+}
+
+.site__nav { display: flex; align-items: center; gap: 28px; }
+.site__tag { margin: 0; }
+.site__links {
+	display: flex;
+	gap: 22px;
+	margin: 0;
+	font: 700 14px/20px var(--font-sans);
+	color: var(--muted);
+}
+
+.site__hero {
+	margin-top: clamp(12px, 5.5vh, 70px);
+	max-width: min(31rem, 46%);
+}
+.site__title {
+	font: 900 clamp(34px, 4.2vw, 60px) / 1.02 var(--font-display);
+	font-stretch: 88%;
+	letter-spacing: -0.03em;
+	color: var(--ink);
+}
+/* the one script word: solid accent text, never a gradient */
+.site__title .script {
+	font-size: 1.2em;
+	color: var(--accent-text);
+}
+.site__lede {
+	margin: 16px 0 0;
+	max-width: 26em;
+	font: 500 clamp(15px, 1.4vw, 18px) / 1.5 var(--font-sans);
+	color: var(--muted);
+}
+/* the theme label: top right of the page on a desktop (clear of the lamp), in the headline block on a phone */
+.site__state {
+	position: absolute;
+	top: 18px;
+	right: clamp(18px, 3.6vw, 44px);
+	margin: 0;
+	font: 600 12px / 16px var(--font-mono);
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--accent-text);
+}
+
+.site__board {
+	position: absolute;
+	right: clamp(18px, 3.6vw, 44px);
+	bottom: 76px;
+	width: min(640px, 56%);
+}
+.site__cards {
+	display: grid;
+	grid-template-columns: repeat(3, 1fr);
+	gap: 14px;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.site__card { padding: 16px 18px 18px; }
+.site__k {
+	margin: 0 0 8px;
+	font: 600 12px / 16px var(--font-mono);
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--muted);
+}
+.site__v {
+	margin: 0;
+	font: 900 clamp(26px, 2.6vw, 34px) / 1 var(--font-display);
+	font-stretch: 90%;
+	letter-spacing: -0.02em;
+	color: var(--ink);
+}
+.site__s { margin: 8px 0 0; font: 500 13.5px / 1.4 var(--font-sans); color: var(--muted); }
+.site__note {
+	margin: 0 0 10px;
+	font: 500 12px / 16px var(--font-mono);
+	letter-spacing: 0.06em;
+	color: var(--muted);
+}
+
+/* ---------- the lamp: a canvas over the page, and two handles that follow it ---------- */
+
+/* the canvas only draws; the handles take the pointer, so the page under it stays untouched */
+.piece-screen > .piece {
+	pointer-events: none;
+	view-transition-name: lamp;
+}
+.grab {
+	position: absolute;
+	left: 0;
+	top: 34px; /* the canvas starts under the window bar */
+	z-index: 2;
+	width: 100px;
+	height: 72px;
+	border-radius: 14px;
+	touch-action: none;
+	cursor: grab;
+	will-change: transform;
+	-webkit-tap-highlight-color: transparent;
+}
+.grab--bead { z-index: 3; width: 48px; height: 48px; border-radius: 50%; }
+.grab.is-drag { cursor: grabbing; }
+.grab[hidden] { display: none; }
+
+/* ---------- the sun and moon on the panel button: one disc that is bitten into a crescent, its rays folding away ---------- */
+
+.btn .tmorph, .btn:hover .tmorph { width: 18px; height: 18px; flex: none; transform: none; }
+.tmorph__rays, .tmorph__disc, .tmorph__bite {
+	transition: transform 0.55s var(--ease-spring), opacity 0.3s var(--ease-out);
+	transform-box: fill-box;
+	transform-origin: center;
+}
+.tmorph__bite { transform: translate(14px, -12px); }
+.btn[data-theme="night"] .tmorph__bite { transform: translate(0, 0); }
+.btn[data-theme="night"] .tmorph__disc { transform: scale(1.35) rotate(-20deg); }
+.btn[data-theme="night"] .tmorph__rays { transform: scale(0.4) rotate(-60deg); opacity: 0; }
+@media (prefers-reduced-motion: reduce) {
+	.tmorph__rays, .tmorph__disc, .tmorph__bite { transition: none !important; }
+}
+
+/* ---------- the View Transition: only the page is revealed (in a circle, driven from piece.js); the lamp, the panel
+   and the hint stay live on top, and the rest of the page is not cross-faded ---------- */
+
+.sample-info { view-transition-name: info; }
+.hint { view-transition-name: hint; }
+
+::view-transition-old(root),
+::view-transition-old(lamp),
+::view-transition-old(info),
+::view-transition-old(hint) { display: none; }
+::view-transition-new(root),
+::view-transition-new(lamp),
+::view-transition-new(info),
+::view-transition-new(hint),
+::view-transition-old(site),
+::view-transition-new(site) {
+	animation: none;
+	mix-blend-mode: normal;
+}
+
+@media (max-width: 900px) {
+	.site__links, .site__board { display: none; }
+	.site__hero { max-width: none; }
+	.site__state { position: static; margin-top: 14px; }
+}
+
+@media (max-height: 640px) and (min-width: 721px) {
+	.site__lede { display: none; }
+}
+
+@media (max-width: 720px) {
+	/* the panel covers the lower part of the window on a phone: the lamp and the headline sit above it */
+	.site { padding: 14px 18px 20px; }
+	.site__hero { margin-top: 62px; max-width: 20.5rem; }
+	.site__title { font-size: clamp(30px, 9.4vw, 40px); }
+	.site__lede { font-size: 15px; margin-top: 12px; }
+}

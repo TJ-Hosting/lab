@@ -1,0 +1,308 @@
+/* Sample 19 — The scroll tunnel. The shell (sky, top bar, panel) comes from css/; only the piece is styled here.
+   Two layouts share one page:
+   - the still grid (the default): what you get with reduced motion, or in a browser without scroll-driven animations;
+   - the tunnel, switched on only where `animation-timeline` exists and motion is allowed.
+   Every animation below is tied to the page's scroll position (so nothing runs at rest) and moves only transform and opacity. */
+
+.tunnel {
+	/* the vanishing point (also where "Your site" lands) and how far out the tiles sit, as a fraction of the screen */
+	--cx: 50%;
+	--cy: 46%;
+	--rx: 48vw;
+	--ry: 42vh;
+	padding: clamp(24px, 5vh, 56px) var(--gutter) 300px;
+}
+.tunnel__stick {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: clamp(22px, 3.4vw, 36px);
+	max-width: var(--page-max);
+	margin: 0 auto;
+}
+
+/* ---------- the still grid ---------- */
+
+.tunnel__intro {
+	width: min(100%, 620px);
+	padding: 22px 26px 24px;
+	text-align: center;
+}
+.tunnel__label {
+	margin: 0 0 10px;
+	font-size: 12px;
+	line-height: 16px;
+	letter-spacing: 0.14em;
+	text-transform: uppercase;
+	color: var(--muted);
+}
+.tunnel__title {
+	margin: 0;
+	font: 900 clamp(24px, 3.2vw, 34px) / 1.12 var(--font-display);
+	font-stretch: 90%;
+	letter-spacing: -0.02em;
+	color: var(--ink);
+	text-wrap: balance;
+}
+.tunnel__scroll { display: none; margin: 14px 0 0; font-size: 13px; letter-spacing: 0.1em; color: var(--accent-text); }
+
+.tunnel__world {
+	display: grid;
+	grid-template-columns: repeat(2, minmax(0, 1fr));
+	grid-auto-rows: minmax(88px, auto);
+	gap: 12px;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	list-style: none;
+}
+.tile { position: relative; display: flex; min-width: 0; }
+.tile:nth-child(n+13):not(.tile--site) { display: none; }
+.tile--site { grid-column: 1 / -1; grid-row: 4; }
+@media (min-width: 721px) {
+	.tunnel__world { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+	.tile--site { grid-column: 2 / span 2; grid-row: 2 / span 2; }
+}
+@media (min-width: 1001px) {
+	.tunnel__world { grid-template-columns: repeat(6, minmax(0, 1fr)); }
+	.tile:nth-child(n+13):not(.tile--site) { display: flex; }
+	.tile:nth-child(n+21):not(.tile--site) { display: none; }
+	.tile--site { grid-column: 3 / span 2; }
+}
+
+/* a tile is light glass with no backdrop blur: a few dozen blurred layers inside a 3D scene would cost too much,
+   and the white tint alone keeps navy text well above AA over the sky and over other tiles */
+.tile__card.glass {
+	-webkit-backdrop-filter: none;
+	backdrop-filter: none;
+	background-color: var(--glass-tint);
+	flex: 1;
+	min-width: 0;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	gap: 3px;
+	padding: 12px 16px;
+	border-radius: var(--radius-lg);
+	box-shadow: var(--glass-inner), 0 16px 28px -16px rgba(22, 66, 140, 0.4);
+}
+.tile__word {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font: 800 var(--fs-word, 19px) / 1.15 var(--font-display);
+	font-stretch: 92%;
+	letter-spacing: -0.01em;
+	color: var(--ink);
+}
+.tile__word::before {
+	content: "";
+	flex: none;
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: var(--tint, var(--brand-royal));
+	box-shadow: 0 0 0 3px color-mix(in srgb, var(--tint, var(--brand-royal)) 22%, transparent);
+}
+.tile__note {
+	padding-left: 16px;
+	font: 600 var(--fs-note, 13px) / 1.3 var(--font-sans);
+	color: var(--muted);
+}
+.tile[data-tint="royal"] { --tint: var(--brand-royal); }
+.tile[data-tint="azure"] { --tint: var(--brand-azure); }
+.tile[data-tint="cyan"] { --tint: var(--glow-cyan); }
+
+/* "Your site": a bigger tile in the middle with a ring of cyan light around it */
+.tile--site { --tint: var(--glow-cyan); --fs-word: 30px; --fs-note: 13px; }
+.tile--site .tile__card.glass {
+	padding: 18px 22px;
+	align-items: center;
+	text-align: center;
+	background-color: var(--glass-tint-strong);
+	box-shadow: var(--glass-inner), 0 22px 40px -18px rgba(22, 66, 140, 0.45);
+}
+.tile--site .tile__note { padding-left: 0; font-family: var(--font-mono); font-size: 13px; font-weight: 500; letter-spacing: 0.04em; }
+.tile__glow {
+	position: absolute;
+	inset: -3px;
+	border-radius: 19px;
+	border: 2px solid rgba(70, 208, 251, 0.95);
+	box-shadow: 0 0 0 6px rgba(70, 208, 251, 0.2), 0 0 44px 8px rgba(70, 208, 251, 0.5);
+	pointer-events: none;
+}
+
+.tunnel__cta { text-align: center; }
+.tunnel__cta .btn { margin: 0 auto; }
+.tunnel__cta .btn svg { transform: none; }
+.tunnel__cta .btn:hover svg { transform: translateY(-2px); }
+.tunnel__fine {
+	max-width: 32ch;
+	margin: 12px auto 0;
+	font-size: 12px;
+	line-height: 16px;
+	letter-spacing: 0.08em;
+	color: var(--muted);
+}
+
+/* sizes (only the tunnel uses them) */
+.t-s { --w: 196px; --h: 90px; --fs-word: 20px; --fs-note: 14px; }
+.t-m { --w: 244px; --h: 110px; --fs-word: 24px; --fs-note: 15px; }
+.t-l { --w: 300px; --h: 132px; --fs-word: 28px; --fs-note: 16px; }
+
+/* ---------- the tunnel: scroll-driven, only where supported and only when motion is welcome ---------- */
+
+@media (prefers-reduced-motion: no-preference) {
+	@supports (animation-timeline: scroll()) {
+		.scroll-page { padding-top: 0; }
+		.tunnel { height: 560vh; padding: 0; --z-far: -1500px; --z-near: 420px; }
+		.tunnel__stick {
+			position: sticky;
+			top: 0;
+			display: block;
+			height: 100vh;
+			height: 100dvh;
+			max-width: none;
+			margin: 0;
+			overflow: hidden;
+			/* one vanishing point for the camera and the tiles' origin */
+			perspective: 600px;
+			perspective-origin: var(--cx) var(--cy);
+		}
+
+		.tunnel__intro {
+			position: absolute;
+			z-index: 3;
+			left: var(--cx);
+			top: var(--cy);
+			translate: -50% -50%;
+			width: min(88vw, 520px);
+			animation: intro-out linear both;
+			animation-timeline: scroll(root block);
+			animation-range: 0% 7%;
+		}
+		.tunnel__scroll { display: block; }
+
+		.tunnel__world {
+			position: absolute;
+			z-index: 1;
+			left: var(--cx);
+			top: var(--cy);
+			display: block;
+			width: 0;
+			height: 0;
+			transform-style: preserve-3d;
+			pointer-events: none;
+			animation: world-turn linear both;
+			animation-timeline: scroll(root block);
+			animation-range: 0% 84%;
+		}
+		.tile {
+			position: absolute;
+			display: block;
+			width: var(--w);
+			height: var(--h);
+			margin: calc(var(--h) / -2) 0 0 calc(var(--w) / -2);
+			opacity: 0;
+			will-change: transform, opacity;
+			animation: tile-fly linear both;
+			animation-timeline: scroll(root block);
+			animation-range: var(--a) var(--b);
+		}
+		/* the still grid's cut-offs do not apply here (phones get fewer tiles below) */
+		.tile:nth-child(n+13):not(.tile--site),
+		.tile:nth-child(n+21):not(.tile--site) { display: block; }
+		.tile__card.glass { height: 100%; }
+
+		/* "Your site": flies in the same way but stops at the camera's focus, then its ring of light comes on */
+		.tile--site {
+			--w: 352px;
+			--h: 168px;
+			--a: 57.5%;
+			--b: 84%;
+			z-index: 2;
+			animation-name: site-fly;
+		}
+		.tile__glow {
+			opacity: 0;
+			animation: glow-in linear both;
+			animation-timeline: scroll(root block);
+			animation-range: 82% 92%;
+		}
+
+		.tunnel__cta {
+			position: absolute;
+			z-index: 4;
+			left: var(--cx);
+			top: calc(var(--cy) + 118px);
+			translate: -50% 0;
+			width: min(92vw, 420px);
+			opacity: 0;
+			animation: cta-in linear both;
+			animation-timeline: scroll(root block);
+			animation-range: 90% 97%;
+		}
+
+		@keyframes tile-fly {
+			0% { opacity: 0; transform: translate3d(calc(var(--x) * var(--rx)), calc(var(--y) * var(--ry)), var(--z-far)); }
+			14% { opacity: 1; }
+			80% { opacity: 1; }
+			100% { opacity: 0; transform: translate3d(calc(var(--x) * var(--rx)), calc(var(--y) * var(--ry)), var(--z-near)); }
+		}
+		@keyframes site-fly {
+			0% { opacity: 0; transform: translate3d(0, 0, var(--z-far)); }
+			20% { opacity: 1; }
+			100% { opacity: 1; transform: translate3d(0, 0, 0); }
+		}
+		@keyframes world-turn {
+			from { transform: rotate(-5deg); }
+			to { transform: rotate(0deg); }
+		}
+		@keyframes intro-out {
+			from { opacity: 1; transform: translateY(0) scale(1); }
+			to { opacity: 0; transform: translateY(-18px) scale(0.96); }
+		}
+		@keyframes glow-in {
+			from { opacity: 0; transform: scale(0.92); }
+			to { opacity: 1; transform: scale(1); }
+		}
+		@keyframes cta-in {
+			from { opacity: 0; transform: translateY(16px); }
+			to { opacity: 1; transform: translateY(0); }
+		}
+	}
+}
+
+/* wide screens: the scene sits a little right of centre, clear of the panel at the bottom left */
+@media (min-width: 1001px) {
+	.tunnel { --cx: 54%; }
+}
+/* narrower and shorter screens: the scene a little to the right and higher, so the demo button clears the panel */
+@media (min-width: 721px) and (max-width: 1000px) {
+	.tunnel { --cx: 60%; }
+}
+@media (min-width: 721px) and (max-height: 820px) {
+	.tunnel { --cy: 38%; }
+}
+@media (min-width: 721px) and (max-width: 1000px) and (max-height: 820px) {
+	.tunnel { --cy: 34%; }
+}
+
+/* phones: smaller tiles, a higher focus (the panel sits at the bottom), and no more than 24 tiles in the tunnel */
+@media (max-width: 720px) {
+	.tunnel { --cy: 32%; --rx: 50vw; --ry: 24vh; }
+	.t-s { --w: 134px; --h: 64px; --fs-word: 16px; --fs-note: 12px; }
+	.t-m { --w: 160px; --h: 74px; --fs-word: 18px; --fs-note: 12.5px; }
+	.t-l { --w: 190px; --h: 86px; --fs-word: 20px; --fs-note: 13px; }
+	.tile__card.glass { padding: 9px 12px; }
+	.tile__note { padding-left: 14px; }
+	.tunnel__intro { padding: 18px 20px 20px; }
+	@media (prefers-reduced-motion: no-preference) {
+		@supports (animation-timeline: scroll()) {
+			.tunnel { height: 460vh; }
+			.tile:nth-child(n+25):not(.tile--site) { display: none; }
+			.tile--site { --w: 232px; --h: 112px; --fs-word: 26px; }
+			.tunnel__cta { top: calc(var(--cy) + 86px); }
+		}
+	}
+}

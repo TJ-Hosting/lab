@@ -1,0 +1,111 @@
+/* Sample 28 — Halftone Dissolve. The shell (sky, top bar, panel, the day screen) comes from css/; only the piece is styled here.
+   The artwork is two blue photographs (img/art) and a halftone drawn in DS v9's blues (navy, royal, azure, cyan light) on a
+   pale ground, all on one canvas. The two <picture> elements under the canvas are the no-canvas fallback: they show the lake
+   in the same crop the canvas paints. Nothing here animates; the canvas does the moving. */
+
+.piece {
+	display: block;
+	width: 100%;
+	height: 100%;
+	z-index: 2;
+	touch-action: none; /* the canvas takes drags: they paint the trail */
+	cursor: pointer;
+}
+
+/* the pictures under the canvas: the same box as the canvas (below the 34 px window bar), cover-fitted like the canvas draws them */
+.art {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 34px;
+	z-index: 1;
+	display: block;
+}
+.art[hidden] { display: none; }
+.art img {
+	display: block;
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
+.art--lake img { object-position: 50% 50%; }
+.art--facade img { object-position: 68% 50%; }
+
+/* the two small sliders sit in the window bar, right of the three lights */
+.tuner {
+	position: absolute;
+	z-index: 5;
+	top: 0;
+	right: 14px;
+	height: 34px;
+	display: flex;
+	align-items: center;
+	gap: 16px;
+}
+.tuner label {
+	display: flex;
+	align-items: center;
+	gap: 8px;
+	font: 600 11px/1 var(--font-mono);
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--muted);
+}
+.tuner input[type="range"] {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 88px;
+	height: 22px;
+	margin: 0;
+	background: transparent;
+	cursor: pointer;
+}
+.tuner input[type="range"]:disabled { cursor: default; opacity: 0.45; }
+.tuner input[type="range"]::-webkit-slider-runnable-track {
+	height: 4px;
+	border-radius: 2px;
+	background: var(--line);
+	box-shadow: inset 0 0 0 1px rgba(94, 128, 174, 0.3);
+}
+.tuner input[type="range"]::-moz-range-track {
+	height: 4px;
+	border-radius: 2px;
+	background: var(--line);
+	box-shadow: inset 0 0 0 1px rgba(94, 128, 174, 0.3);
+}
+.tuner input[type="range"]::-webkit-slider-thumb {
+	-webkit-appearance: none;
+	appearance: none;
+	width: 16px;
+	height: 16px;
+	margin-top: -6px;
+	border-radius: 50%;
+	border: 2px solid #fff;
+	background: var(--action);
+	box-shadow: 0 1px 4px rgba(22, 66, 140, 0.4);
+}
+.tuner input[type="range"]::-moz-range-thumb {
+	width: 12px;
+	height: 12px;
+	border-radius: 50%;
+	border: 2px solid #fff;
+	background: var(--action);
+	box-shadow: 0 1px 4px rgba(22, 66, 140, 0.4);
+}
+.tuner input[type="range"]:focus-visible {
+	outline: 3px solid var(--focus);
+	outline-offset: 2px;
+	border-radius: 6px;
+}
+
+@media (max-width: 720px) {
+	.tuner { gap: 10px; right: 10px; }
+	.tuner label { gap: 6px; font-size: 10px; letter-spacing: 0.04em; }
+	.tuner input[type="range"] { width: 56px; }
+}
+
+/* between a phone and a wide window the shared hint pill would sit under the panel: the hint is only a nudge, so it goes */
+@media (max-width: 860px) {
+	.hint { display: none; }
+}

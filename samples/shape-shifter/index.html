@@ -1,0 +1,96 @@
+<!doctype html>
+<!--
+  TJ-Hosting Lab — Sample 17, Service shape-shifter (lab-05), DS v9 "Day sky".
+  Stage A: a framed night screen, because glowing particles with bloom only read on dark.
+-->
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<!-- the base policy; additions only as the brief allows ('wasm-unsafe-eval', blob:), and only with the lead -->
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://*.google.com; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<script src="../../js/ga4.js"></script>
+	<title>Service shape-shifter — particle morph · TJ-Hosting Lab</title>
+	<meta name="description" content="A cloud of glowing particles that morphs between a server stack, a cloud, a shield and code brackets, with bloom and a colour-split flash on each change. Made with three.js and GLSL.">
+	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/shape-shifter/">
+	<meta name="theme-color" content="#eef7fc">
+	<link rel="icon" href="../../img/brand/tj-mark.svg" type="image/svg+xml">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="TJ-Hosting Lab">
+	<meta property="og:title" content="Service shape-shifter — TJ-Hosting Lab">
+	<meta property="og:description" content="Glowing particles that morph between a server stack, a cloud, a shield and code brackets.">
+	<meta property="og:url" content="https://lab.tj-hosting.ca/samples/shape-shifter/">
+	<meta property="og:image" content="https://lab.tj-hosting.ca/img/og/shape-shifter.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="Thousands of glowing cyan and white points on dark navy, forming a stack of three servers">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="preload" href="../../fonts/nunito-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="../../css/glass.css">
+	<link rel="stylesheet" href="../../css/lab.css">
+	<link rel="stylesheet" href="../../css/sample.css">
+	<link rel="stylesheet" href="piece.css">
+	<script src="../../js/early.js"></script>
+	<script type="module" src="piece.js"></script>
+</head>
+<body class="sample sample--shape-shifter">
+	<a class="skip" href="#about-piece">Skip to the description</a>
+
+	<div class="sky" aria-hidden="true"></div>
+
+	<header class="topbar">
+		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
+			<img src="../../img/brand/tj-mark.svg" alt="" width="34" height="34">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Lab">
+			<a href="../../#samples">All samples</a>
+		</nav>
+	</header>
+
+	<!-- stage A: a framed night screen. Additive light on navy only reads on dark.
+	     The canvas is WebGL (points, bloom, a colour-split pass). A browser without WebGL gets a CSS poster, drawn by piece.js.
+	     The glass deck on top holds the four shape chips (toggle buttons) and a caption that changes with the shape. -->
+	<main id="main" class="stage stage--screen">
+		<div class="piece-screen screen" data-night>
+			<canvas class="piece" tabindex="0" role="img" aria-label="Thousands of glowing blue and white points that form a stack of servers, then a cloud, a shield and code brackets, one after another. Tap or press Enter to morph to the next shape. Drag to turn it."></canvas>
+			<div class="deck glass glass--strong" role="group" aria-label="Choose a shape">
+				<div class="chips">
+					<button class="chip" type="button" data-shape="0" aria-pressed="true">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="4" width="18" height="6" rx="1.5"/><rect x="3" y="14" width="18" height="6" rx="1.5"/><path d="M7 7h.01M7 17h.01"/></svg>
+						Server
+					</button>
+					<button class="chip" type="button" data-shape="1" aria-pressed="false">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 18a4 4 0 0 1-.6-7.96A5.5 5.5 0 0 1 17 8.5a4.75 4.75 0 0 1 0 9.5z"/></svg>
+						Cloud
+					</button>
+					<button class="chip" type="button" data-shape="2" aria-pressed="false">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7.5 3v5.5c0 4.5-3.1 7.9-7.5 9.5-4.4-1.6-7.5-5-7.5-9.5V6z"/><path d="M8.8 12l2.2 2.2 4.2-4.4"/></svg>
+						Shield
+					</button>
+					<button class="chip" type="button" data-shape="3" aria-pressed="false">
+						<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M8 7l-5 5 5 5M16 7l5 5-5 5M13.5 5l-3 14"/></svg>
+						Code
+					</button>
+				</div>
+				<p class="caption" aria-live="polite">Servers · a place for your site to live</p>
+			</div>
+		</div>
+	</main>
+
+	<p class="hint glass glass--pill" data-night aria-hidden="true">Tap to morph · drag to turn</p>
+
+	<aside class="sample-info glass glass--strong" id="about-piece" aria-labelledby="piece-title">
+		<p class="eyebrow">Sample 17 · Particle morph</p>
+		<h1 id="piece-title">Service shape-shifter</h1>
+		<p class="how"><b>How it's made:</b> thousands of points, sampled from shapes drawn in code, fly from one service shape to the next on the GPU, with bloom and a brief colour-split flash.
+		It changes shape and turns by itself, and it stops when off-screen or in a hidden tab.</p>
+		<div class="controls">
+			<button class="btn btn--sm btn--primary" type="button" data-action="morph">Morph</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="pause" aria-pressed="false">Pause</button>
+			<a class="back" href="../../#samples">← Back to the lab</a>
+		</div>
+	</aside>
+</body>
+</html>

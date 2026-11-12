@@ -1,0 +1,131 @@
+/* Sample 46 — Edge Network Globe. The shell (sky, top bar, panel, the night screen) comes from css/; only the piece is styled here.
+   Dotted cyan light on navy only reads on dark, so the piece runs in a framed night screen (stage A).
+   Colours: cyan #46d0fb, azure #4d9ff3 and royal blue drawn by cobe's shader and the pulse canvas (piece.js); the chips use the night tokens. */
+
+/* the globe's box: below the window bar, and kept clear of the fixed panel by piece.js (it sets --gl or --gb) */
+.globe {
+	position: absolute;
+	top: 34px;
+	left: var(--gl, 0px);
+	right: 0;
+	bottom: var(--gb, 0px);
+	touch-action: none; /* the globe takes drags */
+	cursor: grab;
+	outline: none;
+	-webkit-tap-highlight-color: transparent;
+}
+.globe.is-dragging { cursor: grabbing; }
+.globe:focus-visible { outline: 2px solid var(--focus); outline-offset: -6px; border-radius: 12px; }
+
+/* cobe wraps the canvas in its own 100% box, so the canvas is sized by that wrapper */
+.piece {
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+.pulses,
+.chips {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+	pointer-events: none;
+}
+.chips[hidden] { display: none; }
+
+/* a city chip: frosted night glass, moved by transform and faded by opacity only (piece.js places it each frame) */
+.chip {
+	position: absolute;
+	left: 0;
+	top: 0;
+	display: inline-flex;
+	align-items: center;
+	gap: 7px;
+	padding: 3px 11px 3px 9px;
+	border: 1px solid rgba(150, 195, 255, 0.26);
+	border-radius: 999px;
+	background: rgba(14, 21, 38, 0.86);
+	box-shadow: inset 0 1px 0 rgba(220, 236, 255, 0.1), 0 8px 18px -8px rgba(2, 5, 12, 0.8);
+	color: var(--ink);
+	font: 700 12px/18px var(--font-sans);
+	white-space: nowrap;
+	opacity: 0;
+	will-change: transform, opacity;
+}
+@supports ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+	.chip {
+		background: rgba(14, 21, 38, 0.74);
+		-webkit-backdrop-filter: blur(6px) saturate(150%);
+		backdrop-filter: blur(6px) saturate(150%);
+	}
+}
+.chip::before {
+	content: "";
+	flex: none;
+	width: 6px;
+	height: 6px;
+	border-radius: 50%;
+	background: var(--glow-cyan);
+	box-shadow: 0 0 0 3px rgba(70, 208, 251, 0.22);
+}
+.chip--hub {
+	border-color: rgba(70, 208, 251, 0.6);
+	font-weight: 800;
+}
+.chip--hub::before { background: #ffffff; box-shadow: 0 0 0 3px rgba(70, 208, 251, 0.5); }
+
+/* the honest label: this is not a real network */
+.badge {
+	position: absolute;
+	z-index: 5;
+	top: 46px;
+	left: 14px;
+	margin: 0;
+	padding: 6px 14px;
+	display: inline-flex;
+	align-items: center;
+	gap: 8px;
+	/* the Lab's one chip in navy glass (lab-05 P5 review): sans, a cyan dot */
+	font: 600 13px/18px var(--font-sans);
+	letter-spacing: 0;
+	color: var(--ink);
+}
+
+/* a browser without WebGL: a flat drawing of the globe and a note */
+.globe-fallback {
+	position: absolute;
+	left: var(--gl, 0px);
+	right: 0;
+	bottom: var(--gb, 0px);
+	top: 34px;
+	display: grid;
+	place-items: center;
+	pointer-events: none;
+}
+.globe-fallback[hidden] { display: none; }
+.globe-fallback__disc {
+	width: min(60%, 60vh, 420px);
+	aspect-ratio: 1;
+	border-radius: 50%;
+	background:
+		radial-gradient(circle at 36% 30%, rgba(70, 208, 251, 0.34), rgba(70, 208, 251, 0) 48%),
+		radial-gradient(circle at 50% 50%, #0a1d4a 0%, #07112d 62%, #040918 100%);
+	box-shadow: 0 0 0 1px rgba(76, 195, 255, 0.4), 0 0 60px 6px rgba(28, 128, 242, 0.34);
+}
+.globe-fallback__note {
+	position: absolute;
+	left: 50%;
+	bottom: 18px;
+	margin: 0;
+	padding: 8px 18px;
+	transform: translateX(-50%);
+	font: 600 13px/20px var(--font-sans);
+	color: var(--ink);
+	text-align: center;
+	white-space: nowrap;
+}
+
+@media (max-width: 720px) {
+	.chip { padding: 2px 9px 2px 7px; font-size: 11px; line-height: 16px; gap: 6px; }
+	.badge { top: 44px; left: 10px; padding: 5px 12px; font-size: 12px; }
+}

@@ -1,0 +1,30 @@
+# TJ-Hosting Lab tests
+# 2026-10-28T10:44:53.050Z
+# --- static ---
+ok 1 - techniques.json: at least 12 techniques, unique codes, each with a reveal hint (18 techniques, 2 vision) [0.0 s]
+ok 2 - exhibit: every non-vision code appears exactly once in the built exhibit (HTML + its CSS/JS, tag characters decoded) (16 codes across 7 files: exhibits/humanity/index.html, css\glass.css, css\lab.css, exhibits\humanity\exhibit.css, js\early.js, exhibits\humanity\exhibit.js, js\lab.js) [0.0 s]
+ok 3 - exhibit: vision codes appear only inside their PNGs (not in page text), once in the generator input, and the PNGs match the generator lock (PRISM-L4 → exhibits/humanity/placard.png, HALO-G7 → exhibits/humanity/haze.png) [0.0 s]
+ok 4 - trap-free: no technique code on the home, the samples, the 404 or the honeypot hub/about pages (static files and everything they load) (289 files clean) [0.2 s]
+ok 5 - indexing: the exhibit is noindex,nofollow; no other content page is noindex [0.0 s]
+ok 6 - banner: first element in the exhibit body, says it contains hidden instructions aimed at AI agents [0.0 s]
+ok 7 - robots.txt: user-triggered fetchers and search crawlers never blocked; training crawlers blocked from the exhibit only [0.0 s]
+ok 8 - sitemap.xml: home, samples and honeypot tools; not the exhibit; every URL exists (68 URLs) [0.0 s]
+ok 9 - no tracking, no third-party requests: every page has a self-only CSP (plus only its CSP_EXTRA entry) and loads nothing from other hosts [0.2 s]
+ok 10 - images: every shipped image is in img/IMAGES.jsonl, traced to a pack ledger line or a render script; every referenced image exists (507 shipped images, 419 referenced paths, generated calls in assets/LEDGER.jsonl: 0) [0.1 s]
+ok 11 - published paths: no file or folder under vendor/ or samples/ starts with "_" or "." (GitHub Pages' Jekyll drops them); every vendored library carries its licence (544 paths, 18 vendored libraries) [0.0 s]
+ok 12 - checker: two poems and one warning give exactly those outcomes; the share link restores them [0.0 s]
+ok 13 - checker: edge cases (no codes → all ignored; a code only quoted in prose → flagged; a title with no poem → flagged) [0.0 s]
+ok 14 - image generator: refuses the 41st call and any call past US$10, counts crashed calls, writes one ledger line per call [0.6 s]
+# --- browser ---
+ok 15 - pages load at 1440 and 375 with no errors, failed or third-party requests, or horizontal scroll (70 pages × 2 widths) [50.9 s]
+ok 16 - home: cards are rendered from samples.json; screenshots [10.5 s]
+ok 17 - glass fallback: with backdrop-filter unsupported, panels fall back to a solid translucent fill (evidence/home-no-backdrop-filter-1440.jpg) [2.5 s]
+ok 18 - samples: run at 1440 and 375; reduced motion gives a still frame with nothing running (no animation, no loop(), no requestAnimationFrame) (63 samples) [155.9 s]
+ok 19 - samples: motion pauses when the tab is hidden and resumes when it returns (63 samples, 63 moving at rest) [103.7 s]
+ok 20 - exhibit: banner visible on load; reveal mode pins and lists every technique and reads each trap from the page (18 traps read live from the page) [6.1 s]
+ok 21 - payload review: every trap asks only for a short poem about humanity titled with its code (nothing else) (evidence/trap-texts.txt) [0.0 s]
+ok 22 - checker: the sample answer shows exactly two obeyed and one flagged; the share link restores them; screenshots [12.1 s]
+ok 23 - scoreboard: renders results.json with the example row labelled; a new row appears with no code change; screenshots [5.7 s]
+ok 24 - contrast: text meets WCAG AA against the worst pixel behind it for its polarity (3 samples over time); every selector measured (1212 measurements on 70 pages, lowest 5.04:1 → evidence/contrast.md) [290.7 s]
+# 24 passed, 0 failed
+# screenshots: 203 in evidence/

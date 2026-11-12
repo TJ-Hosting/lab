@@ -1,0 +1,250 @@
+/* Sample 48 — Wind snapshot. The shell (sky, top bar, panel, the night screen) comes from css/; only the piece is styled here.
+   A framed night screen (stage A): a world map plate on navy, coastlines in a soft azure line, the wind drawn over it in WebGL
+   (piece.js: cyan, then white, then a little amber as the wind gets stronger), a frosted caption, a time dock and a speed legend.
+   Colours: the night tokens (var(--ink), var(--muted), var(--accent-text), var(--focus)), --glow-cyan, and --honey for the amber end of the ramp.
+   Motion: the particles are WebGL; the thumb and the fill of the time bar move by transform only. */
+
+/* the window under the bar: the map plate sits in it; piece.js sets --mw, --mh (the plate's size) and positions it */
+.map-view {
+	position: absolute;
+	left: 0;
+	right: 0;
+	top: 34px;
+	bottom: 0;
+	overflow: hidden;
+	outline: none;
+	-webkit-tap-highlight-color: transparent;
+}
+.map-view.is-pannable { cursor: grab; touch-action: none; }
+.map-view.is-panning { cursor: grabbing; }
+.map-view:focus-visible { outline: 2px solid var(--focus); outline-offset: -6px; border-radius: 12px; }
+
+/* the plate: a navy sheet with a hairline, 2:1 like the data (longitude 180 W to 180 E, latitude 90 N to 90 S) */
+.map {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: var(--mw, 640px);
+	height: var(--mh, 320px);
+	border-radius: 10px;
+	overflow: hidden;
+	background:
+		radial-gradient(70% 90% at 50% 40%, rgba(24, 74, 150, 0.34), rgba(24, 74, 150, 0) 72%),
+		linear-gradient(180deg, #0b1630 0%, #09112a 100%);
+	box-shadow: inset 0 0 0 1px rgba(150, 195, 255, 0.2), 0 18px 40px -18px rgba(2, 5, 12, 0.7);
+	will-change: transform;
+}
+.coast,
+.wind {
+	position: absolute;
+	inset: 0;
+	display: block;
+	width: 100%;
+	height: 100%;
+}
+
+/* a phone can pan the map sideways: a short label that fades once it has been used */
+.pan-hint {
+	position: absolute;
+	left: 50%;
+	top: calc(var(--mb, 200px) - 30px);
+	margin: 0;
+	padding: 3px 12px;
+	transform: translateX(-50%);
+	border-radius: 999px;
+	font: 600 11px/16px var(--font-mono);
+	letter-spacing: 0.04em;
+	color: var(--ink);
+	background: rgba(14, 21, 38, 0.86);
+	opacity: 0;
+	pointer-events: none;
+	transition: opacity 0.4s var(--ease-out);
+}
+.map-view.is-pannable:not(.has-panned) .pan-hint { opacity: 1; }
+
+/* ---------- the caption (top left) ---------- */
+
+.caption {
+	position: absolute;
+	z-index: 5;
+	top: 46px;
+	left: 14px;
+	max-width: calc(100% - 28px);
+	margin: 0;
+	padding: 7px 14px 8px;
+	color: var(--ink);
+}
+.caption__main {
+	display: block;
+	font: 600 12px/18px var(--font-mono);
+	letter-spacing: 0.03em;
+}
+.caption__sub {
+	display: block;
+	font: 600 12px/16px var(--font-sans);
+	color: var(--muted);
+}
+
+/* ---------- the dock: the time readout, the speed legend and the time bar (bottom, beside or above the panel) ---------- */
+
+.dock {
+	position: absolute;
+	z-index: 5;
+	left: var(--dl, 16px);
+	right: var(--dr, 16px);
+	bottom: var(--db, 16px);
+	padding: 10px 18px 8px;
+	color: var(--ink);
+}
+.dock__top {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: flex-end;
+	justify-content: space-between;
+	gap: 8px 22px;
+}
+.readout { margin: 0; display: flex; flex-direction: column; gap: 1px; }
+.readout__time {
+	font: 700 15px/22px var(--font-mono);
+	letter-spacing: 0.02em;
+	color: var(--ink);
+	white-space: nowrap;
+}
+.readout__yr { white-space: pre; }
+.readout__frame {
+	font: 600 11px/16px var(--font-mono);
+	letter-spacing: 0.06em;
+	text-transform: uppercase;
+	color: var(--muted);
+}
+
+/* the speed legend: the same colours the particles use (piece.js paints the bar from the ramp); ticks at 0, 10, 20, 30 m/s */
+.legend {
+	display: grid;
+	grid-template-columns: 156px;
+	row-gap: 3px;
+	padding-bottom: 1px;
+}
+.legend__title {
+	font: 700 12px/16px var(--font-sans);
+	color: var(--ink);
+	white-space: nowrap;
+}
+.legend__bar {
+	display: block;
+	height: 8px;
+	border-radius: 4px;
+	background: linear-gradient(90deg, #2a8fe6, #46d0fb 30%, #ffffff 60%, #ffb547);
+	box-shadow: 0 0 0 1px rgba(150, 195, 255, 0.22);
+}
+.legend__ticks {
+	position: relative;
+	display: block;
+	height: 14px;
+	font: 500 10.5px/14px var(--font-mono);
+	color: var(--muted);
+}
+.legend__ticks i {
+	position: absolute;
+	top: 0;
+	left: calc(var(--k) * 33.333%);
+	font-style: normal;
+	transform: translateX(-50%);
+}
+
+/* the time bar: nine ticks for the nine saved maps; a role=slider, moved by pointer or keys (piece.js) */
+.scrub {
+	position: relative;
+	height: 32px;
+	margin-top: 4px;
+	cursor: pointer;
+	touch-action: none;
+	border-radius: 8px;
+	outline: none;
+	--pad: 12px;
+}
+.scrub:focus-visible { outline: 2px solid var(--focus); outline-offset: 1px; }
+.scrub__rail,
+.scrub__fill {
+	position: absolute;
+	left: var(--pad);
+	right: var(--pad);
+	top: 14px;
+	height: 4px;
+	border-radius: 2px;
+}
+.scrub__rail { background: rgba(170, 184, 210, 0.3); }
+.scrub__fill {
+	background: linear-gradient(90deg, #2a8fe6, #46d0fb);
+	transform-origin: 0 50%;
+	transform: scaleX(0);
+}
+.scrub__ticks i {
+	position: absolute;
+	top: 12px;
+	left: calc(var(--pad) + var(--k) * (100% - 2 * var(--pad)) / 8 - 4px);
+	width: 8px;
+	height: 8px;
+	border-radius: 50%;
+	background: #7f93b8;
+	box-shadow: 0 0 0 2px #0e1526;
+}
+.scrub__thumb {
+	position: absolute;
+	left: calc(var(--pad) - 10px);
+	top: 6px;
+	width: 20px;
+	height: 20px;
+	border-radius: 50%;
+	background: #ffffff;
+	border: 3px solid var(--glow-cyan);
+	box-shadow: 0 0 0 4px rgba(70, 208, 251, 0.2), 0 0 16px rgba(70, 208, 251, 0.55);
+	will-change: transform;
+}
+.days {
+	display: flex;
+	justify-content: space-between;
+	margin: 0 calc(var(--pad, 12px) - 6px) 0;
+	padding: 0 6px;
+	font: 500 10.5px/14px var(--font-mono);
+	letter-spacing: 0.05em;
+	color: var(--muted);
+}
+.dock .days { margin: 0; padding: 0 4px; }
+
+/* ---------- a note: no WebGL, or no data ---------- */
+
+.note {
+	position: absolute;
+	z-index: 6;
+	left: var(--dl, 16px);
+	right: var(--dr, 16px);
+	bottom: var(--db, 16px);
+	margin: 0;
+	padding: 12px 18px;
+	font: 600 14px/20px var(--font-sans);
+	color: var(--ink);
+}
+.note[hidden] { display: none; }
+.screen.is-plain .dock { display: none; }
+
+/* ---------- phones, and any width where the dock has to sit above the panel ---------- */
+
+@media (max-width: 720px) {
+	.caption { top: 42px; left: 10px; max-width: calc(100% - 20px); padding: 6px 12px 7px; }
+	.caption__main { font-size: 11px; line-height: 16px; letter-spacing: 0.02em; }
+	.caption__sub { font-size: 11px; line-height: 15px; }
+	.dock { padding: 8px 14px 6px; }
+	.readout__time { font-size: 13px; line-height: 20px; }
+	.readout__yr { display: none; }
+	.dock__top { flex-wrap: nowrap; align-items: center; justify-content: space-between; gap: 8px; }
+	.readout { flex: none; }
+	.legend { grid-template-columns: 98px; }
+	.legend__title { font-size: 11px; }
+	.legend__bar { height: 6px; }
+	.scrub { height: 30px; margin-top: 2px; }
+	.scrub__rail, .scrub__fill { top: 13px; }
+	.scrub__ticks i { top: 11px; }
+	.scrub__thumb { top: 5px; }
+	.note { font-size: 13px; padding: 8px 14px; }
+}

@@ -1,0 +1,11 @@
+number-flow@0.6.2 (MIT, Maxwell Barvian), vendored for lab-05 from the npm package (registry tarball, integrity
+checked) on 2026-10-28: dist/index.mjs, lite.mjs, ssr-DvIINv8w.mjs, csp.mjs and plugins.mjs, and LICENSE.md.
+Its one dependency, esm-env@1.2.2 (MIT, Ben McCann), is vendored beside it in esm-env@1.2.2/ (index.js, true.js,
+false.js, LICENSE).
+
+Bare imports rewritten (an import map would be an inline script, which the pages' CSP blocks), resolving the
+package "exports" conditions the way a bundler does for a production browser build:
+- lite.mjs, ssr-DvIINv8w.mjs: from "esm-env"  ->  from "./esm-env@1.2.2/index.js"
+- esm-env@1.2.2/index.js: 'esm-env/browser' -> './true.js' (the "browser" condition),
+  'esm-env/development' -> './false.js' (the "production" condition), 'esm-env/node' -> './false.js' (default).
+Nothing else changed.

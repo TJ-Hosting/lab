@@ -1,0 +1,194 @@
+/* Sample 07 — Glitch headline, on the open day sky.
+   One big word in Nunito Sans 900. Its look at rest: navy ink with a cyan and a royal copy peeking out either side (DS v9 blues).
+   While it glitches, seven stacked slices of the word take over. Each slice is a copy clipped to a still band (the clip-path is
+   static, never animated) and moves with transform only; the plain word fades back in when the burst ends.
+   The slice rules and keyframes are not in this file: piece.js writes them (and offers them under "Copy CSS").
+   The shell (sky, top bar, panel) comes from css/. */
+
+.glitch-stage {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: flex-start;
+	padding: clamp(84px, 14vh, 140px) var(--gutter) 48px;
+}
+
+.piece-open {
+	--page-edge: max(var(--gutter), (100vw - 1100px) / 2);
+	width: min(1100px, 100%);
+	display: flex;
+	flex-direction: column;
+	align-items: stretch;
+	gap: clamp(20px, 4vh, 40px);
+}
+
+/* ---------- the word and its copies ---------- */
+
+.g-word {
+	/* piece.js fits this to the width; the clamp is the size before it runs */
+	--fs: clamp(44px, 15vw, 200px);
+	position: relative;
+	isolation: isolate;
+	margin: 0;
+	font: 900 var(--fs) / 1.02 var(--font-display);
+	font-stretch: 90%;
+	letter-spacing: -0.03em;
+	text-align: center;
+	text-wrap: balance;
+	color: var(--ink);
+	transform-origin: 50% 56%;
+}
+.g-word.is-nowrap,
+.g-word.is-nowrap * { white-space: nowrap; }
+/* piece.js measures the word with these two states, then removes them */
+.g-word.is-measure .g-base { display: inline-block; white-space: nowrap; }
+.g-word.is-measure-min .g-base { display: inline-block; width: min-content; }
+
+/* the plain word: the only copy in the flow, so the box is its size */
+.g-base {
+	position: relative;
+	z-index: 2;
+	display: block;
+	text-shadow: 0 0.035em 0 rgba(var(--shade-rgb), 0.1);
+}
+
+/* every other copy sits exactly over it */
+.g-fringe,
+.g-band,
+.g-band > span {
+	position: absolute;
+	inset: 0;
+	display: block;
+	pointer-events: none;
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+/* the RGB split at rest: a cyan copy a hair to the left, a royal one a hair to the right, each swaying a little */
+.g-fringe--cyan {
+	z-index: 0;
+	color: var(--glow-cyan);
+	transform: translateX(-0.032em);
+	animation: g-sway-c 5.2s ease-in-out infinite alternate;
+}
+.g-fringe--royal {
+	z-index: 1;
+	color: var(--brand-royal);
+	transform: translateX(0.032em);
+	animation: g-sway-r 6.4s ease-in-out infinite alternate;
+}
+@keyframes g-sway-c {
+	from { transform: translateX(-0.022em); }
+	to { transform: translateX(-0.044em); }
+}
+@keyframes g-sway-r {
+	from { transform: translateX(0.044em); }
+	to { transform: translateX(0.022em); }
+}
+
+/* a slice: three layers (cyan, royal, ink) in a wrapper whose clip-path and keyframes piece.js writes */
+.g-band { z-index: 3; opacity: 0; }
+.glitch-ink { color: var(--ink); }
+.glitch-cyan { color: var(--glow-cyan); transform: translateX(-0.032em); }
+.glitch-royal { color: var(--brand-royal); transform: translateX(0.032em); }
+
+/* while the burst runs the slices stand in for the plain word and its fringes */
+.is-glitching .g-band { opacity: 1; }
+.is-glitching .g-base,
+.is-glitching .g-fringe { opacity: 0; }
+
+/* ---------- the word box and the CSS it writes: light glass ---------- */
+
+.g-form {
+	align-self: flex-end;
+	width: min(100%, 640px);
+	padding: 16px 18px 12px;
+}
+.g-label { display: block; margin-bottom: 8px; font: 800 14px/20px var(--font-sans); color: var(--ink); }
+.g-label span { font-weight: 600; color: var(--muted); }
+.g-row { display: flex; gap: 8px; }
+.g-input {
+	flex: 1 1 auto;
+	min-width: 0;
+	min-height: 40px;
+	padding: 8px 14px;
+	border: 1px solid var(--border-control);
+	border-radius: var(--radius-sm);
+	background: linear-gradient(rgba(255, 255, 255, 0.84), rgba(255, 255, 255, 0.84));
+	box-shadow: inset 0 1px 2px rgba(var(--shade-rgb), 0.12);
+	color: var(--ink);
+	font: 800 17px/24px var(--font-sans);
+	transition: border-color var(--t-state) var(--ease-ui), box-shadow var(--t-state) var(--ease-ui);
+}
+.g-input::placeholder { color: var(--dim); opacity: 1; font-weight: 600; }
+.g-input:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; border-color: var(--action); }
+.g-input[aria-invalid="true"] { border-color: var(--danger); }
+
+.g-codebar {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	gap: 10px;
+	margin: 12px 0 6px;
+}
+.g-codelabel { font: 600 12px/16px var(--font-mono); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.g-code {
+	/* whole lines only: five here, two on phones (8 px padding on top, none under, 1 px borders) */
+	height: calc(18px * 5 + 8px + 2px);
+	margin: 0;
+	padding: 8px 12px 0;
+	overflow: auto;
+	border: 1px solid var(--line);
+	border-radius: var(--radius-sm);
+	background: linear-gradient(rgba(255, 255, 255, 0.78), rgba(255, 255, 255, 0.78));
+	color: var(--ink);
+	font: 500 12px/18px var(--font-mono);
+	white-space: pre;
+	tab-size: 2;
+}
+.g-code:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+.g-note { margin: 8px 0 0; font-size: 13px; line-height: 18px; color: var(--muted); min-height: 18px; }
+.g-note.is-error { color: var(--danger); font-weight: 700; }
+noscript .g-note { margin-top: 0; }
+
+/* a disabled control (reduced motion switches Pause and Glitch now off) reads as off */
+.sample-info .btn:disabled { opacity: 0.5; cursor: default; transform: none; box-shadow: none; }
+
+@media (prefers-reduced-motion: reduce) {
+	.g-fringe { animation: none; }
+}
+
+/* ---------- widths ---------- */
+
+/* wide windows: the box sits right of the fixed panel (bottom left, 440 px wide), under the word */
+@media (min-width: 900px) {
+	.g-form {
+		width: min(640px, 100%, calc(100vw - var(--page-edge) - 456px - max(var(--gutter), (100vw - var(--page-max)) / 2)));
+	}
+}
+
+/* tablets and phones: the word on top, the box under it, room below for the panel */
+@media (max-width: 899px) {
+	.glitch-stage { padding-bottom: 360px; }
+	.g-form { align-self: stretch; width: 100%; }
+}
+/* a landscape phone: the whole piece sits right of the fixed panel */
+@media (min-width: 700px) and (max-width: 899px) and (max-height: 560px) {
+	.glitch-stage { padding: 76px var(--gutter) 48px; }
+	.piece-open { width: calc(100% - 456px); align-self: flex-end; gap: 14px; }
+	.g-form { padding: 12px 14px 8px; }
+}
+@media (max-width: 600px) {
+	.glitch-stage { padding-top: 70px; }
+	.piece-open { gap: 16px; }
+	.g-form { padding: 12px 14px 8px; }
+	.g-label { margin-bottom: 6px; }
+	.g-codebar { margin: 10px 0 6px; }
+	.g-code { height: calc(18px * 2 + 8px + 2px); }
+	.g-note { margin-top: 6px; font-size: 12.5px; }
+}
+
+/* too short for the hint: it would sit on the box */
+@media (max-height: 760px) {
+	.hint { display: none; }
+}

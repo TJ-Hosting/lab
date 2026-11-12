@@ -1,0 +1,100 @@
+<!doctype html>
+<!--
+  TJ-Hosting Lab — the sample template (lab-05), DS v9 "Day sky".
+  Copy this folder to samples/<slug>/ and replace every {{…}}. Keep the shell exactly as it is:
+  the sky, the top bar, the .sample-info panel and its order. Pick ONE stage below and delete the others.
+  Read tools/sample-template/README.md first.
+-->
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<!-- the base policy; additions only as the brief allows ('wasm-unsafe-eval', blob:), and only with the lead -->
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://*.google.com; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<script src="../../js/ga4.js"></script>
+	<title>{{Title}} — {{kicker, lower case}} · TJ-Hosting Lab</title>
+	<meta name="description" content="{{One or two plain sentences: what it is and what it is made with.}}">
+	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/{{slug}}/">
+	<meta name="theme-color" content="#eef7fc">
+	<link rel="icon" href="../../img/brand/tj-mark.svg" type="image/svg+xml">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="TJ-Hosting Lab">
+	<meta property="og:title" content="{{Title}} — TJ-Hosting Lab">
+	<meta property="og:description" content="{{One short sentence.}}">
+	<meta property="og:url" content="https://lab.tj-hosting.ca/samples/{{slug}}/">
+	<meta property="og:image" content="https://lab.tj-hosting.ca/img/og/{{slug}}.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="{{What the share image shows}}">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="preload" href="../../fonts/nunito-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="../../css/glass.css">
+	<link rel="stylesheet" href="../../css/lab.css">
+	<link rel="stylesheet" href="../../css/sample.css">
+	<link rel="stylesheet" href="piece.css">
+	<script src="../../js/early.js"></script>
+	<script type="module" src="piece.js"></script>
+</head>
+<body class="sample sample--{{slug}}">
+	<a class="skip" href="#about-piece">Skip to the description</a>
+
+	<div class="sky" aria-hidden="true"></div>
+
+	<header class="topbar">
+		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
+			<img src="../../img/brand/tj-mark.svg" alt="" width="34" height="34">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Lab">
+			<a href="../../#samples">All samples</a>
+		</nav>
+	</header>
+
+	<!-- STAGE A: a framed NIGHT screen, for a piece that only reads on dark (additive light, glow on black).
+	     The window is fixed on the page grid; the piece fills it below the window bar. -->
+	<main id="main" class="stage stage--screen">
+		<div class="piece-screen screen" data-night>
+			<canvas class="piece" role="img" aria-label="{{What the piece shows and what touching it does.}}"></canvas>
+		</div>
+	</main>
+
+	<!-- STAGE B: a framed DAY screen, the same window in light glass, for a piece tuned to the light sky
+	     that wants a frame (a canvas or WebGL piece on a pale ground).
+	<main id="main" class="stage stage--screen">
+		<div class="piece-screen screen screen--day">
+			<canvas class="piece" role="img" aria-label="{{…}}"></canvas>
+		</div>
+	</main>
+	-->
+
+	<!-- STAGE C: open sky, the piece centred on the day sky with no frame (DOM, SVG and UI pieces:
+	     cards, buttons, type). Glass panels inside it use .glass from css/glass.css.
+	<main id="main" class="stage" data-motion>
+		<div class="piece-open">…</div>
+	</main>
+	-->
+
+	<!-- STAGE D: a scrolling page (scroll-driven pieces). The panel stays fixed; keep the first screen's
+	     lower-left clear for it, and end the page with room below the last section.
+	<main id="main" class="scroll-page" data-motion>
+		<section class="scroll-section">…</section>
+	</main>
+	-->
+
+	<!-- optional: a one-line hint, hidden on phones. On a night screen add data-night to it. -->
+	<p class="hint glass glass--pill" aria-hidden="true">{{Drag to … · tap to …}}</p>
+
+	<aside class="sample-info glass glass--strong" id="about-piece" aria-labelledby="piece-title">
+		<p class="eyebrow">Sample {{NN}} · {{Kicker}}</p>
+		<h1 id="piece-title">{{Title}}</h1>
+		<p class="how"><b>How it's made:</b> {{line one: the technique, plainly.}}
+		{{line two: what moves it, and that it pauses off-screen or in a hidden tab.}}</p>
+		<div class="controls">
+			<button class="btn btn--sm btn--primary" type="button" data-action="{{verb}}">{{Verb}}</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="pause" aria-pressed="false">Pause</button>
+			<a class="back" href="../../#samples">← Back to the lab</a>
+		</div>
+	</aside>
+</body>
+</html>

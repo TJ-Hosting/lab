@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+	<!-- the base policy; additions only as the brief allows ('wasm-unsafe-eval', blob:), and only with the lead -->
+	<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' https://www.googletagmanager.com; style-src 'self' 'unsafe-inline'; img-src 'self' data: https://www.googletagmanager.com https://*.google-analytics.com; font-src 'self'; connect-src 'self' https://www.googletagmanager.com https://*.google-analytics.com https://*.google.com; object-src 'none'; base-uri 'self'; form-action 'none'">
+	<meta name="referrer" content="strict-origin-when-cross-origin">
+	<script src="../../js/ga4.js"></script>
+	<title>Lenticular tilt print — tilt morph · TJ-Hosting Lab</title>
+	<meta name="description" content="A square plastic print that changes from a sunrise to a moonrise as you tilt it. Two pictures are woven into fine vertical stripes on a canvas, and the mix of stripes follows the tilt. Made with vanilla-tilt.">
+	<link rel="canonical" href="https://lab.tj-hosting.ca/samples/lenticular-print/">
+	<meta name="theme-color" content="#eef7fc">
+	<link rel="icon" href="../../img/brand/tj-mark.svg" type="image/svg+xml">
+	<meta property="og:type" content="website">
+	<meta property="og:site_name" content="TJ-Hosting Lab">
+	<meta property="og:title" content="Lenticular tilt print — TJ-Hosting Lab">
+	<meta property="og:description" content="A plastic print that turns from sunrise to moonrise as it tilts, with a ribbed lens look and a cool sheen.">
+	<meta property="og:url" content="https://lab.tj-hosting.ca/samples/lenticular-print/">
+	<meta property="og:image" content="https://lab.tj-hosting.ca/img/og/lenticular-print.jpg">
+	<meta property="og:image:width" content="1200">
+	<meta property="og:image:height" content="630">
+	<meta property="og:image:alt" content="A square print on the pale sky, tilted in 3D, half a blue sea at sunrise and half the same sea under a full moon, woven in fine vertical stripes">
+	<meta name="twitter:card" content="summary_large_image">
+	<link rel="preload" href="../../fonts/nunito-sans-latin-var.woff2" as="font" type="font/woff2" crossorigin>
+	<link rel="stylesheet" href="../../css/glass.css">
+	<link rel="stylesheet" href="../../css/lab.css">
+	<link rel="stylesheet" href="../../css/sample.css">
+	<link rel="stylesheet" href="piece.css">
+	<script src="../../js/early.js"></script>
+	<script type="module" src="piece.js"></script>
+</head>
+<body class="sample sample--lenticular-print">
+	<a class="skip" href="#about-piece">Skip to the description</a>
+
+	<div class="sky" aria-hidden="true"></div>
+
+	<header class="topbar">
+		<a class="brand" href="../../" aria-label="TJ-Hosting Lab, home">
+			<img src="../../img/brand/tj-mark.svg" alt="" width="34" height="34">
+			<span>TJ-Hosting <span class="grad-ink">Lab</span></span>
+		</a>
+		<nav class="topnav" aria-label="Lab">
+			<a href="../../#samples">All samples</a>
+		</nav>
+	</header>
+
+	<!-- stage C: open sky. One square print on the sky. #print-box stays still and takes the pointer; #print inside it is what
+	     vanilla-tilt turns in 3D (a stack of thin edge layers behind a glass face). The two pictures are plain <picture> elements
+	     under the canvas: the sunrise shows alone until piece.js has woven the two together on the canvas, stripe by stripe. -->
+	<main id="main" class="stage stage--print" data-motion>
+		<div class="piece-open print-wrap">
+			<div class="print-box" id="print-box" tabindex="0" role="group" aria-label="Lenticular print. Move the pointer over it to tilt it, or use the left and right arrow keys. Home and End show the sunrise and the moonrise alone.">
+				<div class="print-shadow" aria-hidden="true"></div>
+				<div class="print" id="print">
+					<span class="edge" aria-hidden="true"></span>
+					<span class="edge" aria-hidden="true"></span>
+					<span class="edge" aria-hidden="true"></span>
+					<span class="edge" aria-hidden="true"></span>
+					<span class="edge" aria-hidden="true"></span>
+					<div class="print__face">
+						<div class="print__window">
+							<picture class="art art--a">
+								<source type="image/avif" srcset="../../img/art/lenticular-print-sunrise-640.avif 640w, ../../img/art/lenticular-print-sunrise-1254.avif 1254w" sizes="(max-width: 720px) 90vw, 600px">
+								<source type="image/webp" srcset="../../img/art/lenticular-print-sunrise-640.webp 640w, ../../img/art/lenticular-print-sunrise-1254.webp 1254w" sizes="(max-width: 720px) 90vw, 600px">
+								<img src="../../img/art/lenticular-print-sunrise-640.webp" width="1254" height="1254" alt="" decoding="async">
+							</picture>
+							<picture class="art art--b" hidden>
+								<source type="image/avif" srcset="../../img/art/lenticular-print-moonrise-640.avif 640w, ../../img/art/lenticular-print-moonrise-1254.avif 1254w" sizes="(max-width: 720px) 90vw, 600px">
+								<source type="image/webp" srcset="../../img/art/lenticular-print-moonrise-640.webp 640w, ../../img/art/lenticular-print-moonrise-1254.webp 1254w" sizes="(max-width: 720px) 90vw, 600px">
+								<img src="../../img/art/lenticular-print-moonrise-640.webp" width="1254" height="1254" alt="" decoding="async">
+							</picture>
+							<canvas class="piece" role="img" aria-label="A square print of one sea shown twice, woven into fine vertical stripes: at sunrise, with a low sun and an island, and at night, with a full moon and stars. Tilting the print changes how many stripes show each picture, from the sunrise on the left to the moonrise on the right."></canvas>
+							<div class="ribs" aria-hidden="true"></div>
+							<div class="sheen" aria-hidden="true"><span class="sheen__band"></span></div>
+							<div class="js-tilt-glare" aria-hidden="true"><div class="js-tilt-glare-inner"></div></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="meter glass glass--pill" aria-hidden="true">
+				<span class="meter__end meter__end--a is-on">Sunrise</span>
+				<span class="meter__track"><span class="meter__dot"></span></span>
+				<span class="meter__end meter__end--b">Moonrise</span>
+			</div>
+			<p class="visually-hidden" id="print-status" role="status"></p>
+		</div>
+	</main>
+
+	<p class="hint glass glass--pill" aria-hidden="true">Move over the print to tilt it</p>
+
+	<aside class="sample-info glass glass--strong" id="about-piece" aria-labelledby="piece-title">
+		<p class="eyebrow">Sample 61 · Tilt morph</p>
+		<h1 id="piece-title">Lenticular tilt print</h1>
+		<p class="how"><b>How it's made:</b> a Canvas 2D weaves two pictures into fine vertical stripes whose widths follow the tilt that vanilla-tilt gives the print.
+		It rocks on its own, follows a phone's tilt, and rests off-screen or in a hidden tab.</p>
+		<div class="controls">
+			<button class="btn btn--sm btn--primary" type="button" data-action="tilt" aria-pressed="false" hidden>Enable tilt</button>
+			<button class="btn btn--sm btn--ghost" type="button" data-action="pause" aria-pressed="false">Pause</button>
+			<a class="back" href="../../#samples">← Back to the lab</a>
+		</div>
+	</aside>
+</body>
+</html>

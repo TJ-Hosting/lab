@@ -1,0 +1,73 @@
+/* Sample 57 — Lantern Pond Ripples. The shell (sky, top bar, panel, the night screen) comes from css/; only the piece is styled here.
+   The pond is a dusk photograph graded to night blues (lantern light turned cyan), so the piece runs in a framed night screen (stage A).
+   The water is drawn by the shaders in piece.js. The leaf is a small inline drawing in a warm gold (the piece's one warm accent), moved only by transform and opacity. */
+
+.piece {
+	display: block;
+	width: 100%;
+	height: 100%;
+	touch-action: none; /* the canvas takes drags: they leave ripples */
+	cursor: crosshair;
+	opacity: 0;
+	transition: opacity 0.9s var(--ease-out);
+}
+.piece.is-ready { opacity: 1; }
+.piece[hidden] { display: none; }
+
+/* the leaf lives in a layer the size of the canvas; the loop sets each frame's transform and opacity */
+.layer {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 34px;
+	z-index: 1;
+	overflow: hidden;
+	pointer-events: none;
+}
+.leaf {
+	position: absolute;
+	left: 0;
+	top: 0;
+	width: 34px;
+	height: 48px;
+	opacity: 0;
+	will-change: transform, opacity;
+}
+
+/* what a browser without WebGL sees: the photo, plainly, with a short note */
+.poster {
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	top: 34px;
+	z-index: 1;
+	display: grid;
+	place-items: start center;
+	padding: 16px;
+	background: #07112d;
+}
+.poster[hidden] { display: none; }
+.poster picture, .poster img {
+	position: absolute;
+	inset: 0;
+	width: 100%;
+	height: 100%;
+}
+.poster img { object-fit: cover; object-position: 64% 50%; filter: url(#pond-grade); } /* the same night-blue grade as the shader */
+.grade-defs { position: absolute; width: 0; height: 0; overflow: hidden; pointer-events: none; }
+.poster__note {
+	position: relative;
+	margin: 0;
+	padding: 8px 18px;
+	font: 600 13px/20px var(--font-sans);
+	color: var(--ink);
+	text-align: center;
+}
+
+/* the hint says to touch the water; under reduced motion the water is a still, so there is nothing to touch */
+@media (prefers-reduced-motion: reduce) {
+	.hint { display: none; }
+	.piece { cursor: default; touch-action: auto; }
+}

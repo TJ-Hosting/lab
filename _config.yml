@@ -1,0 +1,16 @@
+# GitHub Pages builds this repo with Jekyll. Nothing here has front matter, so every
+# site file is copied byte for byte; this list only keeps internal files off the live site.
+exclude:
+  - README.md
+  - CREDITS.md
+  - TASKS.md
+  - TESTING.md
+  - package.json
+  - package-lock.json
+  - node_modules
+  - assets
+  - dispatches
+  - docs
+  - evidence
+  - tests
+  - tools

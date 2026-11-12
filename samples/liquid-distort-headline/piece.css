@@ -1,0 +1,157 @@
+/* Sample 05 — Liquid distort headline, on the open day sky.
+   One light glass card. Inside it a plate of cyan and azure (DS v9 blues, static) carries the headline in navy ink; the
+   headline is drawn by Blotter on canvases (WebGL does the bending), so nothing here animates: the only things that move
+   are those canvases, redrawn by piece.js, and the buttons' own hover. Below the plate: three style chips and a caption.
+   The shell (sky, top bar, panel) comes from css/. */
+
+.ld-stage {
+	display: flex;
+	align-items: flex-start;
+	justify-content: center;
+	padding: clamp(84px, 13vh, 132px) var(--gutter) 48px;
+}
+
+.piece-open {
+	width: min(980px, 100%);
+}
+
+/* ---------- the card ---------- */
+
+.ld-card {
+	padding: 14px 14px 12px;
+}
+
+/* the plate: cyan to azure, with a white sheen top left and a royal glow bottom right. Navy ink on it stays above 4.9:1
+   (the darkest stop is #2f86ee), and the headline is large type, so 3:1 is the bar. */
+.ld-plate {
+	position: relative;
+	display: grid;
+	place-items: center;
+	min-height: 230px;
+	padding: 22px 12px;
+	border-radius: var(--radius-lg);
+	overflow: hidden;
+	background:
+		radial-gradient(60% 80% at 8% 0%, rgba(255, 255, 255, 0.55), rgba(255, 255, 255, 0) 70%),
+		radial-gradient(50% 70% at 100% 100%, rgba(12, 107, 237, 0.38), rgba(12, 107, 237, 0) 72%),
+		linear-gradient(125deg, #b9f0ff 0%, #86d4fc 32%, #58aaf6 68%, #3a8ced 100%);
+	box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.6), inset 0 -18px 40px -24px rgba(var(--shade-rgb), 0.35);
+	/* the plate takes the drags: on a phone a finger moved over it stirs the liquid instead of panning */
+	touch-action: none;
+	cursor: crosshair;
+}
+
+/* ---------- the headline ---------- */
+
+.ld-title {
+	position: relative;
+	z-index: 1;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	gap: 2px;
+	margin: 0;
+	width: 100%;
+	/* the plain-text headline, shown until the canvases are ready and whenever WebGL is missing:
+	   piece.js sets --fs1 and --fs2 so it matches the size the canvases will have */
+	--fs1: clamp(52px, 11vw, 132px);
+	--fs2: clamp(19px, 2.6vw, 30px);
+	font-family: var(--font-display);
+	font-weight: 900;
+	letter-spacing: 0;
+	text-align: center;
+	color: var(--ink);
+	text-wrap: balance;
+}
+.ld-l1 { display: block; font-size: var(--fs1); line-height: 1.04; }
+.ld-l2 { display: block; font-size: var(--fs2); line-height: 1.2; font-weight: 800; }
+
+/* Blotter's canvases: one set per style, stacked lines, centred; never wider than the plate */
+.ld-set {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	width: 100%;
+	pointer-events: none;
+}
+.ld-set[hidden] { display: none; }
+.ld-set canvas {
+	display: block;
+	max-width: 100%;
+	height: auto !important; /* Blotter writes px sizes inline; this keeps the shape if it is ever squeezed */
+	-webkit-user-select: none;
+	user-select: none;
+}
+
+/* ---------- style chips and caption ---------- */
+
+.ld-bar {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: center;
+	gap: 10px 14px;
+	padding: 14px 6px 4px;
+}
+.ld-label {
+	margin: 0;
+	font: 600 12px/16px var(--font-mono);
+	letter-spacing: 0.12em;
+	text-transform: uppercase;
+	color: var(--muted);
+}
+.ld-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+
+.ld-caption {
+	margin: 8px 6px 4px;
+	min-height: 20px;
+	font-size: 14px;
+	line-height: 20px;
+	color: var(--muted);
+}
+.ld-caption.is-note {
+	padding: 10px 14px;
+	border: 1px solid var(--glass-border);
+	border-radius: var(--radius-md);
+	background: var(--glass-sheen), linear-gradient(var(--glass-tint), var(--glass-tint));
+	box-shadow: var(--glass-inner);
+	color: var(--ink);
+	font-weight: 600;
+}
+noscript .ld-caption { margin-top: 14px; }
+
+/* a disabled control (no WebGL, reduced motion) reads as off */
+.sample-info .btn:disabled,
+.ld-chips .btn:disabled { opacity: 0.5; cursor: default; transform: none; box-shadow: none; }
+
+/* ---------- widths ---------- */
+
+.ld-stage { padding-top: clamp(84px, 11vh, 120px); }
+
+/* tablets and phones: the card on top, room below for the panel */
+@media (max-width: 899px) {
+	.ld-stage { padding-bottom: 300px; }
+}
+/* a short window (a laptop with a low screen, a phone on its side): the panel would reach up into the card,
+   so the card sits right of it instead */
+@media (min-width: 700px) and (max-height: 760px) {
+	.ld-stage { padding: 76px var(--gutter) 24px; }
+	.piece-open { width: calc(100% - 456px); margin-left: auto; }
+	.ld-plate { min-height: 0; padding: 14px 10px; }
+	.ld-caption { min-height: 0; }
+}
+@media (max-width: 600px) {
+	.ld-stage { padding-top: 70px; }
+	.ld-card { padding: 10px 10px 8px; }
+	.ld-plate { padding: 14px 8px; }
+	.ld-bar { padding: 12px 4px 2px; gap: 8px 10px; }
+	.ld-caption { margin: 6px 4px 2px; font-size: 13px; line-height: 18px; min-height: 36px; }
+}
+
+/* too short for the hint: it would sit on the card. With reduced motion or no WebGL there is nothing to move across */
+@media (max-height: 760px) {
+	.hint { display: none; }
+}
+@media (prefers-reduced-motion: reduce) {
+	.hint { display: none; }
+}
+.ld-static .hint { display: none; }

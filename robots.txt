@@ -1,0 +1,22 @@
+# TJ-Hosting Lab — lab.tj-hosting.ca
+# Why it looks like this: docs/ROBOTS.md in https://github.com/TJ-Hosting/lab
+#
+# Everything is open to every crawler and every user-triggered agent fetcher.
+# The agent-honeypot exhibit is kept out of search by its own noindex,nofollow
+# tag, so search crawlers (Googlebot, Bingbot) must stay allowed to see it.
+User-agent: *
+Allow: /
+
+# AI training crawlers are asked to skip the exhibit only. User-triggered
+# fetchers (ChatGPT-User, Claude-User, Perplexity-User, Google's user-triggered
+# fetchers) are deliberately not listed: blocking them would void the test.
+User-agent: GPTBot
+Disallow: /exhibits/humanity/
+
+User-agent: ClaudeBot
+Disallow: /exhibits/humanity/
+
+User-agent: CCBot
+Disallow: /exhibits/humanity/
+
+Sitemap: https://lab.tj-hosting.ca/sitemap.xml
